@@ -1,0 +1,40 @@
+import { FC } from 'react';
+import Link from 'next/link';
+import styles from './LinkButton.module.css';
+
+export interface LinkButtonProps {
+    label: string;
+    href: string;
+    newTab?: boolean;
+    type?: 'primary' | 'secondary' | 'github';
+    className?: string;
+}
+
+const LinkButton: FC<LinkButtonProps> = ({
+    label,
+    href,
+    newTab = false,
+    type = 'primary',
+    className = '',
+}) => {
+    return newTab ? (
+        <Link href={href}>
+            <a
+                className={`${styles.btn} ${styles[type]} ${className}`}
+                href={href}>
+                {label}
+            </a>
+        </Link>
+    ) : (
+        <a
+            className={`${styles.btn} ${styles[type]} ${className}`}
+            href={href}
+            itemProp="url"
+            target="_blank"
+            rel="noopener noreferrer">
+            {label}
+        </a>
+    );
+};
+
+export default LinkButton;

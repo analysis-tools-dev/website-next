@@ -1,0 +1,26 @@
+.introContainer {
+    padding: 160px 80px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: center;
+}
+
+.textContainer {
+    vertical-align: top;
+    display: inline-block;
+    width: 700px;
+}
+
+.textHeading {
+    font-family: Roboto-Bold;
+    font-size: 70px;
+    font-weight: normal;
+    margin: 0 0 20px 0;
+}
+
+.textDescription {
+    font-size: 24px;
+    margin: 0 0 80px 0;
+}

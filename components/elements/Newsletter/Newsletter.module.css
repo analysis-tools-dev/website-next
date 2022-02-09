@@ -1,0 +1,14 @@
+.form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 33px;
+}
+
+.formInput {
+    width: calc(100% - 84px);
+}
+
+.formSubmit {
+    width: 80px;
+}

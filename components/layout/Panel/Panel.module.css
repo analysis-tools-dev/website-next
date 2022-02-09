@@ -1,0 +1,4 @@
+.panel {
+    width: calc(100% - 330px);
+    display: inline-block;
+}

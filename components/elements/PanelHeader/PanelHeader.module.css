@@ -1,0 +1,15 @@
+.panelHeader {
+    width: 100%;
+    border-bottom: 1px solid #486a8b;
+    display: flex;
+    margin: 0 0 30px 0;
+}
+.title {
+    display: inline-block;
+    flex: auto;
+    margin: 0 0 8px 0;
+}
+
+.actionBtns {
+    display: inline-block;
+}

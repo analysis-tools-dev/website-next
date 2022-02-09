@@ -1,0 +1,26 @@
+.btn {
+    color: #ffffff;
+    padding: 8px 12px;
+    font-family: Roboto-Bold;
+    font-size: 15px;
+    line-height: 15px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+}
+
+.primary {
+    background: #4799eb;
+}
+.secondary {
+    background: #0e2439;
+    border: 1px solid #ffffff;
+}
+.github {
+    padding: 8px 20px 8px 45px;
+    background: url('/assets/images/github-icon.png') no-repeat;
+    background-position: 20px;
+    background-size: 15px;
+    background-color: #0e2439;
+    border: 1px solid #ffffff;
+}
