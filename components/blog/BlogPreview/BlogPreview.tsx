@@ -30,7 +30,7 @@ const BlogPreview: FC = () => {
                     link={post.link}
                 />
             ))}
-            <Link href="/">
+            <Link href="/blog">
                 <a className="centered font-light font-size-15 underline">
                     Show all
                 </a>

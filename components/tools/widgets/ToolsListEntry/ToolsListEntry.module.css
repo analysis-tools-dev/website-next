@@ -1,0 +1,24 @@
+.listEntryWrapper {
+    width: 100%;
+    display: flex;
+    column-gap: 5px;
+    margin: 0 0 10px 0;
+}
+
+.toolLink {
+    flex-grow: 1;
+    height: 30px;
+    padding: 5px 15px;
+    border: 1px solid #486a8b;
+    border-radius: 10px;
+    background-image: url('/assets/icons/general/chevron.png');
+    background-repeat: no-repeat;
+    background-position: right 15px top 7px;
+}
+
+.toolName {
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 0 10px;
+}

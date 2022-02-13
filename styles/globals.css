@@ -66,6 +66,11 @@ p {
     text-decoration: underline;
 }
 
+.no-underline,
+.no-underline:hover {
+    text-decoration: none;
+}
+
 .font-regular {
     font-family: Roboto;
 }

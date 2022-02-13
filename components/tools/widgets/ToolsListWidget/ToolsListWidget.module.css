@@ -1,0 +1,18 @@
+.listWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listHeader {
+    margin: 0 0 20px 0;
+}
+
+.listHeading {
+    font-family: Roboto;
+}
+
+.suggestBtn {
+    width: 140px;
+}

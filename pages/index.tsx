@@ -1,12 +1,10 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import { Footer, MetaTags, Navbar, SponsorCard } from '@components/core';
+import { Footer, Navbar, SponsorCard } from '@components/core';
 import { Intro } from '@components/homepage';
-import { Wrapper, Main, Panel, Card } from '@components/layout';
-import { Heading } from '@components/typography';
+import { Wrapper, Main, Panel } from '@components/layout';
 import { HomepageSidebar } from '@components/homepage';
-import { PanelHeader } from '@components/elements';
+import MainHead from '@components/core/MainHead/MainHead';
+import { PopularToolsByLanguage } from '@components/tools';
 
 const Home: NextPage = () => {
     const title = 'Analysis Tools';
@@ -15,16 +13,7 @@ const Home: NextPage = () => {
 
     return (
         <>
-            <Head>
-                <meta charSet="utf-8" />
-                <meta name="viewport" content="width=device-width" />
-                <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-
-                <title>{title}</title>
-                <meta name="title" content={title} />
-                <meta name="description" content={description} />
-                <MetaTags title={title} description={description} />
-            </Head>
+            <MainHead title={title} description={description} />
 
             <Navbar />
 
@@ -33,17 +22,11 @@ const Home: NextPage = () => {
                 <Main>
                     <HomepageSidebar />
                     <Panel>
-                        <PanelHeader
-                            level={2}
-                            text="Popular Static Analysis Tools by Language">
-                            <Link href="/">Show all (63)</Link>
-                        </PanelHeader>
-                        <Card>
-                            <Heading level={1}>Content Panel</Heading>
-                        </Card>
+                        <PopularToolsByLanguage />
                     </Panel>
                 </Main>
             </Wrapper>
+
             <SponsorCard />
             <Footer />
         </>

@@ -1,0 +1,20 @@
+.languageCardWrapper {
+    margin: 0 0 30px 0;
+}
+
+.languageLink {
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px 0;
+}
+
+.languageName {
+    padding: 0 0 0 15px;
+}
+
+.toolListWrapper {
+    display: flex;
+    column-gap: 200px;
+    flex-direction: row;
+    justify-content: space-between;
+}
