@@ -1,10 +1,8 @@
 import type { NextPage } from 'next';
-import { Footer, Navbar, SponsorCard } from '@components/core';
-import { Intro } from '@components/homepage';
-import { Wrapper, Main, Panel } from '@components/layout';
-import { HomepageSidebar } from '@components/homepage';
-import MainHead from '@components/core/MainHead/MainHead';
-import { PopularToolsByLanguage } from '@components/tools';
+import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
+import { Main, Panel, Wrapper } from '@components/layout';
+import { Intro, HomepageSidebar } from '@components/homepage';
+import { MostViewedTools, PopularToolsByLanguage } from '@components/tools';
 
 const Home: NextPage = () => {
     const title = 'Analysis Tools';
@@ -23,6 +21,7 @@ const Home: NextPage = () => {
                     <HomepageSidebar />
                     <Panel>
                         <PopularToolsByLanguage />
+                        <MostViewedTools />
                     </Panel>
                 </Main>
             </Wrapper>

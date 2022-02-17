@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import { Button, PanelHeader } from '@components/elements';
+import { LinkButton, PanelHeader } from '@components/elements';
 import { Tool } from '../../types';
 import styles from './ToolsListWidget.module.css';
 import ToolsListEntry from '../ToolsListEntry/ToolsListEntry';
@@ -9,9 +9,15 @@ export interface ToolsListWidgetProps {
     title: string;
     href: string;
     tools: Tool[];
+    limit?: number;
 }
 
-const ToolsListWidget: FC<ToolsListWidgetProps> = ({ title, href, tools }) => {
+const ToolsListWidget: FC<ToolsListWidgetProps> = ({
+    title,
+    href,
+    tools,
+    limit = 3,
+}) => {
     return (
         <div className={styles.listWrapper}>
             <PanelHeader
@@ -19,15 +25,19 @@ const ToolsListWidget: FC<ToolsListWidgetProps> = ({ title, href, tools }) => {
                 text={title}
                 className={styles.listHeader}
                 headingClass={styles.listHeading}>
-                {tools.length > 3 ? (
+                {tools.length > limit ? (
                     <Link href={href}>{`Show all (${tools.length})`}</Link>
                 ) : null}
             </PanelHeader>
-            {tools.slice(0, 3).map((tool, index) => (
+            {tools.slice(0, limit).map((tool, index) => (
                 <ToolsListEntry key={index} tool={tool} />
             ))}
-            {tools.length < 3 ? (
-                <Button className={styles.suggestBtn}>Suggest Tool</Button>
+            {tools.length < limit ? (
+                <LinkButton
+                    href="/suggest"
+                    label="Suggest Tool"
+                    className={styles.suggestBtn}
+                />
             ) : null}
         </div>
     );

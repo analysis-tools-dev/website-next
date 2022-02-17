@@ -1,0 +1,38 @@
+.toolsList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+}
+
+.toolsListEntry {
+    flex-grow: 1;
+    width: calc(33% - 20px);
+    padding-bottom: 20px;
+}
+
+.toolLinkCard {
+    display: flex;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px;
+    background: #1f364d;
+    border: 1px solid #486a8b;
+    border-radius: 6px;
+}
+
+.toolCardInfo {
+    flex-grow: 1;
+    padding: 0 0 0 8px;
+    background-image: url('/assets/icons/general/chevron.png');
+    background-repeat: no-repeat;
+    background-position: right top 20px;
+}
+
+.toolInfo {
+    font-size: 14px;
+    color: #bdbdbd;
+    margin: 10px 0 0 0;
+}

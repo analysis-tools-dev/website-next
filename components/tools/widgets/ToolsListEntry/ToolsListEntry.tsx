@@ -22,7 +22,7 @@ const ToolsListEntry: FC<ToolsListEntryProps> = ({ tool }) => {
                         width="18px"
                         alt="MultiLanguage"
                     />
-                    <span className={styles.toolName}>{tool.title}</span>
+                    <span className={styles.toolName}>{tool.name}</span>
                 </a>
             </Link>
         </div>

@@ -14,7 +14,7 @@
 
 .toolListWrapper {
     display: flex;
-    column-gap: 200px;
+    column-gap: 100px;
     flex-direction: row;
     justify-content: space-between;
 }
