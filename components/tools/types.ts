@@ -5,8 +5,11 @@ export interface Language {
 }
 
 export interface Tool {
-    title: string;
+    name: string;
     href: string;
     languages: string[];
     votes: number;
+    logo: string;
+    license: string;
+    type: string;
 }
