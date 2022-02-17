@@ -4,19 +4,9 @@ import Link from 'next/link';
 import { FC } from 'react';
 import BlogPreviewEntry from '../BlogPreviewEntry/BlogPreviewEntry';
 
+import blogPosts from '../../../mockdata/blogPosts.json';
+
 const BlogPreview: FC = () => {
-    const blogPosts = [
-        {
-            title: 'Picking the Right Static Analysis Tool For Your Use-Case',
-            text: `This project started as a way to scratch my own itch: "How do I find the best static analysis tool for my use-case?" Years later, many`,
-            link: '/',
-        },
-        {
-            title: 'Picking the Right Static Analysis Tool For Your Use-Case',
-            text: `This project started as a way to scratch my own itch: "How do I find the best static analysis tool for my use-case?" Years later, many`,
-            link: '/',
-        },
-    ];
     return (
         <Card className="m-b-30">
             <Heading level={2} className="m-b-16 font-bold">

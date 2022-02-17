@@ -1,0 +1,5 @@
+.topSticky {
+    position: sticky;
+    align-self: flex-start;
+    top: 20px;
+}
