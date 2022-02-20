@@ -3,6 +3,7 @@ export interface ToolsApiData {
 }
 
 export interface ApiTool {
+    name: string;
     categories: string[];
     languages: string[];
     other: string[];

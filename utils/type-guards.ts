@@ -7,6 +7,7 @@ export const isToolsApiData = (data: unknown): data is ToolsApiData => {
 
     for (const key of Object.keys(data)) {
         const res =
+            (data as ToolsApiData)[key].name !== undefined &&
             (data as ToolsApiData)[key].categories !== undefined &&
             (data as ToolsApiData)[key].languages !== undefined &&
             (data as ToolsApiData)[key].licenses !== undefined &&
