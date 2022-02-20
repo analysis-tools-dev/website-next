@@ -3,7 +3,7 @@ import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { LanguageCard, FilterSidebar, ToolsList } from '@components/tools';
 
-import languages from '../../mockdata/languages.json';
+import languages from '../../data/languages.json';
 
 const ToolsPage: NextPage = () => {
     const title = 'Analysis Tools';

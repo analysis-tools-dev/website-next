@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PanelHeader } from '@components/elements';
 import { TopToolsListWidget } from '@components/tools';
 
-import topTools from '../../../mockdata/topTools.json';
+import topTools from '../../../data/topTools.json';
 
 interface MostViewedToolsProps {
     limit?: number;

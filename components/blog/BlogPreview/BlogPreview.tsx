@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 import BlogPreviewEntry from '../BlogPreviewEntry/BlogPreviewEntry';
 
-import blogPosts from '../../../mockdata/blogPosts.json';
+import blogPosts from '../../../data/blogPosts.json';
 
 const BlogPreview: FC = () => {
     return (

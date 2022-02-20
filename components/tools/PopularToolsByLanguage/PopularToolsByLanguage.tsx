@@ -4,7 +4,7 @@ import { LinkButton, PanelHeader } from '@components/elements';
 import { LanguageTopToolsWidget } from '@components/tools';
 import styles from './PopularToolsByLanguage.module.css';
 
-import topToolsByLanguage from '../../../mockdata/topToolsByLanguage.json';
+import topToolsByLanguage from '../../../data/topToolsByLanguage.json';
 
 interface PopularToolsByLanguageProps {
     limit?: number;

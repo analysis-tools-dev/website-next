@@ -6,7 +6,7 @@ import { Heading, Text } from '@components/typography';
 
 const Newsletter: FC = () => {
     return (
-        <Card className="m-b-16">
+        <Card className="m-b-30">
             <Heading level={2} className="inline font-bold m-b-16">
                 Stay Informed
             </Heading>
