@@ -9,6 +9,7 @@
     "pretty-quick": "pretty-quick"
   },
   "dependencies": {
+    "@octokit/core": "^3.5.1",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "classnames": "^2.3.1",
@@ -17,11 +18,13 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "memory-cache": "^0.2.0",
     "next": "12.0.10",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@types/memory-cache": "^0.2.2",
     "@types/node": "17.0.16",
     "@types/react": "17.0.39",
     "eslint": "^8.8.0",
