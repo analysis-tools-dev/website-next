@@ -44,7 +44,9 @@ export default async function handler(
                 },
             );
             data = JSON.parse(response.data.toString());
-            cacheData.put(cacheKey, data, hours * 1000 * 60 * 60);
+            if (data) {
+                cacheData.put(cacheKey, data, hours * 1000 * 60 * 60);
+            }
         }
 
         if (!isToolsApiData(data)) {
