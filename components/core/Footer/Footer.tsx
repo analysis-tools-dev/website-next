@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 
 import styles from './Footer.module.css';
+import { Wrapper } from '@components/layout';
 
 const Footer: FC = () => {
     const links = [
@@ -40,44 +41,46 @@ const Footer: FC = () => {
 
     return (
         <footer className={styles.footer}>
-            <Link href="/">
-                <a className={styles.logoLink}>
-                    <Image
-                        height="30px"
-                        width="30px"
-                        src="/assets/images/logo.png"
-                        alt=""
-                    />
-                    <span className={styles.logoText}>
-                        © analysis-tools.dev
-                    </span>
-                </a>
-            </Link>
+            <Wrapper className={styles.wrapper}>
+                <Link href="/">
+                    <a className={styles.logoLink}>
+                        <Image
+                            height="30px"
+                            width="30px"
+                            src="/assets/images/logo.png"
+                            alt=""
+                        />
+                        <span className={styles.logoText}>
+                            © analysis-tools.dev
+                        </span>
+                    </a>
+                </Link>
 
-            <nav>
-                <ul className={styles.linkList}>
-                    {links.map((link, index) => (
-                        <li key={index} className={styles.listItem}>
-                            {link.external ? (
-                                <a
-                                    className={`font-color-light ${styles.navLink}`}
-                                    href={link.href}
-                                    target={'_blank'}
-                                    rel="noreferrer">
-                                    {link.label}
-                                </a>
-                            ) : (
-                                <Link href={link.href}>
+                <nav>
+                    <ul className={styles.linkList}>
+                        {links.map((link, index) => (
+                            <li key={index} className={styles.listItem}>
+                                {link.external ? (
                                     <a
-                                        className={`font-color-light ${styles.navLink}`}>
+                                        className={`font-color-light ${styles.navLink}`}
+                                        href={link.href}
+                                        target={'_blank'}
+                                        rel="noreferrer">
                                         {link.label}
                                     </a>
-                                </Link>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            </nav>
+                                ) : (
+                                    <Link href={link.href}>
+                                        <a
+                                            className={`font-color-light ${styles.navLink}`}>
+                                            {link.label}
+                                        </a>
+                                    </Link>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            </Wrapper>
         </footer>
     );
 };

@@ -1,10 +1,10 @@
 .introContainer {
-    padding: 160px 80px;
+    padding: 160px 0;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
     align-content: flex-start;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .textContainer {

@@ -1,9 +1,9 @@
+import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FC } from 'react';
-
-import styles from './Navbar.module.css';
 import { AutocompleteSearch } from '@components/elements';
+import { Wrapper } from '@components/layout';
+import styles from './Navbar.module.css';
 
 const Navbar: FC = () => {
     const links = [
@@ -27,36 +27,38 @@ const Navbar: FC = () => {
 
     return (
         <header className={styles.header}>
-            <Link href="/">
-                <a className={styles.logoLink}>
-                    <Image
-                        height="30px"
-                        width="30px"
-                        src="/assets/images/logo.png"
-                        alt=""
-                    />
-                    <span className={styles.logoText}>Analysis Tools</span>
-                </a>
-            </Link>
+            <Wrapper className={styles.wrapper}>
+                <Link href="/">
+                    <a className={styles.logoLink}>
+                        <Image
+                            height="30px"
+                            width="30px"
+                            src="/assets/images/logo.png"
+                            alt=""
+                        />
+                        <span className={styles.logoText}>Analysis Tools</span>
+                    </a>
+                </Link>
 
-            <nav className={styles.nav}>
-                <ul className={styles.linkList}>
-                    {links.map((link, index) => (
-                        <li key={index} className={styles.listItem}>
-                            <Link href={link.href}>
-                                <a
-                                    className={`font-color-light ${styles.navLink}`}>
-                                    {link.label}
-                                </a>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
+                <nav className={styles.nav}>
+                    <ul className={styles.linkList}>
+                        {links.map((link, index) => (
+                            <li key={index} className={styles.listItem}>
+                                <Link href={link.href}>
+                                    <a
+                                        className={`font-color-light ${styles.navLink}`}>
+                                        {link.label}
+                                    </a>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
 
-            <div className={styles.searchField}>
-                <AutocompleteSearch />
-            </div>
+                <div className={styles.searchField}>
+                    <AutocompleteSearch />
+                </div>
+            </Wrapper>
         </header>
     );
 };

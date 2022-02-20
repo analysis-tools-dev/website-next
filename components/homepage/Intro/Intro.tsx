@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styles from './Intro.module.css';
 import { Heading, Text } from '@components/typography';
 import { LinkButton } from '@components/elements';
+import { Wrapper } from '@components/layout';
 
 const Intro: FC = () => {
     const heading = 'Write Better Software';
@@ -11,7 +12,7 @@ const Intro: FC = () => {
     const image = '/assets/images/intro-image.png';
 
     return (
-        <div className={styles.introContainer}>
+        <Wrapper className={styles.introContainer}>
             <div className={styles.textContainer}>
                 <Heading level={1} className={styles.textHeading}>
                     {heading}
@@ -32,7 +33,7 @@ const Intro: FC = () => {
             </div>
 
             <Image src={image} alt="" width="658px" height="285px" />
-        </div>
+        </Wrapper>
     );
 };
 

@@ -18,14 +18,6 @@ const LinkButton: FC<LinkButtonProps> = ({
     className = '',
 }) => {
     return newTab ? (
-        <Link href={href}>
-            <a
-                className={`${styles.btn} ${styles[type]} ${className}`}
-                href={href}>
-                {label}
-            </a>
-        </Link>
-    ) : (
         <a
             className={`${styles.btn} ${styles[type]} ${className}`}
             href={href}
@@ -34,6 +26,14 @@ const LinkButton: FC<LinkButtonProps> = ({
             rel="noopener noreferrer">
             {label}
         </a>
+    ) : (
+        <Link href={href}>
+            <a
+                className={`${styles.btn} ${styles[type]} ${className}`}
+                href={href}>
+                {label}
+            </a>
+        </Link>
     );
 };
 

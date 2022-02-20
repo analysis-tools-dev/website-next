@@ -128,6 +128,9 @@ p {
 .m-t-16 {
     margin-top: 16px !important;
 }
+.m-t-20 {
+    margin-top: 20px !important;
+}
 .m-t-30 {
     margin-top: 30px !important;
 }
@@ -140,6 +143,9 @@ p {
 }
 .m-b-16 {
     margin-bottom: 16px !important;
+}
+.m-b-20 {
+    margin-bottom: 20px !important;
 }
 .m-b-30 {
     margin-bottom: 30px !important;
