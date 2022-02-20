@@ -3,7 +3,10 @@
         "language": {
             "name": "Python",
             "href": "/language/python",
-            "logo": "/assets/icons/languages/python.svg"
+            "logo": "/assets/icons/languages/python.svg",
+            "description": "Python is an interpreted, high-level and general-purpose programming language. Created by Guido van Rossum and first released in 1991, Python's design philosophy emphasizes code readability with its notable use of significant whitespace. Its language constructs and object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects. Python is dynamically typed and garbage-collected. It supports multiple programming paradigms, including structured…",
+            "infoLink": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+            "website": "https://www.python.org/"
         },
         "topFormatters": [
             {
@@ -189,7 +192,10 @@
         "language": {
             "name": "Ruby",
             "href": "/language/ruby",
-            "logo": "/assets/icons/languages/ruby.svg"
+            "logo": "/assets/icons/languages/ruby.svg",
+            "description": "Python is an interpreted, high-level and general-purpose programming language. Created by Guido van Rossum and first released in 1991, Python's design philosophy emphasizes code readability with its notable use of significant whitespace. Its language constructs and object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects. Python is dynamically typed and garbage-collected. It supports multiple programming paradigms, including structured…",
+            "infoLink": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+            "website": "https://www.python.org/"
         },
         "topFormatters": [
             {
@@ -329,7 +335,10 @@
         "language": {
             "name": "Python",
             "href": "/language/python",
-            "logo": "/assets/icons/languages/python.svg"
+            "logo": "/assets/icons/languages/python.svg",
+            "description": "Python is an interpreted, high-level and general-purpose programming language. Created by Guido van Rossum and first released in 1991, Python's design philosophy emphasizes code readability with its notable use of significant whitespace. Its language constructs and object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects. Python is dynamically typed and garbage-collected. It supports multiple programming paradigms, including structured…",
+            "infoLink": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+            "website": "https://www.python.org/"
         },
         "topFormatters": [
             {
@@ -515,7 +524,10 @@
         "language": {
             "name": "Ruby",
             "href": "/language/ruby",
-            "logo": "/assets/icons/languages/ruby.svg"
+            "logo": "/assets/icons/languages/ruby.svg",
+            "description": "Python is an interpreted, high-level and general-purpose programming language. Created by Guido van Rossum and first released in 1991, Python's design philosophy emphasizes code readability with its notable use of significant whitespace. Its language constructs and object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects. Python is dynamically typed and garbage-collected. It supports multiple programming paradigms, including structured…",
+            "infoLink": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+            "website": "https://www.python.org/"
         },
         "topFormatters": [
             {
