@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Heading, Text } from '@components/typography';
 import { votesFormatter } from '@components/tools/utils';
 import styles from './TopToolsListWidget.module.css';
-import type { Tool } from '../../types';
+import type { Tool } from '@components/tools/types';
 import cn from 'classnames';
 
 export interface TopToolsWidgetProps {

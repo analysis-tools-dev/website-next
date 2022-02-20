@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import { ToolsListWidget } from '@components/tools';
-import { type Language, type Tool } from '../../types';
+import { type Language, type Tool } from '@components/tools/types';
 import styles from './LanguageTopToolsWidget.module.css';
 
 export interface LanguageTopToolsWidgetProps {

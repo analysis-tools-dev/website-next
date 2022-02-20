@@ -2,6 +2,9 @@ export interface Language {
     name: string;
     href: string;
     logo: string;
+    description: string;
+    infoLink: string;
+    website: string;
 }
 
 export interface Tool {

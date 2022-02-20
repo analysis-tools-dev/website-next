@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 
             <Intro />
             <Wrapper>
-                <Main>
+                <Main className="m-b-30">
                     <HomepageSidebar />
                     <Panel>
                         <PopularToolsByLanguage />

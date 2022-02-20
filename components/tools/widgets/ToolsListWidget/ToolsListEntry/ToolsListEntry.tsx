@@ -2,9 +2,9 @@ import { FC } from 'react';
 import cn from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
-import { type Tool } from '../../types';
+import { type Tool } from '@components/tools/types';
 import styles from './ToolsListEntry.module.css';
-import VoteWidget from '../VoteWidget/VoteWidget';
+import VoteWidget from '../../VoteWidget/VoteWidget';
 
 export interface ToolsListEntryProps {
     tool: Tool;

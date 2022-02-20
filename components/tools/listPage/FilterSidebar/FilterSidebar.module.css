@@ -1,0 +1,5 @@
+.bottomSticky {
+    position: sticky;
+    align-self: flex-end;
+    bottom: 20px;
+}
