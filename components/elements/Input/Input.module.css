@@ -6,3 +6,69 @@
     border-radius: 6px;
     padding: 7px;
 }
+
+/* Basic styling */
+.input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    color: #ffffff;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    background: none;
+    border: 0;
+    outline: 0;
+    flex-grow: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: background 300ms;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Pseudo element for check styling */
+.input[type='checkbox']::before {
+    content: '';
+    color: transparent;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    border: 0;
+    background-color: transparent;
+    background-size: contain;
+    box-shadow: inset 0 0 0 1px #ccd3d8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: background-image 0.3s ease-in-out;
+}
+
+.input[type='checkbox']:checked::before {
+    box-shadow: none;
+    background-image: url('/assets/icons/general/checkbox-checked.svg');
+}
+
+/* Disabled */
+.input[type='checkbox']:disabled {
+    background-color: #ccd3d8;
+    opacity: 0.84;
+    cursor: not-allowed;
+}
+
+/* IE */
+.input[type='checkbox']::-ms-check {
+    content: '';
+    color: transparent;
+    display: block;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    border: 0;
+    background-color: transparent;
+    background-size: contain;
+    box-shadow: inset 0 0 0 1px #ccd3d8;
+}
+
+.input[type='checkbox']:checked::-ms-check {
+    box-shadow: none;
+    background-image: url('/assets/icons/general/checkbox-checked.svg');
+}

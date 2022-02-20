@@ -1,0 +1,10 @@
+.githubLink {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.suggestBtn {
+    display: block;
+    margin: 20px auto 0 auto;
+    width: 151px;
+}
