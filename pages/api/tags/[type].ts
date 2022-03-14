@@ -56,6 +56,7 @@ export default async function handler(
             return res;
         }
 
+        const toolId = '';
         const tool = data[toolId.toString()];
         if (!tool) {
             res.status(404).json({
