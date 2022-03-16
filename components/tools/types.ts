@@ -1,3 +1,5 @@
+import { ToolPricePlan, ToolResource } from 'utils';
+
 export interface Language {
     name: string;
     href: string;
@@ -8,11 +10,22 @@ export interface Language {
 }
 
 export interface Tool {
+    id: string;
     name: string;
-    href: string;
+    categories: string[];
     languages: string[];
+    other: string[];
+    licenses: string[];
+    types: string[];
+    homepage: string;
+    source: string;
+    pricing: string;
+    plans: ToolPricePlan | null;
+    description: string | null;
+    discussion: string | null;
+    deprecated: boolean | null;
+    resources: ToolResource[] | null;
+    wrapper: string | null;
     votes: number;
-    logo: string;
-    license: string;
-    type: string;
+    views?: number;
 }

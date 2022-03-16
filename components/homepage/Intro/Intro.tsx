@@ -5,19 +5,19 @@ import { Heading, Text } from '@components/typography';
 import { LinkButton } from '@components/elements';
 import { Wrapper } from '@components/layout';
 
-const Intro: FC = () => {
-    const heading = 'Write Better Software';
-    const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
-    const image = '/assets/images/intro-image.png';
+// TODO: Add validation and fallback
+import homepageIntro from '../../../data/homepageIntro.json';
 
+const Intro: FC = () => {
     return (
         <Wrapper className={styles.introContainer}>
             <div className={styles.textContainer}>
                 <Heading level={1} className={styles.textHeading}>
-                    {heading}
+                    {homepageIntro.heading}
                 </Heading>
-                <Text className={styles.textDescription}>{description}</Text>
+                <Text className={styles.textDescription}>
+                    {homepageIntro.description}
+                </Text>
 
                 <LinkButton
                     label="Find the right tool"
@@ -26,13 +26,18 @@ const Intro: FC = () => {
                 />
                 <LinkButton
                     label="Source Code"
-                    href="https://github.com"
+                    href={homepageIntro.githubLink}
                     type="github"
                     newTab
                 />
             </div>
 
-            <Image src={image} alt="" width="658px" height="285px" />
+            <Image
+                src={homepageIntro.image.src}
+                alt={homepageIntro.image.alt}
+                width={homepageIntro.image.width}
+                height={homepageIntro.image.height}
+            />
         </Wrapper>
     );
 };

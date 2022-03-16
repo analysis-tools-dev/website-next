@@ -5,3 +5,4 @@ export { default as PanelHeader } from './PanelHeader/PanelHeader';
 export { default as AutocompleteSearch } from './AutocompleteSearch/AutocompleteSearch';
 export { default as Newsletter } from './Newsletter/Newsletter';
 export { default as ContributionCard } from './ContributionCard/ContributionCard';
+export { default as TagList } from './TagList/TagList';

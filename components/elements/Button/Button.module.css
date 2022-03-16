@@ -25,3 +25,10 @@
     background-color: #0e2439;
     border: 1px solid #ffffff;
 }
+.link {
+    border: none;
+    background: none;
+    text-decoration: underline;
+    color: #58a6ff;
+    font-family: Roboto;
+}

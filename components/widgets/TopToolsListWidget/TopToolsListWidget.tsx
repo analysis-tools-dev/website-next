@@ -2,9 +2,9 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Heading, Text } from '@components/typography';
-import { votesFormatter } from '@components/tools/utils';
+import { votesFormatter } from 'utils';
 import styles from './TopToolsListWidget.module.css';
-import type { Tool } from '@components/tools/types';
+import type { Tool } from '@components/tools';
 import cn from 'classnames';
 
 export interface TopToolsWidgetProps {
@@ -16,22 +16,24 @@ const TopToolsWidget: FC<TopToolsWidgetProps> = ({ tools }) => {
             <ul className={styles.toolsList}>
                 {tools.map((tool, index) => (
                     <li key={index} className={styles.toolsListEntry}>
-                        <Link href={tool.href}>
+                        <Link href={`/tool/${tool.id}`}>
                             <a
                                 className={cn(
                                     styles.toolLinkCard,
                                     'no-underline',
                                 )}>
-                                <Image
-                                    height="45px"
-                                    width="45px"
-                                    src={tool.logo}
-                                    alt={tool.name}
-                                />
+                                <div className={styles.toolIcon}>
+                                    <Image
+                                        height="45px"
+                                        width="45px"
+                                        src={`/assets/icons/general/tool.svg`}
+                                        alt={tool.name}
+                                    />
+                                </div>
                                 <div className={styles.toolCardInfo}>
                                     <Heading level={2}>{tool.name}</Heading>
                                     <Text className={styles.toolInfo}>
-                                        {tool.type} - {tool.license} license -{' '}
+                                        {tool.types[0]} - {tool.licenses[0]} -{' '}
                                         {votesFormatter(tool.votes)} votes
                                     </Text>
                                 </div>

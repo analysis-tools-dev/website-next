@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { LinkButton, PanelHeader } from '@components/elements';
-import { LanguageTopToolsWidget } from '@components/tools';
+import { LanguageTopToolsWidget } from '@components/widgets';
 import styles from './PopularToolsByLanguage.module.css';
 
 import topToolsByLanguage from '../../../data/topToolsByLanguage.json';

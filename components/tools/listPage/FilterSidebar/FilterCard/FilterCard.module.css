@@ -22,3 +22,8 @@
 .optionResults {
     vertical-align: middle;
 }
+
+.toggleAllBtn {
+    display: block;
+    margin: 10px auto 0 auto;
+}

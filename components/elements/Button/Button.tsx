@@ -4,7 +4,7 @@ import styles from './Button.module.css';
 import React from 'react';
 
 export interface ButtonProps extends ComponentProps<'button'> {
-    theme?: 'primary' | 'secondary' | 'github';
+    theme?: 'primary' | 'secondary' | 'github' | 'link';
     className?: string;
     onClick?: () => void;
 }

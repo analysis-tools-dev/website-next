@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { LinkButton, PanelHeader } from '@components/elements';
-import { type Tool } from '@components/tools/types';
+import { type Tool } from '@components/tools';
 import styles from './ToolsListWidget.module.css';
 import ToolsListEntry from './ToolsListEntry/ToolsListEntry';
 

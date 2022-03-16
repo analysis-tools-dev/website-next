@@ -1,0 +1,17 @@
+.tagList {
+    display: flex;
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    row-gap: 8px;
+}
+
+.tag {
+    font-family: Roboto-Thin;
+    background: #345779;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}

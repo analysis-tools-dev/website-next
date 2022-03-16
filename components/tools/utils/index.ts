@@ -1,1 +1,0 @@
-export { votesFormatter } from './votes';

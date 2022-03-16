@@ -1,0 +1,38 @@
+.toolCardWrapper {
+    margin: 0 0 30px 0;
+    display: flex;
+    padding: 0;
+}
+
+.votes {
+    background-color: #26415b;
+    border-radius: 6px 0 0 6px;
+    padding: 15px 10px;
+}
+
+.info {
+    padding: 15px;
+}
+
+.description {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.toolMeta {
+    margin: 20px 0 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    column-gap: 20px;
+    font-size: 13px;
+}
+
+.metaInfo {
+    padding: 0 0 0 5px;
+    vertical-align: top;
+}
+
+.toolType {
+    margin: 0 10px 0 0;
+}

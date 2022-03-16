@@ -2,7 +2,7 @@ import { FC } from 'react';
 import cn from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
-import { type Tool } from '@components/tools/types';
+import { type Tool } from '@components/tools';
 import styles from './ToolsListEntry.module.css';
 import VoteWidget from '../../VoteWidget/VoteWidget';
 
@@ -13,11 +13,11 @@ export interface ToolsListEntryProps {
 const ToolsListEntry: FC<ToolsListEntryProps> = ({ tool }) => {
     return (
         <div className={styles.listEntryWrapper}>
-            <VoteWidget tool={tool} />
-            <Link href={tool.href}>
+            <VoteWidget tool={tool} type={'secondary'} />
+            <Link href={`/tool/${tool.id}`}>
                 <a className={cn(styles.toolLink, 'no-underline')}>
                     <Image
-                        src="/assets/icons/general/multi-icon.png"
+                        src="/assets/icons/languages/multi-language.svg"
                         height="18px"
                         width="18px"
                         alt="MultiLanguage"

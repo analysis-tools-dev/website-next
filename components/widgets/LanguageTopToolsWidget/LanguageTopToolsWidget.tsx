@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
-import { ToolsListWidget } from '@components/tools';
+import { ToolsListWidget } from '@components/widgets';
 import { type Language, type Tool } from '@components/tools/types';
 import styles from './LanguageTopToolsWidget.module.css';
 

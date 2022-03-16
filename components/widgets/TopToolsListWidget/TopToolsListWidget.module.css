@@ -8,8 +8,7 @@
 }
 
 .toolsListEntry {
-    flex-grow: 1;
-    width: calc(33% - 20px);
+    width: calc(33.33% - 14px);
     padding-bottom: 20px;
 }
 
@@ -23,8 +22,13 @@
     border-radius: 6px;
 }
 
+.toolIcon {
+    width: 45px;
+    height: 45px;
+}
+
 .toolCardInfo {
-    flex-grow: 1;
+    width: calc(100% - 45px);
     padding: 0 0 0 8px;
     background-image: url('/assets/icons/general/chevron.png');
     background-repeat: no-repeat;
