@@ -37,6 +37,8 @@ export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = ({
 
 export const getStaticPaths: GetStaticPaths<ArticleProps> = () => {
     const paths = readdirSync(POSTS_PATH)
+        // Filter anything other than .md files
+        .filter((file) => file.indexOf('.md') > -1)
         // Remove file extensions for page paths
         .map((path) => path.replace(/\.md?$/, ''))
         // Map the path into the static paths object required by Next.js

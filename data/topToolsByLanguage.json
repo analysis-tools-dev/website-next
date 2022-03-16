@@ -17,8 +17,24 @@
                 ],
                 "votes": 2540,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Unimport",
@@ -29,8 +45,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Unibeautify",
@@ -41,8 +73,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Black",
@@ -52,8 +100,24 @@
                 ],
                 "votes": 2540,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Unimport",
@@ -64,8 +128,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Unibeautify",
@@ -76,8 +156,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             }
         ],
         "topLinters": [
@@ -90,8 +186,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "mypy",
@@ -101,8 +213,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -113,8 +241,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Mega-Linter",
@@ -125,8 +269,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "mypy",
@@ -136,8 +296,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -148,8 +324,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Mega-Linter",
@@ -160,8 +352,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "mypy",
@@ -171,8 +379,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -183,8 +407,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             }
         ]
     },
@@ -207,8 +447,24 @@
                 ],
                 "votes": 2540,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Rufo",
@@ -219,8 +475,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             }
         ],
         "topLinters": [
@@ -233,8 +505,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -245,8 +533,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "RuboCop",
@@ -256,8 +560,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Mega-Linter",
@@ -268,8 +588,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -280,8 +616,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "RuboCop",
@@ -291,8 +643,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Mega-Linter",
@@ -303,8 +671,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -315,8 +699,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "RuboCop",
@@ -326,8 +726,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             }
         ]
     },
@@ -349,8 +765,24 @@
                 ],
                 "votes": 2540,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Unimport",
@@ -361,8 +793,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Unibeautify",
@@ -373,8 +821,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Black",
@@ -384,8 +848,24 @@
                 ],
                 "votes": 2540,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Unimport",
@@ -396,8 +876,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Unibeautify",
@@ -408,8 +904,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             }
         ],
         "topLinters": [
@@ -422,8 +934,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "mypy",
@@ -433,8 +961,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -445,8 +989,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Mega-Linter",
@@ -457,8 +1017,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "mypy",
@@ -468,8 +1044,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -480,8 +1072,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Mega-Linter",
@@ -492,8 +1100,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "mypy",
@@ -503,8 +1127,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -515,8 +1155,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             }
         ]
     },
@@ -539,8 +1195,24 @@
                 ],
                 "votes": 2540,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Rufo",
@@ -551,8 +1223,24 @@
                 ],
                 "votes": 1120,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             }
         ],
         "topLinters": [
@@ -565,8 +1253,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -577,8 +1281,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "RuboCop",
@@ -588,8 +1308,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Mega-Linter",
@@ -600,8 +1336,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -612,8 +1364,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "RuboCop",
@@ -623,8 +1391,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Mega-Linter",
@@ -635,8 +1419,24 @@
                 ],
                 "votes": 1740,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "Semgrep",
@@ -647,8 +1447,24 @@
                 ],
                 "votes": 582,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             },
             {
                 "name": "RuboCop",
@@ -658,8 +1474,24 @@
                 ],
                 "votes": 1220,
                 "logo": "/assets/icons/languages/ruby.svg",
-                "type": "cli",
-                "license": "MIT"
+                "types": [
+                    "cli"
+                ],
+                "licenses": [
+                    "MIT"
+                ],
+                "id": "123",
+                "categories": [],
+                "other": [],
+                "homepage": "",
+                "source": "",
+                "pricing": "",
+                "plans": null,
+                "description": null,
+                "discussion": null,
+                "deprecated": false,
+                "resources": null,
+                "wrapper": null
             }
         ]
     }
