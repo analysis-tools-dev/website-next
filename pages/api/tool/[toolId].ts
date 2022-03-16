@@ -29,9 +29,7 @@ export default async function handler(
             console.log(
                 `Cache data for: ${cacheKey} does not exists - calling API`,
             );
-            // Data does not exist in cache or has expired
             // Call API and refresh cache
-            const hours = Number(process.env.API_CACHE_TTL) || 24;
             const response = await octokit.request(
                 'GET /repos/{owner}/{repo}/contents/{path}',
                 {
@@ -45,6 +43,7 @@ export default async function handler(
             );
             data = JSON.parse(response.data.toString());
             if (data) {
+                const hours = Number(process.env.API_CACHE_TTL) || 24;
                 cacheData.put(cacheKey, data, hours * 1000 * 60 * 60);
             }
         }
