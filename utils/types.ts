@@ -1,3 +1,4 @@
+export type Nullable<D> = D | null | undefined;
 export interface ToolsApiData {
     [key: string]: ApiTool;
 }
@@ -11,9 +12,45 @@ export interface ApiTool {
     types: string[];
     homepage: string;
     source: string;
+    pricing: string;
+    plans: ToolPricePlan | null;
     description: string | null;
     discussion: string | null;
-    deprecated: string | null;
-    resources: string | null;
+    deprecated: boolean | null;
+    resources: ToolResource[] | null;
     wrapper: string | null;
+}
+
+export interface ToolResource {
+    title: string;
+    url: string;
+}
+
+export interface ToolPricePlan {
+    free: boolean;
+    oss: boolean;
+}
+
+export interface TagsApiData {
+    [key: string]: ApiTag[];
+}
+
+export interface ApiTag {
+    name: string;
+    tag: string;
+    tag_type: string;
+}
+
+export interface FrontMatter {
+    [prop: string]: string;
+}
+
+export interface MarkdownDocument {
+    frontMatter: FrontMatter;
+    content: string;
+}
+
+export interface MarkdownRenderingResult {
+    frontMatter: FrontMatter;
+    html: string;
 }

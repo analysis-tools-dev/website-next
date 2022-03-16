@@ -1,14 +1,14 @@
 export const LICENSE_OPTIONS = [
     {
-        id: 'mit',
+        tag: 'mit',
         name: 'MIT License',
     },
     {
-        id: 'gnu',
+        tag: 'gnu',
         name: 'GNU License',
     },
     {
-        id: 'other',
+        tag: 'other',
         name: 'Other',
     },
 ];
