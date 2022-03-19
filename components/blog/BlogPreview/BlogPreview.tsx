@@ -9,7 +9,7 @@ import blogPosts from '../../../data/blogPosts.json';
 const BlogPreview: FC = () => {
     return (
         <Card className="m-b-30">
-            <Heading level={2} className="m-b-16 font-bold">
+            <Heading level={3} className="m-b-16 font-bold">
                 Latest from our Blog
             </Heading>
             {blogPosts.map((post, index) => (

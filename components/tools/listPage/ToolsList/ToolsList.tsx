@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { PanelHeader } from '@components/elements';
+import { Dropdown, PanelHeader } from '@components/elements';
 import { type Tool } from '@components/tools/types';
 import { ToolCard } from '@components/tools';
 
@@ -22,9 +22,10 @@ const ToolsList: FC<ToolsListProps> = ({ heading, tools }) => {
     const sortedTools = tools.sort(compare);
     return (
         <>
-            <PanelHeader level={2} text={heading}>
+            <PanelHeader level={3} text={heading}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
                 {/* TODO: Add sorting */}
+                <Dropdown />
             </PanelHeader>
 
             <div>
