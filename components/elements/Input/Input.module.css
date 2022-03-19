@@ -72,3 +72,10 @@
     box-shadow: none;
     background-image: url('/assets/icons/general/checkbox-checked.svg');
 }
+
+/* Disabled */
+.input:disabled {
+    background-color: #345779;
+    cursor: not-allowed;
+    font-family: Roboto-Thin;
+}

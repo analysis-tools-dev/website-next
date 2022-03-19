@@ -8,18 +8,7 @@ import Image from 'next/image';
 import styles from './ToolCard.module.css';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
-
-function deCamelString(str: string) {
-    return (
-        str
-            // insert a space before all caps
-            .replace(/([A-Z])/g, ' $1')
-            // uppercase the first character
-            .replace(/^./, function (str) {
-                return str.toUpperCase();
-            })
-    );
-}
+import { deCamelString } from 'utils';
 
 export interface ToolCardProps {
     tool: Tool;

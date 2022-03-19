@@ -1,0 +1,8 @@
+.splitWrapper {
+    width: 100%;
+}
+
+.splitEntry {
+    display: inline-block;
+    width: 50%;
+}

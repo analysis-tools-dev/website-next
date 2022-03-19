@@ -1,0 +1,37 @@
+.entryWrapper {
+    margin: 0 0 20px 0;
+    width: 100%;
+}
+
+.label {
+    color: #bdbdbd;
+    font-size: 11px;
+    display: block;
+}
+
+.textWrapper {
+    width: 100%;
+    border-bottom: 1px solid #486a8b;
+    padding: 3px 0 5px 0;
+}
+
+.entryText {
+    display: inline-block;
+    font-family: Roboto-Bold;
+    font-size: 12px;
+    vertical-align: middle;
+}
+.entryUrl {
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roboto-Bold;
+    font-size: 12px;
+    margin: 0 0 0 5px;
+    vertical-align: middle;
+}
+
+.entryIcon {
+    padding: 0 5px 0 0;
+    vertical-align: middle;
+}

@@ -6,3 +6,4 @@ export { default as AutocompleteSearch } from './AutocompleteSearch/Autocomplete
 export { default as Newsletter } from './Newsletter/Newsletter';
 export { default as ContributionCard } from './ContributionCard/ContributionCard';
 export { default as TagList } from './TagList/TagList';
+export { default as Dropdown } from './Dropdown/Dropdown';
