@@ -6,31 +6,12 @@ import { GetServerSideProps } from 'next';
 import languages from '../../data/languages.json';
 import { Tool } from '@components/tools/types';
 import { FC } from 'react';
-import { type ParsedUrlQuery } from 'querystring';
-import { objectToQueryString } from 'utils';
+import { APIPaths, getApiURLFromContext } from 'utils/api';
 
-const getApiUrl = (baseUrl: string, query: ParsedUrlQuery) => {
-    let url = `${baseUrl}/api/tools`;
-    if (!query) {
-        return url;
-    }
-    const queryString = objectToQueryString(query);
-    if (queryString) {
-        url += `?${queryString}`;
-    }
-
-    return url;
-};
-
-export const getServerSideProps: GetServerSideProps<ToolPageProps> = async ({
-    req,
-    query,
-}) => {
-    // Get BaseUrl from context request (localhost or host url)
-    const protocol = req.headers['x-forwarded-proto'] || 'http';
-    const baseUrl = req ? `${protocol}://${req.headers.host}` : '';
-
-    const apiURL = getApiUrl(baseUrl, query);
+export const getServerSideProps: GetServerSideProps<ToolPageProps> = async (
+    ctx,
+) => {
+    const apiURL = getApiURLFromContext(ctx, APIPaths.TOOLS);
     const res = await fetch(apiURL);
     const tools = await res.json();
 
