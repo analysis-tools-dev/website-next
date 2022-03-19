@@ -26,14 +26,20 @@ export const getServerSideProps: GetServerSideProps<ToolPageProps> = async (
     const res = await fetch(apiURL);
     const tool = await res.json();
 
-    if (!tool) {
-        return { props: { tool: {} } };
+    if (tool.error) {
+        return {
+            notFound: true,
+        };
     }
 
     return { props: { tool } };
 };
 
 const ToolPage: FC<ToolPageProps> = ({ tool }) => {
+    // TODO: Redirect 404
+    if (!tool) {
+        return null;
+    }
     const title = 'Analysis Tools';
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';

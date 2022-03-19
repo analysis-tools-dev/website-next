@@ -13,7 +13,7 @@ export default async function handler(
     const data = await getTools();
     const stats = await getToolStats();
     if (!data || !stats) {
-        res.status(500).json({ error: 'Failed to most viewed tool data' });
+        res.status(500).json({ error: 'Failed to load most viewed tool data' });
         return res;
     }
     const votes = await getVotes();

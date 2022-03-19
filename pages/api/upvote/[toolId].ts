@@ -3,6 +3,7 @@ import { applicationDefault, initializeApp } from 'firebase-admin/app';
 import { apps } from 'firebase-admin';
 import { getFirestore } from 'firebase-admin/firestore';
 import cacheData from 'memory-cache';
+import { initFirebase } from 'utils/api';
 
 // Get a list of votes from firestore
 async function getVotes() {
@@ -30,12 +31,7 @@ export default async function handler(
     }
 
     // Check if firebase already initialized
-    if (!apps.length) {
-        initializeApp({
-            credential: applicationDefault(),
-            databaseURL: 'https://analysis-tools-dev.firebaseio.com',
-        });
-    }
+    initFirebase();
 
     const cacheKey = `vote_data`;
     try {

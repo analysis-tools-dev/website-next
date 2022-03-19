@@ -37,6 +37,8 @@ export const getTools = async () => {
             }
         }
         if (!isToolsApiData(data)) {
+            cacheData.del(toolsCacheKey);
+            console.log('Tools TypeError');
             return null;
         }
         return data;

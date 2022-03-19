@@ -4,3 +4,4 @@ export * from './toolStats';
 export * from './blog';
 export * from './urls';
 export * from './github';
+export * from './firebase';

@@ -21,8 +21,10 @@ export const getServerSideProps: GetServerSideProps<HompageProps> = async ({
     const res = await fetch(`${baseUrl}/api/mostViewed`);
     const mostViewedTools = await res.json();
 
-    if (!mostViewedTools) {
-        return { props: { mostViewedTools: [] } };
+    if (mostViewedTools.error) {
+        return {
+            notFound: true,
+        };
     }
 
     // Pass data to the page via props
@@ -34,6 +36,7 @@ export interface HompageProps {
 }
 
 const HomePage: FC<HompageProps> = ({ mostViewedTools }) => {
+    // TODO: Handle errors
     const title = 'Analysis Tools';
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
@@ -50,6 +53,7 @@ const HomePage: FC<HompageProps> = ({ mostViewedTools }) => {
                     <HomepageSidebar />
                     <Panel>
                         <PopularToolsByLanguage />
+
                         <MostViewedTools mostViewedTools={mostViewedTools} />
                     </Panel>
                 </Main>

@@ -2,16 +2,12 @@ import cacheData from 'memory-cache';
 import { getFirestore } from 'firebase-admin/firestore';
 import { apps } from 'firebase-admin';
 import { applicationDefault, initializeApp } from 'firebase-admin/app';
+import { initFirebase } from './firebase';
 
 // Get a list of votes from firestore
 export const getDBVotes = async () => {
     // Check if firebase already initialized
-    if (!apps.length) {
-        initializeApp({
-            credential: applicationDefault(),
-            databaseURL: 'https://analysis-tools-dev.firebaseio.com',
-        });
-    }
+    initFirebase();
     const db = getFirestore();
     const votesCol = db.collection('tags');
     const voteSnapshot = await votesCol.get();
@@ -28,12 +24,7 @@ export const getDBToolVotes = async (toolId: string) => {
     const key = `toolsyaml${toolId}`;
 
     // Check if firebase already initialized
-    if (!apps.length) {
-        initializeApp({
-            credential: applicationDefault(),
-            databaseURL: 'https://analysis-tools-dev.firebaseio.com',
-        });
-    }
+    initFirebase();
     const db = getFirestore();
     const toolVotesDoc = db.collection('tags').doc(key);
     const voteData = await toolVotesDoc.get();

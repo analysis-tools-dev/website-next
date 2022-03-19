@@ -1,22 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { applicationDefault, initializeApp } from 'firebase-admin/app';
-import { apps } from 'firebase-admin';
-import { getFirestore } from 'firebase-admin/firestore';
 import cacheData from 'memory-cache';
-
-// Get a list of votes from firestore
-async function getVotes() {
-    const db = getFirestore();
-    const votesCol = db.collection('tags');
-    const voteSnapshot = await votesCol.get();
-    const voteList: Record<string, any> = {};
-    voteSnapshot.docs.forEach((doc) => {
-        voteList[doc.id] = {
-            ...doc.data(),
-        };
-    });
-    return voteList;
-}
+import { getVotes, initFirebase } from 'utils/api';
 
 export default async function handler(
     req: NextApiRequest,
@@ -25,17 +9,12 @@ export default async function handler(
     const { toolId } = req.query;
 
     if (!toolId) {
-        res.status(500);
+        res.status(500).json({ error: 'Failed to votes data' });
         return res;
     }
 
     // Check if firebase already initialized
-    if (!apps.length) {
-        initializeApp({
-            credential: applicationDefault(),
-            databaseURL: 'https://analysis-tools-dev.firebaseio.com',
-        });
-    }
+    initFirebase();
 
     const cacheKey = `vote_data`;
     try {
@@ -62,7 +41,7 @@ export default async function handler(
     } catch (e) {
         console.log(e);
         // console.log('Error occured: ', JSON.stringify(e));
-        res.status(500).json({ error: 'Failed to load data' });
+        res.status(500).json({ error: 'Failed to load votes data' });
         return res;
     }
 }
