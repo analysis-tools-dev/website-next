@@ -4,9 +4,7 @@ import { ContributionCard, Newsletter } from '@components/elements';
 import { Sidebar } from '@components/layout';
 import { FilterCard } from './FilterCard';
 import styles from './FilterSidebar.module.css';
-import useSWR from 'swr';
 
-// TODO: Retrieve language options for API
 import {
     LANGUAGE_OPTIONS,
     CATEGORY_OPTIONS,

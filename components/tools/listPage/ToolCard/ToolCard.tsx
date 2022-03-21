@@ -13,7 +13,7 @@ import { deCamelString } from 'utils';
 export interface ToolCardProps {
     tool: Tool;
 }
-// TODO: Get Votes from API
+
 const ToolCard: FC<ToolCardProps> = ({ tool }) => {
     const toolStatus = tool.deprecated ? 'Deprecated' : 'Maintained';
     const toolLanguage =

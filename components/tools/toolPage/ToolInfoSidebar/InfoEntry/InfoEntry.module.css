@@ -27,11 +27,11 @@
     display: inline-block;
     font-family: Roboto-Bold;
     font-size: 12px;
-    margin: 0 0 0 5px;
     vertical-align: middle;
 }
 
 .entryIcon {
     padding: 0 5px 0 0;
     vertical-align: middle;
+    display: inline-block;
 }

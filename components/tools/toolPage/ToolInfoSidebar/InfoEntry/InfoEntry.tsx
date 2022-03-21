@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from './InfoEntry.module.css';
 import { isValidHttpUrl } from 'utils';
 import cn from 'classnames';
@@ -28,13 +27,14 @@ const InfoEntry: FC<InfoEntryProps> = ({
             </label>
             <div className={styles.textWrapper}>
                 {icon && (
-                    <Image
-                        height="12px"
-                        width="12px"
-                        src={icon}
-                        alt={label}
-                        className={styles.entryIcon}
-                    />
+                    <div className={styles.entryIcon}>
+                        <Image
+                            height="12px"
+                            width="12px"
+                            src={icon}
+                            alt={label}
+                        />
+                    </div>
                 )}
                 {isURL ? (
                     <a
