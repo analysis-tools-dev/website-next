@@ -1,0 +1,26 @@
+.icon {
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+.licenseText {
+    display: inline-block;
+    font-size: 15px;
+    vertical-align: top;
+}
+.licenseUrl {
+    display: block;
+    font-size: 12px;
+    margin: 10px 0;
+}
+.urlIcon {
+    margin: 0 5px 0 0;
+}
+.urlText {
+    vertical-align: top;
+}
+
+.learnMore {
+    display: block;
+    font-size: 12px;
+    margin: 30px 0 0 0;
+}

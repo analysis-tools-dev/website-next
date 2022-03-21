@@ -1,0 +1,20 @@
+.resourceList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.resourceList li {
+    margin-bottom: 10px;
+}
+
+.link {
+    display: flex;
+}
+.icon {
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+.title {
+    font-size: 15px;
+    width: calc(100% - 20px);
+}
