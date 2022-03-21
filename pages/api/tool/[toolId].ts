@@ -14,12 +14,14 @@ export default async function handler(
     const { toolId } = req.query;
 
     if (!toolId) {
+        console.error(`ERROR: Invalid request - toolId not specified`);
         res.status(500);
         return res;
     }
 
     const data = await getTool(toolId.toString());
     if (!data) {
+        console.error(`ERROR: Failed to load ${toolId} data`);
         res.status(500).json({ error: 'Failed to load data' });
         return res;
     }
@@ -34,6 +36,7 @@ export default async function handler(
         );
         if (githubData) {
             res.status(200).json({
+                id: toolId.toString(),
                 ...data,
                 votes: votes,
                 repositoryData: githubData,
@@ -41,6 +44,6 @@ export default async function handler(
             return res;
         }
     }
-    res.status(200).json({ ...data, votes: votes });
+    res.status(200).json({ id: toolId.toString(), ...data, votes: votes });
     return res;
 }

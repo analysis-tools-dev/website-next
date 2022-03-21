@@ -1,5 +1,7 @@
-import cacheData from 'memory-cache';
+import NodeCache from 'node-cache';
 import { Octokit } from '@octokit/core';
+
+const cacheData = new NodeCache();
 
 export const getRepositoryMeta = (source: string) => {
     if (!source || source === '') {
@@ -30,7 +32,7 @@ export const getGithubStats = async (
 
     try {
         // Get tool data from cache
-        let data = cacheData.get(cacheKey);
+        let data: any = cacheData.get(cacheKey);
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exists - calling API`,
@@ -54,7 +56,7 @@ export const getGithubStats = async (
                     updated: response.data.updated_at,
                 };
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
-                cacheData.put(cacheKey, data, hours * 1000 * 60 * 60);
+                cacheData.set(cacheKey, data, hours * 60 * 60);
             } else {
                 console.log(
                     `Could not find stats for tool: ${toolId.toString()}`,
@@ -62,6 +64,7 @@ export const getGithubStats = async (
                 return null;
             }
         }
+        // TODO: Add typeguard
         return data;
     } catch (e) {
         console.log(e);

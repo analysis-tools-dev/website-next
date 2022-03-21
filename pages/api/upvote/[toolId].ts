@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { applicationDefault, initializeApp } from 'firebase-admin/app';
-import { apps } from 'firebase-admin';
 import { getFirestore } from 'firebase-admin/firestore';
-import cacheData from 'memory-cache';
+import NodeCache from 'node-cache';
 import { initFirebase } from 'utils/api';
+
+const cacheData = new NodeCache();
 
 // Get a list of votes from firestore
 async function getVotes() {
@@ -36,17 +36,17 @@ export default async function handler(
     const cacheKey = `vote_data`;
     try {
         // Get tool data from cache
-        let data = cacheData.get(cacheKey);
+        let data: any = cacheData.get(cacheKey);
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exists - calling API`,
             );
             data = await getVotes();
             if (data) {
-                cacheData.put(cacheKey, data, 1000 * 30);
+                cacheData.set(cacheKey, data, 30);
             }
         }
-
+        // TODO: Add typeguard
         const key = `toolsyaml${toolId.toString()}`;
         const votes = data[key];
         if (!votes) {

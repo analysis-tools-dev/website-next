@@ -1,23 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { applicationDefault, initializeApp } from 'firebase-admin/app';
-import { apps } from 'firebase-admin';
-import { getFirestore } from 'firebase-admin/firestore';
-import cacheData from 'memory-cache';
-import { initFirebase } from 'utils/api';
+import NodeCache from 'node-cache';
+import { getVotes, initFirebase } from 'utils/api';
 
-// Get a list of votes from firestore
-async function getVotes() {
-    const db = getFirestore();
-    const votesCol = db.collection('tags');
-    const voteSnapshot = await votesCol.get();
-    const voteList: Record<string, any> = {};
-    voteSnapshot.docs.forEach((doc) => {
-        voteList[doc.id] = {
-            ...doc.data(),
-        };
-    });
-    return voteList;
-}
+const cacheData = new NodeCache();
 
 export default async function handler(
     req: NextApiRequest,
@@ -36,14 +21,14 @@ export default async function handler(
     const cacheKey = `vote_data`;
     try {
         // Get tool data from cache
-        let data = cacheData.get(cacheKey);
+        let data: any = cacheData.get(cacheKey);
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exists - calling API`,
             );
             data = await getVotes();
             if (data) {
-                cacheData.put(cacheKey, data, 1000 * 30);
+                cacheData.set(cacheKey, data, 30);
             }
         }
 
