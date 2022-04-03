@@ -1,38 +1,60 @@
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { LanguageCard, FilterSidebar, ToolsList } from '@components/tools';
+import { LanguageCard, ToolsSidebar, ToolsList } from '@components/tools';
 import { GetServerSideProps } from 'next';
 
-import languages from '../../data/languages.json';
 import { Tool } from '@components/tools/types';
 import { FC } from 'react';
-import { APIPaths, getApiURLFromContext } from 'utils/api';
+import {
+    APIPaths,
+    getApiURLFromContext,
+    getBaseApiURLFromContext,
+} from 'utils/api';
+import { type LanguageTag, type Article } from 'utils/types';
 
 export const getServerSideProps: GetServerSideProps<ToolPageProps> = async (
     ctx,
 ) => {
-    const apiURL = getApiURLFromContext(ctx, APIPaths.TOOLS);
-    const res = await fetch(apiURL);
-    const tools = await res.json();
+    const baseApiUrl = getBaseApiURLFromContext(ctx);
+    const toolsApiURL = getApiURLFromContext(ctx, APIPaths.TOOLS); // Builds URL including query params
 
-    if (tools.error) {
+    const articlesApiURL = `${baseApiUrl}/${APIPaths.BLOG}`;
+    const languageTagsApiURL = `${baseApiUrl}/${APIPaths.LANGUAGE_TAGS}`;
+
+    // Fetch article data from API
+    const toolsRes = await fetch(toolsApiURL);
+    const tools = await toolsRes.json();
+
+    // Fetch article data from API
+    const articleRes = await fetch(articlesApiURL);
+    const articles = await articleRes.json();
+
+    // Fetch language data from API
+    const languageRes = await fetch(languageTagsApiURL);
+    const languages = await languageRes.json();
+
+    if (tools.error || articles.error || languages.error) {
         return {
             notFound: true,
         };
     }
 
-    return { props: { tools } };
+    return { props: { tools, articles, languages } };
 };
 
 export interface ToolPageProps {
     tools: Tool[];
+    articles: Article[];
+    languages: LanguageTag[];
 }
 
-const ToolsPage: FC<ToolPageProps> = ({ tools }) => {
+const ToolsPage: FC<ToolPageProps> = ({ tools, articles, languages }) => {
     // TODO: Redirect 404
     if (!tools) {
         return null;
     }
+
+    // TODO: Update title and description to include language or filters
     const title = 'Analysis Tools';
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
@@ -44,7 +66,7 @@ const ToolsPage: FC<ToolPageProps> = ({ tools }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <FilterSidebar />
+                    <ToolsSidebar languages={languages} articles={articles} />
                     <Panel>
                         {/* <LanguageCard language={languages[0]} /> */}
                         <ToolsList

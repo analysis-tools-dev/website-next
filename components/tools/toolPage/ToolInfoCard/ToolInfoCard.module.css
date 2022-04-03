@@ -16,6 +16,9 @@
     padding: 15px 15px 100px 15px;
     flex-grow: 1;
 }
+.description {
+    margin: 10px 0;
+}
 
 .languageLink {
     display: flex;

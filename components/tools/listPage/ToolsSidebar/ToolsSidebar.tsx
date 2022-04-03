@@ -1,26 +1,23 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { BlogPreview } from '@components/blog';
 import { ContributionCard, Newsletter } from '@components/elements';
 import { Sidebar } from '@components/layout';
 import { FilterCard } from './FilterCard';
-import styles from './FilterSidebar.module.css';
+import styles from './ToolsSidebar.module.css';
 
 import {
-    LANGUAGE_OPTIONS,
     CATEGORY_OPTIONS,
     TYPE_OPTIONS,
     LICENSE_OPTIONS,
 } from '@appdata/filters';
+import { type LanguageTag, type Article } from 'utils/types';
 
-const FilterSidebar: FC = () => {
-    const [languages, setLanguages] = useState(LANGUAGE_OPTIONS);
+export interface ToolsSidebarProps {
+    languages: LanguageTag[];
+    articles: Article[];
+}
 
-    // fetch data
-    useEffect(() => {
-        fetch('/api/tags/languages')
-            .then((res) => res.json())
-            .then((data) => setLanguages(data));
-    }, []);
+const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles, languages }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <FilterCard
@@ -45,10 +42,10 @@ const FilterSidebar: FC = () => {
             />
 
             <ContributionCard />
-            <BlogPreview />
+            <BlogPreview articles={articles} />
             <Newsletter />
         </Sidebar>
     );
 };
 
-export default FilterSidebar;
+export default ToolsSidebar;

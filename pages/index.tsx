@@ -1,14 +1,16 @@
 import type { GetServerSideProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
-import { Main, Panel, Wrapper } from '@components/layout';
+import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
 import {
     Intro,
-    HomepageSidebar,
     MostViewedTools,
     PopularToolsByLanguage,
 } from '@components/homepage';
 import { type Tool } from '@components/tools';
 import { FC } from 'react';
+import { type Article } from 'utils/types';
+import { BlogPreview } from '@components/blog';
+import { Newsletter } from '@components/elements';
 
 export const getServerSideProps: GetServerSideProps<HompageProps> = async ({
     req,
@@ -17,25 +19,34 @@ export const getServerSideProps: GetServerSideProps<HompageProps> = async ({
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const baseUrl = req ? `${protocol}://${req.headers.host}` : '';
 
-    // Fetch data from API
-    const res = await fetch(`${baseUrl}/api/mostViewed`);
-    const mostViewedTools = await res.json();
+    // Fetch tool data from API
+    const toolRes = await fetch(`${baseUrl}/api/mostViewed`);
+    const mostViewedTools = await toolRes.json();
 
-    if (mostViewedTools.error) {
+    // Fetch article data from API
+    const articleRes = await fetch(`${baseUrl}/api/articles`);
+    const articles = await articleRes.json();
+
+    if (mostViewedTools.error || articles.error) {
         return {
             notFound: true,
         };
     }
 
-    // Pass data to the page via props
-    return { props: { mostViewedTools } };
+    return {
+        props: {
+            mostViewedTools,
+            articles,
+        },
+    };
 };
 
 export interface HompageProps {
     mostViewedTools: Tool[];
+    articles: Article[];
 }
 
-const HomePage: FC<HompageProps> = ({ mostViewedTools }) => {
+const HomePage: FC<HompageProps> = ({ mostViewedTools, articles }) => {
     // TODO: Handle errors
     const title = 'Analysis Tools';
     const description =
@@ -50,7 +61,10 @@ const HomePage: FC<HompageProps> = ({ mostViewedTools }) => {
             <Intro />
             <Wrapper>
                 <Main className="m-b-30">
-                    <HomepageSidebar />
+                    <Sidebar className="bottomSticky">
+                        <BlogPreview articles={articles} />
+                        <Newsletter />
+                    </Sidebar>
                     <Panel>
                         <PopularToolsByLanguage />
 

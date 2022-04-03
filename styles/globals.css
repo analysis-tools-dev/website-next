@@ -56,6 +56,7 @@ a:hover {
 }
 
 p {
+    font-size: 15px;
     font-family: Roboto-Light;
 }
 
@@ -224,3 +225,14 @@ p {
     padding-right: 16px !important;
 }
 /* END Paddings */
+
+.topSticky {
+    position: sticky;
+    align-self: flex-start;
+    top: 20px;
+}
+.bottomSticky {
+    position: sticky;
+    align-self: flex-end;
+    bottom: 20px;
+}

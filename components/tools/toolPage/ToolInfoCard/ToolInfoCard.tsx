@@ -22,7 +22,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
                 <Heading level={2}>{tool.name}</Heading>
                 <TagList tags={tool.other} />
 
-                <Text>
+                <Text className={styles.description}>
                     {tool.description}
                     <br />
                     <Link href={tool.homepage}>

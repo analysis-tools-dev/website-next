@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { filterResults } from 'utils';
+import { getVotes, getTools, filterResults } from 'utils/api';
 import { type Tool } from '@components/tools/types';
-import { getVotes } from 'utils/api';
-import { getTools } from 'utils/api';
 
 export default async function handler(
     req: NextApiRequest,
