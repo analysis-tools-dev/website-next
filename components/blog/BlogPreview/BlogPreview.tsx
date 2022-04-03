@@ -4,20 +4,23 @@ import Link from 'next/link';
 import { FC } from 'react';
 import BlogPreviewEntry from '../BlogPreviewEntry/BlogPreviewEntry';
 
-import blogPosts from '../../../data/blogPosts.json';
+import { type Article } from 'utils/types';
+export interface BlogPreviewProps {
+    articles: Article[];
+}
 
-const BlogPreview: FC = () => {
+const BlogPreview: FC<BlogPreviewProps> = ({ articles }) => {
     return (
         <Card className="m-b-30">
             <Heading level={3} className="m-b-16 font-bold">
                 Latest from our Blog
             </Heading>
-            {blogPosts.map((post, index) => (
+            {articles.map((post, index) => (
                 <BlogPreviewEntry
                     key={index}
-                    title={post.title}
-                    text={post.text}
-                    link={post.link}
+                    title={post.meta.title}
+                    summary={post.summary}
+                    link={`/blog/${post.slug}`}
                 />
             ))}
             <Link href="/blog">

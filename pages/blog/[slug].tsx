@@ -6,12 +6,13 @@ import { Heading } from '@components/typography';
 import { BlogPostLayout } from '@components/layout';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { join } from 'path';
 import { readdirSync } from 'fs';
-import { getParsedFileContentBySlug, markdownToHtml } from 'utils/api';
+import {
+    getParsedFileContentBySlug,
+    markdownToHtml,
+    POSTS_PATH,
+} from 'utils/api';
 import { type MarkdownRenderingResult } from 'utils';
-
-const POSTS_PATH = join(process.cwd(), 'data', 'blog');
 
 interface ArticleProps extends ParsedUrlQuery {
     slug: string;
@@ -22,7 +23,6 @@ export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = ({
 }) => {
     const articleMarkdownContent = getParsedFileContentBySlug(
         params?.slug?.toString() || '',
-        POSTS_PATH,
     );
 
     const renderedHTML = markdownToHtml(articleMarkdownContent.content);
