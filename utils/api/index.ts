@@ -1,4 +1,5 @@
 export * from './tools';
+export * from './filters';
 export * from './votes';
 export * from './toolStats';
 export * from './blog';

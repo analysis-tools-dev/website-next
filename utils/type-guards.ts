@@ -1,4 +1,4 @@
-import { ApiTag, TagsApiData, ToolsApiData } from './types';
+import { ApiTag, Article, TagsApiData, ToolsApiData } from './types';
 
 export const isToolsApiData = (data: unknown): data is ToolsApiData => {
     if (!data || typeof data !== 'object') {
@@ -44,4 +44,24 @@ export const isTagsApiData = (data: unknown): data is TagsApiData => {
         }
     }
     return result;
+};
+
+export const isArticlesApiData = (data: unknown): data is Article[] => {
+    if (!data || !Array.isArray(data)) {
+        return false;
+    }
+
+    for (const entry of data) {
+        const res =
+            (entry as Article).slug !== undefined &&
+            (entry as Article).meta !== undefined &&
+            (entry as Article).source !== undefined &&
+            (entry as Article).html !== undefined &&
+            (entry as Article).summary !== undefined;
+
+        if (!res) {
+            return false;
+        }
+    }
+    return true;
 };

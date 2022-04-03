@@ -54,3 +54,22 @@ export interface MarkdownRenderingResult {
     frontMatter: FrontMatter;
     html: string;
 }
+
+export interface ArticleMeta {
+    title: string;
+    date: string;
+}
+
+export interface Article {
+    slug: string;
+    meta: ArticleMeta;
+    source: string;
+    html: string;
+    summary: string;
+}
+
+export interface LanguageTag {
+    name: string;
+    tag: string;
+    tag_type: string;
+}
