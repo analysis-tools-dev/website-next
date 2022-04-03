@@ -1,12 +1,12 @@
-import { FC, useState } from 'react';
-import Link from 'next/link';
+import { FC, useEffect, useState } from 'react';
+import { withRouter, type Router } from 'next/router';
 import { Button, Input } from '@components/elements';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 
 import styles from './FilterCard.module.css';
-import { useRouter } from 'next/router';
-import { objectToQueryString } from 'utils';
+import { getParamAsArray, objectToQueryString } from 'utils';
+import { useRouterPush } from 'hooks';
 
 interface FilterOption {
     tag: string;
@@ -19,9 +19,8 @@ export interface FilterCardProps {
     param: string;
     options: FilterOption[];
     limit?: number;
+    router: Router;
 }
-
-const INITIAL_FILTER_STATE: Record<string, string[]> = {};
 
 // TODO: Add click functionality and debounce
 // TODO: Clicking All resets other checkboxes
@@ -31,12 +30,12 @@ const FilterCard: FC<FilterCardProps> = ({
     param,
     options,
     limit = 10,
+    router,
 }) => {
-    const router = useRouter();
+    const [query, setQuery] = useState(router.query);
+    const routerPush = useRouterPush();
 
     const [listLimit, setLimit] = useState(limit);
-    const [filters, setFilters] = useState(router.query);
-
     const toggleAll = () => {
         if (listLimit === 999) {
             setLimit(limit);
@@ -44,90 +43,35 @@ const FilterCard: FC<FilterCardProps> = ({
             setLimit(999);
         }
     };
-
-    const selectFilter = (value: string | undefined) => {
-        const filterValue = value || '';
-        const filterSate = filters[param];
-        if (filterSate) {
-            if (Array.isArray(filterSate)) {
-                const selectedIndex = filterSate.indexOf(filterValue);
-                if (selectedIndex > -1) {
-                    setFilters({
-                        ...filters,
-                        [param]: [],
-                    });
-                } else {
-                    setFilters({
-                        ...filters,
-                        [param]: [...filterSate, filterValue],
-                    });
-                    // filterSate.push(value);
-                }
-            } else {
-                if (filterSate.includes(filterValue)) {
-                    setFilters({
-                        ...filters,
-                        [param]: [],
-                    });
-                } else {
-                    setFilters({
-                        ...filters,
-                        [param]: [filterSate, filterValue],
-                    });
-                }
-            }
-            router.query = filters;
-            // setFilters(router.query);
-            router.push(
-                `/tools?${objectToQueryString(router.query)}`,
-                undefined,
-                {
-                    shallow: true,
-                },
-            );
-        } else {
-            router.query[param] = filterValue;
-            setFilters(router.query);
-            router.push(
-                `/tools?${objectToQueryString(router.query)}`,
-                undefined,
-                {
-                    shallow: true,
-                },
-            );
-        }
-
-        // let paramFilter = router.query[param] || '';
-        // if (value && paramFilter) {
-        //     if (Array.isArray(paramFilter)) {
-        //         const selectedIndex = paramFilter.indexOf(value);
-        //         if (selectedIndex > -1) {
-        //             paramFilter.splice(selectedIndex, 1);
-        //         } else {
-        //             paramFilter.push(value);
-        //         }
-        //     } else {
-        //         if (paramFilter.includes(value)) {
-        //             paramFilter = '';
-        //         } else {
-        //             paramFilter = [paramFilter, value];
-        //         }
-        //     }
-
-        //     router.query[param] = paramFilter;
-        //     router.push(
-        //         `/tools?${objectToQueryString(router.query)}`,
-        //         undefined,
-        //         { shallow: true },
-        //     );
-        // } else {
-        //     console.log(value);
-        //     console.log(paramFilter);
-        //     console.log('!!!!!!!!!!! HIT ELSE');
-        // }
-    };
-
     const shouldShowToggle = options.length > limit;
+
+    const changeQuery = (val: string) => (e: any) => {
+        const key = e.target.dataset.filter;
+        const currValue = getParamAsArray(query, key);
+        if (currValue.length) {
+            const index = currValue.indexOf(val);
+            if (index > -1) {
+                currValue.splice(index, 1);
+            } else {
+                currValue.push(val);
+            }
+        } else {
+            currValue.push(val);
+        }
+        console.log(query);
+        setQuery({ ...query, [key]: currValue?.join(',') });
+        console.log(query);
+    };
+    useEffect(() => {
+        routerPush(`/tools?${objectToQueryString(query)}`, undefined, {
+            shallow: true,
+        });
+    }, [query, routerPush]);
+
+    const isChecked = (key: string, value: string) => {
+        const param = getParamAsArray(query, key);
+        return param.includes(value) ? true : false;
+    };
     return (
         <Card className="m-b-30">
             <Heading level={3} className="m-b-16 font-bold">
@@ -139,7 +83,7 @@ const FilterCard: FC<FilterCardProps> = ({
                     <Input
                         type="checkbox"
                         id="checkbox_all"
-                        data-value="all"
+                        data-filter={param}
                         onChange={(e) => console.log(e)}
                     />
                     <label
@@ -153,11 +97,10 @@ const FilterCard: FC<FilterCardProps> = ({
                         <Input
                             type="checkbox"
                             id={`checkbox_${option.tag}`}
-                            data-value={option.tag}
-                            checked={router.query[param]?.includes(option.tag)}
-                            onChange={(e) =>
-                                selectFilter(e.target.dataset.value)
-                            }
+                            value={option.tag}
+                            data-filter={param}
+                            checked={isChecked(param, option.tag)}
+                            onChange={changeQuery(option.tag)}
                         />
                         <label
                             className={styles.checkboxLabel}
@@ -185,4 +128,4 @@ const FilterCard: FC<FilterCardProps> = ({
     );
 };
 
-export default FilterCard;
+export default withRouter(FilterCard);

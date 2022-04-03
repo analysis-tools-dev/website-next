@@ -21,3 +21,14 @@ export const objectToQueryString = (obj: ParsedUrlQuery) => {
 
     return paramStrings.sort((a, b) => a.localeCompare(b)).join('&');
 };
+
+export const getParamAsArray = (query: ParsedUrlQuery, key: string) => {
+    const value = query[key];
+    if (!value) {
+        return [];
+    }
+    if (Array.isArray(value)) {
+        return value;
+    }
+    return value.split(',');
+};
