@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { type Tool } from '@components/tools/types';
-import { getVotes, getTools, getToolStats } from 'utils/api';
+import { getVotes, getTools, getToolStats} from 'utils/api';
 
 function nonNullable<T>(value: T): value is NonNullable<T> {
     return value !== null && value !== undefined;
@@ -11,14 +11,14 @@ export default async function handler(
     res: NextApiResponse<Tool[] | { error: string }>,
 ) {
     const data = await getTools();
-    const stats = await getToolStats();
-    if (!data || !stats) {
+    const tool_stats = await getToolStats();
+    if (!data || !tool_stats) {
         res.status(500).json({ error: 'Failed to load most viewed tool data' });
         return res;
     }
     const votes = await getVotes();
 
-    const mostViewedToolIds = Object.keys(stats);
+    const mostViewedToolIds = Object.keys(tool_stats);
     const mostViewedTools = mostViewedToolIds
         .map((id) => {
             const voteKey = `toolsyaml${id.toString()}`;
@@ -29,7 +29,7 @@ export default async function handler(
                       id,
                       ...data[id],
                       votes: voteData,
-                      views: Number(stats[id].value),
+                      views: Number(tool_stats[id].value),
                   }
                 : null;
         })
