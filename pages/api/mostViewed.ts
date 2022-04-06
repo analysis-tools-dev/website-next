@@ -25,7 +25,12 @@ export default async function handler(
             const voteData = votes[voteKey]?.sum || 0;
 
             return data[id]
-                ? { id, ...data[id], votes: voteData, views: Number(stats[id]) }
+                ? {
+                      id,
+                      ...data[id],
+                      votes: voteData,
+                      views: Number(stats[id].value),
+                  }
                 : null;
         })
         .filter(nonNullable);
