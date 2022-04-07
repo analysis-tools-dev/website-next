@@ -1,33 +1,64 @@
-## Getting Started
+  <a href="http://analysis-tools.dev/">
+    <img width="400px" alt="Analysis Tools" src="static/logo.png" />
+  </a>
 
-Install dependencies:
+![CI](https://github.com/analysis-tools-dev/website-next/workflows/deploy/badge.svg)
+
+This is the main website code of <a href="https://analysis-tools.dev">analysis-tools.dev</a>.  
+It is a community-organized project around static and dynamic analysis tools.  
+You can help make this website better!
+
+## :heart: Sponsors
+
+This project would not be possible without the generous support of our sponsors.
+
+<table>
+  <tr>
+    <td><a href="https://deepcode.ai"><img width="200px" src="static/sponsors/deepcode.png" /></a></td>
+    <td><a href="https://codescene.io/"><img width="200px" src="static/sponsors/codescene.svg" /></a></td>
+    <td><a href="https://r2c.dev/"><img width="200px" src="static/sponsors/r2c.svg" /></a></td>
+    <td><a href="https://codiga.io/"><img width="200px" src="static/sponsors/codiga.svg" /></a></td>
+  </tr>
+</table>
+
+If you also want to support this project, head over to our [Github sponsors page](https://github.com/sponsors/analysis-tools-dev).
+
+## 🚀 Contributing
+
+Thanks for considering to contribute to this project. Here's how to get started:
+
+1. **Clone the repo**
+
+```shell
+git clone git@github.com:analysis-tools-dev/website.git
+```
+
+1. **Install the dependencies**
 
 ```
-npm install
+npm install 
 ```
 
-Then, run the development server:
 
-```bash
+3. **Start developing.**
+
+Navigate into your new site’s directory and start it up.
+
+```shell
+cd website/
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. **Open the source code and start editing!**
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Your site is now running at http://localhost:3000!
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+5.  **Send us a pull request**
 
-## Learn More
+Once you're happy with your changes, please send us a pull request and we'll review it promptly.
+Don't be afraid to make small changes or ask for feedback early. We're happy to help!
 
-To learn more about Next.js, take a look at the following resources:
-
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Important Links
 
