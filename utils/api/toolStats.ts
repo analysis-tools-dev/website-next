@@ -3,7 +3,7 @@ import { Octokit } from '@octokit/core';
 
 const cacheData = new NodeCache();
 
-export async function getToolStats() {
+export async function getStats(path: string) {
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
@@ -22,7 +22,7 @@ export async function getToolStats() {
                 {
                     owner: 'analysis-tools-dev',
                     repo: 'static-analysis',
-                    path: 'data/api/stats/tools.json',
+                    path,
                     headers: {
                         accept: 'application/vnd.github.VERSION.raw',
                     },
@@ -37,8 +37,16 @@ export async function getToolStats() {
         // TODO: Add typeguard
         return data || null;
     } catch (e) {
-        console.log('Error occured: ', JSON.stringify(e));
+        console.log('Error occurred: ', JSON.stringify(e));
         cacheData.del(cacheKey);
         return null;
     }
+}
+
+export async function getToolStats() {
+    return getStats('data/api/stats/tools.json');
+}
+
+export async function getLanguageStats() {
+    return getStats('data/api/stats/tags.json');
 }
