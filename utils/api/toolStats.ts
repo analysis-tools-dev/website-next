@@ -22,7 +22,7 @@ export async function getToolStats() {
                 {
                     owner: 'analysis-tools-dev',
                     repo: 'static-analysis',
-                    path: 'data/api/stats.json',
+                    path: 'data/api/stats/tools.json',
                     headers: {
                         accept: 'application/vnd.github.VERSION.raw',
                     },
