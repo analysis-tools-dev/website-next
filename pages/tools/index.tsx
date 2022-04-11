@@ -11,6 +11,7 @@ import {
     getBaseApiURLFromContext,
 } from 'utils/api';
 import { type LanguageTag, type Article } from 'utils/types';
+import { SearchProvider } from 'context/SearchProvider';
 
 export const getServerSideProps: GetServerSideProps<ToolPageProps> = async (
     ctx,
@@ -60,7 +61,7 @@ const ToolsPage: FC<ToolPageProps> = ({ tools, articles, languages }) => {
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 
     return (
-        <>
+        <SearchProvider>
             <MainHead title={title} description={description} />
 
             <Navbar />
@@ -84,7 +85,7 @@ const ToolsPage: FC<ToolPageProps> = ({ tools, articles, languages }) => {
 
             <SponsorCard />
             <Footer />
-        </>
+        </SearchProvider>
     );
 };
 

@@ -7,6 +7,7 @@ import { Heading } from '@components/typography';
 import styles from './FilterCard.module.css';
 import { getParamAsArray, objectToQueryString } from 'utils';
 import { useRouterPush } from 'hooks';
+import { useSearchSate } from 'context/SearchProvider';
 
 interface FilterOption {
     tag: string;
@@ -32,7 +33,8 @@ const FilterCard: FC<FilterCardProps> = ({
     limit = 10,
     router,
 }) => {
-    const [query, setQuery] = useState(router.query);
+    const { search, setSearch } = useSearchSate();
+    // const [query, setQuery] = useState(router.query);
     const routerPush = useRouterPush();
 
     const [listLimit, setLimit] = useState(limit);
@@ -47,7 +49,7 @@ const FilterCard: FC<FilterCardProps> = ({
 
     const changeQuery = (val: string) => (e: any) => {
         const key = e.target.dataset.filter;
-        const currValue = getParamAsArray(query, key);
+        const currValue = getParamAsArray(search, key);
         if (currValue.length) {
             const index = currValue.indexOf(val);
             if (index > -1) {
@@ -58,18 +60,18 @@ const FilterCard: FC<FilterCardProps> = ({
         } else {
             currValue.push(val);
         }
-        console.log(query);
-        setQuery({ ...query, [key]: currValue?.join(',') });
-        console.log(query);
+        setSearch({ ...search, [key]: currValue?.join(',') });
     };
     useEffect(() => {
-        routerPush(`/tools?${objectToQueryString(query)}`, undefined, {
-            shallow: true,
-        });
-    }, [query, routerPush]);
+        if (Object.keys(search).length) {
+            routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
+                shallow: true,
+            });
+        }
+    }, [search, routerPush]);
 
     const isChecked = (key: string, value: string) => {
-        const param = getParamAsArray(query, key);
+        const param = getParamAsArray(search, key);
         return param.includes(value) ? true : false;
     };
     return (
