@@ -236,3 +236,10 @@ p {
     align-self: flex-end;
     bottom: 20px;
 }
+
+@media only screen and (max-width: 900px) {
+    .topSticky,
+    .bottomSticky {
+        position: initial;
+    }
+}

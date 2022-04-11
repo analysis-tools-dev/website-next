@@ -45,3 +45,10 @@
     font-family: Roboto-Bold;
     font-size: 14px;
 }
+
+@media only screen and (max-width: 900px) {
+    .linkList {
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+}

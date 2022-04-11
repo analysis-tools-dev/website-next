@@ -32,12 +32,14 @@ const Intro: FC = () => {
                 />
             </div>
 
-            <Image
-                src={homepageIntro.image.src}
-                alt={homepageIntro.image.alt}
-                width={homepageIntro.image.width}
-                height={homepageIntro.image.height}
-            />
+            <div className={styles.introImage}>
+                <Image
+                    src={homepageIntro.image.src}
+                    alt={homepageIntro.image.alt}
+                    width={homepageIntro.image.width}
+                    height={homepageIntro.image.height}
+                />
+            </div>
         </Wrapper>
     );
 };
