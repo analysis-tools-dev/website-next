@@ -1,19 +1,6 @@
 import type { NextApiRequest } from 'next';
-import { checkArraysIntersect } from '../arrays';
-import type { ToolsApiData } from '../types';
-
-function replaceKeys(object: any) {
-    return Object.keys(object).forEach((key) => {
-        const newKey = key.replace(/\s+/g, '');
-        if (object[key] && typeof object[key] === 'object') {
-            replaceKeys(object[key]);
-        }
-        if (key !== newKey) {
-            object[newKey] = object[key];
-            delete object[key];
-        }
-    });
-}
+import { checkArraysIntersect } from 'utils/arrays';
+import type { ToolsApiData } from 'utils/types';
 
 export const filterResults = (tools: ToolsApiData, req: NextApiRequest) => {
     // Filters to be checked
