@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { type Tool } from '@components/tools/types';
-import { getVotes, getTools, getToolStats} from 'utils/api';
+import { getToolStats } from 'utils-api/toolStats';
+import { getTools } from 'utils-api/tools';
+import { getVotes } from 'utils-api/votes';
 
 function nonNullable<T>(value: T): value is NonNullable<T> {
     return value !== null && value !== undefined;
@@ -26,11 +28,11 @@ export default async function handler(
 
             return data[id]
                 ? {
-                      id,
-                      ...data[id],
-                      votes: voteData,
-                      views: Number(tool_stats[id].value),
-                  }
+                    id,
+                    ...data[id],
+                    votes: voteData,
+                    views: Number(tool_stats[id].value),
+                }
                 : null;
         })
         .filter(nonNullable);

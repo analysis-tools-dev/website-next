@@ -3,7 +3,7 @@ import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import InfoEntry from '../InfoEntry/InfoEntry';
 import { type Tool } from '@components/tools';
-import { deCamelString } from 'utils';
+import { deCamelString } from 'utils/strings';
 
 export interface InformationCardProps {
     tool: Tool;

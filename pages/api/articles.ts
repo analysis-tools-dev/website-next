@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getArticles } from 'utils/api';
-import { type Article } from 'utils';
+import { getArticles } from 'utils-api/blog';
+import { type Article } from 'utils/types';
 
 export default async function handler(
     req: NextApiRequest,

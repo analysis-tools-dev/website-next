@@ -1,60 +1,36 @@
+import { FC } from 'react';
+import { type GetServerSideProps } from 'next';
+import { dehydrate, QueryClient } from 'react-query';
+import { SearchProvider } from 'context/SearchProvider';
+
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { LanguageCard, ToolsSidebar, ToolsList } from '@components/tools';
-import { GetServerSideProps } from 'next';
-
-import { Tool } from '@components/tools/types';
-import { FC } from 'react';
 import {
-    APIPaths,
-    getApiURLFromContext,
-    getBaseApiURLFromContext,
-} from 'utils/api';
-import { type LanguageTag, type Article } from 'utils/types';
-import { SearchProvider } from 'context/SearchProvider';
+    fetchLanguages,
+    fetchToolsDataFromQuery,
+} from '@components/tools/api-utils';
+import { fetchArticles } from '@components/blog/api-utils';
 
-export const getServerSideProps: GetServerSideProps<ToolPageProps> = async (
-    ctx,
-) => {
-    const baseApiUrl = getBaseApiURLFromContext(ctx);
-    const toolsApiURL = getApiURLFromContext(ctx, APIPaths.TOOLS); // Builds URL including query params
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    // Create a new QueryClient instance for each page request.
+    // This ensures that data is not shared between users and requests.
+    const queryClient = new QueryClient();
 
-    const articlesApiURL = `${baseApiUrl}/${APIPaths.BLOG}`;
-    const languageTagsApiURL = `${baseApiUrl}/${APIPaths.LANGUAGE_TAGS}`;
+    await queryClient.prefetchQuery('tools', () =>
+        fetchToolsDataFromQuery(ctx.query),
+    );
+    await queryClient.prefetchQuery('languages', fetchLanguages);
+    await queryClient.prefetchQuery('articles', fetchArticles);
 
-    // Fetch article data from API
-    const toolsRes = await fetch(toolsApiURL);
-    const tools = await toolsRes.json();
-
-    // Fetch article data from API
-    const articleRes = await fetch(articlesApiURL);
-    const articles = await articleRes.json();
-
-    // Fetch language data from API
-    const languageRes = await fetch(languageTagsApiURL);
-    const languages = await languageRes.json();
-
-    if (tools.error || articles.error || languages.error) {
-        return {
-            notFound: true,
-        };
-    }
-
-    return { props: { tools, articles, languages } };
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    };
 };
 
-export interface ToolPageProps {
-    tools: Tool[];
-    articles: Article[];
-    languages: LanguageTag[];
-}
-
-const ToolsPage: FC<ToolPageProps> = ({ tools, articles, languages }) => {
-    // TODO: Redirect 404
-    if (!tools) {
-        return null;
-    }
-
+const ToolsPage: FC = () => {
     // TODO: Update title and description to include language or filters
     const title = 'Analysis Tools';
     const description =
@@ -67,13 +43,10 @@ const ToolsPage: FC<ToolPageProps> = ({ tools, articles, languages }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolsSidebar languages={languages} articles={articles} />
+                    <ToolsSidebar />
                     <Panel>
                         {/* <LanguageCard language={languages[0]} /> */}
-                        <ToolsList
-                            heading={`Static analysis tools`}
-                            tools={tools}
-                        />
+                        <ToolsList heading={`Static analysis tools`} />
                         {/* 
                         <ToolsList
                             heading={`Multi-language static analysis tools`}

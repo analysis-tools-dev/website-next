@@ -1,6 +1,6 @@
 import NodeCache from 'node-cache';
 import { Octokit } from '@octokit/core';
-import { isTagsApiData } from 'utils';
+import { isTagsApiData } from 'utils/type-guards';
 
 const cacheData = new NodeCache();
 

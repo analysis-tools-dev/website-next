@@ -8,7 +8,7 @@ import Image from 'next/image';
 import styles from './ToolCard.module.css';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
-import { deCamelString } from 'utils';
+import { deCamelString } from 'utils/strings';
 
 export interface ToolCardProps {
     tool: Tool;

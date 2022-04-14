@@ -1,6 +1,7 @@
-import { GetServerSidePropsContext } from 'next';
-import { ParsedUrlQuery } from 'querystring';
-import { objectToQueryString } from 'utils';
+import { SearchState } from 'context/SearchProvider';
+import { objectToQueryString } from 'utils/query';
+import { type GetServerSidePropsContext } from 'next';
+import { type ParsedUrlQuery } from 'querystring';
 
 export enum APIPaths {
     TOOLS = 'tools',
@@ -37,9 +38,35 @@ export const getApiURLFromContext = (
     if (ctx.query || query) {
         const queryString = objectToQueryString({ ...ctx.query, ...query });
         if (queryString) {
-            url += `? ${queryString} `;
+            url += `?${queryString}`;
         }
     }
 
     return url;
+};
+
+export const getApiURL = (pathName?: string) => {
+    let baseApiUrl = `https://${process.env.HOST}/api`;
+    if (process.env.NODE_ENV === 'development') {
+        baseApiUrl = `http://${process.env.HOST}/api`;
+    }
+
+    if (pathName && pathName !== '') {
+        return `${baseApiUrl}/${pathName}`;
+    }
+
+    return baseApiUrl;
+};
+
+export const getToolsApiURL = (search: SearchState) => {
+    let apiUrl = getApiURL(APIPaths.TOOLS);
+
+    if (search) {
+        const queryString = objectToQueryString(search);
+        if (queryString) {
+            apiUrl += `?${queryString}`;
+        }
+    }
+
+    return apiUrl;
 };

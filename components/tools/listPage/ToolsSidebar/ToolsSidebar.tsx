@@ -10,20 +10,19 @@ import {
     TYPE_OPTIONS,
     LICENSE_OPTIONS,
 } from '@appdata/filters';
-import { type LanguageTag, type Article } from 'utils/types';
+import { useLanguagesQuery } from '@components/tools/api-utils';
 
-export interface ToolsSidebarProps {
-    languages: LanguageTag[];
-    articles: Article[];
-}
-
-const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles, languages }) => {
+const ToolsSidebar: FC = () => {
+    const lagnuageResult = useLanguagesQuery();
+    if (lagnuageResult.error || !lagnuageResult.data) {
+        return null;
+    }
     return (
         <Sidebar className={styles.bottomSticky}>
             <FilterCard
                 heading="Language(s)"
                 param="languages"
-                options={languages}
+                options={lagnuageResult.data}
             />
             <FilterCard
                 heading="Category(s)"
@@ -42,7 +41,7 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles, languages }) => {
             />
 
             <ContributionCard />
-            <BlogPreview articles={articles} />
+            <BlogPreview />
             <Newsletter />
         </Sidebar>
     );

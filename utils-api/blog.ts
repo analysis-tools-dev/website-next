@@ -1,10 +1,10 @@
 import { readdirSync, readFileSync } from 'fs';
+import NodeCache from 'node-cache';
 import { join } from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
-import { Article, type MarkdownDocument } from 'utils';
-import NodeCache from 'node-cache';
 import { isArticlesApiData } from 'utils/type-guards';
+import { type Article, type MarkdownDocument } from 'utils/types';
 
 const cacheData = new NodeCache();
 

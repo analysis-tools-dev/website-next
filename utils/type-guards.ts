@@ -1,3 +1,5 @@
+import { SearchState } from 'context/SearchProvider';
+import { ParsedUrlQuery } from 'querystring';
 import { ApiTag, Article, TagsApiData, ToolsApiData } from './types';
 
 export const isToolsApiData = (data: unknown): data is ToolsApiData => {

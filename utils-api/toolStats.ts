@@ -37,7 +37,7 @@ export async function getStats(path: string) {
         // TODO: Add typeguard
         return data || null;
     } catch (e) {
-        console.log('Error occurred: ', JSON.stringify(e));
+        console.error('Error occurred: ', JSON.stringify(e));
         cacheData.del(cacheKey);
         return null;
     }

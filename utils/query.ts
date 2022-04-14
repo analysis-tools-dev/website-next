@@ -1,9 +1,9 @@
+import { SearchState } from 'context/SearchProvider';
 import { ParsedUrlQuery } from 'querystring';
 
-export const objectToQueryString = (obj: ParsedUrlQuery) => {
+export const objectToQueryString = (search: SearchState) => {
     const paramStrings: string[] = [];
-    Object.keys(obj).forEach((key: string) => {
-        const value = obj[key];
+    Object.entries(search).forEach(([key, value]) => {
         if (value) {
             if (Array.isArray(value)) {
                 value.forEach((val) => {
@@ -20,6 +20,17 @@ export const objectToQueryString = (obj: ParsedUrlQuery) => {
     });
 
     return paramStrings.sort((a, b) => a.localeCompare(b)).join('&');
+};
+
+export const getFilterAsArray = (search: SearchState, key: string) => {
+    const value = search[key as keyof SearchState];
+    if (!value) {
+        return [];
+    }
+    if (Array.isArray(value)) {
+        return value;
+    }
+    return [value];
 };
 
 export const getParamAsArray = (query: ParsedUrlQuery, key: string) => {

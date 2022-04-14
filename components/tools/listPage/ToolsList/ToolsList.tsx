@@ -1,11 +1,12 @@
 import { FC } from 'react';
-import { Dropdown, PanelHeader } from '@components/elements';
+import { Dropdown, PanelHeader, LoadingCogs } from '@components/elements';
 import { type Tool } from '@components/tools/types';
 import { ToolCard } from '@components/tools';
+import { useToolsQuery } from '@components/tools/api-utils';
+import { useSearchSate } from 'context/SearchProvider';
 
 interface ToolsListProps {
     heading: string;
-    tools: Tool[];
 }
 
 function compare(a: Tool, b: Tool) {
@@ -18,8 +19,20 @@ function compare(a: Tool, b: Tool) {
     return 0;
 }
 
-const ToolsList: FC<ToolsListProps> = ({ heading, tools }) => {
-    const sortedTools = tools.sort(compare);
+const ToolsList: FC<ToolsListProps> = ({ heading }) => {
+    const { search } = useSearchSate();
+    const toolsResult = useToolsQuery(search);
+    if (
+        toolsResult.isLoading ||
+        toolsResult.isFetching ||
+        toolsResult.isRefetching
+    ) {
+        return <LoadingCogs />;
+    }
+    if (toolsResult.error || !toolsResult.data) {
+        return null;
+    }
+    const sortedTools = toolsResult.data.sort(compare);
     return (
         <>
             <PanelHeader level={3} text={heading}>
@@ -27,7 +40,6 @@ const ToolsList: FC<ToolsListProps> = ({ heading, tools }) => {
                 {/* TODO: Add sorting */}
                 <Dropdown />
             </PanelHeader>
-
             <div>
                 {sortedTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />

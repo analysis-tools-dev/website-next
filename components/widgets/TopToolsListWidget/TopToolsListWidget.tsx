@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Heading, Text } from '@components/typography';
-import { votesFormatter } from 'utils';
+import { votesFormatter } from 'utils/votes';
 import styles from './TopToolsListWidget.module.css';
 import type { Tool } from '@components/tools';
 import cn from 'classnames';

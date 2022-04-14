@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getToolVotes } from 'utils/api';
+import { getToolVotes } from 'utils-api/votes';
 
 export default async function handler(
     req: NextApiRequest,

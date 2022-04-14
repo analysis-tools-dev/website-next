@@ -6,7 +6,7 @@ import {
     APIPaths,
     getApiURLFromContext,
     getBaseApiURLFromContext,
-} from 'utils/api';
+} from 'utils-api/urls';
 import {
     Tool,
     ToolInfoCard,
@@ -71,10 +71,6 @@ export const getServerSideProps: GetServerSideProps<ToolPageProps> = async (
 };
 
 const ToolPage: FC<ToolPageProps> = ({ tool, alternateTools, articles }) => {
-    // TODO: Redirect 404
-    if (!tool) {
-        return null;
-    }
     // TODO: Update title and description to include tool
     const title = 'Analysis Tools';
     const description =
@@ -93,7 +89,6 @@ const ToolPage: FC<ToolPageProps> = ({ tool, alternateTools, articles }) => {
 
                         {alternateTools && (
                             <ToolsList
-                                tools={alternateTools}
                                 heading={`${tool.name} alternative static tools`}
                             />
                         )}

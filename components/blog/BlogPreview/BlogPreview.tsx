@@ -1,24 +1,26 @@
+import { FC } from 'react';
+import Link from 'next/link';
+
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
-import Link from 'next/link';
-import { FC } from 'react';
 import BlogPreviewEntry from '../BlogPreviewEntry/BlogPreviewEntry';
+import { useArticlesQuery } from '../api-utils';
 
-import { type Article } from 'utils/types';
-export interface BlogPreviewProps {
-    articles: Article[];
-}
+const BlogPreview: FC = () => {
+    const articlesResult = useArticlesQuery();
+    if (articlesResult.error || !articlesResult.data) {
+        return null;
+    }
 
-const BlogPreview: FC<BlogPreviewProps> = ({ articles }) => {
     return (
         <Card className="m-b-30">
             <Heading level={3} className="m-b-16 font-bold">
                 Latest from our Blog
             </Heading>
-            {articles.map((post, index) => (
+            {articlesResult.data.map((post, index) => (
                 <BlogPreviewEntry
                     key={index}
-                    title={post.meta.title}
+                    title={post.meta?.title}
                     summary={post.summary}
                     link={`/blog/${post.slug}`}
                 />

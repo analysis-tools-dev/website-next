@@ -3,7 +3,7 @@ import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import InfoEntry from '../InfoEntry/InfoEntry';
 import { type RepositoryData } from '@components/tools';
-import { dateDiffFromNow } from 'utils';
+import { dateDiffFromNow } from 'utils/date';
 import styles from './RepositoryCard.module.css';
 
 export interface RepositoryCardProps {

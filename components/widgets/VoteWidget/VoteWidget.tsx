@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { type Tool } from '@components/tools';
-import { votesFormatter } from 'utils';
+import { votesFormatter } from 'utils/votes';
 import cn from 'classnames';
 import styles from './VoteWidget.module.css';
 export interface VoteWidgetProps {

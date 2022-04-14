@@ -8,11 +8,11 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { readdirSync } from 'fs';
 import {
-    getParsedFileContentBySlug,
-    markdownToHtml,
     POSTS_PATH,
-} from 'utils/api';
-import { type MarkdownRenderingResult } from 'utils';
+    markdownToHtml,
+    getParsedFileContentBySlug,
+} from 'utils-api/blog';
+import { type MarkdownRenderingResult } from 'utils/types';
 
 interface ArticleProps extends ParsedUrlQuery {
     slug: string;

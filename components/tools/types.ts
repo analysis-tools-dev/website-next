@@ -1,4 +1,4 @@
-import { ToolPricePlan, ToolResource } from 'utils';
+import { type ToolPricePlan, type ToolResource } from 'utils/types';
 
 export interface Language {
     name: string;

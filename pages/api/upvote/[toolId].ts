@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getFirestore } from 'firebase-admin/firestore';
 import NodeCache from 'node-cache';
-import { initFirebase } from 'utils/api';
+import { initFirebase } from 'utils-api/firebase';
 
 const cacheData = new NodeCache();
 

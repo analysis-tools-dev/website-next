@@ -2,7 +2,7 @@ import { FC } from 'react';
 import classNames from 'classnames';
 import styles from './BlogPostLayout.module.css';
 import { Heading } from '@components/typography';
-import { FrontMatter } from 'utils';
+import { type FrontMatter } from 'utils/types';
 
 export interface BlogPostLayoutProps {
     meta: FrontMatter;

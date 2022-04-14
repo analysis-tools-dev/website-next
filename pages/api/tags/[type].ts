@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getTag } from 'utils/api';
+import { getTag } from 'utils-api/tags';
 
 export default async function handler(
     req: NextApiRequest,

@@ -1,6 +1,6 @@
 import NodeCache from 'node-cache';
 import { Octokit } from '@octokit/core';
-import { isToolsApiData } from 'utils';
+import { isToolsApiData } from 'utils/type-guards';
 
 const cacheData = new NodeCache();
 
@@ -40,12 +40,12 @@ export const getTools = async () => {
         }
         if (!isToolsApiData(data)) {
             cacheData.del(cacheKey);
-            console.log('Tools TypeError');
+            console.error('Tools TypeError');
             return null;
         }
         return data;
     } catch (e) {
-        console.log('Error occured: ', JSON.stringify(e));
+        console.error('Error occured: ', JSON.stringify(e));
         cacheData.del(cacheKey);
         return null;
     }
@@ -90,7 +90,7 @@ export const getTool = async (toolId: string) => {
 
         if (!isToolsApiData(data)) {
             cacheData.del(cacheKey);
-            console.log('Tools TypeError');
+            console.error('Tools TypeError');
             return null;
         }
 
@@ -101,7 +101,7 @@ export const getTool = async (toolId: string) => {
         }
         return tool;
     } catch (e) {
-        console.log('Error occured: ', JSON.stringify(e));
+        console.error('Error occured: ', JSON.stringify(e));
         cacheData.del(cacheKey);
         return null;
     }

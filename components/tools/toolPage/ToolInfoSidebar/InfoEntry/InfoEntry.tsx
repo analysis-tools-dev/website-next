@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import styles from './InfoEntry.module.css';
-import { isValidHttpUrl } from 'utils';
+import { isValidHttpUrl } from 'utils/strings';
 import cn from 'classnames';
 
 export interface InfoEntryProps {

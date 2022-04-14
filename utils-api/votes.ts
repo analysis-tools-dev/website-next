@@ -50,7 +50,7 @@ export async function getVotes() {
         // TODO: Add typeguard
         return data;
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return {};
     }
 }
@@ -74,7 +74,7 @@ export const getToolVotes = async (toolId: string) => {
         // TODO: Add typeguard
         return Number(data.sum) || 0;
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return 0;
     }
 };

@@ -5,13 +5,14 @@ import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 
 import styles from './FilterCard.module.css';
-import { getParamAsArray, objectToQueryString } from 'utils';
+import { getFilterAsArray, objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
 import { useSearchSate } from 'context/SearchProvider';
 
 interface FilterOption {
     tag: string;
     name: string;
+    tag_type?: string;
     results?: number;
 }
 
@@ -49,7 +50,7 @@ const FilterCard: FC<FilterCardProps> = ({
 
     const changeQuery = (val: string) => (e: any) => {
         const key = e.target.dataset.filter;
-        const currValue = getParamAsArray(search, key);
+        const currValue = getFilterAsArray(search, key);
         if (currValue.length) {
             const index = currValue.indexOf(val);
             if (index > -1) {
@@ -71,7 +72,7 @@ const FilterCard: FC<FilterCardProps> = ({
     }, [search, routerPush]);
 
     const isChecked = (key: string, value: string) => {
-        const param = getParamAsArray(search, key);
+        const param = getFilterAsArray(search, key);
         return param.includes(value) ? true : false;
     };
     return (

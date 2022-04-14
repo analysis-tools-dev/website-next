@@ -58,7 +58,7 @@ export const getGithubStats = async (
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
                 cacheData.set(cacheKey, data, hours * 60 * 60);
             } else {
-                console.log(
+                console.error(
                     `Could not find stats for tool: ${toolId.toString()}`,
                 );
                 return null;
@@ -67,7 +67,7 @@ export const getGithubStats = async (
         // TODO: Add typeguard
         return data;
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return null;
     }
 };

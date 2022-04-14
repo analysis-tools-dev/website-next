@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import NodeCache from 'node-cache';
-import { getVotes, initFirebase } from 'utils/api';
+import { initFirebase } from 'utils-api/firebase';
+import { getVotes } from 'utils-api/votes';
 
 const cacheData = new NodeCache();
 

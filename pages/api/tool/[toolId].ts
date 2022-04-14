@@ -1,11 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {
-    getGithubStats,
-    getRepositoryMeta,
-    getTool,
-    getToolVotes,
-} from 'utils/api';
-import { Tool } from '@components/tools';
+import { getGithubStats, getRepositoryMeta } from 'utils-api/github';
+import { getTool } from 'utils-api/tools';
+import { getToolVotes } from 'utils-api/votes';
+import { type Tool } from '@components/tools';
 
 export default async function handler(
     req: NextApiRequest,
