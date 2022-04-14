@@ -7,3 +7,5 @@ export { default as Newsletter } from './Newsletter/Newsletter';
 export { default as ContributionCard } from './ContributionCard/ContributionCard';
 export { default as TagList } from './TagList/TagList';
 export { default as Dropdown } from './Dropdown/Dropdown';
+export { default as LoadingCog } from './LoadingCog/LoadingCog';
+export { default as LoadingCogs } from './LoadingCogs/LoadingCogs';
