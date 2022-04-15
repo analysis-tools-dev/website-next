@@ -1,0 +1,17 @@
+{
+    "meta": {
+        "title": "Analysis Tools",
+        "description": "Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards."
+    },
+    "intro": {
+        "heading": "Write Better Software",
+        "description": "Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.",
+        "githubLink": "https://github.com/analysis-tools-dev",
+        "image": {
+            "src": "/assets/images/intro-image.png",
+            "alt": "",
+            "width": "658px",
+            "height": "285px"
+        }
+    }
+}
