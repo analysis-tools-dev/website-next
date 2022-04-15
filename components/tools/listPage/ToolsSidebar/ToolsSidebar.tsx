@@ -10,7 +10,7 @@ import {
     TYPE_OPTIONS,
     LICENSE_OPTIONS,
 } from '@appdata/filters';
-import { useLanguagesQuery } from '@components/tools/api-utils';
+import { useLanguagesQuery } from '@components/tools/queries/languages';
 
 const ToolsSidebar: FC = () => {
     const lagnuageResult = useLanguagesQuery();

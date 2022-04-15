@@ -32,7 +32,6 @@ const FilterCard: FC<FilterCardProps> = ({
     param,
     options,
     limit = 10,
-    router,
 }) => {
     const { search, setSearch } = useSearchSate();
     // const [query, setQuery] = useState(router.query);

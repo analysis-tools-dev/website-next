@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import BlogPreviewEntry from '../BlogPreviewEntry/BlogPreviewEntry';
-import { useArticlesQuery } from '../api-utils';
+import { useArticlesQuery } from '../queries/articles';
 
 const BlogPreview: FC = () => {
     const articlesResult = useArticlesQuery();

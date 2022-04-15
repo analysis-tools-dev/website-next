@@ -2,11 +2,12 @@ import { FC } from 'react';
 import { Dropdown, PanelHeader, LoadingCogs } from '@components/elements';
 import { type Tool } from '@components/tools/types';
 import { ToolCard } from '@components/tools';
-import { useToolsQuery } from '@components/tools/api-utils';
-import { useSearchSate } from 'context/SearchProvider';
+import { useToolsQuery } from '@components/tools/queries/tools';
+import { SearchState, useSearchSate } from 'context/SearchProvider';
 
 interface ToolsListProps {
     heading: string;
+    overrideSearch?: SearchState;
 }
 
 function compare(a: Tool, b: Tool) {
@@ -19,9 +20,10 @@ function compare(a: Tool, b: Tool) {
     return 0;
 }
 
-const ToolsList: FC<ToolsListProps> = ({ heading }) => {
+const ToolsList: FC<ToolsListProps> = ({ heading, overrideSearch }) => {
     const { search } = useSearchSate();
-    const toolsResult = useToolsQuery(search);
+    const state = overrideSearch ? overrideSearch : search;
+    const toolsResult = useToolsQuery(state);
     if (
         toolsResult.isLoading ||
         toolsResult.isFetching ||

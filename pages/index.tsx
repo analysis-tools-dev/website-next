@@ -1,4 +1,6 @@
+import { FC } from 'react';
 import type { GetServerSideProps } from 'next';
+import { dehydrate, QueryClient } from 'react-query';
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
 import {
@@ -6,55 +8,35 @@ import {
     MostViewedTools,
     PopularToolsByLanguage,
 } from '@components/homepage';
-import { type Tool } from '@components/tools';
-import { FC } from 'react';
-import { type Article } from 'utils/types';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
+import { fetchArticles } from '@components/blog/queries/articles';
+import { fetchMostViewed } from '@components/homepage/queries/mostViewed';
 
-export const getServerSideProps: GetServerSideProps<HompageProps> = async ({
-    req,
-}) => {
-    // Get BaseUrl from context request
-    const protocol = req.headers['x-forwarded-proto'] || 'http';
-    const baseUrl = req ? `${protocol}://${req.headers.host}` : '';
+import homepageData from '@appdata/homepage.json';
 
-    // Fetch tool data from API
-    const toolRes = await fetch(`${baseUrl}/api/mostViewed`);
-    const mostViewedTools = await toolRes.json();
+export const getServerSideProps: GetServerSideProps = async () => {
+    // Create a new QueryClient instance for each page request.
+    // This ensures that data is not shared between users and requests.
+    const queryClient = new QueryClient();
 
-    // Fetch article data from API
-    const articleRes = await fetch(`${baseUrl}/api/articles`);
-    const articles = await articleRes.json();
-
-    if (mostViewedTools.error || articles.error) {
-        return {
-            notFound: true,
-        };
-    }
+    await queryClient.prefetchQuery('mostViewed', fetchMostViewed);
+    await queryClient.prefetchQuery('articles', fetchArticles);
 
     return {
         props: {
-            mostViewedTools,
-            articles,
+            dehydratedState: dehydrate(queryClient),
         },
     };
 };
 
-export interface HompageProps {
-    mostViewedTools: Tool[];
-    articles: Article[];
-}
-
-const HomePage: FC<HompageProps> = ({ mostViewedTools, articles }) => {
-    // TODO: Handle errors
-    const title = 'Analysis Tools';
-    const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
-
+const HomePage: FC = () => {
     return (
         <>
-            <MainHead title={title} description={description} />
+            <MainHead
+                title={homepageData.meta.title}
+                description={homepageData.meta.description}
+            />
 
             <Navbar />
 
@@ -62,13 +44,13 @@ const HomePage: FC<HompageProps> = ({ mostViewedTools, articles }) => {
             <Wrapper>
                 <Main className="m-b-30">
                     <Sidebar className="bottomSticky">
-                        <BlogPreview articles={articles} />
+                        <BlogPreview />
                         <Newsletter />
                     </Sidebar>
                     <Panel>
                         <PopularToolsByLanguage />
 
-                        <MostViewedTools mostViewedTools={mostViewedTools} />
+                        <MostViewedTools />
                     </Panel>
                 </Main>
             </Wrapper>

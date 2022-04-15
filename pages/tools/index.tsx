@@ -5,12 +5,10 @@ import { SearchProvider } from 'context/SearchProvider';
 
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { LanguageCard, ToolsSidebar, ToolsList } from '@components/tools';
-import {
-    fetchLanguages,
-    fetchToolsDataFromQuery,
-} from '@components/tools/api-utils';
-import { fetchArticles } from '@components/blog/api-utils';
+import { ToolsSidebar, ToolsList } from '@components/tools';
+import { fetchLanguages } from '@components/tools/queries/languages';
+import { fetchToolsDataFromQuery } from '@components/tools/queries/tools';
+import { fetchArticles } from '@components/blog/queries/articles';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     // Create a new QueryClient instance for each page request.

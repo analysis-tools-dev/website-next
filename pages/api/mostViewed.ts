@@ -26,14 +26,16 @@ export default async function handler(
             const voteKey = `toolsyaml${id.toString()}`;
             const voteData = votes[voteKey]?.sum || 0;
 
-            return data[id]
-                ? {
-                    id,
-                    ...data[id],
-                    votes: voteData,
-                    views: Number(tool_stats[id].value),
-                }
-                : null;
+            if (!data[id]) {
+                return null;
+            }
+
+            return {
+                id,
+                ...data[id],
+                votes: voteData,
+                views: Number(tool_stats[id].value),
+            };
         })
         .filter(nonNullable);
     res.status(200).json(mostViewedTools);

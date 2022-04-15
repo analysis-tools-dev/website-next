@@ -5,10 +5,10 @@ import { Heading, Text } from '@components/typography';
 import { LinkButton } from '@components/elements';
 import { Wrapper } from '@components/layout';
 
-// TODO: Add validation and fallback
-import homepageIntro from '../../../data/homepageIntro.json';
+import homepageData from '@appdata/homepage.json';
 
 const Intro: FC = () => {
+    const homepageIntro = homepageData.intro;
     return (
         <Wrapper className={styles.introContainer}>
             <div className={styles.textContainer}>
