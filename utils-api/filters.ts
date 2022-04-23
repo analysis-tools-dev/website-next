@@ -1,10 +1,10 @@
-import type { NextApiRequest } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import { checkArraysIntersect } from 'utils/arrays';
 import type { ToolsApiData } from 'utils/types';
 
-export const filterResults = (tools: ToolsApiData, req: NextApiRequest) => {
+export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
     // Filters to be checked
-    const { languages, categories, types, licenses } = req.query;
+    const { languages, categories, types, licenses } = query;
 
     const keys = Object.keys(tools);
     const result = [];

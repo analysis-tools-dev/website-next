@@ -9,6 +9,7 @@ export enum APIPaths {
     TAGS = 'tags/other',
     LANGUAGE_TAGS = 'tags/languages',
     MOST_VIEWED = 'mostViewed',
+    POPULAR_LANGUAGES = 'popularLanguages',
 }
 
 export const getApiURL = (pathName?: string) => {

@@ -42,3 +42,10 @@ export interface Tool {
     documentation?: string;
     repositoryData?: RepositoryData;
 }
+
+export interface ToolsByLanguage {
+    [key: string]: {
+        views: number;
+        tools: Tool[];
+    };
+}

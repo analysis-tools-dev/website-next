@@ -15,7 +15,7 @@ export default async function handler(
     }
 
     const votes = await getVotes();
-    const filteredData = filterResults(data, req);
+    const filteredData = filterResults(data, req.query);
 
     const toolData = filteredData.map((tool) => {
         const key = `toolsyaml${tool.id.toString()}`;

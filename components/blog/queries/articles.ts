@@ -1,17 +1,54 @@
-import { useQuery } from 'react-query';
+import { type QueryClient, useQuery } from 'react-query';
 import { type Article } from 'utils/types';
 import { APIPaths, getApiURL } from 'utils/urls';
 
-export function useArticlesQuery() {
-    return useQuery('articles', fetchArticles);
+/**
+ * Query key used for caching
+ *
+ * @see https://react-query.tanstack.com/guides/query-keys
+ */
+export const ARTICLES_PREFETCH_KEY = 'articles';
+
+/**
+ * Prepare and prefetch data on server-side, to be ready on client page render
+ * @desc Only usable SERVERSIDE!
+ * @param {QueryClient} queryClient - React-Query client object
+ *
+ * @see https://react-query.tanstack.com/guides/prefetching#_top
+ */
+export async function prefetchArticles(queryClient: QueryClient) {
+    return await queryClient.prefetchQuery(
+        ARTICLES_PREFETCH_KEY,
+        fetchArticles,
+    );
 }
 
+/**
+ * Fetches data from API using `useQuery` (react-query) or cache/prefecth data if it exists
+ *
+ * @see https://react-query.tanstack.com/guides/queries
+ */
+export function useArticlesQuery() {
+    return useQuery(ARTICLES_PREFETCH_KEY, fetchArticles);
+}
+
+/**
+ * Return count of data fetched from API using `useQuery` (react-query) or cache/prefecth data if it exists
+ *
+ * @see https://react-query.tanstack.com/guides/queries
+ */
 export function useArticleQueryCount() {
-    return useQuery('articles', fetchArticles, {
+    return useQuery(ARTICLES_PREFETCH_KEY, fetchArticles, {
         select: (articles) => articles.length,
     });
 }
 
+/**
+ * Call API and return Promise to resolve `JSON` response
+ * @desc Used as needed by `react-query` functions
+ *
+ * @see https://react-query.tanstack.com/guides/queries
+ */
 export function fetchArticles(): Promise<Article[]> {
     const articlesApiURL = getApiURL(APIPaths.BLOG);
     return fetch(articlesApiURL).then((response) => response.json());

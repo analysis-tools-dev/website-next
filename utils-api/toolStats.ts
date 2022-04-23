@@ -1,15 +1,16 @@
 import NodeCache from 'node-cache';
 import { Octokit } from '@octokit/core';
+import { ToolsByLanguage } from '@components/tools';
 
 const cacheData = new NodeCache();
 
-export async function getStats(path: string) {
+export async function getStats(file: string) {
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
     });
 
-    const cacheKey = 'tool_stats';
+    const cacheKey = `${file}_stats`;
     try {
         let data: any = cacheData.get(cacheKey);
         if (!data) {
@@ -18,11 +19,11 @@ export async function getStats(path: string) {
             );
             // Call API and refresh cache
             const response = await octokit.request(
-                'GET /repos/{owner}/{repo}/contents/{path}',
+                'GET /repos/{owner}/{repo}/contents/data/api/stats/{file}.json',
                 {
                     owner: 'analysis-tools-dev',
                     repo: 'static-analysis',
-                    path,
+                    file,
                     headers: {
                         accept: 'application/vnd.github.VERSION.raw',
                     },
@@ -44,9 +45,19 @@ export async function getStats(path: string) {
 }
 
 export async function getToolStats() {
-    return getStats('data/api/stats/tools.json');
+    return await getStats('tools');
 }
 
 export async function getLanguageStats() {
-    return getStats('data/api/stats/tags.json');
+    const stats = await getStats('tags');
+    const languages: ToolsByLanguage = {};
+    Object.keys(stats).forEach((key) => {
+        const language = key.split('/tag/').join('');
+        languages[language] = {
+            views: stats[key],
+            tools: [],
+        };
+    });
+
+    return languages;
 }

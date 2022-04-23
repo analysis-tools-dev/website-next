@@ -8,8 +8,17 @@ import { type Article, type MarkdownDocument } from 'utils/types';
 
 const cacheData = new NodeCache();
 
+/**
+ * Local file path for blog Posts markdown content
+ */
 export const POSTS_PATH = join(process.cwd(), 'data', 'blog');
 
+/**
+ * Generates a summary from post markdown content
+ * @desc Only usable SERVER-SIDE!
+ * @param {string} postContent - The title of the book.
+ * @returns {string} First paragraph of content body
+ */
 export const getSummaryFromContent = (postContent: string) => {
     if (!postContent || postContent === '') {
         return '';
@@ -28,6 +37,12 @@ export const getSummaryFromContent = (postContent: string) => {
     return '';
 };
 
+/**
+ * Reads and parses markdown file,to return usable `Article` object
+ * @desc Only usable SERVERSIDE!
+ * @param {string} filename - Markdown file name (with extension)
+ * @returns {Article} Article object with parsed frontmatter and rendered HTML
+ */
 export const getArticleFromFilename = (filename: string): Article => {
     const postFilePath = join(POSTS_PATH, filename);
     const fileContents = readFileSync(postFilePath);
@@ -48,6 +63,9 @@ export const getArticleFromFilename = (filename: string): Article => {
     };
 };
 
+/**
+ * //TODO: Review function and add description here
+ */
 export const getParsedFileContentBySlug = (slug: string): MarkdownDocument => {
     const postFilePath = join(POSTS_PATH, `${slug}.md`);
     const fileContents = readFileSync(postFilePath);
@@ -60,6 +78,11 @@ export const getParsedFileContentBySlug = (slug: string): MarkdownDocument => {
     };
 };
 
+/**
+ * Parses markdown content to HTML
+ * @param {string} markdown - Markdown file contents
+ * @returns {string} Parsed HTML contents
+ */
 export const markdownToHtml = (markdown: string) => {
     const html = marked.parse(markdown);
     return html ? html : '';

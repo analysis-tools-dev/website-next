@@ -10,8 +10,9 @@ import {
 } from '@components/homepage';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
-import { fetchArticles } from '@components/blog/queries/articles';
-import { fetchMostViewed } from '@components/homepage/queries/mostViewed';
+import { prefetchArticles } from '@components/blog/queries/articles';
+import { prefetchMostViewed } from '@components/homepage/queries/mostViewed';
+import { prefetchPopularLanguages } from '@components/homepage/queries/popularLanguages';
 
 import homepageData from '@appdata/homepage.json';
 
@@ -20,8 +21,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
     // This ensures that data is not shared between users and requests.
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery('mostViewed', fetchMostViewed);
-    await queryClient.prefetchQuery('articles', fetchArticles);
+    await prefetchMostViewed(queryClient);
+    await prefetchPopularLanguages(queryClient);
+    await prefetchArticles(queryClient);
 
     return {
         props: {

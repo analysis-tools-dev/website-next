@@ -1,6 +1,6 @@
-export { default as MainHead } from './MainHead/MainHead';
-export { default as MetaTags } from './MetaTags/MetaTags';
-export { default as Navbar } from './Navbar/Navbar';
-export { default as Footer } from './Footer/Footer';
-export { default as SponsorCard } from './SponsorCard/SponsorCard';
-export { default as ShareBtns } from './ShareBtns/ShareBtns';
+export * from './MainHead';
+export * from './MetaTags';
+export * from './Navbar';
+export * from './Footer';
+export * from './SponsorCard';
+export * from './ShareBtns';

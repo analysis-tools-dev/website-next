@@ -1,6 +1,6 @@
-export { default as Card } from './Card/Card';
-export { default as Main } from './Main/Main';
-export { default as Panel } from './Panel/Panel';
-export { default as Sidebar } from './Sidebar/Sidebar';
-export { default as Wrapper } from './Wrapper/Wrapper';
-export { default as BlogPostLayout } from './BlogPostLayout/BlogPostLayout';
+export * from './BlogPostLayout';
+export * from './Card';
+export * from './Main';
+export * from './Panel';
+export * from './Sidebar';
+export * from './Wrapper';
