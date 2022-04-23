@@ -1,13 +1,13 @@
 import { FC } from 'react';
+import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import { dehydrate, QueryClient } from 'react-query';
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { GetServerSideProps } from 'next';
 import { ToolInfoCard, ToolInfoSidebar, ToolsList } from '@components/tools';
-import { dehydrate, QueryClient } from 'react-query';
-import { fetchArticles } from '@components/blog/queries/articles';
-import { fetchToolData, useToolQuery } from '@components/tools/queries/tool';
+import { prefetchArticles } from '@components/blog/queries';
+import { prefetchTool, useToolQuery } from '@components/tools/queries';
 import { LoadingCogs } from '@components/elements';
-import { useRouter } from 'next/router';
 
 // TODO: Add fallback pages instead of 404, maybe says tool not found and asks user if they would like to add it?
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -21,12 +21,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     // This ensures that data is not shared between users and requests.
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery(`tool-${slug.toString()}`, () =>
-        fetchToolData(slug.toString()),
-    );
-    await queryClient.prefetchQuery('articles', fetchArticles);
-
     // TODO: Check prefetching alternateTools (would need current tool data)
+    await prefetchTool(queryClient, slug.toString());
+    await prefetchArticles(queryClient);
+
     return {
         props: {
             dehydratedState: dehydrate(queryClient),

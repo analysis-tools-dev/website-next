@@ -6,20 +6,18 @@ import { SearchProvider } from 'context/SearchProvider';
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { ToolsSidebar, ToolsList } from '@components/tools';
-import { fetchLanguages } from '@components/tools/queries/languages';
-import { fetchToolsDataFromQuery } from '@components/tools/queries/tools';
-import { fetchArticles } from '@components/blog/queries/articles';
+import { prefetchLanguages } from '@components/tools/queries/languages';
+import { prefetchTools } from '@components/tools/queries';
+import { prefetchArticles } from '@components/blog/queries/articles';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery('tools', () =>
-        fetchToolsDataFromQuery(ctx.query),
-    );
-    await queryClient.prefetchQuery('languages', fetchLanguages);
-    await queryClient.prefetchQuery('articles', fetchArticles);
+    await prefetchTools(queryClient, ctx.query);
+    await prefetchLanguages(queryClient);
+    await prefetchArticles(queryClient);
 
     return {
         props: {
