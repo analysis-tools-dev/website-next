@@ -1,0 +1,42 @@
+[
+    {
+        "q": "Who uses static code analysis?",
+        "a": "Static code analysis is a process where the code of a software program is analyzed without running it. Static code analysis can be used to find errors in the source code and potential security vulnerabilities. Static code analysis is often used in conjunction with dynamic testing, which tests the software program while it is running. Static code analysis can be helpful for developers because it can help them find errors in their source code before they run the program. This can save time and money by preventing or fixing errors early on in the development process. Static code analysis can also help developers learn new programming languages and techniques. Static Code Analysis is also very important for organizations who release software products to customers . By using static analyzers organizations will have assurance that their product works as expected , have less bugs that need to be fixed after release ( which could cause embarrassment ) and ultimately make more money due to satisfied customers ."
+    },
+    {
+        "q": "What are the limits of static code analysis?",
+        "a": "One limitation of static code analysis is that it cannot identify all errors in a program. In particular, it cannot detect runtime errors, which occur when the software is actually running. Another limitation is that static analysis can only analyze the code as written; it cannot take into account changes that may be made later in development or in production. Despite these limitations, static code analysis remains an important tool for identifying and correcting coding errors early in development. By catching problems before they have a chance to cause problems downstream, static analysis can help reduce development time and improve overall quality"
+    },
+    {
+        "q": "What are some alternative to static analysis?",
+        "a": "1) Fuzzing tools: These tools use random input data to test the robustness of software applications. They can help identify coding issues and security vulnerabilities.\n2) Source code management (SCM) systems: SCMs allow developers to track changes made to source code files, as well as merge changes from different developers into a single file. This helps ensure that all changes are accounted for and tracked, making it easier to find any potential problems introduced by those changes.\n 3) Automated testing tools: Automated testing tools help automate the testing process, making it faster and easier to run tests on software applications. This can help speed up the development process while still ensuring that applications are tested thoroughly before being released into production"
+    },
+    {
+        "q": "What are some popular static code analysis tools?",
+        "a": "There are many popular static code analysis tools available today. Some of the most popular ones include:\n1. PVS-Studio: This is a Russian tool that is used to find errors in C, C++, and C# code. It has a very user-friendly interface and can be used to detect both common and rare errors in code.\n2. Coverity Scan: This is an American tool that is used to find defects in source code. It uses static analysis as well as machine learning algorithms to find defects quickly and accurately.\n3 CodeSonar: This is a German tool that helps developers identify coding problems early in the software development life cycle. It does this by scanning source files for potential problems and providing feedback on how best to fix them"
+    },
+    {
+        "q": "How much do static analysis tools cost?",
+        "a": "Static analysis tools are an important part of the software development process, but they can be expensive. It's important to weigh the benefits of using a static analysis tool against the cost to make sure that you're getting the most value for your money.\nThe cost of a static analysis tool can vary depending on the features and capabilities that you need. Some tools are free, while others can be quite expensive. It's important to find a tool that meets your needs without breaking your budget.\nThe benefits of using a static analysis tool far outweigh the costs, however. Static analysis tools help you find and fix bugs in your code before they become problems in production. They also help you improve the quality and reliability of your codebase, making it easier to maintain over time.\nIf you're considering using a static analysis tool, make sure to weigh the costs against the benefits to see if it's right for you. In most cases, we believe it is worth investing in these tools as they provide significant value for teams large and small."
+    },
+    {
+        "q": "How to recognize good static analysis tools?",
+        "a": "The best way to find a good static analysis tool is to ask around. Talk to other developers who have used different tools and get their opinions on which ones worked best for them. Another great way to find a good tool is by reading reviews online. Look for reviews from people who have actually used the tool, not just from people who work for the company that makes the tool.\nWhen evaluating a static analysis tool, there are several things you should consider: Does it catch errors that other tools don't? Is it easy to use? Does it conform to your organization's coding standards? How much does it cost? And finally, how well does it integrate with your development environment?\nUltimately, the best static analysis tool is the one that works best for you and meets your needs as a developer. So don't be afraid to try out different tools until you find one that fits"
+    },
+    {
+        "q": "What is OWASP?",
+        "a": "Owasp is an international, non-profit organization focused on improving the security of software. Owasp provides tools, documentation and resources to help organizations secure their web applications. The owasp top 10 project is a list of the most common attacks against web applications."
+    },
+    {
+        "q": "What is dynamic code analysis?",
+        "a": "Dynamic code analysis is the process of examining a computer program while it is running. This type of analysis can be used to find errors in the code, or to determine how the program will behave when it is executed. Dynamic code analysis can also be used to identify potential security vulnerabilities in a program."
+    },
+    {
+        "q": "When to use dynamic code analysis?",
+        "a": "There are several reasons why you might want to use dynamic code analysis:\n 1) To find errors that are not easily found with static code analysis.\n 2) To find runtime errors that may not be found with static code analysis.\n 3) To verify the correctness of software after making changes."
+    },
+    {
+        "q": "How can I contribute to analysis-tools.dev?",
+        "a": "Contributing to an open source project can seem like a daunting task, but it's easier than you might think! By following a few simple steps, you can become a valuable contributor to any project.\nTake some time to familiarize yourself with our contributing guidlines at https://github.com/analysis-tools-dev/static-analysis/blob/master/CONTRIBUTING.md.\nNext, start by making small contributions. These could be bug fixes, upates to the description of the tools, or even just documentation updates. This will help get you familiar with the codebase and the development process of the project.\nOnce you've made some small contributions, start working on larger tasks such as fixing major bugs or adding new features. By taking on bigger tasks,you'll be able to make more significant contributions to the project!"
+    }
+]
