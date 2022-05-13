@@ -8,7 +8,7 @@ export const TYPE_OPTIONS = [
         name: 'Service',
     },
     {
-        tag: 'plugin',
+        tag: 'ide-plugin',
         name: 'IDE-Plugin',
     },
 ];
