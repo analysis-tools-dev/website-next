@@ -9,11 +9,12 @@ import { ToolsSidebar, ToolsList } from '@components/tools';
 import { prefetchLanguages } from '@components/tools/queries/languages';
 import { prefetchTools } from '@components/tools/queries';
 import { prefetchArticles } from '@components/blog/queries/articles';
+import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
 
     await prefetchTools(queryClient, ctx.query);
     await prefetchLanguages(queryClient);

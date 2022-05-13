@@ -8,6 +8,7 @@ import { ToolInfoCard, ToolInfoSidebar, ToolsList } from '@components/tools';
 import { prefetchArticles } from '@components/blog/queries';
 import { prefetchTool, useToolQuery } from '@components/tools/queries';
 import { LoadingCogs } from '@components/elements';
+import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 
 // TODO: Add fallback pages instead of 404, maybe says tool not found and asks user if they would like to add it?
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -19,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
 
     // TODO: Check prefetching alternateTools (would need current tool data)
     await prefetchTool(queryClient, slug.toString());

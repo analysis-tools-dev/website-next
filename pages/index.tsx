@@ -15,11 +15,12 @@ import { prefetchMostViewed } from '@components/homepage/queries/mostViewed';
 import { prefetchPopularLanguages } from '@components/homepage/queries/popularLanguages';
 
 import homepageData from '@appdata/homepage.json';
+import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
 
     await prefetchMostViewed(queryClient);
     await prefetchPopularLanguages(queryClient);
@@ -51,7 +52,6 @@ const HomePage: FC = () => {
                     </Sidebar>
                     <Panel>
                         <PopularToolsByLanguage />
-
                         <MostViewedTools />
                     </Panel>
                 </Main>
