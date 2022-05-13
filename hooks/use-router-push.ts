@@ -13,3 +13,15 @@ export const useRouterPush = (): NextRouter['push'] => {
     });
     return push;
 };
+
+export const useRouterReplace = (): NextRouter['replace'] => {
+    const router = useRouter();
+    const routerRef = useRef(router);
+
+    routerRef.current = router;
+
+    const [{ replace }] = useState<Pick<NextRouter, 'replace'>>({
+        replace: (path) => routerRef.current.replace(path),
+    });
+    return replace;
+};

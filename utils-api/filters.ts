@@ -1,6 +1,7 @@
+import { Tool } from '@components/tools';
 import { ParsedUrlQuery } from 'querystring';
 import { checkArraysIntersect } from 'utils/arrays';
-import type { ToolsApiData } from 'utils/types';
+import type { ApiTool, ToolsApiData } from 'utils/types';
 
 export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
     // Filters to be checked
@@ -13,7 +14,7 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
         const tool = tools[key];
         if (languages) {
             if (Array.isArray(languages)) {
-                const isMultiLanguage = tool.languages.length >= 2;
+                const isMultiLanguage = !isSingleLanguageTool(tool);
                 const toolLanguagesMatch = checkArraysIntersect(
                     tool.languages,
                     languages,
@@ -22,9 +23,7 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
                     continue;
                 }
             } else {
-                const isSingleLanguage = tool.languages.length === 1;
-                const toolLanguageMatch = tool.languages.includes(languages);
-                if (!(isSingleLanguage && toolLanguageMatch)) {
+                if (!isToolLanguageSpecific(tool, languages)) {
                     continue;
                 }
             }
@@ -68,4 +67,18 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
     }
 
     return result;
+};
+
+export const isToolLanguageSpecific = (
+    tool: Tool | ApiTool,
+    languages: string,
+) => {
+    const isSingleLanguage = isSingleLanguageTool(tool);
+    const toolLanguageMatch = tool.languages.includes(languages);
+
+    return isSingleLanguage && toolLanguageMatch;
+};
+
+export const isSingleLanguageTool = (tool: Tool | ApiTool) => {
+    return tool.languages.length <= 2;
 };
