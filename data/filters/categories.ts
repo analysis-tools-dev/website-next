@@ -1,10 +1,10 @@
 export const CATEGORY_OPTIONS = [
     {
-        tag: 'formatters',
-        name: 'Formatters',
+        tag: 'formatter',
+        name: 'Formatter',
     },
     {
-        tag: 'linters',
-        name: 'Linters',
+        tag: 'linter',
+        name: 'Linter',
     },
 ];

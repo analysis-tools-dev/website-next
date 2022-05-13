@@ -27,10 +27,11 @@ export const getFilterAsArray = (search: SearchState, key: string) => {
     if (!value) {
         return [];
     }
+
     if (Array.isArray(value)) {
         return value;
     }
-    return [value];
+    return value.split(',');
 };
 
 export const getParamAsArray = (query: ParsedUrlQuery, key: string) => {
