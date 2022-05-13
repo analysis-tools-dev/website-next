@@ -14,11 +14,12 @@ export default async function handler(
 ) {
     const data = await getTools();
     const tool_stats = await getToolStats();
-    if (!data || !tool_stats) {
+    const votes = await getVotes();
+
+    if (!data || !tool_stats || !votes) {
         res.status(500).json({ error: 'Failed to load most viewed tool data' });
         return res;
     }
-    const votes = await getVotes();
 
     const mostViewedToolIds = Object.keys(tool_stats);
     const mostViewedTools = mostViewedToolIds
@@ -34,7 +35,7 @@ export default async function handler(
                 id,
                 ...data[id],
                 votes: voteData,
-                views: Number(tool_stats[id].value),
+                views: Number(tool_stats[id]),
             };
         })
         .filter(nonNullable);
