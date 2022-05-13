@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 import { createContext, FC, useContext, useState } from 'react';
 
+export type SearchFilter = 'languages' | 'categories' | 'types' | 'licenses';
 export interface SearchState {
-    languages?: string[];
+    languages?: string[] | string;
     categories?: string[];
     types?: string[];
     licenses?: string[];

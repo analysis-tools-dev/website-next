@@ -1,23 +1,18 @@
 import { FC } from 'react';
-import { Dropdown, PanelHeader, LoadingCogs } from '@components/elements';
-import { type Tool } from '@components/tools/types';
+import {
+    Dropdown,
+    PanelHeader,
+    LoadingCogs,
+    SuggestLink,
+} from '@components/elements';
 import { ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
 import { SearchState, useSearchSate } from 'context/SearchProvider';
+import { sortByVote } from 'utils/votes';
 
 interface ToolsListProps {
     heading: string;
-    overrideSearch?: SearchState;
-}
-
-function compare(a: Tool, b: Tool) {
-    if (a.votes > b.votes) {
-        return -1;
-    }
-    if (a.votes < b.votes) {
-        return 1;
-    }
-    return 0;
+    overrideSearch?: SearchState; //FIXME: Change to be filters: Language, ToolID,etc..
 }
 
 const ToolsList: FC<ToolsListProps> = ({ heading, overrideSearch }) => {
@@ -34,7 +29,7 @@ const ToolsList: FC<ToolsListProps> = ({ heading, overrideSearch }) => {
     if (toolsResult.error || !toolsResult.data) {
         return null;
     }
-    const sortedTools = toolsResult.data.sort(compare);
+    const sortedTools = toolsResult.data.sort(sortByVote);
     return (
         <>
             <PanelHeader level={3} text={heading}>
@@ -47,6 +42,7 @@ const ToolsList: FC<ToolsListProps> = ({ heading, overrideSearch }) => {
                     <ToolCard key={index} tool={tool} />
                 ))}
             </div>
+            <SuggestLink />
         </>
     );
 };

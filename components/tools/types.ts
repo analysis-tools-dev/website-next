@@ -46,6 +46,7 @@ export interface Tool {
 export interface ToolsByLanguage {
     [key: string]: {
         views: number;
-        tools: Tool[];
+        formatters: Tool[];
+        linters: Tool[];
     };
 }

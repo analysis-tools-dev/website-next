@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import { LinkButton, PanelHeader } from '@components/elements';
+import { LinkButton, LoadingCogs, PanelHeader } from '@components/elements';
 import { LanguageTopToolsWidget } from '@components/widgets';
 import styles from './PopularToolsByLanguage.module.css';
 
-import topToolsByLanguage from '../../../data/topToolsByLanguage.json';
+import { usePopularLanguagesQuery } from '../queries';
 
 interface PopularToolsByLanguageProps {
     limit?: number;
@@ -13,24 +13,39 @@ interface PopularToolsByLanguageProps {
 const PopularToolsByLanguage: FC<PopularToolsByLanguageProps> = ({
     limit = 5,
 }) => {
+    const toolsByTopLanguages = usePopularLanguagesQuery();
+
+    if (
+        toolsByTopLanguages.isLoading ||
+        toolsByTopLanguages.isFetching ||
+        toolsByTopLanguages.isRefetching
+    ) {
+        return <LoadingCogs />;
+    }
+    if (toolsByTopLanguages.error || !toolsByTopLanguages.data) {
+        return null;
+    }
+
+    const languages = Object.keys(toolsByTopLanguages.data);
+    const tools = toolsByTopLanguages.data;
     return (
         <>
             <PanelHeader
                 level={2}
                 text="Popular Static Analysis Tools by Language">
-                {topToolsByLanguage.length > limit ? (
+                {languages.length > limit ? (
                     <Link href="/languages">
-                        {`Show all (${topToolsByLanguage.length})`}
+                        {`Show all (${languages.length})`}
                     </Link>
                 ) : null}
             </PanelHeader>
 
-            {topToolsByLanguage.slice(0, limit).map((entry, index) => (
+            {languages.slice(0, limit).map((language, index) => (
                 <LanguageTopToolsWidget
                     key={index}
-                    language={entry.language}
-                    formatters={entry.topFormatters}
-                    linters={entry.topLinters}
+                    language={language}
+                    formatters={tools[language]?.formatters || []}
+                    linters={tools[language]?.linters || []}
                 />
             ))}
 

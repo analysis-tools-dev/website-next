@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import { LinkButton, PanelHeader } from '@components/elements';
+import { PanelHeader, SuggestLink } from '@components/elements';
 import { type Tool } from '@components/tools';
 import styles from './ToolsListWidget.module.css';
 import ToolsListEntry from './ToolsListEntry/ToolsListEntry';
@@ -32,13 +32,7 @@ const ToolsListWidget: FC<ToolsListWidgetProps> = ({
             {tools.slice(0, limit).map((tool, index) => (
                 <ToolsListEntry key={index} tool={tool} />
             ))}
-            {tools.length < limit ? (
-                <LinkButton
-                    href="/suggest"
-                    label="Suggest Tool"
-                    className={styles.suggestBtn}
-                />
-            ) : null}
+            {tools.length < limit ? <SuggestLink /> : null}
         </div>
     );
 };

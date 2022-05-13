@@ -8,7 +8,7 @@ import { type Language, type Tool } from '@components/tools/types';
 import styles from './LanguageTopToolsWidget.module.css';
 
 export interface LanguageTopToolsWidgetProps {
-    language: Language;
+    language: string;
     formatters: Tool[];
     linters: Tool[];
 }
@@ -17,31 +17,34 @@ const LanguageTopToolsWidget: FC<LanguageTopToolsWidgetProps> = ({
     formatters,
     linters,
 }) => {
+    const href = `/tools?languages=${language}`;
+    const logo = `/assets/icons/languages/${language}.svg`;
+
     return (
         <Card className={styles.languageCardWrapper}>
-            <Link href={language.href}>
+            <Link href={href}>
                 <a className={styles.languageLink}>
                     <Image
                         height="50px"
                         width="50px"
-                        src={language.logo}
-                        alt={language.name}
+                        src={logo}
+                        alt={language}
                     />
                     <Heading level={2} className={styles.languageName}>
-                        {language.name} static analysis tools
+                        {language} static analysis tools
                     </Heading>
                 </a>
             </Link>
 
             <div className={styles.toolListWrapper}>
                 <ToolsListWidget
-                    title={`Most popular ${language.name} Formatters`}
+                    title={`Most popular ${language} Formatters`}
                     href="/tools"
                     tools={formatters}
                 />
 
                 <ToolsListWidget
-                    title={`Most popular ${language.name} Linters`}
+                    title={`Most popular ${language} Linters`}
                     href="/tools"
                     tools={linters}
                 />

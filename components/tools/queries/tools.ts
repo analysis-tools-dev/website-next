@@ -63,6 +63,7 @@ export function useToolsQueryCount(search: SearchState) {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useAlternateToolsQuery(search: SearchState) {
+    //TODO: Filter out current Tool
     // FIXME: Key should contain some SearchState data to avoid cache issues
     return useQuery(ALTERNATE_TOOLS_PREFETCH_KEY, () =>
         fetchToolsDataFromSearch(search),

@@ -6,10 +6,21 @@ import { Heading } from '@components/typography';
 
 import styles from './FilterCard.module.css';
 import { getFilterAsArray, objectToQueryString } from 'utils/query';
-import { useRouterPush } from 'hooks';
-import { useSearchSate } from 'context/SearchProvider';
+import { useRouterPush, useRouterReplace } from 'hooks';
+import {
+    SearchFilter,
+    SearchState,
+    useSearchSate,
+} from 'context/SearchProvider';
+import {
+    changeQuery,
+    isChecked,
+    isSelectedFilter,
+    resetQuery,
+    sortByChecked,
+} from './utils';
 
-interface FilterOption {
+export interface FilterOption {
     tag: string;
     name: string;
     tag_type?: string;
@@ -18,18 +29,18 @@ interface FilterOption {
 
 export interface FilterCardProps {
     heading: string;
-    param: string;
+    filter: string;
     options: FilterOption[];
     limit?: number;
     router: Router;
 }
 
+// TODO: Add Toggle Deprecated (default off)
 // TODO: Add click functionality and debounce
 // TODO: Clicking All resets other checkboxes
-// TODO: Clicking Show all removes slice
 const FilterCard: FC<FilterCardProps> = ({
     heading,
-    param,
+    filter,
     options,
     limit = 10,
 }) => {
@@ -37,6 +48,7 @@ const FilterCard: FC<FilterCardProps> = ({
     // const [query, setQuery] = useState(router.query);
     const routerPush = useRouterPush();
 
+    const shouldShowToggle = options.length > limit;
     const [listLimit, setLimit] = useState(limit);
     const toggleAll = () => {
         if (listLimit === 999) {
@@ -45,23 +57,7 @@ const FilterCard: FC<FilterCardProps> = ({
             setLimit(999);
         }
     };
-    const shouldShowToggle = options.length > limit;
 
-    const changeQuery = (val: string) => (e: any) => {
-        const key = e.target.dataset.filter;
-        const currValue = getFilterAsArray(search, key);
-        if (currValue.length) {
-            const index = currValue.indexOf(val);
-            if (index > -1) {
-                currValue.splice(index, 1);
-            } else {
-                currValue.push(val);
-            }
-        } else {
-            currValue.push(val);
-        }
-        setSearch({ ...search, [key]: currValue?.join(',') });
-    };
     useEffect(() => {
         if (Object.keys(search).length) {
             routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
@@ -70,10 +66,10 @@ const FilterCard: FC<FilterCardProps> = ({
         }
     }, [search, routerPush]);
 
-    const isChecked = (key: string, value: string) => {
-        const param = getFilterAsArray(search, key);
-        return param.includes(value) ? true : false;
-    };
+    if (options.length > limit) {
+        options.sort(sortByChecked(filter, search));
+    }
+
     return (
         <Card className="m-b-30">
             <Heading level={3} className="m-b-16 font-bold">
@@ -85,8 +81,9 @@ const FilterCard: FC<FilterCardProps> = ({
                     <Input
                         type="checkbox"
                         id="checkbox_all"
-                        data-filter={param}
-                        onChange={(e) => console.log(e)}
+                        data-filter={filter}
+                        checked={!isSelectedFilter(filter, search)}
+                        onChange={resetQuery(search, setSearch)}
                     />
                     <label
                         className={styles.checkboxLabel}
@@ -100,9 +97,13 @@ const FilterCard: FC<FilterCardProps> = ({
                             type="checkbox"
                             id={`checkbox_${option.tag}`}
                             value={option.tag}
-                            data-filter={param}
-                            checked={isChecked(param, option.tag)}
-                            onChange={changeQuery(option.tag)}
+                            data-filter={filter}
+                            checked={isChecked(filter, option.tag, search)}
+                            onChange={changeQuery(
+                                option.tag,
+                                search,
+                                setSearch,
+                            )}
                         />
                         <label
                             className={styles.checkboxLabel}

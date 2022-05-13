@@ -1,6 +1,7 @@
 import NodeCache from 'node-cache';
 import { getFirestore } from 'firebase-admin/firestore';
 import { initFirebase } from './firebase';
+import { isVotesApiData } from 'utils/type-guards';
 
 const cacheData = new NodeCache();
 
@@ -47,11 +48,15 @@ export async function getVotes() {
                 console.error(`ERROR: Failed to load votes data`);
             }
         }
-        // TODO: Add typeguard
+        if (!isVotesApiData(data)) {
+            cacheData.del(cacheKey);
+            console.error('Votes TypeError');
+            return null;
+        }
         return data;
     } catch (e) {
         console.error(e);
-        return {};
+        return null;
     }
 }
 

@@ -1,6 +1,11 @@
-import { SearchState } from 'context/SearchProvider';
-import { ParsedUrlQuery } from 'querystring';
-import { ApiTag, Article, TagsApiData, ToolsApiData } from './types';
+import {
+    ApiTag,
+    Article,
+    StatsApiData,
+    TagsApiData,
+    ToolsApiData,
+    VotesApiData,
+} from './types';
 
 export const isToolsApiData = (data: unknown): data is ToolsApiData => {
     if (!data || typeof data !== 'object') {
@@ -61,6 +66,37 @@ export const isArticlesApiData = (data: unknown): data is Article[] => {
             (entry as Article).html !== undefined &&
             (entry as Article).summary !== undefined;
 
+        if (!res) {
+            return false;
+        }
+    }
+    return true;
+};
+
+export const isStatsApiData = (data: unknown): data is StatsApiData => {
+    if (!data || typeof data !== 'object' || !Object.keys(data).length) {
+        return false;
+    }
+
+    for (const key of Object.keys(data)) {
+        const res = (data as StatsApiData)[key] !== undefined;
+        if (!res) {
+            return false;
+        }
+    }
+    return true;
+};
+
+export const isVotesApiData = (data: unknown): data is VotesApiData => {
+    if (!data || typeof data !== 'object' || !Object.keys(data).length) {
+        return false;
+    }
+
+    for (const key of Object.keys(data)) {
+        const res =
+            (data as VotesApiData)[key].sum !== undefined &&
+            (data as VotesApiData)[key].upVotes !== undefined &&
+            (data as VotesApiData)[key].downVotes !== undefined;
         if (!res) {
             return false;
         }

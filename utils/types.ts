@@ -73,3 +73,15 @@ export interface LanguageTag {
     tag: string;
     tag_type: string;
 }
+
+export interface StatsApiData {
+    [key: string]: string;
+}
+
+export interface VotesApiData {
+    [key: string]: {
+        sum: number;
+        downVotes: number;
+        upVotes: number;
+    };
+}
