@@ -9,3 +9,4 @@ export * from './LoadingCogs';
 export * from './Newsletter';
 export * from './PanelHeader';
 export * from './TagList';
+export * from './SuggestLink';
