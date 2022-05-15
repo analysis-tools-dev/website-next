@@ -12,6 +12,11 @@ permissions:
   contents: "read"
   id-token: "write"
 
+# Restart the current execution to favor a new one.
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
