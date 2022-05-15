@@ -43,3 +43,17 @@ jobs:
       - name: "Push docker image"
         run: |
           docker push ${IMAGE_NAME}
+
+      - name: deploy
+        uses: pulumi/actions@v3
+        id: pulumi
+        env:
+          # TODO: Create a password for pulum stack during project bootstrap
+          PULUMI_CONFIG_PASSPHRASE: "${{ secrets.PULUMI_SECRET }}"
+        with:
+          command: up
+          work-dir: ./pulumi
+          cloud-url: gs://analysis-tools-dev-pulumi
+          # TODO: Fix the branch name
+          stack-name: prod
+          refresh: true
