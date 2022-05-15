@@ -44,6 +44,10 @@ jobs:
         run: |
           docker push ${IMAGE_NAME}
 
+      - name: install pulumi sdk
+        run: |
+          cd pulumi && npm install
+
       - name: deploy
         uses: pulumi/actions@v3
         id: pulumi
