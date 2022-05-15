@@ -5,19 +5,21 @@ on:
       - main
   pull_request_target:
 
+permissions:
+  contents: "read"
+  id-token: "write"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - id: "auth"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v0"
+        with:
+          workload_identity_provider: "projects/84699750544/locations/global/workloadIdentityPools/github/providers/github"
+          service_account: "github-actions@analysis-tools-dev.iam.gserviceaccount.com"
       - run: |
           npm install
           npm run build
-      - uses: amondnet/vercel-action@v20 #deploy
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-args: '--prod'
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
-          scope: analysis-tools-dev
