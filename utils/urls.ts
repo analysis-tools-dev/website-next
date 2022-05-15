@@ -1,5 +1,8 @@
 import { SearchState } from 'context/SearchProvider';
 import { objectToQueryString } from 'utils/query';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
 
 export enum APIPaths {
     TOOLS = 'tools',
@@ -13,10 +16,7 @@ export enum APIPaths {
 }
 
 export const getApiURL = (pathName?: string) => {
-    let baseApiUrl = `https://${process.env.NEXT_PUBLIC_HOST}/api`;
-    if (process.env.NODE_ENV === 'development') {
-        baseApiUrl = `http://${process.env.NEXT_PUBLIC_HOST}/api`;
-    }
+    const baseApiUrl = `${publicRuntimeConfig.publicHost}/api`;
 
     if (pathName && pathName !== '') {
         return `${baseApiUrl}/${pathName}`;

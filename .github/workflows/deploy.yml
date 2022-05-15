@@ -5,6 +5,9 @@ on:
       - main
   pull_request_target:
 
+env:
+  IMAGE_NAME: us-central1-docker.pkg.dev/analysis-tools-dev/analysis-tools/website:${{ github.sha }}
+
 permissions:
   contents: "read"
   id-token: "write"
@@ -20,6 +23,9 @@ jobs:
         with:
           workload_identity_provider: "projects/84699750544/locations/global/workloadIdentityPools/github/providers/github"
           service_account: "github-actions@analysis-tools-dev.iam.gserviceaccount.com"
-      - run: |
-          npm install
-          npm run build
+      - name: "Build docker image"
+        run: |
+          docker build -t ${IMAGE_NAME} .
+      - name: "Push docker image"
+        run: |
+          docker push ${IMAGE_NAME}
