@@ -1,17 +1,10 @@
 import * as pulumi from '@pulumi/pulumi';
-import * as gcp from '@pulumi/google-native';
+import * as gcp from '@pulumi/gcp';
 
-const enableCloudRun = new gcp.servicemanagement.v1.Service('EnableCloudRun', {
-    serviceName: 'run.googleapis.com',
-});
-
-const service = new gcp.run.v2.Service(
-    'website-deployment',
-    {
-        serviceId: 'website-deployment',
-        project: 'analysis-tools-dev',
-        location: 'us-central1',
-        template: {
+const _default = new gcp.cloudrun.Service('website-deployment', {
+    location: 'us-central1',
+    template: {
+        spec: {
             containers: [
                 {
                     image: process.env.IMAGE_NAME as string,
@@ -24,16 +17,20 @@ const service = new gcp.run.v2.Service(
             ],
         },
     },
-    { dependsOn: enableCloudRun },
-);
-new gcp.run.v2.ServiceIamPolicy('allow-all', {
-    serviceId: service.name,
-    project: 'analysis-tools-dev',
-    location: 'us-central1',
+});
+const noauthIAMPolicy = gcp.organizations.getIAMPolicy({
     bindings: [
         {
-            members: ['allUsers'],
             role: 'roles/run.invoker',
+            members: ['allUsers'],
         },
     ],
+});
+const noauthIamPolicy = new gcp.cloudrun.IamPolicy('noauthIamPolicy', {
+    location: _default.location,
+    project: _default.project,
+    service: _default.name,
+    policyData: noauthIAMPolicy.then(
+        (noauthIAMPolicy) => noauthIAMPolicy.policyData,
+    ),
 });
