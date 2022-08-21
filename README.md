@@ -31,21 +31,20 @@ Thanks for considering to contribute to this project. Here's how to get started:
 
 ```shell
 git clone git@github.com:analysis-tools-dev/website.git
+cd website/
 ```
 
 1. **Install the dependencies**
 
 ```
-npm install 
+npm install
 ```
-
 
 3. **Start developing.**
 
 Navigate into your new site’s directory and start it up.
 
 ```shell
-cd website/
 npm run dev
 ```
 
@@ -53,12 +52,10 @@ npm run dev
 
 Your site is now running at http://localhost:3000!
 
-
 5.  **Send us a pull request**
 
 Once you're happy with your changes, please send us a pull request and we'll review it promptly.
 Don't be afraid to make small changes or ask for feedback early. We're happy to help!
-
 
 ## Important Links
 
