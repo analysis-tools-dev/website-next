@@ -69,7 +69,8 @@ const ToolPage: FC = () => {
                         <ToolInfoCard tool={tool} />
 
                         <ToolsList
-                            heading={`${tool.name} alternative static tools`}
+                            heading={`Alternatives for ${tool.name}`}
+                            current_tool={tool.name}
                             overrideSearch={overrideSearch}
                         />
                     </Panel>

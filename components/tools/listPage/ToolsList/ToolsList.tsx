@@ -12,10 +12,15 @@ import { sortByVote } from 'utils/votes';
 
 interface ToolsListProps {
     heading: string;
+    current_tool?: string;
     overrideSearch?: SearchState; //FIXME: Change to be filters: Language, ToolID,etc..
 }
 
-const ToolsList: FC<ToolsListProps> = ({ heading, overrideSearch }) => {
+const ToolsList: FC<ToolsListProps> = ({
+    heading,
+    current_tool,
+    overrideSearch,
+}) => {
     const { search } = useSearchSate();
     const state = overrideSearch ? overrideSearch : search;
     const toolsResult = useToolsQuery(state);
@@ -38,9 +43,12 @@ const ToolsList: FC<ToolsListProps> = ({ heading, overrideSearch }) => {
                 <Dropdown />
             </PanelHeader>
             <div>
-                {sortedTools.map((tool, index) => (
-                    <ToolCard key={index} tool={tool} />
-                ))}
+                {sortedTools
+                    // Exclude current tool from list of alternatives
+                    .filter((tool) => tool.name != current_tool)
+                    .map((tool, index) => (
+                        <ToolCard key={index} tool={tool} />
+                    ))}
             </div>
             <SuggestLink />
         </>

@@ -5,7 +5,6 @@ import { isToolsApiData } from 'utils/type-guards';
 const cacheData = new NodeCache();
 
 export const getTools = async () => {
-    console.log('getTools');
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
