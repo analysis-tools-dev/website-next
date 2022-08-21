@@ -17,7 +17,7 @@ export async function prefetchTool(queryClient: QueryClient, slug: string) {
 }
 
 /**
- * Fetches data from API using `useQuery` (react-query) or cache/prefecth data if it exists
+ * Fetches data from API using `useQuery` (react-query) or cache/prefetch data if it exists
  *
  * @see https://react-query.tanstack.com/guides/queries
  */

@@ -39,7 +39,7 @@ export async function getVotes() {
         let data: any = cacheData.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exists - calling API`,
+                `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             data = await getDBVotes();
             if (data) {
@@ -67,7 +67,7 @@ export const getToolVotes = async (toolId: string) => {
         let data: any = cacheData.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exists - calling API`,
+                `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             data = await getDBToolVotes(toolId);
             if (data) {

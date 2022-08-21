@@ -17,7 +17,7 @@ export const getTag = async (type: string) => {
         let data = cacheData.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exists - calling API`,
+                `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             // Call API and refresh cache
             const response = await octokit.request(
@@ -52,7 +52,7 @@ export const getTag = async (type: string) => {
 
         return requestedTags;
     } catch (e) {
-        console.error('Error occured: ', JSON.stringify(e));
+        console.error('Error occurred: ', JSON.stringify(e));
         cacheData.del(cacheKey);
         return null;
     }

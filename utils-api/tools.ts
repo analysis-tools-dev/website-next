@@ -5,6 +5,7 @@ import { isToolsApiData } from 'utils/type-guards';
 const cacheData = new NodeCache();
 
 export const getTools = async () => {
+    console.log('getTools');
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
@@ -18,7 +19,7 @@ export const getTools = async () => {
         let data = cacheData.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exists - calling API`,
+                `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             // Call API and refresh cache
             const response = await octokit.request(
@@ -45,7 +46,7 @@ export const getTools = async () => {
         }
         return data;
     } catch (e) {
-        console.error('Error occured: ', JSON.stringify(e));
+        console.error('Error occurred: ', JSON.stringify(e));
         cacheData.del(cacheKey);
         return null;
     }
@@ -64,7 +65,7 @@ export const getTool = async (toolId: string) => {
         let data = cacheData.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exists - calling API`,
+                `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             // Call API and refresh cache
             const response = await octokit.request(
@@ -101,7 +102,7 @@ export const getTool = async (toolId: string) => {
         }
         return tool;
     } catch (e) {
-        console.error('Error occured: ', JSON.stringify(e));
+        console.error('Error occurred: ', JSON.stringify(e));
         cacheData.del(cacheKey);
         return null;
     }

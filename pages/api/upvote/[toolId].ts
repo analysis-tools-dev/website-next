@@ -39,7 +39,7 @@ export default async function handler(
         let data: any = cacheData.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exists - calling API`,
+                `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             data = await getVotes();
             if (data) {
@@ -59,7 +59,7 @@ export default async function handler(
         return res;
     } catch (e) {
         console.log(e);
-        // console.log('Error occured: ', JSON.stringify(e));
+        // console.log('Error occurred: ', JSON.stringify(e));
         res.status(500).json({ error: 'Failed to load data' });
         return res;
     }

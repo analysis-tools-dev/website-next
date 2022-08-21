@@ -24,7 +24,7 @@ export async function prefetchLanguages(queryClient: QueryClient) {
 }
 
 /**
- * Fetches data from API using `useQuery` (react-query) or cache/prefecth data if it exists
+ * Fetches data from API using `useQuery` (react-query) or cache/prefetch data if it exists
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
@@ -33,7 +33,7 @@ export function useLanguagesQuery() {
 }
 
 /**
- * Return count of data fetched from API using `useQuery` (react-query) or cache/prefecth data if it exists
+ * Return count of data fetched from API using `useQuery` (react-query) or cache/prefetch data if it exists
  *
  * @see https://react-query.tanstack.com/guides/queries
  */

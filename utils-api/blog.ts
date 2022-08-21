@@ -95,7 +95,7 @@ export const getArticles = async () => {
         let data = cacheData.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exists - calling API`,
+                `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             // Read aritcle files from dir and refresh cache
             const files = readdirSync(POSTS_PATH)
@@ -115,7 +115,7 @@ export const getArticles = async () => {
         }
         return data;
     } catch (e) {
-        console.log('Error occured: ', JSON.stringify(e));
+        console.log('Error occurred: ', JSON.stringify(e));
         cacheData.del(cacheKey);
         return null;
     }

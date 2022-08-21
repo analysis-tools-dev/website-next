@@ -30,7 +30,7 @@ export async function prefetchTools(
 }
 
 /**
- * Fetches data from API using `useQuery` (react-query) or cache/prefecth data if it exists
+ * Fetches data from API using `useQuery` (react-query) or cache/prefetch data if it exists
  * @param {SearchState} search - Search terms and keywords to filter results
  *
  * @see https://react-query.tanstack.com/guides/queries
@@ -41,7 +41,7 @@ export function useToolsQuery(search: SearchState) {
 }
 
 /**
- * Return count of data fetched from API using `useQuery` (react-query) or cache/prefecth data if it exists
+ * Return count of data fetched from API using `useQuery` (react-query) or cache/prefetch data if it exists
  * @param {SearchState} search - Search terms and keywords to filter results
  *
  * @see https://react-query.tanstack.com/guides/queries
@@ -57,7 +57,7 @@ export function useToolsQueryCount(search: SearchState) {
 }
 
 /**
- * Fetches data from API using `useQuery` (react-query) or cache/prefecth data if it exists
+ * Fetches data from API using `useQuery` (react-query) or cache/prefetch data if it exists
  * @param {SearchState} search - Search terms and keywords to filter results
  *
  * @see https://react-query.tanstack.com/guides/queries
