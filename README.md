@@ -34,13 +34,27 @@ git clone git@github.com:analysis-tools-dev/website.git
 cd website/
 ```
 
-1. **Install the dependencies**
+2. **Create a `.env.local` file**
+
+Create a `.env.local` file at the root of your application and store two
+environment variables in it:
+
+Create a file named
+
+```
+NEXT_PUBLIC_HOST=localhost:3000
+GOOGLE_APPLICATION_CREDENTIALS=firebase-key.json
+GH_TOKEN=ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+API_CACHE_TTL=12
+```
+
+3. **Install the dependencies**
 
 ```
 npm install
 ```
 
-3. **Start developing.**
+4. **Start developing.**
 
 Navigate into your new site’s directory and start it up.
 
@@ -48,11 +62,11 @@ Navigate into your new site’s directory and start it up.
 npm run dev
 ```
 
-4. **Open the source code and start editing!**
+5. **Open the source code and start editing!**
 
 Your site is now running at http://localhost:3000!
 
-5.  **Send us a pull request**
+6.  **Send us a pull request**
 
 Once you're happy with your changes, please send us a pull request and we'll review it promptly.
 Don't be afraid to make small changes or ask for feedback early. We're happy to help!
