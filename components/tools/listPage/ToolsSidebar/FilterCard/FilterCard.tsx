@@ -5,13 +5,9 @@ import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 
 import styles from './FilterCard.module.css';
-import { getFilterAsArray, objectToQueryString } from 'utils/query';
-import { useRouterPush, useRouterReplace } from 'hooks';
-import {
-    SearchFilter,
-    SearchState,
-    useSearchSate,
-} from 'context/SearchProvider';
+import { objectToQueryString } from 'utils/query';
+import { useRouterPush } from 'hooks';
+import { useSearchSate } from 'context/SearchProvider';
 import {
     changeQuery,
     isChecked,
