@@ -34,7 +34,19 @@ const ToolsList: FC<ToolsListProps> = ({
     if (toolsResult.error || !toolsResult.data) {
         return null;
     }
-    const sortedTools = toolsResult.data.sort(sortByVote);
+
+    // Exclude current tool from list of alternatives
+    const sortedTools = toolsResult.data
+        .filter((tool) => tool.name != current_tool)
+        .sort(sortByVote);
+
+    const singleLanguageTools = sortedTools.filter(
+        (tool) => tool.languages.length === 1,
+    );
+    const multiLanguageTools = sortedTools.filter(
+        (tool) => tool.languages.length > 1,
+    );
+
     return (
         <>
             <PanelHeader level={3} text={heading}>
@@ -43,12 +55,14 @@ const ToolsList: FC<ToolsListProps> = ({
                 <Dropdown />
             </PanelHeader>
             <div>
-                {sortedTools
-                    // Exclude current tool from list of alternatives
-                    .filter((tool) => tool.name != current_tool)
-                    .map((tool, index) => (
-                        <ToolCard key={index} tool={tool} />
-                    ))}
+                {singleLanguageTools.map((tool, index) => (
+                    <ToolCard key={index} tool={tool} />
+                ))}
+            </div>
+            <div>
+                {multiLanguageTools.map((tool, index) => (
+                    <ToolCard key={index} tool={tool} />
+                ))}
             </div>
             <SuggestLink />
         </>
