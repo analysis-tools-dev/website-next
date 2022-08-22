@@ -7,7 +7,7 @@ import { Heading } from '@components/typography';
 import styles from './FilterCard.module.css';
 import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
-import { useSearchSate } from 'context/SearchProvider';
+import { useSearchState } from 'context/SearchProvider';
 import {
     changeQuery,
     isChecked,
@@ -40,7 +40,7 @@ const FilterCard: FC<FilterCardProps> = ({
     options,
     limit = 10,
 }) => {
-    const { search, setSearch } = useSearchSate();
+    const { search, setSearch } = useSearchState();
     // const [query, setQuery] = useState(router.query);
     const routerPush = useRouterPush();
 

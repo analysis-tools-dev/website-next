@@ -7,7 +7,7 @@ import {
 } from '@components/elements';
 import { ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
-import { SearchState, useSearchSate } from 'context/SearchProvider';
+import { SearchState, useSearchState } from 'context/SearchProvider';
 import { sortByVote } from 'utils/votes';
 
 interface ToolsListProps {
@@ -21,7 +21,7 @@ const ToolsList: FC<ToolsListProps> = ({
     current_tool,
     overrideSearch,
 }) => {
-    const { search } = useSearchSate();
+    const { search } = useSearchState();
     const state = overrideSearch ? overrideSearch : search;
     const toolsResult = useToolsQuery(state);
     if (

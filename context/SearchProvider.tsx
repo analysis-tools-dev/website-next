@@ -43,7 +43,7 @@ export const SearchProvider: FC = ({ children }) => {
     );
 };
 
-export function useSearchSate() {
+export function useSearchState() {
     const context = useContext(SearchContext);
 
     if (!context)
