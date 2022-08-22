@@ -124,7 +124,7 @@ const FilterCard: FC<FilterCardProps> = ({
                     onClick={toggleAll}
                     theme="link"
                     className={styles.toggleAllBtn}>
-                    {listLimit === 999 ? 'Show less' : 'Show all'}
+                    {listLimit === 999 ? 'Show less ▴' : 'Show all ▾'}
                 </Button>
             ) : null}
         </Card>
