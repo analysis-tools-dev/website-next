@@ -1,22 +1,30 @@
 import { Card } from '@components/layout';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styles from './Dropdown.module.css';
+import Select from 'react-select';
 
-const Dropdown: FC = () => {
+interface DropdownProps {
+    selectedOption: any;
+    options: any;
+    changeSorting: any;
+}
+
+const Dropdown: FC<DropdownProps> = ({
+    selectedOption,
+    options,
+    changeSorting,
+}) => {
     return (
         <Card className={styles.selectWrapper}>
             <label className={styles.label} htmlFor="sort-select">
                 Sort by:{' '}
             </label>
-            <select className={styles.select} id="sort-select">
-                <optgroup label="Votes">
-                    <option value="votes_asc">Votes Asc</option>
-                    <option value="votes_desc">Votes Desc</option>
-                </optgroup>
-                <optgroup label="Alphabetical">
-                    <option value="alphabetical_asc">Alphabetical Asc</option>
-                    <option value="alphabetical_desc">Alphabetical Desc</option>
-                </optgroup>
+            <select
+                className={styles.select}
+                id="sort-select"
+                onChange={(e) => changeSorting(e.target.value)}>
+                defaultValue={selectedOption}
+                options={options}
             </select>
         </Card>
     );

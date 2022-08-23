@@ -9,6 +9,25 @@ import { ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
 import { SearchState, useSearchState } from 'context/SearchProvider';
 import { sortByVote } from 'utils/votes';
+import { changeSorting } from './utils';
+
+// Supported tool sorting options
+const sortingOptions = [
+    {
+        label: 'Votes',
+        options: [
+            { label: 'Votes Asc', value: 'votes_asc' },
+            { label: 'Votes Desc', value: 'votes_desc' },
+        ],
+    },
+    {
+        label: 'Alphabetical',
+        options: [
+            { label: 'Alphabetical Asc', value: 'alphabetical_asc' },
+            { label: 'Alphabetical Desc', value: 'alphabetical_desc' },
+        ],
+    },
+];
 
 interface ToolsListProps {
     heading: string;
@@ -21,7 +40,7 @@ const ToolsList: FC<ToolsListProps> = ({
     current_tool,
     overrideSearch,
 }) => {
-    const { search } = useSearchState();
+    const { search, setSearch } = useSearchState();
     const state = overrideSearch ? overrideSearch : search;
     const toolsResult = useToolsQuery(state);
     if (
@@ -51,8 +70,11 @@ const ToolsList: FC<ToolsListProps> = ({
         <>
             <PanelHeader level={3} text={heading}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
-                {/* TODO: Add sorting */}
-                <Dropdown />
+                <Dropdown
+                    selectedOption={search.sorting}
+                    options={sortingOptions}
+                    changeSorting={changeSorting}
+                />
             </PanelHeader>
             <div>
                 {singleLanguageTools.map((tool, index) => (
