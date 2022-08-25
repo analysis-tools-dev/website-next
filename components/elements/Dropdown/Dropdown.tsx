@@ -17,8 +17,8 @@ const Dropdown: FC<DropdownProps> = ({ changeSort }) => {
                 onChange={changeSort}
                 id="sort-select">
                 <optgroup label="Votes">
-                    <option value="votes_asc">Votes Asc</option>
                     <option value="votes_desc">Votes Desc</option>
+                    <option value="votes_asc">Votes Asc</option>
                 </optgroup>
                 <optgroup label="Alphabetical">
                     <option value="alphabetical_asc">Alphabetical Asc</option>
