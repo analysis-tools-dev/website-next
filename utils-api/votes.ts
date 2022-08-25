@@ -77,9 +77,16 @@ export const getToolVotes = async (toolId: string) => {
             }
         }
         // TODO: Add typeguard
-        return Number(data.sum) || 0;
+        return {
+            votes: Number(data.sum) || 0,
+            upVotes: Number(data.upVotes || 0),
+            downVotes: Number(data.downVotes || 0),
+        };
     } catch (e) {
         console.error(e);
-        return 0;
+        return {
+            votes: 0,
+            upVotes: 0,
+        };
     }
 };
