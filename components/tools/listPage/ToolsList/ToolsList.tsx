@@ -5,32 +5,32 @@ import {
     LoadingCogs,
     SuggestLink,
 } from '@components/elements';
-import { ToolCard } from '@components/tools';
+import { Tool, ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
 import { SearchState, useSearchState } from 'context/SearchProvider';
 
 const pickSort = (sort: string) => {
     switch (sort) {
         case 'votes_asc':
-            return (a: any, b: any) => a.votes - b.votes;
+            return (a: Tool, b: Tool) => a.votes - b.votes;
         case 'alphabetical_asc':
-            return (a: any, b: any) => a.name.localeCompare(b.name);
+            return (a: Tool, b: Tool) => a.name.localeCompare(b.name);
         case 'alphabetical_desc':
-            return (a: any, b: any) => b.name.localeCompare(a.name);
+            return (a: Tool, b: Tool) => b.name.localeCompare(a.name);
         default:
-            return (a: any, b: any) => b.votes - a.votes;
+            return (a: Tool, b: Tool) => b.votes - a.votes;
     }
 };
 
 interface ToolsListProps {
     heading: string;
-    current_tool?: string;
+    currentTool?: string;
     overrideSearch?: SearchState; //FIXME: Change to be filters: Language, ToolID,etc..
 }
 
 const ToolsList: FC<ToolsListProps> = ({
     heading,
-    current_tool,
+    currentTool: current_tool,
     overrideSearch,
 }) => {
     const { search, setSearch } = useSearchState();
