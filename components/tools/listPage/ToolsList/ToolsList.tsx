@@ -8,18 +8,17 @@ import {
 import { ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
 import { SearchState, useSearchState } from 'context/SearchProvider';
-import { sortByVoteAsc, sortByVoteDesc } from 'utils/votes';
 
 const pickSort = (sort: string) => {
     switch (sort) {
         case 'votes_asc':
-            return sortByVoteAsc;
+            return (a: any, b: any) => a.votes - b.votes;
         case 'alphabetical_asc':
             return (a: any, b: any) => a.name.localeCompare(b.name);
         case 'alphabetical_desc':
             return (a: any, b: any) => b.name.localeCompare(a.name);
         default:
-            return sortByVoteDesc;
+            return (a: any, b: any) => b.votes - a.votes;
     }
 };
 
