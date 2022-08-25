@@ -25,16 +25,19 @@ const pickSort = (sort: string) => {
 interface ToolsListProps {
     heading: string;
     currentTool?: string;
-    overrideSearch?: SearchState; //FIXME: Change to be filters: Language, ToolID,etc..
+    overrideLanguages?: string[];
 }
 
 const ToolsList: FC<ToolsListProps> = ({
     heading,
     currentTool: current_tool,
-    overrideSearch,
+    overrideLanguages,
 }) => {
     const { search, setSearch } = useSearchState();
-    const state = overrideSearch ? overrideSearch : search;
+    const state = {
+        ...search,
+        languages: overrideLanguages || search.languages,
+    };
     console.log(JSON.stringify(state));
     const toolsResult = useToolsQuery(state);
     if (

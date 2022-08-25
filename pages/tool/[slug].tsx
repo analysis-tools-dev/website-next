@@ -51,10 +51,6 @@ const ToolPage: FC = () => {
     }
 
     const tool = toolResult.data;
-    const overrideSearch = {
-        sorting: 'votes_desc',
-        languages: tool.languages,
-    };
 
     const title = `${tool.name} - Analysis Tools`;
     const description =
@@ -74,7 +70,7 @@ const ToolPage: FC = () => {
                         <ToolsList
                             heading={`Alternatives for ${tool.name}`}
                             currentTool={tool.name}
-                            overrideSearch={overrideSearch}
+                            overrideLanguages={tool.languages}
                         />
                     </Panel>
                 </Main>
