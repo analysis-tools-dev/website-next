@@ -43,7 +43,7 @@ const ToolsPage: FC = () => {
                     <ToolsSidebar />
                     <Panel>
                         {/* <LanguageCard language={languages[0]} /> */}
-                        <ToolsList heading={`Static analysis tools`} />
+                        <ToolsList heading={`Static Analysis Tools`} />
                         {/* 
                         <ToolsList
                             heading={`Multi-language static analysis tools`}
