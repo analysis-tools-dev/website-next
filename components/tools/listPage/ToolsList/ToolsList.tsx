@@ -7,7 +7,7 @@ import {
 } from '@components/elements';
 import { Tool, ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
-import { SearchState, useSearchState } from 'context/SearchProvider';
+import { useSearchState } from 'context/SearchProvider';
 
 const pickSort = (sort: string) => {
     switch (sort) {
