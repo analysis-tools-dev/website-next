@@ -37,6 +37,8 @@ export interface Tool {
     resources: ToolResource[] | null;
     wrapper: string | null;
     votes: number;
+    upVotes?: number;
+    downVotes?: number;
     views?: number;
     installation?: string;
     documentation?: string;

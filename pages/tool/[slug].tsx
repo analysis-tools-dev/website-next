@@ -9,6 +9,7 @@ import { prefetchArticles } from '@components/blog/queries';
 import { prefetchTool, useToolQuery } from '@components/tools/queries';
 import { LoadingCogs } from '@components/elements';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
+import { SearchProvider } from 'context/SearchProvider';
 
 // TODO: Add fallback pages instead of 404, maybe says tool not found and asks user if they would like to add it?
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -50,15 +51,13 @@ const ToolPage: FC = () => {
     }
 
     const tool = toolResult.data;
-    const overrideSearch = { languages: tool.languages };
 
     const title = `${tool.name} - Analysis Tools`;
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
-    // TODO: Update title and description to include tool
 
     return (
-        <>
+        <SearchProvider>
             <MainHead title={title} description={description} />
 
             <Navbar />
@@ -70,8 +69,8 @@ const ToolPage: FC = () => {
 
                         <ToolsList
                             heading={`Alternatives for ${tool.name}`}
-                            current_tool={tool.name}
-                            overrideSearch={overrideSearch}
+                            currentTool={tool.name}
+                            overrideLanguages={tool.languages}
                         />
                     </Panel>
                 </Main>
@@ -79,7 +78,7 @@ const ToolPage: FC = () => {
 
             <SponsorCard />
             <Footer />
-        </>
+        </SearchProvider>
     );
 };
 

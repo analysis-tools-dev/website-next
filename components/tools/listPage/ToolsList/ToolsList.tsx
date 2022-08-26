@@ -5,24 +5,40 @@ import {
     LoadingCogs,
     SuggestLink,
 } from '@components/elements';
-import { ToolCard } from '@components/tools';
+import { Tool, ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
 import { SearchState, useSearchState } from 'context/SearchProvider';
-import { sortByVote } from 'utils/votes';
+
+const pickSort = (sort: string) => {
+    switch (sort) {
+        case 'votes_asc':
+            return (a: Tool, b: Tool) => a.votes - b.votes;
+        case 'alphabetical_asc':
+            return (a: Tool, b: Tool) => a.name.localeCompare(b.name);
+        case 'alphabetical_desc':
+            return (a: Tool, b: Tool) => b.name.localeCompare(a.name);
+        default:
+            return (a: Tool, b: Tool) => b.votes - a.votes;
+    }
+};
 
 interface ToolsListProps {
     heading: string;
-    current_tool?: string;
-    overrideSearch?: SearchState; //FIXME: Change to be filters: Language, ToolID,etc..
+    currentTool?: string;
+    overrideLanguages?: string[];
 }
 
 const ToolsList: FC<ToolsListProps> = ({
     heading,
-    current_tool,
-    overrideSearch,
+    currentTool: current_tool,
+    overrideLanguages,
 }) => {
-    const { search } = useSearchState();
-    const state = overrideSearch ? overrideSearch : search;
+    const { search, setSearch } = useSearchState();
+    const state = {
+        ...search,
+        languages: overrideLanguages || search.languages,
+    };
+    console.log(JSON.stringify(state));
     const toolsResult = useToolsQuery(state);
     if (
         toolsResult.isLoading ||
@@ -38,7 +54,7 @@ const ToolsList: FC<ToolsListProps> = ({
     // Exclude current tool from list of alternatives
     const sortedTools = toolsResult.data
         .filter((tool) => tool.name != current_tool)
-        .sort(sortByVote);
+        .sort(pickSort(state.sorting));
 
     const singleLanguageTools = sortedTools.filter(
         (tool) => tool.languages.length === 1,
@@ -46,19 +62,26 @@ const ToolsList: FC<ToolsListProps> = ({
     const multiLanguageTools = sortedTools.filter(
         (tool) => tool.languages.length > 1,
     );
+    const changeSort = (event: any) => {
+        const sorting = event.target.value;
+        setSearch({
+            ...state,
+            sorting,
+        });
+    };
 
     return (
         <>
             <PanelHeader level={3} text={heading}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
-                {/* TODO: Add sorting */}
-                <Dropdown />
+                <Dropdown changeSort={changeSort} />
             </PanelHeader>
             <div>
                 {singleLanguageTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />
                 ))}
             </div>
+            <PanelHeader level={3} text="Multi-Language Tools"></PanelHeader>
             <div>
                 {multiLanguageTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />

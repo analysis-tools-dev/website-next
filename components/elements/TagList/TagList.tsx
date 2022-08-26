@@ -8,7 +8,7 @@ export interface TagListProps {
 }
 
 const TagList: FC<TagListProps> = ({ tags, className }) => {
-    return tags.length ? (
+    return tags && tags.length ? (
         <ul className={cn(styles.tagList, className)}>
             {tags.map((tag, index) => (
                 <li className={styles.tag} key={`tag-${index}`}>

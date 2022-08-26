@@ -22,7 +22,7 @@ export default async function handler(
         res.status(500).json({ error: 'Failed to load data' });
         return res;
     }
-    const votes = await getToolVotes(toolId.toString());
+    const { votes, upVotes, downVotes } = await getToolVotes(toolId.toString());
 
     const repoMeta = getRepositoryMeta(data.source);
     if (repoMeta) {
@@ -35,7 +35,9 @@ export default async function handler(
             res.status(200).json({
                 id: toolId.toString(),
                 ...data,
-                votes: votes,
+                votes,
+                upVotes,
+                downVotes,
                 repositoryData: githubData,
             });
             return res;

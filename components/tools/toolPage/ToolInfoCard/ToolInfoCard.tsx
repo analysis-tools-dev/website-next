@@ -20,6 +20,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
             </div>
             <div className={styles.info}>
                 <Heading level={2}>{tool.name}</Heading>
+                <TagList tags={tool.languages} />
                 <TagList tags={tool.other} />
 
                 <Text className={styles.description}>

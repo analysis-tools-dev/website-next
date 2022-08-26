@@ -7,11 +7,12 @@ export interface SearchState {
     categories?: string[];
     types?: string[];
     licenses?: string[];
+    sorting: string;
 }
 
 export interface SearchContextType {
     search: SearchState;
-    setSearch: any; // TODO: Fix type here
+    setSearch: any;
 }
 
 const INITIAL_STATE: SearchState = {
@@ -19,6 +20,7 @@ const INITIAL_STATE: SearchState = {
     categories: [],
     types: [],
     licenses: [],
+    sorting: 'votes_desc',
 };
 
 const INITIAL_CONTEXT: SearchContextType = {
