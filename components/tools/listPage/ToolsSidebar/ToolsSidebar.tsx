@@ -9,6 +9,7 @@ import {
     CATEGORY_OPTIONS,
     TYPE_OPTIONS,
     LICENSE_OPTIONS,
+    PRICING_OPTIONS,
 } from '@appdata/filters';
 import { useLanguagesQuery } from '@components/tools/queries/languages';
 
@@ -34,6 +35,11 @@ const ToolsSidebar: FC = () => {
                 heading="License"
                 filter="licenses"
                 options={LICENSE_OPTIONS}
+            />
+            <FilterCard
+                heading="Pricing"
+                filter="pricing"
+                options={PRICING_OPTIONS}
             />
 
             <ContributionCard />

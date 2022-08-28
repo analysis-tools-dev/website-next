@@ -5,7 +5,7 @@ import type { ApiTool, ToolsApiData } from 'utils/types';
 
 export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
     // Filters to be checked
-    const { languages, categories, types, licenses } = query;
+    const { languages, categories, types, licenses, pricing } = query;
 
     const keys = Object.keys(tools);
     const result = [];
@@ -61,8 +61,31 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
                 }
             }
         }
+        if (pricing) {
+            if (Array.isArray(pricing)) {
+                if (!tool.plans) {
+                    continue;
+                }
+            } else {
+                if (pricing.includes('plans')) {
+                    if (!tool.plans) {
+                        continue;
+                    }
+                }
+                if (pricing.includes('oss')) {
+                    if (!tool.plans?.oss) {
+                        continue;
+                    }
+                }
+                if (pricing.includes('free')) {
+                    if (!tool.plans?.free) {
+                        continue;
+                    }
+                }
+            }
+        }
 
-        // Finaly push if all checks passed
+        // Finally push if all checks passed
         result.push({ id: key, ...tool });
     }
 
