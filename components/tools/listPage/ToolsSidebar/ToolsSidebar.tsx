@@ -20,22 +20,18 @@ const ToolsSidebar: FC = () => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <FilterCard
-                heading="Language(s)"
+                heading="Languages"
                 filter="languages"
                 options={languageResult.data}
             />
             <FilterCard
-                heading="Category(s)"
+                heading="Categories"
                 filter="categories"
                 options={CATEGORY_OPTIONS}
             />
+            <FilterCard heading="Types" filter="types" options={TYPE_OPTIONS} />
             <FilterCard
-                heading="Type(s)"
-                filter="types"
-                options={TYPE_OPTIONS}
-            />
-            <FilterCard
-                heading="License(s)"
+                heading="License"
                 filter="licenses"
                 options={LICENSE_OPTIONS}
             />
