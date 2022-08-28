@@ -31,9 +31,9 @@ const Navbar: FC = () => {
                 <Link href="/">
                     <a>
                         <Image
-                            height="40px"
-                            width="220px"
-                            src="/assets/images/logo.png"
+                            height="35px"
+                            width="175px"
+                            src="/assets/images/logo.svg"
                             alt=""
                         />
                     </a>
