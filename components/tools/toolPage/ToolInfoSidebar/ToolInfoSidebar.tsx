@@ -19,7 +19,11 @@ const ToolInfoSidebar: FC<ToolInfoSidebarProps> = ({ tool }) => {
             {tool.repositoryData && (
                 <RepositoryCard data={tool.repositoryData} />
             )}
-            <LicenseCard name={tool.name} licenses={tool.licenses} />
+            <LicenseCard
+                name={tool.name}
+                licenses={tool.licenses}
+                pricing={tool.pricing}
+            />
             <ResourcesCard resources={tool.resources} />
 
             <ContributionCard />

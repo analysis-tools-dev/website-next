@@ -7,9 +7,10 @@ import styles from './LicenseCard.module.css';
 export interface LicenseCardProps {
     name: string;
     licenses: string[];
+    pricing?: string;
 }
 
-const LicenseCard: FC<LicenseCardProps> = ({ name, licenses }) => {
+const LicenseCard: FC<LicenseCardProps> = ({ name, licenses, pricing }) => {
     const license = licenses[0];
 
     return (
@@ -28,24 +29,28 @@ const LicenseCard: FC<LicenseCardProps> = ({ name, licenses }) => {
                     />
                 </div>
                 <span className={styles.licenseText}>{license}</span>
-                <a
-                    className={styles.licenseUrl}
-                    href={'https://github.com'}
-                    target={'_blank'}
-                    rel="noreferrer">
-                    <span className={styles.urlIcon}>
-                        <Image
-                            height="12x"
-                            width="12px"
-                            src="/assets/icons/general/link-alt.svg"
-                            alt={license}
-                        />
-                    </span>
-                    <span
-                        className={
-                            styles.urlText
-                        }>{`${name} license file`}</span>
-                </a>
+                {pricing && (
+                    <>
+                        <a
+                            className={styles.licenseUrl}
+                            href={pricing}
+                            target={'_blank'}
+                            rel="noreferrer">
+                            <span className={styles.urlIcon}>
+                                <Image
+                                    height="12x"
+                                    width="12px"
+                                    src="/assets/icons/general/link-alt.svg"
+                                    alt={license}
+                                />
+                            </span>
+                            <span
+                                className={
+                                    styles.urlText
+                                }>{`${name} pricing plans`}</span>
+                        </a>
+                    </>
+                )}
             </div>
         </Card>
     );
