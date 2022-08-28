@@ -29,14 +29,13 @@ const Navbar: FC = () => {
         <header className={styles.header}>
             <Wrapper className={styles.wrapper}>
                 <Link href="/">
-                    <a className={styles.logoLink}>
+                    <a>
                         <Image
-                            height="30px"
-                            width="30px"
+                            height="40px"
+                            width="220px"
                             src="/assets/images/logo.png"
                             alt=""
                         />
-                        <span className={styles.logoText}>Analysis Tools</span>
                     </a>
                 </Link>
 
