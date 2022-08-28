@@ -13,8 +13,8 @@ import {
 import { useLanguagesQuery } from '@components/tools/queries/languages';
 
 const ToolsSidebar: FC = () => {
-    const lagnuageResult = useLanguagesQuery();
-    if (lagnuageResult.error || !lagnuageResult.data) {
+    const languageResult = useLanguagesQuery();
+    if (languageResult.error || !languageResult.data) {
         return null;
     }
     return (
@@ -22,7 +22,7 @@ const ToolsSidebar: FC = () => {
             <FilterCard
                 heading="Language(s)"
                 filter="languages"
-                options={lagnuageResult.data}
+                options={languageResult.data}
             />
             <FilterCard
                 heading="Category(s)"

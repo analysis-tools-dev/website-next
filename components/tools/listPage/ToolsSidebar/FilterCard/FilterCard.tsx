@@ -32,6 +32,7 @@ export interface FilterCardProps {
 }
 
 // TODO: Add Toggle Deprecated (default off)
+// TODO: Add "pricing available" (default off)
 // TODO: Add click functionality and debounce
 // TODO: Clicking All resets other checkboxes
 const FilterCard: FC<FilterCardProps> = ({

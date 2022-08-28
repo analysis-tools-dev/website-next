@@ -1,7 +1,17 @@
-import NodeCache from 'node-cache';
 import { Octokit } from '@octokit/core';
 
-const cacheData = new NodeCache();
+import cacheManager from 'cache-manager';
+import fsStore from 'cache-manager-fs-hash';
+
+const cacheData = cacheManager.caching({
+    store: fsStore,
+    options: {
+        path: 'diskcache', //path for cached files
+        ttl: 60 * 60 * 24, //time to life in seconds
+        subdirs: false, //create subdirectories
+        zip: false, //zip files to save diskspace (default: false)
+    },
+});
 
 export const getRepositoryMeta = (source: string) => {
     if (!source || source === '') {
@@ -32,7 +42,7 @@ export const getGithubStats = async (
 
     try {
         // Get tool data from cache
-        let data: any = cacheData.get(cacheKey);
+        let data: any = await cacheData.get(cacheKey);
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
@@ -56,7 +66,7 @@ export const getGithubStats = async (
                     updated: response.data.updated_at,
                 };
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
-                cacheData.set(cacheKey, data, hours * 60 * 60);
+                await cacheData.set(cacheKey, data, hours * 60 * 60);
             } else {
                 console.error(
                     `Could not find stats for tool: ${toolId.toString()}`,

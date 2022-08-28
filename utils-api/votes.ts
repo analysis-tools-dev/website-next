@@ -1,9 +1,19 @@
-import NodeCache from 'node-cache';
 import { getFirestore } from 'firebase-admin/firestore';
 import { initFirebase } from './firebase';
 import { isVotesApiData } from 'utils/type-guards';
 
-const cacheData = new NodeCache();
+import cacheManager from 'cache-manager';
+import fsStore from 'cache-manager-fs-hash';
+
+const cacheData = cacheManager.caching({
+    store: fsStore,
+    options: {
+        path: 'diskcache', //path for cached files
+        ttl: 60 * 60 * 24, //time to life in seconds
+        subdirs: false, //create subdirectories
+        zip: false, //zip files to save diskspace (default: false)
+    },
+});
 
 // Get a list of votes from firestore
 export const getDBVotes = async () => {
@@ -36,20 +46,20 @@ export async function getVotes() {
     const cacheKey = `votes_data`;
     try {
         // Get tool data from cache
-        let data: any = cacheData.get(cacheKey);
+        let data: any = await cacheData.get(cacheKey);
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             data = await getDBVotes();
             if (data) {
-                cacheData.set(cacheKey, data, 30);
+                await cacheData.set(cacheKey, data, 30);
             } else {
                 console.error(`ERROR: Failed to load votes data`);
             }
         }
         if (!isVotesApiData(data)) {
-            cacheData.del(cacheKey);
+            await cacheData.del(cacheKey);
             console.error('Votes TypeError');
             return null;
         }
@@ -64,14 +74,14 @@ export const getToolVotes = async (toolId: string) => {
     const cacheKey = `${toolId}_votes_data`;
     try {
         // Get tool data from cache
-        let data: any = cacheData.get(cacheKey);
+        let data: any = await cacheData.get(cacheKey);
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             data = await getDBToolVotes(toolId);
             if (data) {
-                cacheData.set(cacheKey, data, 30);
+                await cacheData.set(cacheKey, data, 30);
             } else {
                 console.error(`ERROR: Failed to load ${toolId} vote data`);
             }

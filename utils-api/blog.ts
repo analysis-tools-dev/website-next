@@ -1,12 +1,22 @@
 import { readdirSync, readFileSync } from 'fs';
-import NodeCache from 'node-cache';
 import { join } from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 import { isArticlesApiData } from 'utils/type-guards';
 import { type Article, type MarkdownDocument } from 'utils/types';
 
-const cacheData = new NodeCache();
+import cacheManager from 'cache-manager';
+import fsStore from 'cache-manager-fs-hash';
+
+const cacheData = cacheManager.caching({
+    store: fsStore,
+    options: {
+        path: 'diskcache', //path for cached files
+        ttl: 60 * 60 * 24, //time to life in seconds
+        subdirs: false, //create subdirectories
+        zip: false, //zip files to save diskspace (default: false)
+    },
+});
 
 /**
  * Local file path for blog Posts markdown content
@@ -92,12 +102,12 @@ export const getArticles = async () => {
     const cacheKey = 'articles_data';
     try {
         // Get data from cache
-        let data = cacheData.get(cacheKey);
+        let data = await cacheData.get(cacheKey);
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
             );
-            // Read aritcle files from dir and refresh cache
+            // Read article files from dir and refresh cache
             const files = readdirSync(POSTS_PATH)
                 // Filter anything other than .md files
                 .filter((file) => file.indexOf('.md') > -1);
@@ -105,18 +115,18 @@ export const getArticles = async () => {
             data = files.map((file) => getArticleFromFilename(file));
             if (files) {
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
-                cacheData.set(cacheKey, data, hours * 60 * 60);
+                await cacheData.set(cacheKey, data, hours * 60 * 60);
             }
         }
         if (!isArticlesApiData(data)) {
-            cacheData.del(cacheKey);
+            await cacheData.del(cacheKey);
             console.log('Articles TypeError');
             return null;
         }
         return data;
     } catch (e) {
         console.log('Error occurred: ', JSON.stringify(e));
-        cacheData.del(cacheKey);
+        await cacheData.del(cacheKey);
         return null;
     }
 };

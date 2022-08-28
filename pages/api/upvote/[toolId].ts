@@ -1,9 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getFirestore } from 'firebase-admin/firestore';
-import NodeCache from 'node-cache';
 import { initFirebase } from 'utils-api/firebase';
 
-const cacheData = new NodeCache();
+import cacheManager from 'cache-manager';
+import fsStore from 'cache-manager-fs-hash';
+
+const cacheData = cacheManager.caching({
+    store: fsStore,
+    options: {
+        path: 'diskcache', //path for cached files
+        ttl: 60 * 60 * 24, //time to life in seconds
+        subdirs: false, //create subdirectories
+        zip: false, //zip files to save diskspace (default: false)
+    },
+});
 
 // Get a list of votes from firestore
 async function getVotes() {
@@ -36,14 +46,14 @@ export default async function handler(
     const cacheKey = `vote_data`;
     try {
         // Get tool data from cache
-        let data: any = cacheData.get(cacheKey);
+        let data: any = await cacheData.get(cacheKey);
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             data = await getVotes();
             if (data) {
-                cacheData.set(cacheKey, data, 30);
+                await cacheData.set(cacheKey, data, 30);
             }
         }
         // TODO: Add typeguard
