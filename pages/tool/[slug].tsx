@@ -68,7 +68,7 @@ const ToolPage: FC = () => {
                         <ToolInfoCard tool={tool} />
 
                         <ToolsList
-                            heading={`Alternatives for ${tool.name}`}
+                            heading={`Alternatives to ${tool.name}`}
                             currentTool={tool.name}
                             overrideLanguages={tool.languages}
                         />
