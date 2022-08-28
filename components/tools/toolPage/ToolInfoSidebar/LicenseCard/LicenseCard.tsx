@@ -47,13 +47,6 @@ const LicenseCard: FC<LicenseCardProps> = ({ name, licenses }) => {
                         }>{`${name} license file`}</span>
                 </a>
             </div>
-            <a
-                className={styles.learnMore}
-                href={'https://github.com'}
-                target={'_blank'}
-                rel="noreferrer">
-                Learn more about repository licenses
-            </a>
         </Card>
     );
 };
