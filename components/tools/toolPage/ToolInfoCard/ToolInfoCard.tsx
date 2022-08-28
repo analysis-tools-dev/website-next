@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { Card } from '@components/layout';
 import { Heading, Text } from '@components/typography';
@@ -24,7 +25,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
                 <TagList tags={tool.other} />
 
                 <Text className={styles.description}>
-                    {tool.description}
+                    <ReactMarkdown>{tool.description || ''}</ReactMarkdown>
                     <br />
                     <Link href={tool.homepage}>
                         <a className="font-light font-size-s">More info</a>
