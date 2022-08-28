@@ -51,7 +51,7 @@ const Footer: FC = () => {
                             alt=""
                         />
                         <span className={styles.logoText}>
-                            © analysis-tools.dev
+                            &copy; analysis-tools.dev
                         </span>
                     </a>
                 </Link>
@@ -80,6 +80,14 @@ const Footer: FC = () => {
                         ))}
                     </ul>
                 </nav>
+
+                <Link href="https://www.freepik.com/free-vector/software-testing-isometric-banner-functional-test_9292792.htm">
+                    <a className={styles.logoLink}>
+                        <span className={styles.logoText}>
+                            Hero image by upklyak on Freepik
+                        </span>
+                    </a>
+                </Link>
             </Wrapper>
         </footer>
     );
