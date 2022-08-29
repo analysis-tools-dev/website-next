@@ -10,17 +10,26 @@ import { ShareBtns } from '@components/core';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 
+import ImageGallery from 'react-image-gallery';
+
+import 'react-image-gallery/styles/css/image-gallery.css';
+
 export interface ToolInfoCardProps {
     tool: Tool;
+    screenshots: string[];
 }
-const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
+const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
+    const images = screenshots.map((screenshot) => ({
+        original: screenshot,
+        thumbnail: screenshot,
+    }));
     return (
         <Card className={styles.languageCardWrapper}>
             <div className={styles.votes}>
                 <VoteWidget tool={tool} />
             </div>
             <div className={styles.info}>
-                <Heading level={2}>{tool.name}</Heading>
+                <Heading level={1}>{tool.name}</Heading>
                 <TagList tags={tool.languages} />
                 <TagList tags={tool.other} />
 
@@ -40,6 +49,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
                         </a>
                     </Link>
                 </div>
+                <ImageGallery items={images} />
             </div>
         </Card>
     );

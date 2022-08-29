@@ -43,6 +43,9 @@ export const getGithubStats = async (
     try {
         // Get tool data from cache
         let data: any = await cacheData.get(cacheKey);
+        if (!owner || !repo) {
+            return null;
+        }
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
@@ -51,8 +54,8 @@ export const getGithubStats = async (
             const response = await octokit.request(
                 'GET /repos/{owner}/{repo}',
                 {
-                    owner: owner.toString(),
-                    repo: repo.toString(),
+                    owner,
+                    repo,
                 },
             );
             if (response.data) {
@@ -68,9 +71,7 @@ export const getGithubStats = async (
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
                 await cacheData.set(cacheKey, data, hours * 60 * 60);
             } else {
-                console.error(
-                    `Could not find stats for tool: ${toolId.toString()}`,
-                );
+                console.error(`Could not find stats for tool: ${toolId}`);
                 return null;
             }
         }
