@@ -33,7 +33,7 @@ const Navbar: FC = () => {
                         <Image
                             height="35px"
                             width="175px"
-                            src="/assets/images/logo.svg"
+                            src="/assets/images/logo2.svg"
                             alt=""
                         />
                     </a>
