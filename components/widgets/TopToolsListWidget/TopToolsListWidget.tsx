@@ -14,33 +14,35 @@ const TopToolsWidget: FC<TopToolsWidgetProps> = ({ tools }) => {
     return (
         <>
             <ul className={styles.toolsList}>
-                {tools.map((tool, index) => (
-                    <li key={index} className={styles.toolsListEntry}>
-                        <Link href={`/tool/${tool.id}`}>
-                            <a
-                                className={cn(
-                                    styles.toolLinkCard,
-                                    'no-underline',
-                                )}>
-                                <div className={styles.toolIcon}>
-                                    <Image
-                                        height="45px"
-                                        width="45px"
-                                        src={`/assets/icons/general/tool.svg`}
-                                        alt={tool.name}
-                                    />
-                                </div>
-                                <div className={styles.toolCardInfo}>
-                                    <Heading level={2}>{tool.name}</Heading>
-                                    <Text className={styles.toolInfo}>
-                                        {tool.types[0]} - {tool.licenses[0]} -{' '}
-                                        {votesFormatter(tool.votes)} votes
-                                    </Text>
-                                </div>
-                            </a>
-                        </Link>
-                    </li>
-                ))}
+                {tools
+                    .sort((a, b) => b.votes - a.votes)
+                    .map((tool, index) => (
+                        <li key={index} className={styles.toolsListEntry}>
+                            <Link href={`/tool/${tool.id}`}>
+                                <a
+                                    className={cn(
+                                        styles.toolLinkCard,
+                                        'no-underline',
+                                    )}>
+                                    <div className={styles.toolIcon}>
+                                        <Image
+                                            height="45px"
+                                            width="45px"
+                                            src={`/assets/icons/general/tool.svg`}
+                                            alt={tool.name}
+                                        />
+                                    </div>
+                                    <div className={styles.toolCardInfo}>
+                                        <Heading level={2}>{tool.name}</Heading>
+                                        <Text className={styles.toolInfo}>
+                                            {tool.types[0]} - {tool.licenses[0]}{' '}
+                                            - {votesFormatter(tool.votes)} votes
+                                        </Text>
+                                    </div>
+                                </a>
+                            </Link>
+                        </li>
+                    ))}
             </ul>
         </>
     );
