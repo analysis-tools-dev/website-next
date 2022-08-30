@@ -75,9 +75,9 @@ const ToolsList: FC<ToolsListProps> = ({
     const shouldShowClearFilterButton = true;
 
     const resetSearch = () => {
-        setSearch(INITIAL_STATE);
-        routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
-            shallow: false,
+        setSearch({});
+        routerPush(`/tools`, undefined, {
+            shallow: true,
         });
     };
 
