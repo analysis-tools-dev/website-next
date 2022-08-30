@@ -4,10 +4,13 @@ import {
     PanelHeader,
     LoadingCogs,
     SuggestLink,
+    Button,
 } from '@components/elements';
 import { Tool, ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
-import { useSearchState } from 'context/SearchProvider';
+import { INITIAL_STATE, useSearchState } from 'context/SearchProvider';
+import { objectToQueryString } from 'utils/query';
+import { useRouterPush } from 'hooks';
 
 const pickSort = (sort: string) => {
     switch (sort) {
@@ -34,11 +37,11 @@ const ToolsList: FC<ToolsListProps> = ({
     overrideLanguages,
 }) => {
     const { search, setSearch } = useSearchState();
+    const routerPush = useRouterPush();
     const state = {
         ...search,
         languages: overrideLanguages || search.languages,
     };
-    console.log(JSON.stringify(state));
     const toolsResult = useToolsQuery(state);
     if (
         toolsResult.isLoading ||
@@ -69,12 +72,25 @@ const ToolsList: FC<ToolsListProps> = ({
             sorting,
         });
     };
+    const shouldShowClearFilterButton = true;
+
+    const resetSearch = () => {
+        setSearch(INITIAL_STATE);
+        routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
+            shallow: false,
+        });
+    };
 
     return (
         <>
             <PanelHeader level={3} text={heading}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
                 <Dropdown changeSort={changeSort} />
+                {shouldShowClearFilterButton ? (
+                    <Button onClick={resetSearch} theme="primary">
+                        Clear All Filters
+                    </Button>
+                ) : null}
             </PanelHeader>
             <div>
                 {singleLanguageTools.map((tool, index) => (

@@ -16,7 +16,7 @@ export interface SearchContextType {
     setSearch: any;
 }
 
-const INITIAL_STATE: SearchState = {
+export const INITIAL_STATE: SearchState = {
     languages: [],
     categories: [],
     pricing: [],

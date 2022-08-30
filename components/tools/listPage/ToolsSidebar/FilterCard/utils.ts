@@ -35,7 +35,6 @@ export const resetQuery = (search: SearchState, setSearch: any) => (e: any) => {
     if (search[key]) {
         delete search[key];
     }
-    console.log(search);
 
     setSearch({ ...search });
 };

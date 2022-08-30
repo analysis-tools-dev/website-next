@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Card } from '@components/layout';
 import { Heading, Text } from '@components/typography';
 import { type Tool } from '@components/tools';
-
 import styles from './ToolInfoCard.module.css';
 import { ShareBtns } from '@components/core';
 import { TagList } from '@components/elements';
