@@ -10,6 +10,7 @@ import { Tool, ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
 import { useRouterPush } from 'hooks';
 import styles from './ToolsList.module.css';
+import { useSearchState } from 'context/SearchProvider';
 
 const pickSort = (sort: string) => {
     switch (sort) {
