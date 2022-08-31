@@ -8,9 +8,8 @@ import {
 } from '@components/elements';
 import { Tool, ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
-import { INITIAL_STATE, useSearchState } from 'context/SearchProvider';
-import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
+import styles from './ToolsList.module.css';
 
 const pickSort = (sort: string) => {
     switch (sort) {
@@ -72,7 +71,9 @@ const ToolsList: FC<ToolsListProps> = ({
             sorting,
         });
     };
-    const shouldShowClearFilterButton = true;
+
+    const shouldShowClearFilterButton =
+        search && Object.keys(search).length !== 0;
 
     const resetSearch = () => {
         setSearch({});
@@ -83,7 +84,10 @@ const ToolsList: FC<ToolsListProps> = ({
 
     return (
         <>
-            <PanelHeader level={3} text={heading}>
+            <PanelHeader
+                className={styles.panelheader}
+                level={3}
+                text={heading}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
                 <Dropdown changeSort={changeSort} />
                 {shouldShowClearFilterButton ? (
