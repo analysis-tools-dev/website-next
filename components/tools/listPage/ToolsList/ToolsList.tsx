@@ -26,13 +26,11 @@ const pickSort = (sort: string) => {
 };
 
 interface ToolsListProps {
-    heading: string;
     currentTool?: string;
     overrideLanguages?: string[];
 }
 
 const ToolsList: FC<ToolsListProps> = ({
-    heading,
     currentTool: current_tool,
     overrideLanguages,
 }) => {
@@ -83,26 +81,32 @@ const ToolsList: FC<ToolsListProps> = ({
         });
     };
 
+    let singleLanguageHeading = `${singleLanguageTools.length} Static Analysis Tools`;
+    const multiLanguageHeading = `${multiLanguageTools.length} Multi-Language Tools`;
+    if (current_tool) {
+        singleLanguageHeading = `Alternatives to ${current_tool}`;
+    }
+
     return (
         <>
             <PanelHeader
                 className={styles.panelheader}
                 level={3}
-                text={heading}>
+                text={singleLanguageHeading}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
-                <Dropdown changeSort={changeSort} />
                 {shouldShowClearFilterButton ? (
-                    <Button onClick={resetSearch} theme="primary">
+                    <Button onClick={resetSearch} theme="secondary">
                         Clear All Filters
                     </Button>
                 ) : null}
+                <Dropdown changeSort={changeSort} />
             </PanelHeader>
             <div>
                 {singleLanguageTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />
                 ))}
             </div>
-            <PanelHeader level={3} text="Multi-Language Tools"></PanelHeader>
+            <PanelHeader level={3} text={multiLanguageHeading}></PanelHeader>
             <div>
                 {multiLanguageTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />
