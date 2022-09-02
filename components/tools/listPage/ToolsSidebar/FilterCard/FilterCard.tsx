@@ -9,12 +9,12 @@ import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
 import { useSearchState } from 'context/SearchProvider';
 import {
-    changeQuery,
     isChecked,
     isSelectedFilter,
     resetQuery,
     sortByChecked,
 } from './utils';
+import { changeQuery } from 'utils/query';
 
 export interface FilterOption {
     tag: string;
