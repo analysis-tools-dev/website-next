@@ -10,6 +10,7 @@ import { Tool, ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
 import { useRouterPush } from 'hooks';
 import { useSearchState } from 'context/SearchProvider';
+import styles from './ToolsList.module.css';
 
 const pickSort = (sort: string) => {
     switch (sort) {
@@ -91,7 +92,10 @@ const ToolsList: FC<ToolsListProps> = ({
             <PanelHeader level={3} text={singleLanguageHeading}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
                 {shouldShowClearFilterButton ? (
-                    <Button onClick={resetSearch} theme="secondary">
+                    <Button
+                        className={styles.clearButton}
+                        onClick={resetSearch}
+                        theme="secondary">
                         Clear All Filters
                     </Button>
                 ) : null}

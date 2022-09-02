@@ -3,6 +3,7 @@
     width: 100%;
     border-bottom: 1px solid #486a8b;
 }
+
 .wrapper {
     height: 64px;
     display: flex;
@@ -10,8 +11,6 @@
     justify-content: flex-start;
     align-items: center;
 }
-
-
 
 .nav {
     flex: 2 calc(100% - 490px);
