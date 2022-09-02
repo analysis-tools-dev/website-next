@@ -1,9 +1,15 @@
 import { useRouter } from 'next/router';
 import { createContext, FC, useContext, useState } from 'react';
 
-export type SearchFilter = 'languages' | 'categories' | 'types' | 'licenses';
+export type SearchFilter =
+    | 'languages'
+    | 'others'
+    | 'categories'
+    | 'types'
+    | 'licenses';
 export interface SearchState {
     languages?: string[] | string;
+    others?: string[] | string;
     categories?: string[];
     types?: string[];
     licenses?: string[];
@@ -18,6 +24,7 @@ export interface SearchContextType {
 
 export const INITIAL_STATE: SearchState = {
     languages: [],
+    others: [],
     categories: [],
     pricing: [],
     types: [],

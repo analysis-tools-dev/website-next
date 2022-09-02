@@ -24,3 +24,8 @@
 .tag a:hover {
     text-decoration: none;
 }
+
+.highlight {
+    color: white;
+    background: #4799eb;
+}

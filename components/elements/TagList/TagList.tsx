@@ -1,20 +1,21 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import cn from 'classnames';
 import styles from './TagList.module.css';
 import { useSearchState } from 'context/SearchProvider';
-import Link from 'next/link';
 import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
+import classNames from 'classnames';
 
 export interface TagListProps {
-    tags: string[];
+    languageTags: string[];
+    otherTags?: string[];
     className?: string;
 }
 
-const TagList: FC<TagListProps> = ({ tags, className }) => {
+const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
     const routerPush = useRouterPush();
     const { search, setSearch } = useSearchState();
-    const changeLanguage = (event) => {
+    const toggleLanguageTag = (event) => {
         const language = event?.target.innerText;
         if (Array.isArray(search.languages)) {
             // remove language tag if already in array
@@ -24,7 +25,7 @@ const TagList: FC<TagListProps> = ({ tags, className }) => {
                     languages: search.languages.filter((l) => l !== language),
                 });
             } else {
-                // Add langauge tag if not in array
+                // Add language tag if not in array
                 setSearch({
                     ...search,
                     languages: [...search.languages, language],
@@ -42,14 +43,59 @@ const TagList: FC<TagListProps> = ({ tags, className }) => {
             shallow: true,
         });
     };
+    const toggleOtherTag = (event) => {
+        const other = event?.target.innerText;
+        if (Array.isArray(search.others)) {
+            // remove other tag if already in array
+            if (search.others.includes(other)) {
+                setSearch({
+                    ...search,
+                    others: search.others.filter((l) => l !== other),
+                });
+            } else {
+                // Add other tag if not in array
+                setSearch({
+                    ...search,
+                    others: [...search.others, other],
+                });
+            }
+        } else {
+            // If single other tag, set to array
+            setSearch({
+                ...search,
+                others: [other],
+            });
+        }
 
-    return tags && tags.length ? (
+        routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
+            shallow: true,
+        });
+    };
+
+    return (languageTags && languageTags.length) ||
+        (otherTags && otherTags.length) ? (
         <ul className={cn(styles.tagList, className)}>
-            {tags.map((tag, index) => (
-                <li className={styles.tag} key={`tag-${index}`}>
-                    <a onClick={changeLanguage}>{tag}</a>
+            {languageTags.map((tag, index) => (
+                <li
+                    className={classNames(styles.tag, {
+                        [`${styles.highlight}`]:
+                            search.languages?.includes(tag),
+                    })}
+                    key={`languageTag-${index}`}>
+                    <a onClick={toggleLanguageTag}>{tag}</a>
                 </li>
             ))}
+            {otherTags &&
+                otherTags.map((tag, index) => (
+                    <li
+                        className={classNames(styles.tag, {
+                            [`${styles.highlight}`]:
+                                search.others?.includes(tag),
+                        })}
+                        key={`otherTag-${index}`}>
+                        <a onClick={toggleOtherTag}>{tag}</a>
+                    </li>
+                ))}
         </ul>
     ) : null;
 };

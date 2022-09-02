@@ -29,8 +29,8 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
             </div>
             <div className={styles.info}>
                 <Heading level={1}>{tool.name}</Heading>
-                <TagList tags={tool.languages} />
-                <TagList tags={tool.other} />
+                <TagList languageTags={tool.languages} />
+                <TagList languageTags={tool.other} />
 
                 <Text className={styles.description}>
                     <ReactMarkdown>{tool.description || ''}</ReactMarkdown>
