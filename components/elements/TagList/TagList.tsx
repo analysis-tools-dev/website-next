@@ -7,7 +7,7 @@ import { useRouterPush } from 'hooks';
 import classNames from 'classnames';
 
 export interface TagListProps {
-    languageTags: string[];
+    languageTags?: string[];
     otherTags?: string[];
     className?: string;
 }
@@ -75,16 +75,17 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
     return (languageTags && languageTags.length) ||
         (otherTags && otherTags.length) ? (
         <ul className={cn(styles.tagList, className)}>
-            {languageTags.map((tag, index) => (
-                <li
-                    className={classNames(styles.tag, {
-                        [`${styles.highlight}`]:
-                            search.languages?.includes(tag),
-                    })}
-                    key={`languageTag-${index}`}>
-                    <a onClick={toggleLanguageTag}>{tag}</a>
-                </li>
-            ))}
+            {languageTags &&
+                languageTags.map((tag, index) => (
+                    <li
+                        className={classNames(styles.tag, {
+                            [`${styles.highlight}`]:
+                                search.languages?.includes(tag),
+                        })}
+                        key={`languageTag-${index}`}>
+                        <a onClick={toggleLanguageTag}>{tag}</a>
+                    </li>
+                ))}
             {otherTags &&
                 otherTags.map((tag, index) => (
                     <li
