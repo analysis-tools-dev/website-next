@@ -37,7 +37,6 @@ const TagList: FC<TagListProps> = ({ tags, className }) => {
                 languages: [language],
             });
         }
-        console.log(objectToQueryString(search));
 
         routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
             shallow: true,
