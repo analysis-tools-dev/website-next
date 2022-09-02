@@ -1,7 +1,8 @@
-export const checkArraysIntersect = (array1: string[], array2: string[]) => {
-    if (!array1?.length || !array2?.length) {
-        return 0;
+// check if an array contains another array
+// https://stackoverflow.com/a/4026828/112731
+export const checkArraysIntersect = (superset: string[], subset: string[]) => {
+    if (0 === subset.length) {
+        return false;
     }
-    const filteredArray = array1.filter((value) => array2.includes(value));
-    return filteredArray.length;
+    return subset.every((value) => superset.includes(value));
 };
