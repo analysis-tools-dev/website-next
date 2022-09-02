@@ -15,3 +15,12 @@
     border-radius: 4px;
     font-size: 12px;
 }
+
+.tag a {
+    color: inherit;
+    cursor: pointer;
+}
+
+.tag a:hover {
+    text-decoration: none;
+}
