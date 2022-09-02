@@ -38,7 +38,7 @@ const ToolsList: FC<ToolsListProps> = ({
     const routerPush = useRouterPush();
     const state = {
         ...search,
-        languages: overrideLanguages || search.categories,
+        languages: overrideLanguages || search.languages,
     };
     const toolsResult = useToolsQuery(state);
     if (
