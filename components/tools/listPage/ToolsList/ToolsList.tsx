@@ -4,10 +4,13 @@ import {
     PanelHeader,
     LoadingCogs,
     SuggestLink,
+    Button,
 } from '@components/elements';
 import { Tool, ToolCard } from '@components/tools';
 import { useToolsQuery } from '@components/tools/queries/tools';
+import { useRouterPush } from 'hooks';
 import { useSearchState } from 'context/SearchProvider';
+import styles from './ToolsList.module.css';
 
 const pickSort = (sort: string) => {
     switch (sort) {
@@ -23,22 +26,20 @@ const pickSort = (sort: string) => {
 };
 
 interface ToolsListProps {
-    heading: string;
     currentTool?: string;
     overrideLanguages?: string[];
 }
 
 const ToolsList: FC<ToolsListProps> = ({
-    heading,
     currentTool: current_tool,
     overrideLanguages,
 }) => {
     const { search, setSearch } = useSearchState();
+    const routerPush = useRouterPush();
     const state = {
         ...search,
         languages: overrideLanguages || search.languages,
     };
-    console.log(JSON.stringify(state));
     const toolsResult = useToolsQuery(state);
     if (
         toolsResult.isLoading ||
@@ -70,10 +71,34 @@ const ToolsList: FC<ToolsListProps> = ({
         });
     };
 
+    const shouldShowClearFilterButton =
+        window.location.search !== '' && window.location.search !== '?';
+
+    const resetSearch = () => {
+        setSearch({});
+        routerPush(`/tools`, undefined, {
+            shallow: true,
+        });
+    };
+
+    let singleLanguageHeading = `${singleLanguageTools.length} Static Analysis Tools`;
+    const multiLanguageHeading = `${multiLanguageTools.length} Multi-Language Tools`;
+    if (current_tool) {
+        singleLanguageHeading = `Alternatives to ${current_tool}`;
+    }
+
     return (
         <>
-            <PanelHeader level={3} text={heading}>
+            <PanelHeader level={3} text={singleLanguageHeading}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
+                {shouldShowClearFilterButton ? (
+                    <Button
+                        className={styles.clearButton}
+                        onClick={resetSearch}
+                        theme="secondary">
+                        Clear All Filters
+                    </Button>
+                ) : null}
                 <Dropdown changeSort={changeSort} />
             </PanelHeader>
             <div>
@@ -81,7 +106,7 @@ const ToolsList: FC<ToolsListProps> = ({
                     <ToolCard key={index} tool={tool} />
                 ))}
             </div>
-            <PanelHeader level={3} text="Multi-Language Tools"></PanelHeader>
+            <PanelHeader level={3} text={multiLanguageHeading}></PanelHeader>
             <div>
                 {multiLanguageTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />

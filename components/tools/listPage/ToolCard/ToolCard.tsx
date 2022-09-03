@@ -37,7 +37,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                 <Text className={styles.description}>
                     <ReactMarkdown>{tool.description || ''}</ReactMarkdown>
                 </Text>
-                <TagList tags={[...tool.languages, ...tool.other]} />
+                <TagList languageTags={tool.languages} otherTags={tool.other} />
 
                 <ul className={styles.toolMeta}>
                     <li>

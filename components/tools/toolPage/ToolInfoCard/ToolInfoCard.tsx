@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Card } from '@components/layout';
 import { Heading, Text } from '@components/typography';
 import { type Tool } from '@components/tools';
-
 import styles from './ToolInfoCard.module.css';
 import { ShareBtns } from '@components/core';
 import { TagList } from '@components/elements';
@@ -30,8 +29,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
             </div>
             <div className={styles.info}>
                 <Heading level={1}>{tool.name}</Heading>
-                <TagList tags={tool.languages} />
-                <TagList tags={tool.other} />
+                <TagList languageTags={tool.languages} otherTags={tool.other} />
 
                 <Text className={styles.description}>
                     <ReactMarkdown>{tool.description || ''}</ReactMarkdown>

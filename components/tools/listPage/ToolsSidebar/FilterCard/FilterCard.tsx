@@ -9,12 +9,12 @@ import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
 import { useSearchState } from 'context/SearchProvider';
 import {
-    changeQuery,
     isChecked,
     isSelectedFilter,
     resetQuery,
     sortByChecked,
 } from './utils';
+import { changeQuery } from 'utils/query';
 
 export interface FilterOption {
     tag: string;
@@ -32,9 +32,7 @@ export interface FilterCardProps {
 }
 
 // TODO: Add Toggle Deprecated (default off)
-// TODO: Add "pricing available" (default off)
 // TODO: Add click functionality and debounce
-// TODO: Clicking All resets other checkboxes
 const FilterCard: FC<FilterCardProps> = ({
     heading,
     filter,
@@ -42,7 +40,6 @@ const FilterCard: FC<FilterCardProps> = ({
     limit = 10,
 }) => {
     const { search, setSearch } = useSearchState();
-    // const [query, setQuery] = useState(router.query);
     const routerPush = useRouterPush();
 
     const shouldShowToggle = options.length > limit;
@@ -63,6 +60,17 @@ const FilterCard: FC<FilterCardProps> = ({
         }
     }, [search, routerPush]);
 
+    const resetFilter = () => {
+        if (search[filter]) {
+            delete search[filter];
+        }
+        setSearch({ ...search });
+
+        routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
+            shallow: true,
+        });
+    };
+
     if (options.length > limit) {
         options.sort(sortByChecked(filter, search));
     }
@@ -80,11 +88,12 @@ const FilterCard: FC<FilterCardProps> = ({
                         id="checkbox_all"
                         data-filter={filter}
                         checked={!isSelectedFilter(filter, search)}
-                        onChange={resetQuery(search, setSearch)}
+                        onChange={resetFilter}
                     />
                     <label
                         className={styles.checkboxLabel}
-                        htmlFor="checkbox_all">
+                        htmlFor="checkbox_all"
+                        onClick={resetFilter}>
                         All
                     </label>
                 </li>

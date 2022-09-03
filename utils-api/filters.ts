@@ -5,7 +5,7 @@ import type { ApiTool, ToolsApiData } from 'utils/types';
 
 export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
     // Filters to be checked
-    const { languages, categories, types, licenses, pricing } = query;
+    const { languages, others, categories, types, licenses, pricing } = query;
 
     const keys = Object.keys(tools);
     const result = [];
@@ -23,7 +23,24 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
                     continue;
                 }
             } else {
-                if (!isToolLanguageSpecific(tool, languages)) {
+                if (!tool.languages.includes(languages)) {
+                    continue;
+                }
+            }
+        }
+        // Check non-language tags
+        if (others) {
+            if (Array.isArray(others)) {
+                const isMultiLanguage = !isSingleLanguageTool(tool);
+                const toolOthersMatch = checkArraysIntersect(
+                    tool.other,
+                    others,
+                );
+                if (!(isMultiLanguage && toolOthersMatch)) {
+                    continue;
+                }
+            } else {
+                if (!tool.other.includes(others)) {
                     continue;
                 }
             }

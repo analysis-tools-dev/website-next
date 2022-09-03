@@ -1,5 +1,4 @@
 import { SearchState } from 'context/SearchProvider';
-import { ParsedUrlQuery } from 'querystring';
 
 export const objectToQueryString = (search: SearchState) => {
     const paramStrings: string[] = [];
@@ -22,25 +21,19 @@ export const objectToQueryString = (search: SearchState) => {
     return paramStrings.sort((a, b) => a.localeCompare(b)).join('&');
 };
 
-export const getFilterAsArray = (search: SearchState, key: string) => {
-    const value = search[key as keyof SearchState];
-    if (!value) {
-        return [];
-    }
-
-    if (Array.isArray(value)) {
-        return value;
-    }
-    return value.split(',');
-};
-
-export const getParamAsArray = (query: ParsedUrlQuery, key: string) => {
-    const value = query[key];
-    if (!value) {
-        return [];
-    }
-    if (Array.isArray(value)) {
-        return value;
-    }
-    return value.split(',');
-};
+export const changeQuery =
+    (val: string, search: SearchState, setSearch: any) => (e: any) => {
+        const key = e.target.dataset.filter;
+        const currValue = search[key] || [];
+        if (currValue.length) {
+            const index = currValue.indexOf(val);
+            if (index > -1) {
+                currValue.splice(index, 1);
+            } else {
+                currValue.push(val);
+            }
+        } else {
+            currValue.push(val);
+        }
+        setSearch({ ...search, [key]: currValue });
+    };

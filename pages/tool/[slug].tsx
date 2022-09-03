@@ -79,7 +79,6 @@ const ToolPage: FC<ToolProps> = ({ screenshots }) => {
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
 
                         <ToolsList
-                            heading={`Alternatives to ${tool.name}`}
                             currentTool={tool.name}
                             overrideLanguages={tool.languages}
                         />
