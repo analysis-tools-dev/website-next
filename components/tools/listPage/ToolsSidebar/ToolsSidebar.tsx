@@ -24,7 +24,6 @@ const ToolsSidebar: FC = () => {
     if (languageResult.error || !languageResult.data) {
         return null;
     }
-
     return (
         <Sidebar className={styles.bottomSticky}>
             <FilterCard
