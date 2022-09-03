@@ -9,7 +9,7 @@ export enum APIPaths {
     TOOL = 'tool',
     BLOG = 'articles',
     VOTES = 'votes',
-    TAGS = 'tags/other',
+    OTHER_TAGS = 'tags/other',
     LANGUAGE_TAGS = 'tags/languages',
     MOST_VIEWED = 'mostViewed',
     POPULAR_LANGUAGES = 'popularLanguages',
