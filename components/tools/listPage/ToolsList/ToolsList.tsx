@@ -72,7 +72,7 @@ const ToolsList: FC<ToolsListProps> = ({
     };
 
     const shouldShowClearFilterButton =
-        search && Object.keys(search).length !== 0;
+        window.location.search !== '' && window.location.search !== '?';
 
     const resetSearch = () => {
         setSearch({});
