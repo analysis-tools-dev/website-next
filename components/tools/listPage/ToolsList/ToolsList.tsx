@@ -11,6 +11,7 @@ import { useToolsQuery } from '@components/tools/queries/tools';
 import { useRouterPush } from 'hooks';
 import { useSearchState } from 'context/SearchProvider';
 import styles from './ToolsList.module.css';
+import { checkArraysIntersect } from 'utils/arrays';
 
 const pickSort = (sort: string) => {
     switch (sort) {
@@ -26,14 +27,11 @@ const pickSort = (sort: string) => {
 };
 
 interface ToolsListProps {
-    currentTool?: string;
+    currentTool?: Tool;
     overrideLanguages?: string[];
 }
 
-const ToolsList: FC<ToolsListProps> = ({
-    currentTool: current_tool,
-    overrideLanguages,
-}) => {
+const ToolsList: FC<ToolsListProps> = ({ currentTool, overrideLanguages }) => {
     const { search, setSearch } = useSearchState();
     const routerPush = useRouterPush();
     const state = {
@@ -54,18 +52,39 @@ const ToolsList: FC<ToolsListProps> = ({
 
     // Exclude current tool from list of alternatives
     const sortedTools = toolsResult.data
-        .filter((tool) => tool.name != current_tool)
+        .filter((tool) => tool.name != currentTool?.name)
         .sort(pickSort(state.sorting));
 
-    const singleTagTools = sortedTools.filter(
+    let singleTagTools = sortedTools.filter(
         (tool) =>
             tool.languages.length === 1 ||
             (tool.languages.length === 0 && tool.other.length === 1),
     );
     // filter out all singleTagTools
-    const multiTagTools = sortedTools.filter(
+    let multiTagTools = sortedTools.filter(
         (tool) => !singleTagTools.includes(tool),
     );
+
+    // if in currentTool view, show only tools with the same type
+    if (currentTool) {
+        singleTagTools = singleTagTools.filter(
+            (tool) =>
+                checkArraysIntersect(tool.types, currentTool?.types || []) &&
+                checkArraysIntersect(
+                    tool.categories,
+                    currentTool?.categories || [],
+                ),
+        );
+        multiTagTools = multiTagTools.filter(
+            (tool) =>
+                checkArraysIntersect(tool.types, currentTool?.types || []) &&
+                checkArraysIntersect(
+                    tool.categories,
+                    currentTool?.categories || [],
+                ),
+        );
+    }
+
     const changeSort = (event: any) => {
         const sorting = event.target.value;
         setSearch({
@@ -86,8 +105,8 @@ const ToolsList: FC<ToolsListProps> = ({
 
     let singleTagHeading = `${singleTagTools.length} Static Analysis Tools`;
     const multiTagHeading = `${multiTagTools.length} Multi-Language Tools`;
-    if (current_tool) {
-        singleTagHeading = `Alternatives to ${current_tool}`;
+    if (currentTool) {
+        singleTagHeading = `Alternatives to ${currentTool.name}`;
     }
 
     return (
@@ -109,12 +128,16 @@ const ToolsList: FC<ToolsListProps> = ({
                     <ToolCard key={index} tool={tool} />
                 ))}
             </div>
-            <PanelHeader level={3} text={multiTagHeading}></PanelHeader>
-            <div>
-                {multiTagTools.map((tool, index) => (
-                    <ToolCard key={index} tool={tool} />
-                ))}
-            </div>
+            {multiTagTools.length > 0 && (
+                <>
+                    <PanelHeader level={3} text={multiTagHeading}></PanelHeader>
+                    <div>
+                        {multiTagTools.map((tool, index) => (
+                            <ToolCard key={index} tool={tool} />
+                        ))}
+                    </div>
+                </>
+            )}
             <SuggestLink />
         </>
     );

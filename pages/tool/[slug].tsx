@@ -80,7 +80,7 @@ const ToolPage: FC<ToolProps> = ({ screenshots }) => {
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
 
                         <ToolsList
-                            currentTool={tool.name}
+                            currentTool={tool}
                             overrideLanguages={tool.languages}
                         />
                     </Panel>
