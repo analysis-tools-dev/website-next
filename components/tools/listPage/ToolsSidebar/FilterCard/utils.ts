@@ -2,11 +2,13 @@ import { SearchFilter, SearchState } from 'context/SearchProvider';
 import { FilterOption } from './FilterCard';
 
 export const isSelectedFilter = (key: string, search: SearchState) => {
-    return search[key]?.length ? true : false;
+    const searchFilter = key as SearchFilter;
+    return search[searchFilter]?.length ? true : false;
 };
 
 export const isChecked = (key: string, value: string, search: SearchState) => {
-    return search[key]?.includes(value) ? true : false;
+    const searchFilter = key as SearchFilter;
+    return search[searchFilter]?.includes(value) ? true : false;
 };
 
 export const resetQuery = (search: SearchState, setSearch: any) => (e: any) => {

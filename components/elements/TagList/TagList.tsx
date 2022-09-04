@@ -15,7 +15,7 @@ export interface TagListProps {
 const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
     const routerPush = useRouterPush();
     const { search, setSearch } = useSearchState();
-    const toggleLanguageTag = (event) => {
+    const toggleLanguageTag = (event: any) => {
         const language = event?.target.innerText;
         if (Array.isArray(search.languages)) {
             // remove language tag if already in array
@@ -43,7 +43,7 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
             shallow: true,
         });
     };
-    const toggleOtherTag = (event) => {
+    const toggleOtherTag = (event: any) => {
         const other = event?.target.innerText;
         if (Array.isArray(search.others)) {
             // remove other tag if already in array
