@@ -14,11 +14,6 @@ export const slugify = (text: string) => {
 
 // Get the screenshot URL for a tool.
 export const getScreenshotsPath = (slug: string) => {
-    // // Make sure this function only gets called on the server.
-    // if (typeof window !== 'undefined') {
-    //     return [];
-    // }
-
     // Remove protocol from url for nicer file names.
     const urlClean = slug.replace(/(^\w+:|^)\/\/(www)?/, '');
     const urls: string[] = [];
