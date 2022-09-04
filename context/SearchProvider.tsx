@@ -39,7 +39,11 @@ const INITIAL_CONTEXT: SearchContextType = {
 
 const SearchContext = createContext(INITIAL_CONTEXT);
 
-export const SearchProvider: FC = ({ children }) => {
+export interface SearchProviderProps {
+    children?: React.ReactNode[];
+}
+
+export const SearchProvider: FC<SearchProviderProps> = ({ children }) => {
     const router = useRouter();
 
     const [search, setSearch] = useState(router.query);
