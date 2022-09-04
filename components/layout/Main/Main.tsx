@@ -4,7 +4,7 @@ import styles from './Main.module.css';
 
 export interface MainProps {
     className?: string;
-    children?: React.ReactNode[];
+    children?: React.ReactNode;
 }
 
 const Main: FC<MainProps> = ({ children, className }) => {

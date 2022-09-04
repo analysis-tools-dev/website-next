@@ -4,7 +4,7 @@ import styles from './Panel.module.css';
 
 export interface PanelProps {
     className?: string;
-    children?: React.ReactNode[];
+    children?: React.ReactNode;
 }
 
 const Panel: FC<PanelProps> = ({ children, className }) => {
