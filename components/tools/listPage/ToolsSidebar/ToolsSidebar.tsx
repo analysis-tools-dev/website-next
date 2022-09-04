@@ -25,8 +25,6 @@ const ToolsSidebar: FC = () => {
         return null;
     }
 
-    console.log(otherResult);
-
     return (
         <Sidebar className={styles.bottomSticky}>
             <FilterCard

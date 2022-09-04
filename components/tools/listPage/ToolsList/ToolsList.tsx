@@ -57,10 +57,10 @@ const ToolsList: FC<ToolsListProps> = ({
         .filter((tool) => tool.name != current_tool)
         .sort(pickSort(state.sorting));
 
-    const singleLanguageTools = sortedTools.filter(
-        (tool) => tool.languages.length === 1,
+    const singleTagTools = sortedTools.filter(
+        (tool) => tool.languages.length === 1 || tool.other.length === 1,
     );
-    const multiLanguageTools = sortedTools.filter(
+    const multiTagTools = sortedTools.filter(
         (tool) => tool.languages.length > 1,
     );
     const changeSort = (event: any) => {
@@ -81,15 +81,15 @@ const ToolsList: FC<ToolsListProps> = ({
         });
     };
 
-    let singleLanguageHeading = `${singleLanguageTools.length} Static Analysis Tools`;
-    const multiLanguageHeading = `${multiLanguageTools.length} Multi-Language Tools`;
+    let singleTagHeading = `${singleTagTools.length} Static Analysis Tools`;
+    const multiTagHeading = `${multiTagTools.length} Multi-Language Tools`;
     if (current_tool) {
-        singleLanguageHeading = `Alternatives to ${current_tool}`;
+        singleTagHeading = `Alternatives to ${current_tool}`;
     }
 
     return (
         <>
-            <PanelHeader level={3} text={singleLanguageHeading}>
+            <PanelHeader level={3} text={singleTagHeading}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
                 {shouldShowClearFilterButton ? (
                     <Button
@@ -102,13 +102,13 @@ const ToolsList: FC<ToolsListProps> = ({
                 <Dropdown changeSort={changeSort} />
             </PanelHeader>
             <div>
-                {singleLanguageTools.map((tool, index) => (
+                {singleTagTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />
                 ))}
             </div>
-            <PanelHeader level={3} text={multiLanguageHeading}></PanelHeader>
+            <PanelHeader level={3} text={multiTagHeading}></PanelHeader>
             <div>
-                {multiLanguageTools.map((tool, index) => (
+                {multiTagTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />
                 ))}
             </div>
