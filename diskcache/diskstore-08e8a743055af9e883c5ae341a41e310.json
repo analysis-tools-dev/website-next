@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-{"expireTime":1662391419102,"key":"black_votes_data","val":{"id":"toolsyamlblack","downVotes":16,"sum":155,"upVotes":171}}
-=======
-{"expireTime":1662385294970,"key":"black_votes_data","val":{"id":"toolsyamlblack","upVotes":171,"downVotes":16,"sum":155}}
->>>>>>> efb0a64 (Add more types)

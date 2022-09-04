@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-{"expireTime":1662391397548,"key":"tools_stats","val":{"angr":"28","applicationinspector":"37","atom-beautify":"23","bandit":"22","better-code-hub":"29","bodyclose":"22","callgraph":"47","cbmc":"21","cmetrics":"24","codacy":"30","codefactor":"22","codeql":"33","eslint":"21","fortify":"31","kube-linter":"24","lizard":"37","mega-linter":"55","mypy":"22","ocular":"28","querly":"21","semgrep":"42","spoon":"25","sqlcheck":"27","tencentcodeanalysis":"22","understand":"30"}}
-=======
-{"expireTime":1662385269216,"key":"tools_stats","val":{"angr":"28","applicationinspector":"37","atom-beautify":"23","bandit":"22","better-code-hub":"29","bodyclose":"22","callgraph":"47","cbmc":"21","cmetrics":"24","codacy":"30","codefactor":"22","codeql":"33","eslint":"21","fortify":"31","kube-linter":"24","lizard":"37","mega-linter":"55","mypy":"22","ocular":"28","querly":"21","semgrep":"42","spoon":"25","sqlcheck":"27","tencentcodeanalysis":"22","understand":"30"}}
->>>>>>> efb0a64 (Add more types)
