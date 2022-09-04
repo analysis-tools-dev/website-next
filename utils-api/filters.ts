@@ -101,7 +101,6 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
                 }
             }
         }
-
         // Finally push if all checks passed
         result.push({ id: key, ...tool });
     }

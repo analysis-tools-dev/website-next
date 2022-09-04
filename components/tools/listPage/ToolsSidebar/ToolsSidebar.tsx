@@ -12,12 +12,19 @@ import {
     PRICING_OPTIONS,
 } from '@appdata/filters';
 import { useLanguagesQuery } from '@components/tools/queries/languages';
+import { useOthersQuery } from '@components/tools/queries/others';
 
 const ToolsSidebar: FC = () => {
+    const otherResult = useOthersQuery();
     const languageResult = useLanguagesQuery();
+
+    if (otherResult.error || !otherResult.data) {
+        return null;
+    }
     if (languageResult.error || !languageResult.data) {
         return null;
     }
+
     return (
         <Sidebar className={styles.bottomSticky}>
             <FilterCard
@@ -40,6 +47,12 @@ const ToolsSidebar: FC = () => {
                 heading="Pricing"
                 filter="pricing"
                 options={PRICING_OPTIONS}
+            />
+            <FilterCard
+                heading="Other Tags"
+                filter="others"
+                options={otherResult.data}
+                limit={4}
             />
 
             <ContributionCard />
