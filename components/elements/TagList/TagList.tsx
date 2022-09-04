@@ -39,9 +39,13 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
             });
         }
 
-        routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
-            shallow: true,
-        });
+        routerPush(
+            `/tools?${objectToQueryString(search as Record<string, any>)}`,
+            undefined,
+            {
+                shallow: true,
+            },
+        );
     };
     const toggleOtherTag = (event: any) => {
         const other = event?.target.innerText;

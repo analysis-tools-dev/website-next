@@ -8,12 +8,7 @@ import styles from './FilterCard.module.css';
 import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
 import { SearchFilter, useSearchState } from 'context/SearchProvider';
-import {
-    isChecked,
-    isSelectedFilter,
-    resetQuery,
-    sortByChecked,
-} from './utils';
+import { isChecked, isSelectedFilter, sortByChecked } from './utils';
 import { changeQuery } from 'utils/query';
 
 export interface FilterOption {

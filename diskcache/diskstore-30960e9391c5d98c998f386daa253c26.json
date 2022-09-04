@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"expireTime":1662391419323,"key":"black_github_data","val":{"source":"https://github.com/psf/black","name":"black","stars":29035,"issues":345,"forks":1846,"created":"2018-03-14T19:54:45Z","updated":"2022-09-04T15:12:32Z"}}
+=======
+{"expireTime":1662385295212,"key":"black_github_data","val":{"source":"https://github.com/psf/black","name":"black","stars":29034,"issues":345,"forks":1846,"created":"2018-03-14T19:54:45Z","updated":"2022-09-04T11:58:30Z"}}
+>>>>>>> efb0a64 (Add more types)

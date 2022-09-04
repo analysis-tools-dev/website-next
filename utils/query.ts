@@ -1,8 +1,9 @@
 import { SearchState } from 'context/SearchProvider';
+import { Dispatch } from 'react';
 
-export const objectToQueryString = (search: SearchState) => {
+export const objectToQueryString = (query: Record<string, any>) => {
     const paramStrings: string[] = [];
-    Object.entries(search).forEach(([key, value]) => {
+    Object.entries(query).forEach(([key, value]) => {
         if (value) {
             if (Array.isArray(value)) {
                 value.forEach((val) => {
@@ -22,7 +23,12 @@ export const objectToQueryString = (search: SearchState) => {
 };
 
 export const changeQuery =
-    (val: string, search: SearchState, setSearch: any) => (e: any) => {
+    (
+        val: string,
+        search: SearchState,
+        setSearch: Dispatch<React.SetStateAction<SearchState>>,
+    ) =>
+    (e: any) => {
         const key = e.target.dataset.filter;
         const currValue = search[key] || [];
         if (currValue.length) {

@@ -1,6 +1,7 @@
 import { SearchState } from 'context/SearchProvider';
 import { objectToQueryString } from 'utils/query';
 import getConfig from 'next/config';
+import { ParsedUrlQuery } from 'querystring';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -25,11 +26,11 @@ export const getApiURL = (pathName?: string) => {
     return baseApiUrl;
 };
 
-export const getToolsApiURL = (search?: SearchState) => {
+export const getToolsApiURL = (query: any) => {
     let apiUrl = getApiURL(APIPaths.TOOLS);
 
-    if (search) {
-        const queryString = objectToQueryString(search);
+    if (query) {
+        const queryString = objectToQueryString(query);
         if (queryString) {
             apiUrl += `?${queryString}`;
         }

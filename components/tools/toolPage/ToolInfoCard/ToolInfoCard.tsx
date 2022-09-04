@@ -8,7 +8,6 @@ import styles from './ToolInfoCard.module.css';
 import { ShareBtns } from '@components/core';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
-
 import ImageGallery from 'react-image-gallery';
 
 import 'react-image-gallery/styles/css/image-gallery.css';
