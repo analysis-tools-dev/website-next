@@ -58,10 +58,13 @@ const ToolsList: FC<ToolsListProps> = ({
         .sort(pickSort(state.sorting));
 
     const singleTagTools = sortedTools.filter(
-        (tool) => tool.languages.length === 1 || tool.other.length === 1,
+        (tool) =>
+            tool.languages.length === 1 ||
+            (tool.languages.length === 0 && tool.other.length === 1),
     );
+    // filter out all singleTagTools
     const multiTagTools = sortedTools.filter(
-        (tool) => tool.languages.length > 1,
+        (tool) => !singleTagTools.includes(tool),
     );
     const changeSort = (event: any) => {
         const sorting = event.target.value;
