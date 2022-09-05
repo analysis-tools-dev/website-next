@@ -15,7 +15,7 @@ export interface TagListProps {
 const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
     const routerPush = useRouterPush();
     const { search, setSearch } = useSearchState();
-    const toggleLanguageTag = (event) => {
+    const toggleLanguageTag = (event: any) => {
         const language = event?.target.innerText;
         if (Array.isArray(search.languages)) {
             // remove language tag if already in array
@@ -39,11 +39,15 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
             });
         }
 
-        routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
-            shallow: true,
-        });
+        routerPush(
+            `/tools?${objectToQueryString(search as Record<string, any>)}`,
+            undefined,
+            {
+                shallow: true,
+            },
+        );
     };
-    const toggleOtherTag = (event) => {
+    const toggleOtherTag = (event: any) => {
         const other = event?.target.innerText;
         if (Array.isArray(search.others)) {
             // remove other tag if already in array

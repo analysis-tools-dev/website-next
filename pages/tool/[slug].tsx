@@ -14,7 +14,7 @@ import {
 import { LoadingCogs } from '@components/elements';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 import { SearchProvider } from 'context/SearchProvider';
-import { getScreenshotsPath } from './utils';
+import { getScreenshotsPath } from 'utils-api/screenshot';
 
 // TODO: Add fallback pages instead of 404, maybe says tool not found and asks user if they would like to add it?
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -33,6 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     await prefetchArticles(queryClient);
 
     const tool = await fetchToolData(slug.toString());
+
     return {
         props: {
             dehydratedState: dehydrate(queryClient),
@@ -79,7 +80,7 @@ const ToolPage: FC<ToolProps> = ({ screenshots }) => {
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
 
                         <ToolsList
-                            currentTool={tool.name}
+                            currentTool={tool}
                             overrideLanguages={tool.languages}
                         />
                     </Panel>

@@ -7,13 +7,8 @@ import { Heading } from '@components/typography';
 import styles from './FilterCard.module.css';
 import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
-import { useSearchState } from 'context/SearchProvider';
-import {
-    isChecked,
-    isSelectedFilter,
-    resetQuery,
-    sortByChecked,
-} from './utils';
+import { SearchFilter, useSearchState } from 'context/SearchProvider';
+import { isChecked, isSelectedFilter, sortByChecked } from './utils';
 import { changeQuery } from 'utils/query';
 
 export interface FilterOption {
@@ -61,8 +56,9 @@ const FilterCard: FC<FilterCardProps> = ({
     }, [search, routerPush]);
 
     const resetFilter = () => {
-        if (search[filter]) {
-            delete search[filter];
+        const searchFilter = filter as SearchFilter;
+        if (search[searchFilter]) {
+            delete search[searchFilter];
         }
         setSearch({ ...search });
 

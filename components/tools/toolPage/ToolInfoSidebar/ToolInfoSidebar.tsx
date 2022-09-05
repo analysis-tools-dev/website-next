@@ -8,6 +8,7 @@ import InformationCard from './InformationCard/InformationCard';
 import RepositoryCard from './RepositoryCard/RepositoryCard';
 import LicenseCard from './LicenseCard/LicenseCard';
 import ResourcesCard from './ResourcesCard/ResourcesCard';
+import GithubStarsCard from './GithubStarsCard/GithubStarsCard';
 interface ToolInfoSidebarProps {
     tool: Tool;
 }
@@ -16,6 +17,7 @@ const ToolInfoSidebar: FC<ToolInfoSidebarProps> = ({ tool }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <InformationCard tool={tool} />
+            {tool.stars && <GithubStarsCard stars={tool.stars} />}
             {tool.repositoryData && (
                 <RepositoryCard data={tool.repositoryData} />
             )}
