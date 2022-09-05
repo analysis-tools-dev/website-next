@@ -73,7 +73,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ stars }) => {
                     const ctx = context.chart.ctx;
                     const gradient = ctx.createLinearGradient(0, 0, 0, 450);
                     gradient.addColorStop(0, 'rgba(0, 231, 255, 0.5)');
-                    gradient.addColorStop(0.1, 'rgba(0, 231, 255, 0.02)');
+                    gradient.addColorStop(0.13, 'rgba(0, 231, 255, 0.02)');
                     gradient.addColorStop(1, 'rgba(0, 231, 255, 0)');
                     return gradient;
                 },
