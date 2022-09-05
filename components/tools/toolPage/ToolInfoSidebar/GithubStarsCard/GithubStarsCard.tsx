@@ -32,6 +32,8 @@ export interface GithubStarsCardProps {
 const GithubStarsCard: FC<GithubStarsCardProps> = ({ stars }) => {
     const options = {
         responsive: true,
+        tension: 0.5,
+        cubicInterpolationMode: 'monotone',
         scales: {
             x: {
                 ticks: {

@@ -161,7 +161,10 @@ export async function getRepoStarRecords(
             count: v,
         });
     });
-
+    // sort by date string
+    starRecords.sort((a, b) => {
+        return a.date.localeCompare(b.date);
+    });
     return starRecords;
 }
 
