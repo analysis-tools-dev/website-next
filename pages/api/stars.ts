@@ -11,32 +11,6 @@ export function range(from: number, to: number): number[] {
     return result;
 }
 
-export function getTimeStampByDate(t: Date | number | string): number {
-    const d = new Date(t);
-
-    return d.getTime();
-}
-
-export function getDateString(
-    t: Date | number | string,
-    format = 'yyyy/MM',
-): string {
-    const d = new Date(getTimeStampByDate(t));
-
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
-    // const date = d.getDate();
-    // const hours = d.getHours();
-    // const minutes = d.getMinutes();
-    // const seconds = d.getSeconds();
-
-    const formatedString = format
-        .replace('yyyy', String(year))
-        .replace('MM', String(month));
-
-    return formatedString;
-}
-
 export async function getRepoStargazers(
     repo: string,
     token?: string,
@@ -71,7 +45,7 @@ export async function getRepoStarRecords(
     token?: string,
     requests?: number,
 ) {
-    const maxRequestAmount = requests || 5;
+    const maxRequestAmount = requests || 10;
 
     const patchRes = await getRepoStargazers(repo, token);
 
@@ -120,21 +94,19 @@ export async function getRepoStarRecords(
         }),
     );
 
-    const starRecordsMap: Map<string, number> = new Map();
+    const starRecordsMap: Map<Date, number> = new Map();
 
     if (requestPages.length < maxRequestAmount) {
         const starRecordsData: {
-            starred_at: string;
+            starred_at: Date;
         }[] = [];
         resArray.map(async (res) => {
             const data = await res.json();
             starRecordsData.push(...data);
         });
         for (let i = 0; i < starRecordsData.length; ) {
-            starRecordsMap.set(
-                getDateString(starRecordsData[i].starred_at),
-                i + 1,
-            );
+            const date = new Date(starRecordsData[i].starred_at);
+            starRecordsMap.set(date, i + 1);
             i += Math.floor(starRecordsData.length / maxRequestAmount) || 1;
         }
     } else {
@@ -142,19 +114,19 @@ export async function getRepoStarRecords(
             const data = await res.json();
             if (data.length > 0) {
                 const starRecord = data[0];
+                const date = new Date(starRecord.starred_at);
                 starRecordsMap.set(
-                    getDateString(starRecord.starred_at),
+                    date,
                     DEFAULT_PER_PAGE * (requestPages[index] - 1),
                 );
             }
         });
     }
 
-    const starAmount = await getRepoStargazersCount(repo, token);
-    starRecordsMap.set(getDateString(Date.now()), starAmount);
+    await getRepoStargazersCount(repo, token);
 
     const starRecords: {
-        date: string;
+        date: Date;
         count: number;
     }[] = [];
 
@@ -164,10 +136,10 @@ export async function getRepoStarRecords(
             count: v,
         });
     });
-    // sort by date string
     starRecords.sort((a, b) => {
-        return a.date.localeCompare(b.date);
+        return a.date.getTime() - b.date.getTime();
     });
+
     return starRecords;
 }
 

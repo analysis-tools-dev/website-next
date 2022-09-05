@@ -25,6 +25,28 @@ ChartJS.register(
     Tooltip,
 );
 
+export function getTimeStampByDate(t: Date | number | string): number {
+    const d = new Date(t);
+    return d.getTime();
+}
+
+function getDateString(t: Date | number | string, format = 'yyyy/MM'): string {
+    const d = new Date(getTimeStampByDate(t));
+
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    // const date = d.getDate();
+    // const hours = d.getHours();
+    // const minutes = d.getMinutes();
+    // const seconds = d.getSeconds();
+
+    const formatedString = format
+        .replace('yyyy', String(year))
+        .replace('MM', String(month));
+
+    return formatedString;
+}
+
 export interface GithubStarsCardProps {
     stars: { date: string; count: number }[];
 }
@@ -60,7 +82,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ stars }) => {
         },
     };
     const data = {
-        labels: stars.map((star) => star.date),
+        labels: stars.map((star) => getDateString(star.date)),
         datasets: [
             {
                 label: 'Stars',
