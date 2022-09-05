@@ -1,3 +1,6 @@
+// The original repo does not provide a library, so I had to copy the code
+// Source: https://github.com/bytebase/star-history
+// License: MIT
 const DEFAULT_PER_PAGE = 30;
 
 export function range(from: number, to: number): number[] {
