@@ -48,7 +48,7 @@ function getDateString(t: Date | number | string, format = 'yyyy/MM'): string {
 }
 
 export interface GithubStarsCardProps {
-    stars: { date: string; count: number }[];
+    stars: { date: Date; count: number }[];
 }
 
 const GithubStarsCard: FC<GithubStarsCardProps> = ({ stars }) => {
