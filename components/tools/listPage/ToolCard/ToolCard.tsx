@@ -34,9 +34,9 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                         </Heading>
                     </a>
                 </Link>
-                <Text className={styles.description}>
-                    <ReactMarkdown>{tool.description || ''}</ReactMarkdown>
-                </Text>
+                <ReactMarkdown className={styles.description}>
+                    {tool.description || ''}
+                </ReactMarkdown>
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
 
                 <ul className={styles.toolMeta}>

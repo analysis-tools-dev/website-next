@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import Image from 'next/image';
 import classNames from 'classnames';
 
 import styles from './ShareBtns.module.css';
@@ -24,52 +23,53 @@ import {
 } from 'react-share';
 
 export interface ShareBtnsProps {
+    url: string;
     className?: string;
 }
 
-const ShareBtns: FC<ShareBtnsProps> = ({ className }) => {
+const ShareBtns: FC<ShareBtnsProps> = ({ url, className }) => {
     return (
         <>
             <ul className={classNames(styles.btnList, className)}>
                 <li>Share:</li>
                 <li>
-                    <EmailShareButton url="https://example.com">
-                        <EmailIcon size={32} round />
+                    <EmailShareButton url={url}>
+                        <EmailIcon size={25} round />
                     </EmailShareButton>
                 </li>
                 <li>
-                    <FacebookShareButton url="https://example.com">
-                        <FacebookIcon size={32} round />
+                    <FacebookShareButton url={url}>
+                        <FacebookIcon size={25} round />
                     </FacebookShareButton>
                 </li>
                 <li>
-                    <LinkedinShareButton url="https://example.com">
-                        <LinkedinIcon size={32} round />
+                    <LinkedinShareButton url={url}>
+                        <LinkedinIcon size={25} round />
                     </LinkedinShareButton>
                 </li>
                 <li>
-                    <TwitterShareButton url="https://example.com">
-                        <TwitterIcon size={32} round />
+                    <TwitterShareButton url={url}>
+                        <TwitterIcon size={25} round />
                     </TwitterShareButton>
                 </li>
                 <li>
-                    <RedditShareButton url="https://example.com">
-                        <RedditIcon size={32} round />
+                    <RedditShareButton url={url}>
+                        <RedditIcon size={25} round />
                     </RedditShareButton>
                 </li>
                 <li>
-                    <WhatsappShareButton url="https://example.com">
-                        <WhatsappIcon size={32} round />
+                    <WhatsappShareButton url={url}>
+                        <WhatsappIcon size={25} round />
                     </WhatsappShareButton>
                 </li>
                 <li>
-                    <TelegramShareButton url="https://example.com">
-                        <TelegramIcon size={32} round />
+                    <TelegramShareButton url={url}>
+                        <TelegramIcon size={25} round />
                     </TelegramShareButton>
                 </li>
                 <li>
-                    <VKShareButton url="https://example.com">
-                        <VKIcon size={32} round />
+                    <VKShareButton url={url}>
+                        <VKIcon size={25} round />
                     </VKShareButton>
                 </li>
             </ul>
