@@ -1,14 +1,12 @@
+// If the source is a github repo, return the owner and repo
 export const getRepositoryMeta = (source: string) => {
-    if (!source || source === '') {
-        return null;
+    const githubRegex = /github\.com\/([^/]+)\/([^/]+)/;
+    const githubMatch = source.match(githubRegex);
+
+    if (githubMatch) {
+        return {
+            owner: githubMatch[1],
+            repo: githubMatch[2],
+        };
     }
-    const urlData = source.split('/');
-    const baseIndex = urlData.findIndex((el) => el === 'github.com');
-    if (!baseIndex) {
-        return null;
-    }
-    return {
-        owner: urlData[baseIndex + 1],
-        repo: urlData[baseIndex + 2],
-    };
 };
