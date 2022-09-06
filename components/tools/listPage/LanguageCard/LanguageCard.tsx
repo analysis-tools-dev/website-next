@@ -36,7 +36,7 @@ const LanguageCard: FC<LanguageCardProps> = ({ language }) => {
             </Text>
 
             <div className={styles.cardFooter}>
-                <ShareBtns className={styles.shareBtns} />
+                <ShareBtns url={language.href} className={styles.shareBtns} />
                 <Link href={language.website}>
                     <a className="font-light font-size-s m-l-4">
                         Visit website

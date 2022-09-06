@@ -20,7 +20,7 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
         : `${iconAssetsPath}/languages/${tool.languages[0]}.svg`;
     const languageTag = isMultiLanguage
         ? 'Multi-Language'
-        : deCamelString(tool.languages[0]);
+        : deCamelString(tool.languages[0] || tool.other[0] || '');
 
     return (
         <Card className="m-b-30">

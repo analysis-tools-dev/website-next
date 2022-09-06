@@ -43,7 +43,7 @@ export interface Tool {
     installation?: string;
     documentation?: string;
     repositoryData?: RepositoryData;
-    stars?: { date: string; count: number }[];
+    stars?: { date: Date; count: number }[];
 }
 
 export interface ToolsByLanguage {

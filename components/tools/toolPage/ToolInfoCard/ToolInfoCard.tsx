@@ -30,16 +30,19 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                 <Heading level={1}>{tool.name}</Heading>
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
 
-                <Text className={styles.description}>
-                    <ReactMarkdown>{tool.description || ''}</ReactMarkdown>
-                    <br />
-                    <Link href={tool.homepage}>
-                        <a className="font-light font-size-s">More info</a>
-                    </Link>
-                </Text>
+                <ReactMarkdown className={styles.description}>
+                    {tool.description || ''}
+                </ReactMarkdown>
+                <br />
+                <Link href={tool.homepage}>
+                    <a className="font-light font-size-s">More info</a>
+                </Link>
 
                 <div className={styles.cardFooter}>
-                    <ShareBtns className={styles.shareBtns} />
+                    <ShareBtns
+                        url={`https://analysis-tools.dev/tool/${tool.name}`}
+                        className={styles.shareBtns}
+                    />
                     <Link href={tool.homepage}>
                         <a className="font-light font-size-s m-l-4">
                             Visit website

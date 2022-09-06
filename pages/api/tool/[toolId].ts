@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getGithubStats, getRepositoryMeta } from 'utils-api/github';
+import { getGithubStats } from 'utils-api/github';
 import { getTool } from 'utils-api/tools';
 import { getToolVotes } from 'utils-api/votes';
 import { type Tool } from '@components/tools';
 import { getRepoStarRecords } from '../stars';
+import { getRepositoryMeta } from 'utils/github';
 
 export default async function handler(
     req: NextApiRequest,
@@ -34,7 +35,8 @@ export default async function handler(
         );
         const stars = await getRepoStarRecords(
             `${repoMeta.owner}/${repoMeta.repo}`,
-            process.env.GH_TOKEN,
+            process.env.GH_TOKEN || '',
+            10,
         );
         if (githubData) {
             res.status(200).json({
