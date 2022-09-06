@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { BlogPreview } from '@components/blog';
 import { ContributionCard, Newsletter } from '@components/elements';
 import { Sidebar } from '@components/layout';
-import { FilterCard } from './FilterCard';
+import { FilterCard, LanguageFilterCard } from './FilterCard';
 import styles from './ToolsSidebar.module.css';
 
 import {
@@ -26,7 +26,7 @@ const ToolsSidebar: FC = () => {
     }
     return (
         <Sidebar className={styles.bottomSticky}>
-            <FilterCard
+            <LanguageFilterCard
                 heading="Languages"
                 filter="languages"
                 options={languageResult.data}
