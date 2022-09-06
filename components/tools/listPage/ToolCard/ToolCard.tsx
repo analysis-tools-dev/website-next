@@ -75,6 +75,23 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                             </span>
                         ))}
                     </li>
+                    <li>
+                        {tool.categories.map((category, index) => (
+                            <span
+                                key={`category-${index}`}
+                                className={styles.category}>
+                                <Image
+                                    height="14px"
+                                    width="14px"
+                                    src={`/assets/icons/category/${category}.svg`}
+                                    alt={toolStatus}
+                                />
+                                <span className={styles.metaInfo}>
+                                    {category}
+                                </span>
+                            </span>
+                        ))}
+                    </li>
                 </ul>
             </div>
         </Card>
