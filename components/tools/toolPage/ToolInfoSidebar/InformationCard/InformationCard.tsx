@@ -46,6 +46,22 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
                 />
             )}
             <InfoEntry
+                label={'Category'}
+                id="category"
+                value={tool.categories.join(', ')}
+            />
+            <InfoEntry
+                label={'Language(s)'}
+                id="language"
+                value={languageTag}
+                icon={languageIcon}
+            />
+            <InfoEntry
+                label={'Integration(s)'}
+                id="integrations"
+                value={tool.types.join(', ')}
+            />
+            <InfoEntry
                 label={'Homepage'}
                 id="homepage"
                 value={tool.homepage}
@@ -59,17 +75,6 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
                     icon={linkIcon}
                 />
             )}
-            <InfoEntry
-                label={'Language(s)'}
-                id="language"
-                value={languageTag}
-                icon={languageIcon}
-            />
-            <InfoEntry
-                label={'Integration(s)'}
-                id="types"
-                value={tool.types.join(', ')}
-            />
         </Card>
     );
 };
