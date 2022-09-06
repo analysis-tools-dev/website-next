@@ -18,7 +18,7 @@
     border: 0;
     outline: 0;
     flex-grow: 0;
-    border-radius: 5px;
+    border-radius: 6px;
     background-color: transparent;
     transition: background 300ms;
     cursor: pointer;
