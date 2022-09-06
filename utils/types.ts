@@ -11,8 +11,8 @@ export interface ApiTool {
     licenses: string[];
     types: string[];
     homepage: string;
-    source: string;
-    pricing: string;
+    source: string | null;
+    pricing: string | null;
     plans: ToolPricePlan | null;
     description: string | null;
     discussion: string | null;

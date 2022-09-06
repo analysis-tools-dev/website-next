@@ -28,7 +28,7 @@ export default async function handler(
 
     const repoMeta = getRepositoryMeta(data.source);
     if (repoMeta) {
-        const githubData = await getGithubStats(
+        const repositoryData = await getGithubStats(
             toolId.toString(),
             repoMeta.owner,
             repoMeta.repo,
@@ -38,14 +38,14 @@ export default async function handler(
             process.env.GH_TOKEN || '',
             10,
         );
-        if (githubData) {
+        if (repositoryData) {
             res.status(200).json({
                 id: toolId.toString(),
                 ...data,
                 votes,
                 upVotes,
                 downVotes,
-                repositoryData: githubData,
+                repositoryData,
                 stars,
             });
             return res;

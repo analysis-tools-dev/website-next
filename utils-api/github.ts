@@ -1,3 +1,4 @@
+import { RepositoryData } from '@components/tools/types';
 import { Octokit } from '@octokit/core';
 
 import cacheManager from 'cache-manager';
@@ -17,7 +18,7 @@ export const getGithubStats = async (
     toolId: string,
     owner: string,
     repo: string,
-) => {
+): Promise<RepositoryData | null> => {
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
@@ -27,7 +28,7 @@ export const getGithubStats = async (
 
     try {
         // Get tool data from cache
-        let data: any = await cacheData.get(cacheKey);
+        let data: RepositoryData | undefined = await cacheData.get(cacheKey);
         if (!owner || !repo) {
             return null;
         }
@@ -60,7 +61,6 @@ export const getGithubStats = async (
                 return null;
             }
         }
-        // TODO: Add typeguard
         return data;
     } catch (e) {
         console.error(e);
