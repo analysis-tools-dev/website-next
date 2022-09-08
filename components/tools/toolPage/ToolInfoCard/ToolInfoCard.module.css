@@ -39,3 +39,7 @@
 .shareBtns {
     flex-grow: 1;
 }
+
+.originalClass :first-child {
+    border-radius: 6px;
+}

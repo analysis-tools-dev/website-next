@@ -20,6 +20,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
     const images = screenshots.map((screenshot) => ({
         original: screenshot,
         thumbnail: screenshot,
+        originalClass: styles.originalClass,
     }));
     return (
         <Card className={styles.languageCardWrapper}>
