@@ -28,8 +28,8 @@ export interface Tool {
     licenses: string[];
     types: string[];
     homepage: string;
-    source: string;
-    pricing: string;
+    source: string | null;
+    pricing: string | null;
     plans: ToolPricePlan | null;
     description: string | null;
     discussion: string | null;
@@ -42,7 +42,7 @@ export interface Tool {
     views?: number;
     installation?: string;
     documentation?: string;
-    repositoryData?: RepositoryData | null;
+    repositoryData?: RepositoryData;
     stars?: { date: Date; count: number }[];
 }
 

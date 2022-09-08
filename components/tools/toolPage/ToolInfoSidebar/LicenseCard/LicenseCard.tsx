@@ -7,7 +7,7 @@ import styles from './LicenseCard.module.css';
 export interface LicenseCardProps {
     name: string;
     licenses: string[];
-    pricing?: string;
+    pricing?: string | null;
 }
 
 const LicenseCard: FC<LicenseCardProps> = ({ name, licenses, pricing }) => {

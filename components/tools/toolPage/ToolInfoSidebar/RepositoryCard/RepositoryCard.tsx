@@ -26,18 +26,22 @@ const RepositoryCard: FC<RepositoryCardProps> = ({ data }) => {
                 icon={icon}
             />
 
-            <InfoEntry label={'Stars'} id="stars" value={data.stars} />
+            <InfoEntry
+                label={'Stars'}
+                id="stars"
+                value={data.stars.toString()}
+            />
             <div className={styles.splitWrapper}>
                 <InfoEntry
                     label={'Issues'}
                     id="issues"
-                    value={data.issues}
+                    value={data.issues.toString()}
                     className={styles.splitEntry}
                 />
                 <InfoEntry
                     label={'Forks'}
                     id="forks"
-                    value={data.forks}
+                    value={data.forks.toString()}
                     className={styles.splitEntry}
                 />
             </div>

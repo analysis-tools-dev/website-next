@@ -46,7 +46,6 @@ export const getScreenshots = async (tool: string) => {
             const screenshots = response.data.map((screenshot: any) => {
                 return screenshot.download_url;
             });
-
             const hours = Number(process.env.API_CACHE_TTL) || 24;
             await cacheData.set(cacheKey, screenshots, hours * 60 * 60);
         }
