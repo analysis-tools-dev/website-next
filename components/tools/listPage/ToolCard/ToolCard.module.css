@@ -36,3 +36,9 @@
 .toolType {
     margin: 0 10px 0 0;
 }
+
+.toolName {
+    display: inline;
+    vertical-align: top;
+    padding-right: 5px;
+}

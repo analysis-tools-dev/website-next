@@ -10,7 +10,7 @@ import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
-import { sponsors } from 'utils-api/sponsors';
+import { isSponsor } from 'utils-api/sponsors';
 
 import Image from 'next/image';
 
@@ -23,11 +23,6 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
         original: screenshot,
         thumbnail: screenshot,
     }));
-    // check if tool is a sponsor by checking if the tool name is in any of the tools fields of the sponsor object
-    const isSponsor = sponsors.some((sponsor) =>
-        sponsor.tools.some((toolName) => toolName === tool.id),
-    );
-    console.log(isSponsor);
     return (
         <Card className={styles.languageCardWrapper}>
             <div className={styles.votes}>
@@ -37,7 +32,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                 <Heading level={1} className={styles.toolHeader}>
                     {tool.name}
                 </Heading>
-                {isSponsor && (
+                {isSponsor(tool.id) && (
                     <Image
                         className={styles.sponsorLogo}
                         height="35px"

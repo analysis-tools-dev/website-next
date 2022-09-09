@@ -36,3 +36,11 @@ export const sponsors = [
         external: false,
     },
 ];
+
+// Check if tool is a sponsor by checking if the tool name is in any of the
+// tools fields of the sponsor object
+export const isSponsor = (toolSlug: string) => {
+    return sponsors.some((sponsor) =>
+        sponsor.tools.some((toolName) => toolName === toolSlug),
+    );
+};
