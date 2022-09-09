@@ -12,6 +12,7 @@
     "editor.formatOnSave": true,
     "files.insertFinalNewline": true,
     "cSpell.words": [
-        "Btns"
+        "Btns",
+        "splide"
     ]
 }

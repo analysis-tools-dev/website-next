@@ -2,15 +2,15 @@ import { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { Card } from '@components/layout';
-import { Heading, Text } from '@components/typography';
+import { Heading } from '@components/typography';
 import { type Tool } from '@components/tools';
 import styles from './ToolInfoCard.module.css';
 import { ShareBtns } from '@components/core';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
-import ImageGallery from 'react-image-gallery';
-
-import 'react-image-gallery/styles/css/image-gallery.css';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
+import Image from 'next/image';
 
 export interface ToolInfoCardProps {
     tool: Tool;
@@ -20,7 +20,6 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
     const images = screenshots.map((screenshot) => ({
         original: screenshot,
         thumbnail: screenshot,
-        originalClass: styles.originalClass,
     }));
     return (
         <Card className={styles.languageCardWrapper}>
@@ -29,15 +28,30 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
             </div>
             <div className={styles.info}>
                 <Heading level={1}>{tool.name}</Heading>
+                <div className={styles.wrapper}>
+                    <ReactMarkdown className={styles.description}>
+                        {tool.description || ''}
+                    </ReactMarkdown>
+                    <Link href={tool.homepage}>
+                        <a className="font-light font-size-s">More info</a>
+                    </Link>
+                </div>
+                <Splide
+                    options={{ rewind: true }}
+                    aria-label={`${tool.name} screenshot gallery`}>
+                    {images.map((image) => (
+                        <SplideSlide key={image.original}>
+                            <Image
+                                className={styles.screenshot}
+                                width={1280}
+                                height={720}
+                                src={image.original}
+                                alt={`${tool.name} screenshot`}
+                            />
+                        </SplideSlide>
+                    ))}
+                </Splide>
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
-
-                <ReactMarkdown className={styles.description}>
-                    {tool.description || ''}
-                </ReactMarkdown>
-                <br />
-                <Link href={tool.homepage}>
-                    <a className="font-light font-size-s">More info</a>
-                </Link>
 
                 <div className={styles.cardFooter}>
                     <ShareBtns
@@ -50,7 +64,6 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         </a>
                     </Link>
                 </div>
-                <ImageGallery items={images} />
             </div>
         </Card>
     );
