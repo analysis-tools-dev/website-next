@@ -10,6 +10,8 @@ import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
+import { sponsors } from 'utils-api/sponsors';
+
 import Image from 'next/image';
 
 export interface ToolInfoCardProps {
@@ -21,13 +23,29 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
         original: screenshot,
         thumbnail: screenshot,
     }));
+    // check if tool is a sponsor by checking if the tool name is in any of the tools fields of the sponsor object
+    const isSponsor = sponsors.some((sponsor) =>
+        sponsor.tools.some((toolName) => toolName === tool.id),
+    );
+    console.log(isSponsor);
     return (
         <Card className={styles.languageCardWrapper}>
             <div className={styles.votes}>
                 <VoteWidget tool={tool} />
             </div>
             <div className={styles.info}>
-                <Heading level={1}>{tool.name}</Heading>
+                <Heading level={1} className={styles.toolHeader}>
+                    {tool.name}
+                </Heading>
+                {isSponsor && (
+                    <Image
+                        className={styles.sponsorLogo}
+                        height="35px"
+                        width="35px"
+                        src="/assets/icons/general/sponsor.svg"
+                        alt="Sponsor"
+                    />
+                )}
                 <div className={styles.wrapper}>
                     <ReactMarkdown className={styles.description}>
                         {tool.description || ''}
@@ -52,7 +70,6 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                     ))}
                 </Splide>
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
-
                 <div className={styles.cardFooter}>
                     <ShareBtns
                         url={`https://analysis-tools.dev/tool/${tool.name}`}

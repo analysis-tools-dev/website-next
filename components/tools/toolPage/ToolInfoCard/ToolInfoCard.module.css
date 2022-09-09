@@ -51,3 +51,9 @@
 .screenshot {
     border-radius: 6px;
 }
+
+.toolHeader {
+    display: inline;
+    vertical-align: top;
+    padding-right: 5px;
+}
