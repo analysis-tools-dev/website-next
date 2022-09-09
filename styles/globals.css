@@ -92,6 +92,11 @@ p {
     font-family: Roboto-Bold;
 }
 
+strong {
+    font-family: Roboto-Bold;
+    font-weight: bold;
+}
+
 .font-size-s {
     font-size: 14px !important;
 }
