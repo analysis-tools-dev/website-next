@@ -15,9 +15,11 @@ const Intro: FC = () => {
                 <Heading level={1} className={styles.textHeading}>
                     {homepageIntro.heading}
                 </Heading>
-                <Text className={styles.textDescription}>
-                    {homepageIntro.description}
-                </Text>
+                <Text
+                    className={styles.textDescription}
+                    dangerouslySetInnerHTML={{
+                        __html: homepageIntro.description,
+                    }}></Text>
 
                 <LinkButton
                     label="Find the right tool"
