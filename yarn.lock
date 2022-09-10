@@ -453,6 +453,13 @@
   dependencies:
     "@splidejs/splide" "^4.0.17"
 
+"@splidejs/splide-extension-video@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@splidejs/splide-extension-video/-/splide-extension-video-0.8.0.tgz#c460adfdbfcb7f1d1d333826a3df0ea2df905d9e"
+  integrity sha512-/Vu0w5gHegPPfCFh+LEEeDdK+oiJ0aHgLOCxRH70BGK5QM/6IvCePUU4RPpyoSHuQWQfYUj/ovDuImomptNOdA==
+  dependencies:
+    "@vimeo/player" "^2.17.1"
+
 "@splidejs/splide@^4.0.17":
   version "4.0.17"
   resolved "https://registry.yarnpkg.com/@splidejs/splide/-/splide-4.0.17.tgz#7e6576d4643f496c0f00b589da1f47cab0ae8c77"
@@ -722,6 +729,14 @@
   dependencies:
     "@typescript-eslint/types" "5.35.1"
     eslint-visitor-keys "^3.3.0"
+
+"@vimeo/player@^2.17.1":
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/@vimeo/player/-/player-2.17.1.tgz#613f722aaafc18bb7dad73c58f1b9ad3e3996b2a"
+  integrity sha512-M8uMYiOwFkqD070/pO/CuRmwKvnHBmEZKckt5C2tAaMhlldzui+lUC5zMFzO0RDPmIXwg1WdDxaJnzuic6ll/A==
+  dependencies:
+    native-promise-only "0.8.1"
+    weakmap-polyfill "2.0.4"
 
 abort-controller@^3.0.0:
   version "3.0.0"
@@ -2774,6 +2789,11 @@ nanoid@^3.3.4:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
   integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
 
+native-promise-only@0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/native-promise-only/-/native-promise-only-0.8.1.tgz#20a318c30cb45f71fe7adfbf7b21c99c1472ef11"
+  integrity sha512-zkVhZUA3y8mbz652WrL5x0fB0ehrBkulWT3TomAQ9iDtyXZvzKeEA6GPxAItBYeNYl5yngKRX612qHOhvMkDeg==
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -3746,6 +3766,11 @@ vfile@^5.0.0:
     is-buffer "^2.0.0"
     unist-util-stringify-position "^3.0.0"
     vfile-message "^3.0.0"
+
+weakmap-polyfill@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/weakmap-polyfill/-/weakmap-polyfill-2.0.4.tgz#bcc301e4c8eb4eda3e406f08f1a691093e407884"
+  integrity sha512-ZzxBf288iALJseijWelmECm/1x7ZwQn3sMYIkDr2VvZp7r6SEKuT8D0O9Wiq6L9Nl5mazrOMcmiZE/2NCenaxw==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"

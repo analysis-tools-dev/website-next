@@ -8,6 +8,9 @@ import styles from './ToolInfoCard.module.css';
 import { ShareBtns } from '@components/core';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
+import { Video } from '@splidejs/splide-extension-video';
+import '@splidejs/splide-extension-video/dist/css/splide-extension-video.min.css';
+
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { isSponsor } from 'utils-api/sponsors';
@@ -16,13 +19,10 @@ import Image from 'next/image';
 
 export interface ToolInfoCardProps {
     tool: Tool;
-    screenshots: string[];
+    screenshots: { url: string; original: string }[];
 }
+
 const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
-    const images = screenshots.map((screenshot) => ({
-        original: screenshot,
-        thumbnail: screenshot,
-    }));
     return (
         <Card className={styles.languageCardWrapper}>
             <div className={styles.votes}>
@@ -50,18 +50,53 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                     </Link>
                 </div>
                 <Splide
-                    options={{ rewind: true }}
+                    extensions={{ Video }}
+                    options={{
+                        type: 'loop',
+                        rewind: true,
+                        rewindByDrag: true,
+                        video: {
+                            mute: true,
+                            playerOptions: {
+                                youtube: {
+                                    width: 200,
+                                },
+                                vimeo: {},
+                                htmlVideo: {
+                                    width: 200,
+                                },
+                            },
+                        },
+                    }}
                     aria-label={`${tool.name} screenshot gallery`}>
-                    {images.map((image) => (
-                        <SplideSlide key={image.original}>
-                            <Image
-                                className={styles.screenshot}
-                                width={1280}
-                                height={720}
-                                src={image.original}
-                                alt={`${tool.name} screenshot`}
-                            />
-                        </SplideSlide>
+                    {screenshots.map((screenshot) => (
+                        <>
+                            {(screenshot.url.includes('youtube.com') && (
+                                <SplideSlide
+                                    key={screenshot.original}
+                                    // add youtube link if youtube video
+                                    data-splide-youtube={screenshot.url}>
+                                    <Image
+                                        className={styles.screenshot}
+                                        width={1280}
+                                        height={720}
+                                        src={screenshot.original}
+                                        alt={`${tool.name} screenshot`}
+                                    />
+                                </SplideSlide>
+                            )) || (
+                                <SplideSlide key={screenshot.original}>
+                                    <Image
+                                        className={styles.screenshot}
+                                        width={1280}
+                                        height={720}
+                                        src={screenshot.original}
+                                        alt={`${tool.name} screenshot`}
+                                    />
+                                </SplideSlide>
+                            )}
+                            )
+                        </>
                     ))}
                 </Splide>
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
