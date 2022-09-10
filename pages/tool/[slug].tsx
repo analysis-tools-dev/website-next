@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 export interface ToolProps {
-    screenshots: string[];
+    screenshots: { url: string; original: string }[];
 }
 
 const ToolPage: FC<ToolProps> = ({ screenshots }) => {
