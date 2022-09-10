@@ -53,6 +53,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                 <ul className={styles.toolMeta}>
                     <li>
                         <Image
+                            key={`status-${tool.id}`}
                             height="13px"
                             width="13px"
                             src={`/assets/icons/general/${toolStatus.toLowerCase()}.svg`}
@@ -63,6 +64,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
 
                     <li>
                         <Image
+                            key={`language-${tool.id}`}
                             height="15px"
                             width="15px"
                             src={`/assets/icons/languages/${toolLanguage.toLowerCase()}.svg`}
