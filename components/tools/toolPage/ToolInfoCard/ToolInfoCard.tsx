@@ -34,6 +34,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                 </Heading>
                 {isSponsor(tool.id) && (
                     <Image
+                        key={`sponsor-${tool.id}`}
                         className={styles.sponsorLogo}
                         height="35px"
                         width="35px"
@@ -69,35 +70,36 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         },
                     }}
                     aria-label={`${tool.name} screenshot gallery`}>
-                    {screenshots.map((screenshot) => (
-                        <>
-                            {(screenshot.url.includes('youtube.com') && (
-                                <SplideSlide
-                                    key={screenshot.original}
-                                    // add youtube link if youtube video
-                                    data-splide-youtube={screenshot.url}>
-                                    <Image
-                                        className={styles.screenshot}
-                                        width={1280}
-                                        height={720}
-                                        src={screenshot.original}
-                                        alt={`${tool.name} screenshot`}
-                                    />
-                                </SplideSlide>
-                            )) || (
-                                <SplideSlide key={screenshot.original}>
-                                    <Image
-                                        className={styles.screenshot}
-                                        width={1280}
-                                        height={720}
-                                        src={screenshot.original}
-                                        alt={`${tool.name} screenshot`}
-                                    />
-                                </SplideSlide>
-                            )}
-                            )
-                        </>
-                    ))}
+                    {screenshots &&
+                        screenshots.map((screenshot) => (
+                            <>
+                                {(screenshot.url.includes('youtube.com') && (
+                                    <SplideSlide
+                                        key={screenshot.original}
+                                        // add youtube link if youtube video
+                                        data-splide-youtube={screenshot.url}>
+                                        <Image
+                                            className={styles.screenshot}
+                                            width={1280}
+                                            height={720}
+                                            src={screenshot.original}
+                                            alt={`${tool.name} screenshot`}
+                                        />
+                                    </SplideSlide>
+                                )) || (
+                                    <SplideSlide key={screenshot.original}>
+                                        <Image
+                                            className={styles.screenshot}
+                                            width={1280}
+                                            height={720}
+                                            src={screenshot.original}
+                                            alt={`${tool.name} screenshot`}
+                                        />
+                                    </SplideSlide>
+                                )}
+                                )
+                            </>
+                        ))}
                 </Splide>
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
                 <div className={styles.cardFooter}>

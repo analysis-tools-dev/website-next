@@ -12,7 +12,8 @@ import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 
-// TODO: Add fallback pages instead of 404, maybe says tool not found and asks user if they would like to add it?
+// TODO: Add fallback pages instead of 404, maybe says tool not found and asks
+// user if they would like to add it?
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const { slug } = ctx.query;
     if (!slug || slug === '') {
@@ -31,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
         props: {
             dehydratedState: dehydrate(queryClient),
-            screenshots: await getScreenshots(slug.toString()),
+            screenshots: (await getScreenshots(slug.toString())) || null,
         },
     };
 };
