@@ -1,12 +1,16 @@
 import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
-import { marked } from 'marked';
 import { isArticlesApiData } from 'utils/type-guards';
 import { type Article, type MarkdownDocument } from 'utils/types';
 
 import cacheManager from 'cache-manager';
 import fsStore from 'cache-manager-fs-hash';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeSanitize from 'rehype-sanitize';
+import rehypeStringify from 'rehype-stringify';
 
 const cacheData = cacheManager.caching({
     store: fsStore,
@@ -53,7 +57,9 @@ export const getSummaryFromContent = (postContent: string) => {
  * @param {string} filename - Markdown file name (with extension)
  * @returns {Article} Article object with parsed frontmatter and rendered HTML
  */
-export const getArticleFromFilename = (filename: string): Article => {
+export const getArticleFromFilename = async (
+    filename: string,
+): Promise<Article> => {
     const postFilePath = join(POSTS_PATH, filename);
     const fileContents = readFileSync(postFilePath);
 
@@ -68,8 +74,8 @@ export const getArticleFromFilename = (filename: string): Article => {
             date: data.date,
         },
         source: content,
-        html: markdownToHtml(content),
-        summary: markdownToHtml(contentSummary),
+        html: await markdownToHtml(content),
+        summary: await markdownToHtml(contentSummary),
     };
 };
 
@@ -93,9 +99,14 @@ export const getParsedFileContentBySlug = (slug: string): MarkdownDocument => {
  * @param {string} markdown - Markdown file contents
  * @returns {string} Parsed HTML contents
  */
-export const markdownToHtml = (markdown: string) => {
-    const html = marked.parse(markdown);
-    return html ? html : '';
+export const markdownToHtml = async (markdown: string) => {
+    const html = await unified()
+        .use(remarkParse)
+        .use(remarkRehype)
+        .use(rehypeSanitize)
+        .use(rehypeStringify)
+        .process(markdown);
+    return html ? String(html) : '';
 };
 
 export const getArticles = async () => {
