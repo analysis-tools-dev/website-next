@@ -97,7 +97,6 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                                         />
                                     </SplideSlide>
                                 )}
-                                )
                             </>
                         ))}
                 </Splide>
