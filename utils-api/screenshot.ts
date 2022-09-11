@@ -1,5 +1,4 @@
 import { Octokit } from '@octokit/core';
-
 import cacheManager from 'cache-manager';
 import fsStore from 'cache-manager-fs-hash';
 
@@ -59,6 +58,7 @@ export const getScreenshots = async (tool: string) => {
                     ),
                 };
             });
+
             const hours = Number(process.env.API_CACHE_TTL) || 24;
             await cacheData.set(cacheKey, screenshots, hours * 60 * 60);
         }
