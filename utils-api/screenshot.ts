@@ -1,5 +1,4 @@
 import { Octokit } from '@octokit/core';
-
 import cacheManager from 'cache-manager';
 import fsStore from 'cache-manager-fs-hash';
 
@@ -23,7 +22,7 @@ export const getScreenshots = async (tool: string) => {
 
     try {
         // Get data from cache
-        const screenshots = await cacheData.get(cacheKey);
+        let screenshots = await cacheData.get(cacheKey);
         if (!screenshots) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
@@ -43,8 +42,21 @@ export const getScreenshots = async (tool: string) => {
             );
 
             // extract download url from response data
-            const screenshots = response.data.map((screenshot: any) => {
-                return screenshot.download_url;
+            screenshots = response.data.map((screenshot: any) => {
+                return {
+                    original: screenshot.download_url,
+                    // get part behind last slash in download url and decode as url
+                    // decode twice (first for github API, second for filename URL encoding)
+                    // remove file extension
+                    url: decodeURIComponent(
+                        decodeURIComponent(
+                            screenshot.download_url
+                                .split('/')
+                                .pop()
+                                .replace(/\.[^/.]+$/, ''),
+                        ),
+                    ),
+                };
             });
 
             const hours = Number(process.env.API_CACHE_TTL) || 24;

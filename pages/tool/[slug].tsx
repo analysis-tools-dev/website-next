@@ -6,17 +6,14 @@ import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { ToolInfoCard, ToolInfoSidebar, ToolsList } from '@components/tools';
 import { prefetchArticles } from '@components/blog/queries';
-import {
-    fetchToolData,
-    prefetchTool,
-    useToolQuery,
-} from '@components/tools/queries';
+import { prefetchTool, useToolQuery } from '@components/tools/queries';
 import { LoadingCogs } from '@components/elements';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 
-// TODO: Add fallback pages instead of 404, maybe says tool not found and asks user if they would like to add it?
+// TODO: Add fallback pages instead of 404, maybe says tool not found and asks
+// user if they would like to add it?
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const { slug } = ctx.query;
     if (!slug || slug === '') {
@@ -32,18 +29,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     await prefetchTool(queryClient, slug.toString());
     await prefetchArticles(queryClient);
 
-    const tool = await fetchToolData(slug.toString());
-
     return {
         props: {
             dehydratedState: dehydrate(queryClient),
-            screenshots: await getScreenshots(slug.toString()),
+            screenshots: (await getScreenshots(slug.toString())) || null,
         },
     };
 };
 
 export interface ToolProps {
-    screenshots: string[];
+    screenshots: { url: string; original: string }[];
 }
 
 const ToolPage: FC<ToolProps> = ({ screenshots }) => {

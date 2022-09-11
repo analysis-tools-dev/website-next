@@ -50,7 +50,7 @@ function getDateString(t: Date | number | string, format = 'yyyy/MM'): string {
 }
 
 export interface GithubStarsCardProps {
-    source: string;
+    source: string | null;
     stars: { date: Date; count: number }[];
 }
 

@@ -146,12 +146,12 @@ export const getRepoStarRecords = async (
         return a.date.getTime() - b.date.getTime();
     });
 
-    // Add the current stars if the last datapoint is older than one month
+    // Add the current stars if the last datapoint is older than three months
     if (
         starRecords.length > 0 &&
         new Date().getTime() -
             starRecords[starRecords.length - 1].date.getTime() >
-            30 * 24 * 60 * 60 * 1000
+            3 * 30 * 24 * 60 * 60 * 1000
     ) {
         starRecords.push({
             date: new Date(),

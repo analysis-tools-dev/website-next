@@ -10,6 +10,7 @@ import styles from './ToolCard.module.css';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 import { deCamelString } from 'utils/strings';
+import { isSponsor } from 'utils-api/sponsors';
 
 export interface ToolCardProps {
     tool: Tool;
@@ -34,6 +35,16 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                         </Heading>
                     </a>
                 </Link>
+                {isSponsor(tool.id) && (
+                    <Image
+                        className={styles.sponsorLogo}
+                        height="20px"
+                        width="20px"
+                        src="/assets/icons/general/sponsor.svg"
+                        alt="Sponsor"
+                    />
+                )}
+
                 <ReactMarkdown className={styles.description}>
                     {tool.description || ''}
                 </ReactMarkdown>
@@ -42,6 +53,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                 <ul className={styles.toolMeta}>
                     <li>
                         <Image
+                            key={`status-${tool.id}`}
                             height="13px"
                             width="13px"
                             src={`/assets/icons/general/${toolStatus.toLowerCase()}.svg`}
@@ -52,6 +64,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
 
                     <li>
                         <Image
+                            key={`language-${tool.id}`}
                             height="15px"
                             width="15px"
                             src={`/assets/icons/languages/${toolLanguage.toLowerCase()}.svg`}

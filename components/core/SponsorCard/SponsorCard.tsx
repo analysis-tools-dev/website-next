@@ -5,43 +5,9 @@ import { Heading, Text } from '@components/typography';
 import { LinkButton } from '@components/elements';
 import { Wrapper } from '@components/layout';
 import styles from './SponsorCard.module.css';
+import { sponsors } from 'utils-api/sponsors';
 
 const SponsorCard: FC = () => {
-    const sponsors = [
-        {
-            name: 'DeepCode',
-            href: '/sponsor/deep-code',
-            logo: '/assets/images/sponsors/deepcode.png',
-            width: '200px',
-            height: '54px',
-            external: false,
-        },
-        {
-            name: 'CodeScene',
-            href: '/sponsor/code-scene',
-            logo: '/assets/images/sponsors/codescene.svg',
-            width: '200px',
-            height: '50px',
-            external: false,
-        },
-        {
-            name: 'R2C',
-            href: '/sponsor/r2c',
-            logo: '/assets/images/sponsors/r2c.svg',
-            width: '80px',
-            height: '80px',
-            external: false,
-        },
-        {
-            name: 'Codiga',
-            href: '/sponsor/codiga',
-            logo: '/assets/images/sponsors/codiga.svg',
-            width: '72px',
-            height: '65px',
-            external: false,
-        },
-    ];
-
     return (
         <div className={styles.sponsorContainer}>
             <Wrapper className={styles.wrapper}>
