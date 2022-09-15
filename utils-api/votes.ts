@@ -1,9 +1,22 @@
 import { getFirestore } from 'firebase-admin/firestore';
 import { initFirebase } from './firebase';
 import { isVotesApiData } from 'utils/type-guards';
+import { createHash } from 'crypto';
 
 import cacheManager from 'cache-manager';
 import fsStore from 'cache-manager-fs-hash';
+
+export interface Vote {
+    type: VoteType;
+    tag: string;
+    date: Date;
+    ip: string;
+}
+
+export enum VoteType {
+    Up = 'UP',
+    Down = 'DOWN',
+}
 
 const cacheData = cacheManager.caching({
     store: fsStore,
@@ -99,4 +112,64 @@ export const getToolVotes = async (toolId: string) => {
             upVotes: 0,
         };
     }
+};
+
+export const publishVote = async (
+    toolId: string,
+    ip: string,
+    type: VoteType,
+) => {
+    const key = `${process.env.VOTE_PREFIX}-${toolId}`;
+
+    // Check if firebase already initialized
+    initFirebase();
+    const db = getFirestore();
+    const toolVotesDoc = db.collection('tags').doc(key);
+
+    const hashedIP = hashIP(ip);
+    return await toolVotesDoc.collection('votes').doc(hashedIP).set({
+        date: new Date(),
+        ip: hashedIP,
+        type,
+    });
+};
+
+export const recalculateToolVotes = async (toolId: string) => {
+    const key = `${process.env.VOTE_PREFIX}-${toolId}`;
+
+    let upVotes = 0;
+    let downVotes = 0;
+
+    // Check if firebase already initialized
+    initFirebase();
+    const db = getFirestore();
+    const toolVotesDoc = db.collection('tags').doc(key);
+
+    const allVotesSnapshot = await toolVotesDoc.collection('votes').get();
+    allVotesSnapshot.forEach((voteDoc) => {
+        const v = voteDoc.data() as Vote;
+        switch (v.type) {
+            case VoteType.Up:
+                upVotes++;
+                break;
+            case VoteType.Down:
+                downVotes++;
+                break;
+
+            default:
+                throw new Error(`Unknown vote type ${v.type}`);
+        }
+    });
+    await toolVotesDoc.set({
+        upVotes,
+        downVotes,
+        sum: upVotes - downVotes,
+    });
+};
+
+export const hashIP = (ip: string) => {
+    const salt = process.env.GH_TOKEN;
+    return createHash('md5')
+        .update(salt + ip)
+        .digest('hex');
 };
