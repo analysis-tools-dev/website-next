@@ -7,7 +7,6 @@ RUN yarn install
 
 ADD . /src
 
-ENV GOOGLE_APPLICATION_CREDENTIALS=/src/firebase-key.json
 RUN yarn run build
 
 ENTRYPOINT ["yarn", "start"]
