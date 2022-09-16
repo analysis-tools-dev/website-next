@@ -16,6 +16,7 @@ import '@splidejs/react-splide/css';
 import { isSponsor } from 'utils-api/sponsors';
 
 import Image from 'next/image';
+import DetailCard from '@components/elements/DetailCard/DetailCard';
 
 export interface ToolInfoCardProps {
     tool: Tool;
@@ -23,6 +24,26 @@ export interface ToolInfoCardProps {
 }
 
 const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
+    // get only "getting started" section of readme
+    const readme = tool.repositoryData?.readme;
+    console.log(readme);
+    let gettingStarted = null;
+    let readmeStart = readme?.toLowerCase().indexOf('# getting started');
+    if (readmeStart === -1) {
+        readmeStart = readme?.toLowerCase().indexOf('# quick');
+    }
+    if (readmeStart === -1) {
+        readmeStart = readme?.toLowerCase().indexOf('# usage');
+    }
+    let readmeEnd = null;
+    // search for the next h2
+    if (readmeStart && readmeStart !== -1) {
+        readmeEnd = readme?.indexOf('# ', readmeStart + 1);
+        if (readmeEnd && readmeEnd !== -1) {
+            gettingStarted = readme?.substring(readmeStart, readmeEnd);
+        }
+    }
+
     return (
         <Card className={styles.languageCardWrapper}>
             <div className={styles.votes}>
@@ -53,8 +74,8 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                 <Splide
                     extensions={{ Video }}
                     options={{
-                        type: 'loop',
-                        rewind: true,
+                        type: 'fade',
+                        rewind: false,
                         rewindByDrag: true,
                         video: {
                             mute: true,
@@ -100,6 +121,9 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                             </>
                         ))}
                 </Splide>
+                {gettingStarted && (
+                    <DetailCard summary="Readme" text={gettingStarted} />
+                )}
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
                 <div className={styles.cardFooter}>
                     <ShareBtns

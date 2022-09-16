@@ -3,6 +3,8 @@ import { Octokit } from '@octokit/core';
 
 import cacheManager from 'cache-manager';
 import fsStore from 'cache-manager-fs-hash';
+import base64 from 'base-64';
+import utf8 from 'utf8';
 
 const cacheData = cacheManager.caching({
     store: fsStore,
@@ -22,6 +24,7 @@ export const getGithubStats = async (
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
+        asdf: 'asdf',
     });
 
     const cacheKey = `${toolId}_github_data`;
@@ -45,6 +48,13 @@ export const getGithubStats = async (
                 },
             );
             if (response.data) {
+                const readme = await octokit.request(
+                    'GET /repos/{owner}/{repo}/readme',
+                    {
+                        owner,
+                        repo,
+                    },
+                );
                 data = {
                     source: response.data.html_url,
                     name: response.data.name,
@@ -53,6 +63,7 @@ export const getGithubStats = async (
                     forks: response.data.forks,
                     created: response.data.created_at,
                     updated: response.data.updated_at,
+                    readme: utf8.decode(base64.decode(readme.data.content)),
                 };
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
                 await cacheData.set(cacheKey, data, hours * 60 * 60);
