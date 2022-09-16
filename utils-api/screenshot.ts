@@ -22,7 +22,7 @@ export const getScreenshots = async (tool: string) => {
 
     try {
         // Get data from cache
-        const screenshots = await cacheData.get(cacheKey);
+        let screenshots = await cacheData.get(cacheKey);
         if (!screenshots) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
@@ -41,24 +41,25 @@ export const getScreenshots = async (tool: string) => {
                 },
             );
 
+            const data = response.data as any;
+
             // extract download url from response data
-            // screenshots = response.data.map((screenshot: any) => {
-            //     return {
-            //         original: screenshot.download_url,
-            //         // get part behind last slash in download url and decode as url
-            //         // decode twice (first for github API, second for filename URL encoding)
-            //         // remove file extension
-            //         url: decodeURIComponent(
-            //             decodeURIComponent(
-            //                 screenshot.download_url
-            //                     .split('/')
-            //                     .pop()
-            //                     .replace(/\.[^/.]+$/, ''),
-            //             ),
-            //         ),
-            //     };
-            // });
-            const screenshots: any = [];
+            screenshots = data.map((screenshot: any) => {
+                return {
+                    original: screenshot.download_url,
+                    // get part behind last slash in download url and decode as url
+                    // decode twice (first for github API, second for filename URL encoding)
+                    // remove file extension
+                    url: decodeURIComponent(
+                        decodeURIComponent(
+                            screenshot.download_url
+                                .split('/')
+                                .pop()
+                                .replace(/\.[^/.]+$/, ''),
+                        ),
+                    ),
+                };
+            });
 
             const hours = Number(process.env.API_CACHE_TTL) || 24;
             await cacheData.set(cacheKey, screenshots, hours * 60 * 60);
