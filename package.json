@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
     "lint": "next lint",
     "pretty-quick": "pretty-quick"
   },
@@ -34,8 +35,10 @@
     "react-query": "^3.34.19",
     "react-share": "^4.4.0",
     "rehype": "^12.0.1",
+    "rehype-remark": "^9.1.2",
     "rehype-sanitize": "^5.0.1",
     "remark": "^14.0.2",
+    "remark-extract-frontmatter": "^3.2.0",
     "utf8": "^3.0.0"
   },
   "devDependencies": {

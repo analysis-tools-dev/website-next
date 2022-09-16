@@ -10,11 +10,9 @@ import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 import { Video } from '@splidejs/splide-extension-video';
 import '@splidejs/splide-extension-video/dist/css/splide-extension-video.min.css';
-
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { isSponsor } from 'utils-api/sponsors';
-
 import Image from 'next/image';
 import DetailCard from '@components/elements/DetailCard/DetailCard';
 
@@ -24,25 +22,8 @@ export interface ToolInfoCardProps {
 }
 
 const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
-    // get only "getting started" section of readme
-    const readme = tool.repositoryData?.readme;
-    console.log(readme);
-    let gettingStarted = null;
-    let readmeStart = readme?.toLowerCase().indexOf('# getting started');
-    if (readmeStart === -1) {
-        readmeStart = readme?.toLowerCase().indexOf('# quick');
-    }
-    if (readmeStart === -1) {
-        readmeStart = readme?.toLowerCase().indexOf('# usage');
-    }
-    let readmeEnd = null;
-    // search for the next h2
-    if (readmeStart && readmeStart !== -1) {
-        readmeEnd = readme?.indexOf('# ', readmeStart + 1);
-        if (readmeEnd && readmeEnd !== -1) {
-            gettingStarted = readme?.substring(readmeStart, readmeEnd);
-        }
-    }
+    const instructions = tool.repositoryData?.instructions;
+    console.log(instructions);
 
     return (
         <Card className={styles.languageCardWrapper}>
@@ -121,8 +102,11 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                             </>
                         ))}
                 </Splide>
-                {gettingStarted && (
-                    <DetailCard summary="Readme" text={gettingStarted} />
+                {instructions && (
+                    <DetailCard
+                        summary="Usage Instructions"
+                        text={instructions}
+                    />
                 )}
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
                 <div className={styles.cardFooter}>

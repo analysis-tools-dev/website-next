@@ -1,7 +1,5 @@
-import { SearchState } from 'context/SearchProvider';
 import { objectToQueryString } from 'utils/query';
 import getConfig from 'next/config';
-import { ParsedUrlQuery } from 'querystring';
 
 const { publicRuntimeConfig } = getConfig();
 

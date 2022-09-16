@@ -17,7 +17,7 @@ export interface RepositoryData {
     forks: number;
     created: string;
     updated: string;
-    readme: string | null;
+    instructions: string | null;
 }
 
 export interface Tool {
