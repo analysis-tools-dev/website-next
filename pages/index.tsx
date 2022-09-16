@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import type { GetServerSideProps } from 'next';
+import type { GetStaticProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
@@ -17,7 +17,7 @@ import { prefetchPopularLanguages } from '@components/homepage/queries/popularLa
 import homepageData from '@appdata/homepage.json';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.
     const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
