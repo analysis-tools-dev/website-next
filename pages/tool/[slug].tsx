@@ -5,7 +5,6 @@ import { dehydrate, QueryClient } from 'react-query';
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { ToolInfoCard, ToolInfoSidebar, ToolsList } from '@components/tools';
-import { prefetchArticles } from '@components/blog/queries';
 import { prefetchTool, useToolQuery } from '@components/tools/queries';
 import { LoadingCogs } from '@components/elements';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
@@ -27,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     // TODO: Check prefetching alternateTools (would need current tool data)
     await prefetchTool(queryClient, slug.toString());
-    await prefetchArticles(queryClient);
+    // await prefetchArticles(queryClient);
 
     return {
         props: {
