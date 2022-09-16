@@ -29,6 +29,15 @@ func main() {
 									Name:  pulumi.String("NEXT_PUBLIC_HOST"),
 									Value: pulumi.String(conf.Require("public_url")),
 								},
+								cloudrun.ServiceTemplateSpecContainerEnvArgs{
+									Name: pulumi.String("FIREBASE_KEY"),
+									ValueFrom: &cloudrun.ServiceTemplateSpecContainerEnvValueFromArgs{
+										SecretKeyRef: &cloudrun.ServiceTemplateSpecContainerEnvValueFromSecretKeyRefArgs{
+											Key:  pulumi.String("latest"),
+											Name: pulumi.String("FIREBASE_KEY"),
+										},
+									},
+								},
 							},
 						},
 					},
