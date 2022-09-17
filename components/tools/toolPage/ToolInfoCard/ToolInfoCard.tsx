@@ -71,34 +71,33 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                     }}
                     aria-label={`${tool.name} screenshot gallery`}>
                     {screenshots &&
-                        screenshots.map((screenshot) => (
-                            <>
-                                {(screenshot.url.includes('youtube.com') && (
-                                    <SplideSlide
-                                        key={screenshot.original}
-                                        // add youtube link if youtube video
-                                        data-splide-youtube={screenshot.url}>
-                                        <Image
-                                            className={styles.screenshot}
-                                            width={1280}
-                                            height={720}
-                                            src={screenshot.original}
-                                            alt={`${tool.name} screenshot`}
-                                        />
-                                    </SplideSlide>
-                                )) || (
-                                    <SplideSlide key={screenshot.original}>
-                                        <Image
-                                            className={styles.screenshot}
-                                            width={1280}
-                                            height={720}
-                                            src={screenshot.original}
-                                            alt={`${tool.name} screenshot`}
-                                        />
-                                    </SplideSlide>
-                                )}
-                            </>
-                        ))}
+                        screenshots.map((screenshot, index) =>
+                            screenshot.url.includes('youtube.com') ? (
+                                <SplideSlide
+                                    key={`${screenshot.original}-${index}`}
+                                    // add youtube link if youtube video
+                                    data-splide-youtube={screenshot.url}>
+                                    <Image
+                                        className={styles.screenshot}
+                                        width={1280}
+                                        height={720}
+                                        src={screenshot.original}
+                                        alt={`${tool.name} screenshot`}
+                                    />
+                                </SplideSlide>
+                            ) : (
+                                <SplideSlide
+                                    key={`${screenshot.original}-${index}`}>
+                                    <Image
+                                        className={styles.screenshot}
+                                        width={1280}
+                                        height={720}
+                                        src={screenshot.original}
+                                        alt={`${tool.name} screenshot`}
+                                    />
+                                </SplideSlide>
+                            ),
+                        )}
                 </Splide>
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
                 <div className={styles.cardFooter}>
