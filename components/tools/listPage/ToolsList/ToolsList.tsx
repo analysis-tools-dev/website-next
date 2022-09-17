@@ -81,8 +81,8 @@ const ToolsList: FC<ToolsListProps> = ({ tools }) => {
         });
     };
 
-    const single = singleTagHeading || 'Single Language Tools';
-    const multi = multiTagHeading || 'Multi Language Tools';
+    const single = singleTagHeading || 'Static Analysis Tools';
+    const multi = multiTagHeading || 'Multi-Language Tools';
 
     return (
         <>
