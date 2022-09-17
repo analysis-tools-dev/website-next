@@ -3,12 +3,10 @@ import { initFirebase } from './firebase';
 import { isVotesApiData } from 'utils/type-guards';
 import { createHash } from 'crypto';
 
-import cacheManager from 'cache-manager';
-import fsStore from 'cache-manager-fs-hash';
+import { VoteAction } from 'utils/votes';
 
 export interface Vote {
     type: VoteType;
-    tag: string;
     date: Date;
     ip: string;
 }
@@ -17,16 +15,6 @@ export enum VoteType {
     Up = 'UP',
     Down = 'DOWN',
 }
-
-const cacheData = cacheManager.caching({
-    store: fsStore,
-    options: {
-        path: 'diskcache', //path for cached files
-        ttl: 60 * 60 * 24, //time to life in seconds
-        subdirs: false, //create subdirectories
-        zip: false, //zip files to save diskspace (default: false)
-    },
-});
 
 // Get a list of votes from firestore
 export const getDBVotes = async () => {
@@ -51,28 +39,20 @@ export const getDBToolVotes = async (toolId: string) => {
     initFirebase();
     const db = getFirestore();
     const toolVotesDoc = db.collection('tags').doc(key);
-    const voteData = await toolVotesDoc.get();
-    return { id: voteData.id, ...voteData.data() };
+    const voteDoc = await toolVotesDoc.get();
+    const voteData = voteDoc.data();
+    return {
+        id: voteDoc.id,
+        sum: voteData?.sum || 0,
+        upVotes: voteData?.upVotes || 0,
+        downVotes: voteData?.downVotes || 0,
+    };
 };
 
 export async function getVotes() {
-    const cacheKey = `votes_data`;
     try {
-        // Get tool data from cache
-        let data: any = await cacheData.get(cacheKey);
-        if (!data) {
-            console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
-            );
-            data = await getDBVotes();
-            if (data) {
-                await cacheData.set(cacheKey, data, 30);
-            } else {
-                console.error(`ERROR: Failed to load votes data`);
-            }
-        }
+        const data = await getDBVotes();
         if (!isVotesApiData(data)) {
-            await cacheData.del(cacheKey);
             console.error('Votes TypeError');
             return null;
         }
@@ -84,22 +64,17 @@ export async function getVotes() {
 }
 
 export const getToolVotes = async (toolId: string) => {
-    const cacheKey = `${toolId}_votes_data`;
     try {
-        // Get tool data from cache
-        let data: any = await cacheData.get(cacheKey);
-        if (!data) {
-            console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
-            );
-            data = await getDBToolVotes(toolId);
-            if (data) {
-                await cacheData.set(cacheKey, data, 30);
-            } else {
-                console.error(`ERROR: Failed to load ${toolId} vote data`);
-            }
-        }
+        const data = await getDBToolVotes(toolId);
         // TODO: Add typeguard
+        if (!data) {
+            console.error('Votes TypeError');
+            return {
+                votes: 0,
+                upVotes: 0,
+                downVotes: 0,
+            };
+        }
         return {
             votes: Number(data.sum) || 0,
             upVotes: Number(data.upVotes || 0),
@@ -110,6 +85,7 @@ export const getToolVotes = async (toolId: string) => {
         return {
             votes: 0,
             upVotes: 0,
+            downVotes: 0,
         };
     }
 };
@@ -117,9 +93,9 @@ export const getToolVotes = async (toolId: string) => {
 export const publishVote = async (
     toolId: string,
     ip: string,
-    type: VoteType,
+    vote: VoteAction,
 ) => {
-    const key = `${process.env.VOTE_PREFIX}-${toolId}`;
+    const key = `${process.env.VOTE_PREFIX}${toolId}`;
 
     // Check if firebase already initialized
     initFirebase();
@@ -127,11 +103,14 @@ export const publishVote = async (
     const toolVotesDoc = db.collection('tags').doc(key);
 
     const hashedIP = hashIP(ip);
-    return await toolVotesDoc.collection('votes').doc(hashedIP).set({
-        date: new Date(),
-        ip: hashedIP,
-        type,
-    });
+    return await toolVotesDoc
+        .collection('votes')
+        .doc(hashedIP)
+        .set({
+            date: new Date(),
+            ip: hashedIP,
+            type: vote === 1 ? VoteType.Up : VoteType.Down,
+        });
 };
 
 export const recalculateToolVotes = async (toolId: string) => {

@@ -1,22 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { publishVote } from 'utils-api/votes';
-
-export enum VoteType {
-    Up = 'UP',
-    Down = 'DOWN',
-}
+import { validateVoteAction } from 'utils/votes';
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<any | { error: string }>,
 ) {
-    const { toolId, up, down } = req.query;
+    const { toolId, vote } = req.query;
     const forwarded = req.headers['x-forwarded-for'];
     const ip = forwarded
         ? forwarded.toString().split(/, /)[0]
         : req.socket.remoteAddress;
 
-    if (!toolId || !ip || !(up || down)) {
+    if (!toolId || !ip || !vote || !validateVoteAction(vote)) {
         res.status(500).json({ error: 'Invalid request' });
         return res;
     }
@@ -24,7 +20,7 @@ export default async function handler(
     const result = await publishVote(
         toolId.toString(),
         ip,
-        up ? VoteType.Up : VoteType.Down,
+        Number(vote.toString()),
     );
 
     if (!result || !result.writeTime) {
@@ -35,7 +31,7 @@ export default async function handler(
     res.status(200).json({
         id: `${process.env.VOTE_PREFIX}-${toolId}`,
         date: new Date(),
-        type: up ? VoteType.Up : VoteType.Down,
+        vote: vote,
     });
     return res;
 }
