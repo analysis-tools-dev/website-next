@@ -29,7 +29,7 @@ export default async function handler(
     }
 
     res.status(200).json({
-        id: `${process.env.VOTE_PREFIX}-${toolId}`,
+        id: `${process.env.VOTE_PREFIX}${toolId}`,
         date: new Date(),
         vote: vote,
     });
