@@ -66,18 +66,6 @@ const ToolsList: FC<ToolsListProps> = ({ tools }) => {
     const multiTagHeading = `${multiTagTools.length} Multi-Language Tools`;
     singleTagHeading = `Alternatives Tools`;
 
-    // const toolsResult = useToolsQuery(state);
-    // if (
-    //     toolsResult.isLoading ||
-    //     toolsResult.isFetching ||
-    //     toolsResult.isRefetching
-    // ) {
-    //     return <LoadingCogs />;
-    // }
-    // if (toolsResult.error || !toolsResult.data) {
-    //     return null;
-    // }
-
     const changeSort = (event: any) => {
         const sorting = event.target.value;
         setSearch({

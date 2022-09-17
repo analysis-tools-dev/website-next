@@ -90,17 +90,6 @@ const ToolPage: FC<ToolProps> = ({
         ...search,
         // languages: overrideLanguages || search.languages,
     };
-    // const toolsResult = useToolsQuery(state);
-    // if (
-    //     toolsResult.isLoading ||
-    //     toolsResult.isFetching ||
-    //     toolsResult.isRefetching
-    // ) {
-    //     return <LoadingCogs />;
-    // }
-    // if (toolsResult.error || !toolsResult.data) {
-    //     return null;
-    // }
 
     // Exclude current tool from list of alternatives
     const changeSort = (event: any) => {
