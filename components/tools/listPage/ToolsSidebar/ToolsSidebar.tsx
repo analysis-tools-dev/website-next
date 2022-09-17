@@ -13,8 +13,13 @@ import {
 } from '@appdata/filters';
 import { useLanguagesQuery } from '@components/tools/queries/languages';
 import { useOthersQuery } from '@components/tools/queries/others';
+import { Article } from 'utils/types';
 
-const ToolsSidebar: FC = () => {
+export interface ToolsSidebarProps {
+    articles: Article[];
+}
+
+const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles }) => {
     const otherResult = useOthersQuery();
     const languageResult = useLanguagesQuery();
 
@@ -55,7 +60,7 @@ const ToolsSidebar: FC = () => {
             />
 
             <ContributionCard />
-            <BlogPreview />
+            <BlogPreview articles={articles} />
             <Newsletter />
         </Sidebar>
     );

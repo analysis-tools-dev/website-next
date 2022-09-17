@@ -9,11 +9,13 @@ import RepositoryCard from './RepositoryCard/RepositoryCard';
 import LicenseCard from './LicenseCard/LicenseCard';
 import ResourcesCard from './ResourcesCard/ResourcesCard';
 import GithubStarsCard from './GithubStarsCard/GithubStarsCard';
+import { Article } from 'utils/types';
 interface ToolInfoSidebarProps {
     tool: Tool;
+    articles: Article[];
 }
 
-const ToolInfoSidebar: FC<ToolInfoSidebarProps> = ({ tool }) => {
+const ToolInfoSidebar: FC<ToolInfoSidebarProps> = ({ tool, articles }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <InformationCard tool={tool} />
@@ -31,7 +33,7 @@ const ToolInfoSidebar: FC<ToolInfoSidebarProps> = ({ tool }) => {
             <ResourcesCard resources={tool.resources} />
 
             <ContributionCard />
-            <BlogPreview />
+            <BlogPreview articles={articles} />
             <Newsletter />
         </Sidebar>
     );

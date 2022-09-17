@@ -10,12 +10,13 @@ import {
 } from '@components/homepage';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
-import { prefetchArticles } from '@components/blog/queries/articles';
+import { fetchArticles } from '@components/blog/queries/articles';
 import { prefetchMostViewed } from '@components/homepage/queries/mostViewed';
 import { prefetchPopularLanguages } from '@components/homepage/queries/popularLanguages';
 
 import homepageData from '@appdata/homepage.json';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
+import { Article } from 'utils/types';
 
 export const getStaticProps: GetStaticProps = async () => {
     // Create a new QueryClient instance for each page request.
@@ -24,16 +25,21 @@ export const getStaticProps: GetStaticProps = async () => {
 
     await prefetchMostViewed(queryClient);
     await prefetchPopularLanguages(queryClient);
-    await prefetchArticles(queryClient);
+    const articles = await fetchArticles();
 
     return {
         props: {
+            articles: articles,
             dehydratedState: dehydrate(queryClient),
         },
     };
 };
 
-const HomePage: FC = () => {
+export interface HomePageProps {
+    articles: Article[];
+}
+
+const HomePage: FC<HomePageProps> = ({ articles }) => {
     return (
         <>
             <MainHead
@@ -47,7 +53,7 @@ const HomePage: FC = () => {
             <Wrapper>
                 <Main className="m-b-30">
                     <Sidebar className="bottomSticky">
-                        <BlogPreview />
+                        <BlogPreview articles={articles} />
                         <Newsletter />
                     </Sidebar>
                     <Panel>

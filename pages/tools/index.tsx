@@ -7,11 +7,10 @@ import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { ToolsSidebar, ToolsList, Tool } from '@components/tools';
 import { prefetchLanguages } from '@components/tools/queries/languages';
-import { prefetchTools } from '@components/tools/queries';
-import { prefetchArticles } from '@components/blog/queries/articles';
+import { fetchArticles } from '@components/blog/queries/articles';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 import { getTools } from 'utils-api/tools';
-import { ApiTool } from 'utils/types';
+import { ApiTool, Article } from 'utils/types';
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
     // Create a new QueryClient instance for each page request.
@@ -28,12 +27,14 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         }, [] as ApiTool[]);
     }
 
+    const articles = await fetchArticles();
+
     await prefetchLanguages(queryClient);
-    await prefetchArticles(queryClient);
 
     return {
         props: {
             tools,
+            articles,
             dehydratedState: dehydrate(queryClient),
         },
     };
@@ -41,9 +42,10 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
 export interface ToolsProps {
     tools: Tool[];
+    articles: Article[];
 }
 
-const ToolsPage: FC<ToolsProps> = ({ tools }) => {
+const ToolsPage: FC<ToolsProps> = ({ tools, articles }) => {
     // TODO: Update title and description to include language or filters
     const title = 'Analysis Tools';
     const description =
@@ -56,7 +58,7 @@ const ToolsPage: FC<ToolsProps> = ({ tools }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolsSidebar />
+                    <ToolsSidebar articles={articles} />
                     <Panel>
                         <ToolsList tools={tools} />
                     </Panel>

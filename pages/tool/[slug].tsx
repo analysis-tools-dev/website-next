@@ -13,7 +13,8 @@ import { SearchProvider, useSearchState } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
 import { useRouterPush } from 'hooks';
-import { ApiTool } from 'utils/types';
+import { ApiTool, Article } from 'utils/types';
+import { fetchArticles } from '@components/blog/queries';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -40,11 +41,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const slug = params?.slug as string;
     const tool = await getTool(slug);
     const alternativeTools = await getTools();
-    // Filter out the current tool from the list of alternatives
-    // const alternatives = Object.values(alternativeTools).filter(
-    //     (t) => t.slug !== slug,
-    // );
-
     // iterative over key and value of alternativeTools object
     let alternatives: ApiTool[] = [];
     if (alternativeTools) {
@@ -62,10 +58,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         );
     }
 
+    const articles = await fetchArticles();
+    console.log(articles);
+
     return {
         props: {
             tool,
             alternatives,
+            articles,
             screenshots: (await getScreenshots(slug)) || null,
         },
     };
@@ -74,10 +74,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export interface ToolProps {
     tool: Tool;
     alternatives: Tool[];
+    articles: Article[];
     screenshots: { url: string; original: string }[];
 }
 
-const ToolPage: FC<ToolProps> = ({ tool, alternatives, screenshots }) => {
+const ToolPage: FC<ToolProps> = ({
+    tool,
+    alternatives,
+    articles,
+    screenshots,
+}) => {
     const { search, setSearch } = useSearchState();
     const routerPush = useRouterPush();
     const state = {
@@ -123,7 +129,7 @@ const ToolPage: FC<ToolProps> = ({ tool, alternatives, screenshots }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolInfoSidebar tool={tool} />
+                    <ToolInfoSidebar tool={tool} articles={articles} />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
 

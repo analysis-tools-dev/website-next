@@ -4,20 +4,19 @@ import Link from 'next/link';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import BlogPreviewEntry from '../BlogPreviewEntry/BlogPreviewEntry';
-import { useArticlesQuery } from '../queries/articles';
+import { Article } from 'utils/types';
 
-const BlogPreview: FC = () => {
-    const articlesResult = useArticlesQuery();
-    if (articlesResult.error || !articlesResult.data) {
-        return null;
-    }
+export interface BlogPreviewProps {
+    articles: Article[];
+}
 
+const BlogPreview: FC<BlogPreviewProps> = ({ articles }) => {
     return (
         <Card className="m-b-30">
             <Heading level={3} className="m-b-16 font-bold">
                 Latest from our Blog
             </Heading>
-            {articlesResult.data.map((post, index) => (
+            {articles.map((post, index) => (
                 <BlogPreviewEntry
                     key={index}
                     title={post.meta?.title}
