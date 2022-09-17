@@ -9,9 +9,11 @@ import {
     ToolInfoSidebar,
     ToolsList,
 } from '@components/tools';
-import { SearchProvider } from 'context/SearchProvider';
+import { SearchProvider, useSearchState } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
+import { useRouterPush } from 'hooks';
+import { ApiTool } from 'utils/types';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -34,14 +36,36 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 // TODO: Add fallback pages instead of 404, maybe says tool not found and ask
 // user if they would like to add it?
-// TODO: Check prefetching alternateTools (would need current tool data)
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const slug = params?.slug as string;
     const tool = await getTool(slug);
+    const alternativeTools = await getTools();
+    // Filter out the current tool from the list of alternatives
+    // const alternatives = Object.values(alternativeTools).filter(
+    //     (t) => t.slug !== slug,
+    // );
+
+    // iterative over key and value of alternativeTools object
+    let alternatives: ApiTool[] = [];
+    if (alternativeTools) {
+        alternatives = Object.entries(alternativeTools).reduce(
+            (acc, [key, value]) => {
+                // if key is not equal to slug
+                if (key !== slug) {
+                    // push value to acc
+                    acc.push(value);
+                }
+                // return acc
+                return acc;
+            },
+            [] as ApiTool[],
+        );
+    }
 
     return {
         props: {
             tool,
+            alternatives,
             screenshots: (await getScreenshots(slug)) || null,
         },
     };
@@ -49,10 +73,45 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export interface ToolProps {
     tool: Tool;
+    alternatives: Tool[];
     screenshots: { url: string; original: string }[];
 }
 
-const ToolPage: FC<ToolProps> = ({ tool, screenshots }) => {
+const ToolPage: FC<ToolProps> = ({ tool, alternatives, screenshots }) => {
+    const { search, setSearch } = useSearchState();
+    const routerPush = useRouterPush();
+    const state = {
+        ...search,
+        // languages: overrideLanguages || search.languages,
+    };
+    // const toolsResult = useToolsQuery(state);
+    // if (
+    //     toolsResult.isLoading ||
+    //     toolsResult.isFetching ||
+    //     toolsResult.isRefetching
+    // ) {
+    //     return <LoadingCogs />;
+    // }
+    // if (toolsResult.error || !toolsResult.data) {
+    //     return null;
+    // }
+
+    // Exclude current tool from list of alternatives
+    const changeSort = (event: any) => {
+        const sorting = event.target.value;
+        setSearch({
+            ...state,
+            sorting,
+        });
+    };
+
+    const resetSearch = () => {
+        setSearch({});
+        routerPush(`/tools`, undefined, {
+            shallow: true,
+        });
+    };
+
     const title = `${tool.name} - Analysis Tools`;
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
@@ -68,10 +127,7 @@ const ToolPage: FC<ToolProps> = ({ tool, screenshots }) => {
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
 
-                        <ToolsList
-                            currentTool={tool}
-                            overrideLanguages={tool.languages}
-                        />
+                        <ToolsList tools={alternatives} />
                     </Panel>
                 </Main>
             </Wrapper>
