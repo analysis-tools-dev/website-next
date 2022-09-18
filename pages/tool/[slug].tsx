@@ -80,10 +80,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         // if in currentTool view, show only tools with the same type
         if (tool) {
             alternatives = alternatives.filter((alt) => {
-                // console.log('alt', alt);
                 return (
-                    containsArray(alt.types, tool.types) &&
-                    containsArray(alt.languages, tool.languages) &&
+                    containsArray(alt.types, tool.types || []) &&
+                    containsArray(alt.languages, tool.languages || []) &&
                     containsArray(alt.categories, tool.categories || [])
                 );
             });
