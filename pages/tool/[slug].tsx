@@ -13,9 +13,10 @@ import { SearchProvider, useSearchState } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
 import { useRouterPush } from 'hooks';
-import { ApiTool, Article } from 'utils/types';
+import { Article } from 'utils/types';
 import { fetchArticles } from '@components/blog/queries';
 import { containsArray } from 'utils/arrays';
+import { getVotes } from 'utils-api/votes';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -40,21 +41,41 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // user if they would like to add it?
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const slug = params?.slug as string;
-    const tool = await getTool(slug);
+    const votes = await getVotes();
+    const apiTool = await getTool(slug);
+
+    const voteKey = `toolsyaml${slug.toString()}`;
+    const voteData = votes ? (votes[voteKey] ? votes[voteKey].sum : 0) : 0;
+    const tool = {
+        ...apiTool,
+        votes: voteData,
+    };
+
     const alternativeTools = await getTools();
-    let alternatives: ApiTool[] = [];
+    let alternatives: Tool[] = [];
     if (alternativeTools) {
         alternatives = Object.entries(alternativeTools).reduce(
-            (acc, [key, value]) => {
+            (acc, [id, tool]) => {
                 // if key is not equal to slug
-                if (key !== slug) {
+                if (id !== slug) {
                     // push value to acc
-                    acc.push(value);
+                    // add id and votes to value
+                    const voteKey = `toolsyaml${id.toString()}`;
+
+                    // check if we have votes for this tool
+                    // otherwise set to 0
+                    const voteData = votes
+                        ? votes[voteKey]
+                            ? votes[voteKey].sum
+                            : 0
+                        : 0;
+
+                    acc.push({ id, ...tool, votes: voteData });
                 }
                 // return acc
                 return acc;
             },
-            [] as ApiTool[],
+            [] as Tool[],
         );
 
         // if in currentTool view, show only tools with the same type
