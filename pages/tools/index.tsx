@@ -27,7 +27,9 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         }, [] as ApiTool[]);
     }
 
-    const articles = await fetchArticles();
+    // TODO
+    // const articles = await fetchArticles();
+    const articles: Article[] = [];
 
     await prefetchLanguages(queryClient);
 

@@ -25,7 +25,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
     await prefetchMostViewed(queryClient);
     await prefetchPopularLanguages(queryClient);
-    const articles = await fetchArticles();
+    // const articles = await fetchArticles();
+    const articles: Article[] = [];
 
     return {
         props: {

@@ -15,6 +15,7 @@ import { getTools } from 'utils-api/tools';
 import { useRouterPush } from 'hooks';
 import { ApiTool, Article } from 'utils/types';
 import { fetchArticles } from '@components/blog/queries';
+import { containsArray } from 'utils/arrays';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -41,7 +42,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const slug = params?.slug as string;
     const tool = await getTool(slug);
     const alternativeTools = await getTools();
-    // iterative over key and value of alternativeTools object
     let alternatives: ApiTool[] = [];
     if (alternativeTools) {
         alternatives = Object.entries(alternativeTools).reduce(
@@ -56,9 +56,26 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             },
             [] as ApiTool[],
         );
+
+        // if in currentTool view, show only tools with the same type
+        if (tool) {
+            console.log('tool', tool);
+            console.log(tool.types);
+            console.log(tool.categories);
+            alternatives = alternatives.filter((alt) => {
+                // console.log('alt', alt);
+                return (
+                    containsArray(alt.types, tool.types) &&
+                    containsArray(alt.languages, tool.languages) &&
+                    containsArray(alt.categories, tool.categories || [])
+                );
+            });
+        }
     }
 
-    const articles = await fetchArticles();
+    // const articles = await fetchArticles();
+    // empty array
+    const articles: Article[] = [];
     console.log(articles);
 
     return {

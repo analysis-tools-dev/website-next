@@ -1,7 +1,4 @@
-// check if an array contains another array
-export const checkArraysIntersect = (superset: string[], subset: string[]) => {
-    if (0 === subset.length) {
-        return false;
-    }
-    return subset.every((value) => superset.includes(value));
-};
+// check if array a contains array b
+export function containsArray(a: any[], b: any[]) {
+    return b.every((v) => a.includes(v));
+}

@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { checkArraysIntersect } from 'utils/arrays';
 import {
     Dropdown,
     PanelHeader,
@@ -40,31 +39,19 @@ const ToolsList: FC<ToolsListProps> = ({ tools }) => {
 
     const sortedTools = tools.sort(pickSort(state.sorting));
 
-    let singleTagTools = sortedTools.filter(
+    const singleTagTools = sortedTools.filter(
         (tool) =>
             tool.languages.length === 1 ||
             (tool.languages.length === 0 && tool.other.length === 1),
     );
     // filter out all singleTagTools
-    let multiTagTools = sortedTools.filter(
+    const multiTagTools = sortedTools.filter(
         (tool) => !singleTagTools.includes(tool),
-    );
-
-    // if in currentTool view, show only tools with the same type
-    singleTagTools = singleTagTools.filter(
-        (tool) =>
-            checkArraysIntersect(tool.types, tool.types || []) &&
-            checkArraysIntersect(tool.categories, tool.categories || []),
-    );
-    multiTagTools = multiTagTools.filter(
-        (tool) =>
-            checkArraysIntersect(tool.types, tool.types || []) &&
-            checkArraysIntersect(tool.categories, tool.categories || []),
     );
 
     let singleTagHeading = `${singleTagTools.length} Static Analysis Tools`;
     const multiTagHeading = `${multiTagTools.length} Multi-Language Tools`;
-    singleTagHeading = `Alternatives Tools`;
+    singleTagHeading = `Alternative Tools`;
 
     const changeSort = (event: any) => {
         const sorting = event.target.value;
