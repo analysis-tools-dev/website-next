@@ -72,7 +72,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
                     acc.push({ id, ...tool, votes: voteData });
                 }
-                // return acc
                 return acc;
             },
             [] as Tool[],

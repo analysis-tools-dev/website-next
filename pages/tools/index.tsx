@@ -11,20 +11,35 @@ import { fetchArticles } from '@components/blog/queries/articles';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 import { getTools } from 'utils-api/tools';
 import { ApiTool, Article } from 'utils/types';
+import { getVotes } from 'utils-api/votes';
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.
     const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
+    const votes = await getVotes();
 
     const rawTools = await getTools();
     let tools: ApiTool[] = [];
     if (rawTools) {
-        tools = Object.entries(rawTools).reduce((acc, [key, value]) => {
-            acc.push(value);
+        tools = Object.entries(rawTools).reduce((acc, [id, tool]) => {
+            // push value to acc
+            // add id and votes to value
+            const voteKey = `toolsyaml${id.toString()}`;
+
+            // check if we have votes for this tool
+            // otherwise set to 0
+            const voteData = votes
+                ? votes[voteKey]
+                    ? votes[voteKey].sum
+                    : 0
+                : 0;
+
+            acc.push({ id, ...tool, votes: voteData });
+
             // return acc
             return acc;
-        }, [] as ApiTool[]);
+        }, [] as Tool[]);
     }
 
     // TODO
