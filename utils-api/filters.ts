@@ -32,10 +32,7 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
         if (others) {
             if (Array.isArray(others)) {
                 const isMultiLanguage = !isSingleLanguageTool(tool);
-                const toolOthersMatch = checkArraysIntersect(
-                    tool.other,
-                    others,
-                );
+                const toolOthersMatch = containsArray(tool.other, others);
                 if (!(isMultiLanguage && toolOthersMatch)) {
                     continue;
                 }
