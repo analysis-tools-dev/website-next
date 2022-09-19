@@ -9,10 +9,9 @@ import {
     ToolInfoSidebar,
     ToolsList,
 } from '@components/tools';
-import { SearchProvider, useSearchState } from 'context/SearchProvider';
+import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
-import { useRouterPush } from 'hooks';
 import { Article } from 'utils/types';
 import { fetchArticles } from '@components/blog/queries';
 import { containsArray } from 'utils/arrays';
@@ -117,29 +116,6 @@ const ToolPage: FC<ToolProps> = ({
     articles,
     screenshots,
 }) => {
-    const { search, setSearch } = useSearchState();
-    const routerPush = useRouterPush();
-    const state = {
-        ...search,
-        // languages: overrideLanguages || search.languages,
-    };
-
-    // Exclude current tool from list of alternatives
-    const changeSort = (event: any) => {
-        const sorting = event.target.value;
-        setSearch({
-            ...state,
-            sorting,
-        });
-    };
-
-    const resetSearch = () => {
-        setSearch({});
-        routerPush(`/tools`, undefined, {
-            shallow: true,
-        });
-    };
-
     const title = `${tool.name} - Analysis Tools`;
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
