@@ -66,7 +66,9 @@ export function useSearchState() {
     const context = useContext(SearchContext);
 
     if (!context)
-        throw new Error('useSearch must be used inside a `SearchProvider`');
+        throw new Error(
+            'useSearchState must be used inside a `SearchProvider`',
+        );
 
     return context;
 }

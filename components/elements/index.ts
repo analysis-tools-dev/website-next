@@ -6,6 +6,7 @@ export * from './Input';
 export * from './LinkButton';
 export * from './LoadingCog';
 export * from './LoadingCogs';
+export * from './LoadingDots';
 export * from './Newsletter';
 export * from './PanelHeader';
 export * from './TagList';

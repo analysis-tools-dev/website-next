@@ -54,3 +54,7 @@
     border-left: 1px solid #486a8b;
     border-right: 1px solid #486a8b;
 }
+
+.secondary .loading {
+    flex: 1;
+}
