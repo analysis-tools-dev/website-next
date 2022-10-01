@@ -1,16 +1,9 @@
 import { Octokit } from '@octokit/core';
-import cacheManager from 'cache-manager';
-import fsStore from 'cache-manager-fs-hash';
+import { getCacheManager } from './cache';
 
-const cacheData = cacheManager.caching({
-    store: fsStore,
-    options: {
-        path: 'diskcache', // path for cached files
-        ttl: 60 * 60 * 24 * 7, // time to life in seconds
-        subdirs: false, // create subdirectories
-        zip: false, // zip files to save diskspace (default: false)
-    },
-});
+const SCREENSHOTS_CACHE_TTL = 60 * 60 * 24 * 7;
+
+const cacheDataManager = getCacheManager(SCREENSHOTS_CACHE_TTL);
 
 export const getScreenshots = async (tool: string) => {
     const octokit = new Octokit({
@@ -22,7 +15,7 @@ export const getScreenshots = async (tool: string) => {
 
     try {
         // Get data from cache
-        let screenshots = await cacheData.get(cacheKey);
+        let screenshots = await cacheDataManager.get(cacheKey);
         if (!screenshots) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
@@ -40,6 +33,8 @@ export const getScreenshots = async (tool: string) => {
                     },
                 },
             );
+
+            // TODO: Cleanup and add TypeGuards
 
             const data = response.data as any;
 
@@ -62,12 +57,12 @@ export const getScreenshots = async (tool: string) => {
             });
 
             const hours = Number(process.env.API_CACHE_TTL) || 24;
-            await cacheData.set(cacheKey, screenshots, hours * 60 * 60);
+            await cacheDataManager.set(cacheKey, screenshots, hours * 60 * 60);
         }
         return screenshots;
     } catch (e) {
         console.error('Error occurred: ', JSON.stringify(e));
-        await cacheData.del(cacheKey);
+        await cacheDataManager.del(cacheKey);
         return null;
     }
 };

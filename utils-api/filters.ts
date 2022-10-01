@@ -3,7 +3,10 @@ import { ParsedUrlQuery } from 'querystring';
 import { containsArray } from 'utils/arrays';
 import type { ApiTool, ToolsApiData } from 'utils/types';
 
-export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
+export const filterResults = (
+    tools: ToolsApiData,
+    query: ParsedUrlQuery,
+): Tool[] => {
     // Filters to be checked
     const { languages, others, categories, types, licenses, pricing } = query;
 

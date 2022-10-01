@@ -19,6 +19,9 @@ export interface ApiTool {
     deprecated: boolean | null;
     resources: ToolResource[] | null;
     wrapper: string | null;
+    votes: number;
+    upVotes?: number;
+    downVotes?: number;
 }
 
 export interface ToolResource {

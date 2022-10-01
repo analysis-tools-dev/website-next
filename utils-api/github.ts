@@ -1,18 +1,8 @@
 import { RepositoryData } from '@components/tools/types';
 import { Octokit } from '@octokit/core';
+import { getCacheManager } from './cache';
 
-import cacheManager from 'cache-manager';
-import fsStore from 'cache-manager-fs-hash';
-
-const cacheData = cacheManager.caching({
-    store: fsStore,
-    options: {
-        path: 'diskcache', //path for cached files
-        ttl: 60 * 60 * 24, //time to life in seconds
-        subdirs: false, //create subdirectories
-        zip: false, //zip files to save diskspace (default: false)
-    },
-});
+const cacheDataManager = getCacheManager();
 
 export const getGithubStats = async (
     toolId: string,
@@ -28,7 +18,9 @@ export const getGithubStats = async (
 
     try {
         // Get tool data from cache
-        let data: RepositoryData | undefined = await cacheData.get(cacheKey);
+        let data: RepositoryData | undefined = await cacheDataManager.get(
+            cacheKey,
+        );
         if (!owner || !repo) {
             return null;
         }
@@ -55,7 +47,7 @@ export const getGithubStats = async (
                     updated: response.data.updated_at,
                 };
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
-                await cacheData.set(cacheKey, data, hours * 60 * 60);
+                await cacheDataManager.set(cacheKey, data, hours * 60 * 60);
             } else {
                 console.error(`Could not find stats for tool: ${toolId}`);
                 return null;

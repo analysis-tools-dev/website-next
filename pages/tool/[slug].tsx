@@ -13,9 +13,9 @@ import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
 import { Article } from 'utils/types';
-import { fetchArticles } from '@components/blog/queries';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
+import { fetchArticles } from '@components/blog/queries';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -39,15 +39,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // TODO: Add fallback pages instead of 404, maybe says tool not found and ask
 // user if they would like to add it?
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const slug = params?.slug as string;
+    const slug = params?.slug?.toString();
+    if (!slug || slug === '') {
+        return {
+            notFound: true,
+        };
+    }
+
     const votes = await getVotes();
     const apiTool = await getTool(slug);
+    const articles = await fetchArticles();
 
-    const voteKey = `toolsyaml${slug.toString()}`;
-    const voteData = votes ? (votes[voteKey] ? votes[voteKey].sum : 0) : 0;
     const tool = {
+        id: slug,
         ...apiTool,
-        votes: voteData,
     };
 
     const alternativeTools = await getTools();
@@ -87,11 +92,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             });
         }
     }
-
-    // const articles = await fetchArticles();
-    // empty array
-    const articles: Article[] = [];
-    console.log(articles);
 
     return {
         props: {

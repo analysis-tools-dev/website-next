@@ -14,12 +14,15 @@ import { ApiTool, Article } from 'utils/types';
 import { getVotes } from 'utils-api/votes';
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
+    const articles = await fetchArticles();
+
+    const votes = await getVotes();
+    const rawTools = await getTools();
+
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.
     const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
-    const votes = await getVotes();
 
-    const rawTools = await getTools();
     let tools: ApiTool[] = [];
     if (rawTools) {
         tools = Object.entries(rawTools).reduce((acc, [id, tool]) => {
@@ -41,11 +44,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
             return acc;
         }, [] as Tool[]);
     }
-
-    // TODO
-    // const articles = await fetchArticles();
-    const articles: Article[] = [];
-
     await prefetchLanguages(queryClient);
 
     return {
