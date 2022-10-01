@@ -1,36 +1,47 @@
-import { FC, useState } from 'react';
-import { type Tool } from '@components/tools';
+import { FC } from 'react';
 import { submitVote, votesFormatter } from 'utils/votes';
 import cn from 'classnames';
 import styles from './VoteWidget.module.css';
 import { LoadingDots } from '@components/elements';
+import { useToolVotesQuery } from './query';
 export interface VoteWidgetProps {
-    tool: Tool;
+    toolId: string;
     type?: 'primary' | 'secondary';
 }
 
-const VoteWidget: FC<VoteWidgetProps> = ({ tool, type = 'primary' }) => {
-    const [loading, setLoading] = useState(false);
+const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
     const theme = type === 'primary' ? styles.primary : styles.secondary;
 
+    const { data, isLoading, isFetching, isRefetching, error, refetch } =
+        useToolVotesQuery(toolId);
+
+    if (isLoading || isFetching || isRefetching) {
+        return (
+            <div className={cn(theme)}>
+                <LoadingDots />
+            </div>
+        );
+    }
+    if (error || !data) {
+        return null;
+    }
+
+    const votes = votesFormatter(data.votes || 0);
+
     const upVoteButtonClick = async () => {
-        setLoading(true);
-        const result = await submitVote(tool.id, 1);
+        const result = await submitVote(toolId, 1);
 
         // TODO: Handle error
         console.log(result);
-        setLoading(false);
-        // TODO: Reload Data without refreshing the page
+        refetch(); // FIXME: There is a delay until the vote recalculcation is triggered server side
     };
 
     const downVoteButtonClick = async () => {
-        setLoading(true);
-        const result = await submitVote(tool.id, -1);
+        const result = await submitVote(toolId, -1);
 
         // TODO: Handle error
         console.log(result);
-        setLoading(false);
-        // TODO: Reload Data without refreshing the page
+        refetch(); // FIXME: There is a delay until the vote recalculcation is triggered server side
     };
 
     return (
@@ -38,13 +49,7 @@ const VoteWidget: FC<VoteWidgetProps> = ({ tool, type = 'primary' }) => {
             <button
                 className={styles.voteBtn}
                 onClick={upVoteButtonClick}></button>
-            {loading ? (
-                <LoadingDots className={styles.loading} />
-            ) : (
-                <span className={styles.votes}>
-                    {votesFormatter(tool.votes)}
-                </span>
-            )}
+            <span className={styles.votes}>{votes}</span>
             <button
                 className={cn(styles.voteBtn, styles.downvoteBtn)}
                 onClick={downVoteButtonClick}></button>

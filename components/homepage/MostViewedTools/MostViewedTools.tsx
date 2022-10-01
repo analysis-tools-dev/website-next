@@ -1,22 +1,13 @@
 import { FC } from 'react';
-import { LoadingCogs, PanelHeader } from '@components/elements';
+import { PanelHeader } from '@components/elements';
 import { TopToolsListWidget } from '@components/widgets';
-import { useMostViewedQuery } from '../queries/mostViewed';
+import { Tool } from '@components/tools';
 
-const MostViewedTools: FC = () => {
-    const mostViewedResults = useMostViewedQuery();
+interface MostViewedToolsProps {
+    tools: Tool[];
+}
 
-    if (
-        mostViewedResults.isLoading ||
-        mostViewedResults.isFetching ||
-        mostViewedResults.isRefetching
-    ) {
-        return <LoadingCogs />;
-    }
-    if (mostViewedResults.error || !mostViewedResults.data) {
-        return null;
-    }
-
+const MostViewedTools: FC<MostViewedToolsProps> = ({ tools }) => {
     return (
         <>
             <PanelHeader level={2} text="Most Viewed Tools">
@@ -25,7 +16,7 @@ const MostViewedTools: FC = () => {
                 ) : null} */}
             </PanelHeader>
 
-            <TopToolsListWidget tools={mostViewedResults.data} />
+            <TopToolsListWidget tools={tools} />
         </>
     );
 };
