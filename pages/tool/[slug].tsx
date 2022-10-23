@@ -15,7 +15,7 @@ import { getTools } from 'utils-api/tools';
 import { Article } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
-import { fetchArticles } from '@components/blog/queries';
+import { getArticles } from 'utils-api/blog';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const votes = await getVotes();
     const apiTool = await getTool(slug);
-    const articles = await fetchArticles();
+    const articles = await getArticles();
 
     const tool = {
         id: slug,

@@ -4,9 +4,12 @@ import { containsArray } from 'utils/arrays';
 import type { ApiTool, ToolsApiData } from 'utils/types';
 
 export const filterResults = (
-    tools: ToolsApiData,
+    tools: ToolsApiData | null,
     query: ParsedUrlQuery,
 ): Tool[] => {
+    if (!tools) {
+        return [];
+    }
     // Filters to be checked
     const { languages, others, categories, types, licenses, pricing } = query;
 

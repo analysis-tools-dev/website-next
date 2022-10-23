@@ -9,18 +9,18 @@ import {
 } from '@components/homepage';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
-import { fetchMostViewed } from '@components/homepage/queries/mostViewed';
-import { fetchPopularLanguages } from '@components/homepage/queries/popularLanguages';
 
 import homepageData from '@appdata/homepage.json';
 import { Article } from 'utils/types';
 import { Tool, ToolsByLanguage } from '@components/tools';
 import { getArticles } from 'utils-api/blog';
+import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
+import { getMostViewedTools } from 'utils-api/mostViewedTools';
 
 export const getStaticProps: GetStaticProps = async () => {
     const articles = await getArticles();
-    const popularLanguages = await fetchPopularLanguages();
-    const mostViewed = await fetchMostViewed();
+    const popularLanguages = await getPopularLanguageStats();
+    const mostViewed = await getMostViewedTools();
 
     return {
         props: {

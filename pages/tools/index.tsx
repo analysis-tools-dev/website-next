@@ -1,54 +1,28 @@
 import { FC } from 'react';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { SearchProvider } from 'context/SearchProvider';
 
 import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
-import { Main, Panel, Wrapper } from '@components/layout';
-import { ToolsSidebar, ToolsList, Tool } from '@components/tools';
+import { Main, Wrapper } from '@components/layout';
 import { prefetchLanguages } from '@components/tools/queries/languages';
 import { fetchArticles } from '@components/blog/queries/articles';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
-import { getTools } from 'utils-api/tools';
-import { ApiTool, Article } from 'utils/types';
-import { getVotes } from 'utils-api/votes';
+import { Article } from 'utils/types';
+import { prefetchTools } from '@components/tools/queries';
+import { ListPageComponent } from '@components/tools';
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const articles = await fetchArticles();
-
-    const votes = await getVotes();
-    const rawTools = await getTools();
 
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.
     const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
-
-    let tools: ApiTool[] = [];
-    if (rawTools) {
-        tools = Object.entries(rawTools).reduce((acc, [id, tool]) => {
-            // push value to acc
-            // add id and votes to value
-            const voteKey = `toolsyaml${id.toString()}`;
-
-            // check if we have votes for this tool
-            // otherwise set to 0
-            const voteData = votes
-                ? votes[voteKey]
-                    ? votes[voteKey].sum
-                    : 0
-                : 0;
-
-            acc.push({ id, ...tool, votes: voteData });
-
-            // return acc
-            return acc;
-        }, [] as Tool[]);
-    }
     await prefetchLanguages(queryClient);
+    await prefetchTools(queryClient, ctx.query);
 
     return {
         props: {
-            tools,
             articles,
             dehydratedState: dehydrate(queryClient),
         },
@@ -56,11 +30,10 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 export interface ToolsProps {
-    tools: Tool[];
     articles: Article[];
 }
 
-const ToolsPage: FC<ToolsProps> = ({ tools, articles }) => {
+const ToolsPage: FC<ToolsProps> = ({ articles }) => {
     // TODO: Update title and description to include language or filters
     const title = 'Analysis Tools';
     const description =
@@ -73,10 +46,7 @@ const ToolsPage: FC<ToolsProps> = ({ tools, articles }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolsSidebar articles={articles} />
-                    <Panel>
-                        <ToolsList tools={tools} />
-                    </Panel>
+                    <ListPageComponent articles={articles} />
                 </Main>
             </Wrapper>
 

@@ -27,7 +27,7 @@ interface ToolsListProps {
     tools: Tool[];
 }
 
-const ToolsList: FC<ToolsListProps> = ({ tools }) => {
+export const ToolsList: FC<ToolsListProps> = ({ tools }) => {
     // const shouldShowClearFilterButton =
     //     window.location.search !== '' && window.location.search !== '?';
     const shouldShowClearFilterButton = false;
@@ -106,4 +106,4 @@ const ToolsList: FC<ToolsListProps> = ({ tools }) => {
     );
 };
 
-export default ToolsList;
+// export default ToolsList;

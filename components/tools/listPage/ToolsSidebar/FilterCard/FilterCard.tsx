@@ -1,12 +1,9 @@
-import { FC, useEffect, useState } from 'react';
-import { withRouter, type Router } from 'next/router';
+import { FC, useState } from 'react';
 import { Button, Input } from '@components/elements';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 
 import styles from './FilterCard.module.css';
-import { objectToQueryString } from 'utils/query';
-import { useRouterPush } from 'hooks';
 import { SearchFilter, useSearchState } from 'context/SearchProvider';
 import { isChecked, isSelectedFilter, sortByChecked } from './utils';
 import { changeQuery } from 'utils/query';
@@ -23,7 +20,6 @@ export interface FilterCardProps {
     filter: string;
     options: FilterOption[];
     limit?: number;
-    router: Router;
 }
 
 // TODO: Add Toggle Deprecated (default off)
@@ -35,7 +31,6 @@ const FilterCard: FC<FilterCardProps> = ({
     limit = 10,
 }) => {
     const { search, setSearch } = useSearchState();
-    const routerPush = useRouterPush();
 
     const shouldShowToggle = options.length > limit;
     const [listLimit, setLimit] = useState(limit);
@@ -47,24 +42,12 @@ const FilterCard: FC<FilterCardProps> = ({
         }
     };
 
-    useEffect(() => {
-        if (Object.keys(search).length) {
-            routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
-                shallow: true,
-            });
-        }
-    }, [search, routerPush]);
-
     const resetFilter = () => {
         const searchFilter = filter as SearchFilter;
         if (search[searchFilter]) {
             delete search[searchFilter];
         }
         setSearch({ ...search });
-
-        routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
-            shallow: true,
-        });
     };
 
     if (options.length > limit) {
@@ -133,4 +116,4 @@ const FilterCard: FC<FilterCardProps> = ({
     );
 };
 
-export default withRouter(FilterCard);
+export default FilterCard;
