@@ -14,7 +14,7 @@ const RepositoryCard: FC<RepositoryCardProps> = ({ data }) => {
     const icon = '/assets/icons/general/github-icon.svg';
 
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 Repository
             </Heading>

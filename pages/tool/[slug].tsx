@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
+import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { getTool } from 'utils-api/tools';
 import {
@@ -136,7 +136,7 @@ const ToolPage: FC<ToolProps> = ({
                 </Main>
             </Wrapper>
 
-            <SponsorCard />
+            <SponsorBanner />
             <Footer />
         </SearchProvider>
     );

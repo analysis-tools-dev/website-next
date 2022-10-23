@@ -3,4 +3,6 @@ export * from './MetaTags';
 export * from './Navbar';
 export * from './Footer';
 export * from './SponsorCard';
+export * from './SponsorBanner';
+export * from './SponsorMessage';
 export * from './ShareBtns';

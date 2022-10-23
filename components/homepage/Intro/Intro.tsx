@@ -6,6 +6,7 @@ import { LinkButton } from '@components/elements';
 import { Wrapper } from '@components/layout';
 
 import homepageData from '@appdata/homepage.json';
+import Link from 'next/link';
 
 const Intro: FC = () => {
     const homepageIntro = homepageData.intro;
@@ -41,6 +42,14 @@ const Intro: FC = () => {
                     width={homepageIntro.image.width}
                     height={homepageIntro.image.height}
                 />
+                <Link href="https://www.freepik.com/free-vector/software-testing-isometric-banner-functional-test_9292792.htm">
+                    <a
+                        className={styles.introImageRef}
+                        target={'_blank'}
+                        rel="noreferrer">
+                        Hero image by upklyak on Freepik
+                    </a>
+                </Link>
             </div>
         </Wrapper>
     );

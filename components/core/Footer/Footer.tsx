@@ -47,7 +47,7 @@ const Footer: FC = () => {
                         <Image
                             height="30px"
                             width="30px"
-                            src="/assets/images/logo.png"
+                            src="/assets/images/logo-icon.png"
                             alt=""
                         />
                         <span className={styles.logoText}>
@@ -80,14 +80,6 @@ const Footer: FC = () => {
                         ))}
                     </ul>
                 </nav>
-
-                <Link href="https://www.freepik.com/free-vector/software-testing-isometric-banner-functional-test_9292792.htm">
-                    <a className={styles.logoLink}>
-                        <span className={styles.logoText}>
-                            Hero image by upklyak on Freepik
-                        </span>
-                    </a>
-                </Link>
             </Wrapper>
         </footer>
     );

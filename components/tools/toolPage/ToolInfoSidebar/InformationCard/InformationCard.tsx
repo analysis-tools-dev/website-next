@@ -23,7 +23,7 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
         : deCamelString(tool.languages[0] || tool.other[0] || '');
 
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 Information
             </Heading>

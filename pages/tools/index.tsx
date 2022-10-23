@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { SearchProvider } from 'context/SearchProvider';
 
-import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
+import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Wrapper } from '@components/layout';
 import { prefetchLanguages } from '@components/tools/queries/languages';
 import { fetchArticles } from '@components/blog/queries/articles';
@@ -50,7 +50,7 @@ const ToolsPage: FC<ToolsProps> = ({ articles }) => {
                 </Main>
             </Wrapper>
 
-            <SponsorCard />
+            <SponsorBanner />
             <Footer />
         </SearchProvider>
     );

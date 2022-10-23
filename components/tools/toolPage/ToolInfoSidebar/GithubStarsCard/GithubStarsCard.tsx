@@ -114,7 +114,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ source, stars }) => {
     }
 
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 <a
                     className={styles.link}

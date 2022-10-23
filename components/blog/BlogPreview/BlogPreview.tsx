@@ -12,7 +12,7 @@ export interface BlogPreviewProps {
 
 const BlogPreview: FC<BlogPreviewProps> = ({ articles }) => {
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 Latest from our Blog
             </Heading>

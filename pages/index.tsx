@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import type { GetStaticProps } from 'next';
-import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
+import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
 import {
     Intro,
@@ -66,7 +66,7 @@ const HomePage: FC<HomePageProps> = ({
                 </Main>
             </Wrapper>
 
-            <SponsorCard />
+            <SponsorBanner />
             <Footer />
         </>
     );

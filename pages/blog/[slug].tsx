@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
+import { MainHead, Footer, Navbar, SponsorMessage } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { Heading } from '@components/typography';
 
@@ -13,6 +13,7 @@ import {
     getParsedFileContentBySlug,
 } from 'utils-api/blog';
 import { type MarkdownRenderingResult } from 'utils/types';
+import { BlogSidebar } from '@components/blog';
 
 interface ArticleProps extends ParsedUrlQuery {
     slug: string;
@@ -50,6 +51,7 @@ export const getStaticPaths: GetStaticPaths<ArticleProps> = () => {
     };
 };
 
+// TODO: Add BreadCrumbs
 const BlogPostPage: FC<MarkdownRenderingResult> = ({ frontMatter, html }) => {
     const title = 'Analysis Tools';
     const description =
@@ -62,7 +64,7 @@ const BlogPostPage: FC<MarkdownRenderingResult> = ({ frontMatter, html }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    {/* <FilterSidebar /> */}
+                    <BlogSidebar />
                     <Panel>
                         <Heading level={1}>Blog Post</Heading>
                         <BlogPostLayout meta={frontMatter} html={html} />
@@ -70,7 +72,7 @@ const BlogPostPage: FC<MarkdownRenderingResult> = ({ frontMatter, html }) => {
                 </Main>
             </Wrapper>
 
-            <SponsorCard />
+            <SponsorMessage />
             <Footer />
         </>
     );
