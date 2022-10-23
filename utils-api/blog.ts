@@ -113,7 +113,7 @@ export const getArticles = async () => {
             console.log('Articles TypeError');
             return null;
         }
-        return data;
+        return data.sort((a, b) => (a.meta.date > b.meta.date ? -1 : 1));
     } catch (e) {
         console.log('Error occurred: ', JSON.stringify(e));
         await cacheDataManager.del(cacheKey);
