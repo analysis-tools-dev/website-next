@@ -43,10 +43,9 @@ const Sponsor: FC = () => {
                         <div>
                             {sponsors.map((sponsor) => (
                                 <Card key={sponsor.name} className="m-b-30">
-                                    <Link
+                                    <a
                                         href={sponsor.url}
                                         target="_blank"
-                                        passHref
                                         rel="noopener noreferrer">
                                         <Image
                                             src={sponsor.logo}
@@ -54,7 +53,7 @@ const Sponsor: FC = () => {
                                             width={sponsor.width}
                                             height={sponsor.height}
                                         />
-                                    </Link>
+                                    </a>
                                     <div className="mt-4 text-center">
                                         <h3 className="text-lg font-semibold">
                                             {sponsor.name}
@@ -66,9 +65,12 @@ const Sponsor: FC = () => {
                                 </Card>
                             ))}
                         </div>
-                        <Link href="https://www.freepik.com/free-vector/holiday-gift-wrapping-packing-service-isometric-web-banner-landing-page_4758639.htm">
+                        <a
+                            href="https://www.freepik.com/free-vector/holiday-gift-wrapping-packing-service-isometric-web-banner-landing-page_4758639.htm"
+                            target="_blank"
+                            rel="noopener noreferrer">
                             <span>Sponsor image by vectorpuch on Freepik</span>
-                        </Link>
+                        </a>
                     </Panel>
                 </Main>
             </Wrapper>
