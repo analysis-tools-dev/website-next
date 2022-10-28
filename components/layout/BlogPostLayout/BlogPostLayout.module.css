@@ -42,3 +42,8 @@
     line-height: 1.8em;
     font-size: 1.1em;
 }
+
+.wrapper img {
+    max-width: 100%;
+    height: auto;
+}
