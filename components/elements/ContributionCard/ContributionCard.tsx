@@ -8,7 +8,7 @@ import styles from './ContributionCard.module.css';
 
 const ContributionCard: FC = () => {
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="inline font-bold m-b-16">
                 You Can Contribute!
             </Heading>

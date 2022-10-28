@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { Card } from '@components/layout';
-import { Heading, Text } from '@components/typography';
+import { Heading } from '@components/typography';
 import { type Tool } from '@components/tools/types';
 import Image from 'next/image';
 
@@ -11,12 +11,16 @@ import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 import { deCamelString } from 'utils/strings';
 import { isSponsor } from 'utils-api/sponsors';
+import { useIntersection } from 'hooks';
 
 export interface ToolCardProps {
     tool: Tool;
 }
 
 const ToolCard: FC<ToolCardProps> = ({ tool }) => {
+    const votesRef = useRef(null);
+    const isVotesInViewport = useIntersection(votesRef);
+
     const toolStatus = tool.deprecated ? 'Deprecated' : 'Maintained';
     const toolLanguage =
         tool.languages.length === 1
@@ -24,8 +28,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
             : 'Multi-Language';
     return (
         <Card className={styles.toolCardWrapper}>
-            <div className={styles.votes}>
-                <VoteWidget tool={tool} />
+            <div className={styles.votes} ref={votesRef}>
+                {isVotesInViewport && <VoteWidget toolId={tool.id} />}
             </div>
             <div className={styles.info}>
                 <Link href={`/tool/${tool.id}`}>

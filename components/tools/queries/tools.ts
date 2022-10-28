@@ -22,7 +22,7 @@ export const ALTERNATE_TOOLS_PREFETCH_KEY = 'alternate-tools';
  */
 export async function prefetchTools(
     queryClient: QueryClient,
-    query: ParsedUrlQuery,
+    query?: ParsedUrlQuery,
 ) {
     return await queryClient.prefetchQuery(TOOLS_PREFETCH_KEY, () =>
         fetchToolsDataFromQuery(query),
@@ -90,7 +90,7 @@ export function fetchToolsDataFromSearch(search: SearchState): Promise<Tool[]> {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function fetchToolsDataFromQuery(
-    query: ParsedUrlQuery,
+    query?: ParsedUrlQuery,
 ): Promise<Tool[]> {
     const toolsApiURL = getToolsApiURL(query);
     return fetch(toolsApiURL).then((response) => response.json());

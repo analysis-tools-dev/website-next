@@ -2,16 +2,13 @@ import { FC } from 'react';
 import {
     Dropdown,
     PanelHeader,
-    LoadingCogs,
     SuggestLink,
     Button,
 } from '@components/elements';
 import { Tool, ToolCard } from '@components/tools';
-import { useToolsQuery } from '@components/tools/queries/tools';
 import { useRouterPush } from 'hooks';
 import { useSearchState } from 'context/SearchProvider';
 import styles from './ToolsList.module.css';
-import { checkArraysIntersect } from 'utils/arrays';
 
 const pickSort = (sort: string) => {
     switch (sort) {
@@ -27,63 +24,34 @@ const pickSort = (sort: string) => {
 };
 
 interface ToolsListProps {
-    currentTool?: Tool;
-    overrideLanguages?: string[];
+    tools: Tool[];
 }
 
-const ToolsList: FC<ToolsListProps> = ({ currentTool, overrideLanguages }) => {
+export const ToolsList: FC<ToolsListProps> = ({ tools }) => {
+    // const shouldShowClearFilterButton =
+    //     window.location.search !== '' && window.location.search !== '?';
+    const shouldShowClearFilterButton = false;
     const { search, setSearch } = useSearchState();
     const routerPush = useRouterPush();
     const state = {
         ...search,
-        languages: overrideLanguages || search.languages,
     };
-    const toolsResult = useToolsQuery(state);
-    if (
-        toolsResult.isLoading ||
-        toolsResult.isFetching ||
-        toolsResult.isRefetching
-    ) {
-        return <LoadingCogs />;
-    }
-    if (toolsResult.error || !toolsResult.data) {
-        return null;
-    }
 
-    // Exclude current tool from list of alternatives
-    const sortedTools = toolsResult.data
-        .filter((tool) => tool.name != currentTool?.name)
-        .sort(pickSort(state.sorting));
+    const sortedTools = tools.sort(pickSort(state.sorting));
 
-    let singleTagTools = sortedTools.filter(
+    const singleTagTools = sortedTools.filter(
         (tool) =>
             tool.languages.length === 1 ||
             (tool.languages.length === 0 && tool.other.length === 1),
     );
     // filter out all singleTagTools
-    let multiTagTools = sortedTools.filter(
+    const multiTagTools = sortedTools.filter(
         (tool) => !singleTagTools.includes(tool),
     );
 
-    // if in currentTool view, show only tools with the same type
-    if (currentTool) {
-        singleTagTools = singleTagTools.filter(
-            (tool) =>
-                checkArraysIntersect(tool.types, currentTool?.types || []) &&
-                checkArraysIntersect(
-                    tool.categories,
-                    currentTool?.categories || [],
-                ),
-        );
-        multiTagTools = multiTagTools.filter(
-            (tool) =>
-                checkArraysIntersect(tool.types, currentTool?.types || []) &&
-                checkArraysIntersect(
-                    tool.categories,
-                    currentTool?.categories || [],
-                ),
-        );
-    }
+    let singleTagHeading = `${singleTagTools.length} Static Analysis Tools`;
+    const multiTagHeading = `${multiTagTools.length} Multi-Language Tools`;
+    singleTagHeading = `Alternative Tools`;
 
     const changeSort = (event: any) => {
         const sorting = event.target.value;
@@ -93,9 +61,6 @@ const ToolsList: FC<ToolsListProps> = ({ currentTool, overrideLanguages }) => {
         });
     };
 
-    const shouldShowClearFilterButton =
-        window.location.search !== '' && window.location.search !== '?';
-
     const resetSearch = () => {
         setSearch({});
         routerPush(`/tools`, undefined, {
@@ -103,15 +68,12 @@ const ToolsList: FC<ToolsListProps> = ({ currentTool, overrideLanguages }) => {
         });
     };
 
-    let singleTagHeading = `${singleTagTools.length} Static Analysis Tools`;
-    const multiTagHeading = `${multiTagTools.length} Multi-Language Tools`;
-    if (currentTool) {
-        singleTagHeading = `Alternatives to ${currentTool.name}`;
-    }
+    const single = singleTagHeading || 'Static Analysis Tools';
+    const multi = multiTagHeading || 'Multi-Language Tools';
 
     return (
         <>
-            <PanelHeader level={3} text={singleTagHeading}>
+            <PanelHeader level={3} text={single}>
                 {/* <Link href="/tools">{`Show all (${tools.length})`}</Link> */}
                 {shouldShowClearFilterButton ? (
                     <Button
@@ -124,13 +86,14 @@ const ToolsList: FC<ToolsListProps> = ({ currentTool, overrideLanguages }) => {
                 <Dropdown changeSort={changeSort} />
             </PanelHeader>
             <div>
-                {singleTagTools.map((tool, index) => (
-                    <ToolCard key={index} tool={tool} />
-                ))}
+                {singleTagTools &&
+                    singleTagTools.map((tool, index) => (
+                        <ToolCard key={index} tool={tool} />
+                    ))}
             </div>
-            {multiTagTools.length > 0 && (
+            {multiTagTools && multiTagTools.length > 0 && (
                 <>
-                    <PanelHeader level={3} text={multiTagHeading}></PanelHeader>
+                    <PanelHeader level={3} text={multi}></PanelHeader>
                     <div>
                         {multiTagTools.map((tool, index) => (
                             <ToolCard key={index} tool={tool} />
@@ -143,4 +106,4 @@ const ToolsList: FC<ToolsListProps> = ({ currentTool, overrideLanguages }) => {
     );
 };
 
-export default ToolsList;
+// export default ToolsList;

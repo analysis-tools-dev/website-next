@@ -14,7 +14,7 @@ const LicenseCard: FC<LicenseCardProps> = ({ name, licenses, pricing }) => {
     const license = licenses[0];
 
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 License Type
             </Heading>

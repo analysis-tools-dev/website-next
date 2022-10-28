@@ -242,6 +242,12 @@ strong {
     bottom: 20px;
 }
 
+.list-reset {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 @media only screen and (max-width: 900px) {
     .topSticky,
     .bottomSticky {

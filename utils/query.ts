@@ -2,8 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import { SearchState } from 'context/SearchProvider';
-import { Dispatch } from 'react';
+import { SearchState, SetSearchStateAction } from 'context/SearchProvider';
 
 export const objectToQueryString = (query: Record<string, any>) => {
     const paramStrings: string[] = [];
@@ -27,14 +26,13 @@ export const objectToQueryString = (query: Record<string, any>) => {
 };
 
 export const changeQuery =
-    (
-        val: string,
-        search: SearchState,
-        setSearch: Dispatch<React.SetStateAction<SearchState>>,
-    ) =>
+    (val: string, search: SearchState, setSearch: SetSearchStateAction) =>
     (e: any) => {
         const key = e.target.dataset.filter;
-        const currValue = search[key] || [];
+        let currValue = search[key] || [];
+        if (!Array.isArray(currValue)) {
+            currValue = [currValue];
+        }
         if (currValue.length) {
             const index = currValue.indexOf(val);
             if (index > -1) {

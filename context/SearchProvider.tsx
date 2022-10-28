@@ -5,6 +5,8 @@
 import { useRouter } from 'next/router';
 import { createContext, FC, useContext, useState } from 'react';
 
+export type SetSearchStateAction = Dispatch<React.SetStateAction<SearchState>>;
+
 export type SearchFilter =
     | 'languages'
     | 'others'
@@ -23,7 +25,7 @@ export interface SearchState {
 
 export interface SearchContextType {
     search: SearchState;
-    setSearch: any;
+    setSearch: SetSearchStateAction;
 }
 
 const INITIAL_STATE: SearchState = {

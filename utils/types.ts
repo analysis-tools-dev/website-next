@@ -19,6 +19,9 @@ export interface ApiTool {
     deprecated: boolean | null;
     resources: ToolResource[] | null;
     wrapper: string | null;
+    votes: number;
+    upVotes?: number;
+    downVotes?: number;
 }
 
 export interface ToolResource {
@@ -42,7 +45,8 @@ export interface ApiTag {
 }
 
 export interface FrontMatter {
-    [prop: string]: string;
+    title: string;
+    date: string;
 }
 
 export interface MarkdownDocument {

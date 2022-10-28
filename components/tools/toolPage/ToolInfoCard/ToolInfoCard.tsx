@@ -26,7 +26,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
     return (
         <Card className={styles.languageCardWrapper}>
             <div className={styles.votes}>
-                <VoteWidget tool={tool} />
+                <VoteWidget toolId={tool.id} />
             </div>
             <div className={styles.info}>
                 <Heading level={1} className={styles.toolHeader}>
@@ -47,7 +47,12 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         {tool.description || ''}
                     </ReactMarkdown>
                     <Link href={tool.homepage}>
-                        <a className="font-light font-size-s">More info</a>
+                        <a
+                            className="font-light font-size-s"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            More info
+                        </a>
                     </Link>
                 </div>
                 <Splide

@@ -1,7 +1,6 @@
 import { FC } from 'react';
-import type { GetServerSideProps } from 'next';
-import { dehydrate, QueryClient } from 'react-query';
-import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
+import type { GetStaticProps } from 'next';
+import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
 import {
     Intro,
@@ -10,30 +9,38 @@ import {
 } from '@components/homepage';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
-import { prefetchArticles } from '@components/blog/queries/articles';
-import { prefetchMostViewed } from '@components/homepage/queries/mostViewed';
-import { prefetchPopularLanguages } from '@components/homepage/queries/popularLanguages';
 
 import homepageData from '@appdata/homepage.json';
-import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
+import { Article } from 'utils/types';
+import { Tool, ToolsByLanguage } from '@components/tools';
+import { getArticles } from 'utils-api/blog';
+import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
+import { getMostViewedTools } from 'utils-api/mostViewedTools';
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    // Create a new QueryClient instance for each page request.
-    // This ensures that data is not shared between users and requests.
-    const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
-
-    await prefetchMostViewed(queryClient);
-    await prefetchPopularLanguages(queryClient);
-    await prefetchArticles(queryClient);
+export const getStaticProps: GetStaticProps = async () => {
+    const articles = await getArticles();
+    const popularLanguages = await getPopularLanguageStats();
+    const mostViewed = await getMostViewedTools();
 
     return {
         props: {
-            dehydratedState: dehydrate(queryClient),
+            articles,
+            popularLanguages,
+            mostViewed,
         },
     };
 };
+export interface HomePageProps {
+    articles: Article[];
+    popularLanguages: ToolsByLanguage;
+    mostViewed: Tool[];
+}
 
-const HomePage: FC = () => {
+const HomePage: FC<HomePageProps> = ({
+    articles,
+    popularLanguages,
+    mostViewed,
+}) => {
     return (
         <>
             <MainHead
@@ -47,17 +54,19 @@ const HomePage: FC = () => {
             <Wrapper>
                 <Main className="m-b-30">
                     <Sidebar className="bottomSticky">
-                        <BlogPreview />
+                        <BlogPreview articles={articles} />
                         <Newsletter />
                     </Sidebar>
                     <Panel>
-                        <PopularToolsByLanguage />
-                        <MostViewedTools />
+                        <PopularToolsByLanguage
+                            toolsByLangauge={popularLanguages}
+                        />
+                        <MostViewedTools tools={mostViewed} />
                     </Panel>
                 </Main>
             </Wrapper>
 
-            <SponsorCard />
+            <SponsorBanner />
             <Footer />
         </>
     );

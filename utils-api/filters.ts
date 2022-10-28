@@ -1,9 +1,15 @@
 import { Tool } from '@components/tools';
 import { ParsedUrlQuery } from 'querystring';
-import { checkArraysIntersect } from 'utils/arrays';
+import { containsArray } from 'utils/arrays';
 import type { ApiTool, ToolsApiData } from 'utils/types';
 
-export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
+export const filterResults = (
+    tools: ToolsApiData | null,
+    query: ParsedUrlQuery,
+): Tool[] => {
+    if (!tools) {
+        return [];
+    }
     // Filters to be checked
     const { languages, others, categories, types, licenses, pricing } = query;
 
@@ -15,7 +21,7 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
         if (languages) {
             if (Array.isArray(languages)) {
                 const isMultiLanguage = !isSingleLanguageTool(tool);
-                const toolLanguagesMatch = checkArraysIntersect(
+                const toolLanguagesMatch = containsArray(
                     tool.languages,
                     languages,
                 );
@@ -32,10 +38,7 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
         if (others) {
             if (Array.isArray(others)) {
                 const isMultiLanguage = !isSingleLanguageTool(tool);
-                const toolOthersMatch = checkArraysIntersect(
-                    tool.other,
-                    others,
-                );
+                const toolOthersMatch = containsArray(tool.other, others);
                 if (!(isMultiLanguage && toolOthersMatch)) {
                     continue;
                 }
@@ -47,7 +50,7 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
         }
         if (categories) {
             if (Array.isArray(categories)) {
-                if (!checkArraysIntersect(tool.categories, categories)) {
+                if (!containsArray(tool.categories, categories)) {
                     continue;
                 }
             } else {
@@ -58,7 +61,7 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
         }
         if (types) {
             if (Array.isArray(types)) {
-                if (!checkArraysIntersect(tool.types, types)) {
+                if (!containsArray(tool.types, types)) {
                     continue;
                 }
             } else {
@@ -69,7 +72,7 @@ export const filterResults = (tools: ToolsApiData, query: ParsedUrlQuery) => {
         }
         if (licenses) {
             if (Array.isArray(licenses)) {
-                if (!checkArraysIntersect(tool.licenses, licenses)) {
+                if (!containsArray(tool.licenses, licenses)) {
                     continue;
                 }
             } else {

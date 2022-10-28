@@ -49,7 +49,8 @@ export function useArticleQueryCount() {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchArticles(): Promise<Article[]> {
+export async function fetchArticles(): Promise<Article[]> {
     const articlesApiURL = getApiURL(APIPaths.BLOG);
-    return fetch(articlesApiURL).then((response) => response.json());
+    const response = await fetch(articlesApiURL);
+    return await response.json();
 }
