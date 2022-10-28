@@ -1,6 +1,9 @@
 export const sponsors = [
     {
         name: 'DeepCode',
+        url: 'https://www.deepcode.ai/',
+        description:
+            'DeepCode is a code review tool that helps developers write better code. It uses machine learning to analyze code and find bugs, security vulnerabilities, and performance issues.',
         tools: ['deepcode', 'snyk'],
         href: '/sponsor/deep-code',
         logo: '/assets/images/sponsors/deepcode.png',
@@ -10,6 +13,9 @@ export const sponsors = [
     },
     {
         name: 'CodeScene',
+        url: 'https://codescene.com/',
+        description:
+            'CodeScene is a code intelligence platform that helps you understand your codebase and improve it.',
         tools: ['codescene'],
         href: '/sponsor/code-scene',
         logo: '/assets/images/sponsors/codescene.svg',
@@ -19,6 +25,9 @@ export const sponsors = [
     },
     {
         name: 'semgrep',
+        url: 'https://semgrep.dev/',
+        description:
+            'semgrep is a fast, open-source, static analysis tool for finding bugs and enforcing code standards.',
         tools: ['semgrep'],
         href: '/sponsor/semgrep',
         logo: '/assets/images/sponsors/semgrep.svg',
@@ -28,6 +37,8 @@ export const sponsors = [
     },
     {
         name: 'Codiga',
+        url: 'https://codiga.io/',
+        description: 'Codiga is a code review tool for developers.',
         tools: ['codiga'],
         href: '/sponsor/codiga',
         logo: '/assets/images/sponsors/codiga.svg',
