@@ -6,23 +6,28 @@ import { Card, Main, Panel, Sidebar, Wrapper } from '@components/layout';
 import { Intro } from '@components/sponsors';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
-
 import { sponsors } from 'utils-api/sponsors';
-import Link from 'next/link';
+import { fetchArticles } from '@components/blog/queries/articles';
+import { Article } from 'utils/types';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     // // Create a new QueryClient instance for each page request.
     // // This ensures that data is not shared between users and requests.
     // const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
 
+    const articles = await fetchArticles();
     return {
         props: {
-            // dehydratedState: dehydrate(queryClient),
+            articles: articles,
         },
     };
 };
 
-const Sponsor: FC = () => {
+export interface SponsorPageProps {
+    articles: Article[];
+}
+
+const Sponsor: FC<SponsorPageProps> = ({ articles }) => {
     return (
         <>
             <MainHead
@@ -36,7 +41,7 @@ const Sponsor: FC = () => {
             <Wrapper>
                 <Main className="m-b-30">
                     <Sidebar className="bottomSticky">
-                        <BlogPreview />
+                        <BlogPreview articles={articles} />
                         <Newsletter />
                     </Sidebar>
                     <Panel>

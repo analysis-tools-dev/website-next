@@ -46,6 +46,18 @@ export const sponsors = [
         height: '65px',
         external: false,
     },
+    {
+        name: 'Offensive 360',
+        url: 'https://offensive360.com/',
+        description:
+            'Offensive 360 is a security company that provides security services and products.',
+        tools: ['offensive-360'],
+        href: '/sponsor/offensive-360',
+        logo: '/assets/images/sponsors/offensive360.png',
+        width: '209px',
+        height: '74px',
+        external: false,
+    },
 ];
 
 // Check if tool is a sponsor by checking if the tool name is in any of the
