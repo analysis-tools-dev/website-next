@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { MainHead, Footer, Navbar, SponsorMessage } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { Heading } from '@components/typography';
 
 import { BlogPostLayout } from '@components/layout';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -52,6 +51,7 @@ export const getStaticPaths: GetStaticPaths<ArticleProps> = () => {
 };
 
 // TODO: Add BreadCrumbs
+// TOOD: Add next/prev article links
 const BlogPostPage: FC<MarkdownRenderingResult> = ({ frontMatter, html }) => {
     const title = 'Analysis Tools';
     const description =
@@ -66,7 +66,6 @@ const BlogPostPage: FC<MarkdownRenderingResult> = ({ frontMatter, html }) => {
                 <Main>
                     <BlogSidebar />
                     <Panel>
-                        <Heading level={1}>Blog Post</Heading>
                         <BlogPostLayout meta={frontMatter} html={html} />
                     </Panel>
                 </Main>

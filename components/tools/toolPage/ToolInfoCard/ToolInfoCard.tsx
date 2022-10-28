@@ -47,7 +47,12 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         {tool.description || ''}
                     </ReactMarkdown>
                     <Link href={tool.homepage}>
-                        <a className="font-light font-size-s">More info</a>
+                        <a
+                            className="font-light font-size-s"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            More info
+                        </a>
                     </Link>
                 </div>
                 <Splide

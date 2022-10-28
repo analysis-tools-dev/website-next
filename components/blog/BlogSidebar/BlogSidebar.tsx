@@ -5,7 +5,7 @@ import { SponsorCard } from '@components/core';
 
 const BlogSidebar: FC = () => {
     return (
-        <Sidebar>
+        <Sidebar className="bottomSticky">
             <SponsorCard />
             <ContributionCard />
             <Newsletter />

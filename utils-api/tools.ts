@@ -1,6 +1,9 @@
 import { Octokit } from '@octokit/core';
+import { getRepoStarRecords } from 'pages/api/stars';
+import { getRepositoryMeta } from 'utils/github';
 import { isToolsApiData } from 'utils/type-guards';
 import { getCacheManager } from './cache';
+import { getGithubStats } from './github';
 
 const cacheDataManager = getCacheManager();
 
@@ -78,7 +81,20 @@ export const getTool = async (toolId: string) => {
                     },
                 },
             );
+
             data = JSON.parse(response.data.toString());
+            // const repoMeta = getRepositoryMeta(data.source);
+
+            // const repositoryData = await getGithubStats(
+            //     toolId.toString(),
+            //     repoMeta.owner,
+            //     repoMeta.repo,
+            // );
+            // const stars = await getRepoStarRecords(
+            //     `${repoMeta.owner}/${repoMeta.repo}`,
+            //     process.env.GH_TOKEN || '',
+            //     10,
+            // );
             if (data) {
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
                 await cacheDataManager.set(cacheKey, data, hours * 60 * 60);

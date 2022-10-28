@@ -22,6 +22,7 @@ const BlogPreview: FC<BlogPreviewProps> = ({ articles }) => {
                     title={post.meta?.title}
                     summary={post.summary}
                     link={`/blog/${post.slug}`}
+                    className="m-t-30 m-b-30"
                 />
             ))}
             <Link href="/blog">

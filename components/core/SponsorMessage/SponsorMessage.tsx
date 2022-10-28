@@ -29,7 +29,7 @@ const SponsorMessage: FC = () => {
                 </Text>
 
                 <LinkButton
-                    href="https://github.com"
+                    href="https://github.com/sponsors/analysis-tools-dev"
                     label="Become a sponsor"
                     className="m-t-30"
                     newTab

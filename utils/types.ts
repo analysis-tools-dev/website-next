@@ -45,7 +45,8 @@ export interface ApiTag {
 }
 
 export interface FrontMatter {
-    [prop: string]: string;
+    title: string;
+    date: string;
 }
 
 export interface MarkdownDocument {

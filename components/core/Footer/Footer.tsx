@@ -24,18 +24,13 @@ const Footer: FC = () => {
         },
         {
             label: 'OpenCollective',
-            href: 'https://github.com',
+            href: 'https://opencollective.com/analysis-tools',
             external: true,
         },
         {
             label: 'How to Contribute',
-            href: '/contributing',
-            external: false,
-        },
-        {
-            label: 'Privacy Policy',
-            href: '/privacy',
-            external: false,
+            href: 'https://github.com/analysis-tools-dev/static-analysis/blob/master/CONTRIBUTING.md',
+            external: true,
         },
     ];
 

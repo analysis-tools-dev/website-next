@@ -3,7 +3,7 @@ import { join } from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 import { isArticlesApiData } from 'utils/type-guards';
-import { type Article, type MarkdownDocument } from 'utils/types';
+import { FrontMatter, type Article, type MarkdownDocument } from 'utils/types';
 import { getCacheManager } from './cache';
 
 const cacheDataManager = getCacheManager();
@@ -73,7 +73,7 @@ export const getParsedFileContentBySlug = (slug: string): MarkdownDocument => {
     const { data, content } = matter(fileContents);
 
     return {
-        frontMatter: data,
+        frontMatter: data as FrontMatter,
         content,
     };
 };
