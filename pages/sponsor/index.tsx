@@ -8,6 +8,7 @@ import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
 
 import { sponsors } from 'utils-api/sponsors';
+import Link from 'next/link';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     // // Create a new QueryClient instance for each page request.
@@ -42,9 +43,10 @@ const Sponsor: FC = () => {
                         <div>
                             {sponsors.map((sponsor) => (
                                 <Card key={sponsor.name} className="m-b-30">
-                                    <a
+                                    <Link
                                         href={sponsor.url}
                                         target="_blank"
+                                        passHref
                                         rel="noopener noreferrer">
                                         <Image
                                             src={sponsor.logo}
@@ -52,7 +54,7 @@ const Sponsor: FC = () => {
                                             width={sponsor.width}
                                             height={sponsor.height}
                                         />
-                                    </a>
+                                    </Link>
                                     <div className="mt-4 text-center">
                                         <h3 className="text-lg font-semibold">
                                             {sponsor.name}
@@ -64,6 +66,9 @@ const Sponsor: FC = () => {
                                 </Card>
                             ))}
                         </div>
+                        <Link href="https://www.freepik.com/free-vector/holiday-gift-wrapping-packing-service-isometric-web-banner-landing-page_4758639.htm">
+                            <span>Sponsor image by vectorpuch on Freepik</span>
+                        </Link>
                     </Panel>
                 </Main>
             </Wrapper>
