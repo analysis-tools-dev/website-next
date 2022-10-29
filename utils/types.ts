@@ -11,14 +11,17 @@ export interface ApiTool {
     licenses: string[];
     types: string[];
     homepage: string;
-    source: string;
-    pricing: string;
+    source: string | null;
+    pricing: string | null;
     plans: ToolPricePlan | null;
     description: string | null;
     discussion: string | null;
     deprecated: boolean | null;
     resources: ToolResource[] | null;
     wrapper: string | null;
+    votes: number;
+    upVotes?: number;
+    downVotes?: number;
 }
 
 export interface ToolResource {
@@ -42,7 +45,8 @@ export interface ApiTag {
 }
 
 export interface FrontMatter {
-    [prop: string]: string;
+    title: string;
+    date: string;
 }
 
 export interface MarkdownDocument {

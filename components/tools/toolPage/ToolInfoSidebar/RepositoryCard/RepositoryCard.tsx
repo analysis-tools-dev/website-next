@@ -14,7 +14,7 @@ const RepositoryCard: FC<RepositoryCardProps> = ({ data }) => {
     const icon = '/assets/icons/general/github-icon.svg';
 
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 Repository
             </Heading>
@@ -26,18 +26,22 @@ const RepositoryCard: FC<RepositoryCardProps> = ({ data }) => {
                 icon={icon}
             />
 
-            <InfoEntry label={'Stars'} id="stars" value={data.stars} />
+            <InfoEntry
+                label={'Stars'}
+                id="stars"
+                value={data.stars.toString()}
+            />
             <div className={styles.splitWrapper}>
                 <InfoEntry
                     label={'Issues'}
                     id="issues"
-                    value={data.issues}
+                    value={data.issues.toString()}
                     className={styles.splitEntry}
                 />
                 <InfoEntry
                     label={'Forks'}
                     id="forks"
-                    value={data.forks}
+                    value={data.forks.toString()}
                     className={styles.splitEntry}
                 />
             </div>

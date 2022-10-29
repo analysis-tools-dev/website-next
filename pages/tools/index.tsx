@@ -1,33 +1,39 @@
 import { FC } from 'react';
-import { type GetServerSideProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { SearchProvider } from 'context/SearchProvider';
 
-import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
-import { Main, Panel, Wrapper } from '@components/layout';
-import { ToolsSidebar, ToolsList } from '@components/tools';
+import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
+import { Main, Wrapper } from '@components/layout';
 import { prefetchLanguages } from '@components/tools/queries/languages';
-import { prefetchTools } from '@components/tools/queries';
-import { prefetchArticles } from '@components/blog/queries/articles';
+import { fetchArticles } from '@components/blog/queries/articles';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
+import { Article } from 'utils/types';
+import { prefetchTools } from '@components/tools/queries';
+import { ListPageComponent } from '@components/tools';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const articles = await fetchArticles();
+
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.
     const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
-
-    await prefetchTools(queryClient, ctx.query);
     await prefetchLanguages(queryClient);
-    await prefetchArticles(queryClient);
+    await prefetchTools(queryClient, ctx.query);
 
     return {
         props: {
+            articles,
             dehydratedState: dehydrate(queryClient),
         },
     };
 };
 
-const ToolsPage: FC = () => {
+export interface ToolsProps {
+    articles: Article[];
+}
+
+const ToolsPage: FC<ToolsProps> = ({ articles }) => {
     // TODO: Update title and description to include language or filters
     const title = 'Analysis Tools';
     const description =
@@ -40,14 +46,11 @@ const ToolsPage: FC = () => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolsSidebar />
-                    <Panel>
-                        <ToolsList />
-                    </Panel>
+                    <ListPageComponent articles={articles} />
                 </Main>
             </Wrapper>
 
-            <SponsorCard />
+            <SponsorBanner />
             <Footer />
         </SearchProvider>
     );

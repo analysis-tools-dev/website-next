@@ -5,6 +5,8 @@
 import { useRouter } from 'next/router';
 import { createContext, FC, useContext, useState } from 'react';
 
+export type SetSearchStateAction = Dispatch<React.SetStateAction<SearchState>>;
+
 export type SearchFilter =
     | 'languages'
     | 'others'
@@ -23,7 +25,7 @@ export interface SearchState {
 
 export interface SearchContextType {
     search: SearchState;
-    setSearch: any;
+    setSearch: SetSearchStateAction;
 }
 
 const INITIAL_STATE: SearchState = {
@@ -66,7 +68,9 @@ export function useSearchState() {
     const context = useContext(SearchContext);
 
     if (!context)
-        throw new Error('useSearch must be used inside a `SearchProvider`');
+        throw new Error(
+            'useSearchState must be used inside a `SearchProvider`',
+        );
 
     return context;
 }

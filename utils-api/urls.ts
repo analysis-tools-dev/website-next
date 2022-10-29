@@ -2,6 +2,9 @@ import { SearchState } from 'context/SearchProvider';
 import { objectToQueryString } from 'utils/query';
 import { type GetServerSidePropsContext } from 'next';
 import { type ParsedUrlQuery } from 'querystring';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
 
 export enum APIPaths {
     TOOLS = 'tools',
@@ -46,10 +49,7 @@ export const getApiURLFromContext = (
 };
 
 export const getApiURL = (pathName?: string) => {
-    let baseApiUrl = `https://${process.env.HOST}/api`;
-    if (process.env.NODE_ENV === 'development') {
-        baseApiUrl = `http://${process.env.HOST}/api`;
-    }
+    const baseApiUrl = `${publicRuntimeConfig.publicHost}/api`;
 
     if (pathName && pathName !== '') {
         return `${baseApiUrl}/${pathName}`;

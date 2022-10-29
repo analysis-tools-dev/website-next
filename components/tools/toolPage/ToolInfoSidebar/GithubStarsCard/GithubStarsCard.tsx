@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
+import styles from './GithubStarsCard.module.css';
 
 import React from 'react';
 import {
@@ -14,6 +15,7 @@ import {
     Tooltip,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { getRepositoryMeta } from 'utils/github';
 
 ChartJS.register(
     CategoryScale,
@@ -25,11 +27,34 @@ ChartJS.register(
     Tooltip,
 );
 
-export interface GithubStarsCardProps {
-    stars: { date: string; count: number }[];
+export function getTimeStampByDate(t: Date | number | string): number {
+    const d = new Date(t);
+    return d.getTime();
 }
 
-const GithubStarsCard: FC<GithubStarsCardProps> = ({ stars }) => {
+function getDateString(t: Date | number | string, format = 'yyyy/MM'): string {
+    const d = new Date(getTimeStampByDate(t));
+
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    // const date = d.getDate();
+    // const hours = d.getHours();
+    // const minutes = d.getMinutes();
+    // const seconds = d.getSeconds();
+
+    const formatedString = format
+        .replace('yyyy', String(year))
+        .replace('MM', String(month));
+
+    return formatedString;
+}
+
+export interface GithubStarsCardProps {
+    source: string | null;
+    stars: { date: Date; count: number }[];
+}
+
+const GithubStarsCard: FC<GithubStarsCardProps> = ({ source, stars }) => {
     const options = {
         responsive: true,
         tension: 0.5,
@@ -60,7 +85,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ stars }) => {
         },
     };
     const data = {
-        labels: stars.map((star) => star.date),
+        labels: stars.map((star) => getDateString(star.date)),
         datasets: [
             {
                 label: 'Stars',
@@ -83,10 +108,21 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ stars }) => {
         ],
     };
 
+    const github = getRepositoryMeta(source);
+    if (!github) {
+        return null;
+    }
+
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="m-b-16 font-bold">
-                Github Star History
+                <a
+                    className={styles.link}
+                    href={`https://star-history.com/#${github.owner}/${github.repo}`}
+                    target="_blank"
+                    rel="noreferrer">
+                    Github Star History
+                </a>
             </Heading>
             <Line options={options} data={data} />
         </Card>

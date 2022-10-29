@@ -1,38 +1,14 @@
+import { RepositoryData } from '@components/tools/types';
 import { Octokit } from '@octokit/core';
+import { getCacheManager } from './cache';
 
-import cacheManager from 'cache-manager';
-import fsStore from 'cache-manager-fs-hash';
-
-const cacheData = cacheManager.caching({
-    store: fsStore,
-    options: {
-        path: 'diskcache', //path for cached files
-        ttl: 60 * 60 * 24, //time to life in seconds
-        subdirs: false, //create subdirectories
-        zip: false, //zip files to save diskspace (default: false)
-    },
-});
-
-export const getRepositoryMeta = (source: string) => {
-    if (!source || source === '') {
-        return null;
-    }
-    const urlData = source.split('/');
-    const baseIndex = urlData.findIndex((el) => el === 'github.com');
-    if (!baseIndex) {
-        return null;
-    }
-    return {
-        owner: urlData[baseIndex + 1],
-        repo: urlData[baseIndex + 2],
-    };
-};
+const cacheDataManager = getCacheManager();
 
 export const getGithubStats = async (
     toolId: string,
     owner: string,
     repo: string,
-) => {
+): Promise<RepositoryData | null> => {
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
@@ -42,7 +18,9 @@ export const getGithubStats = async (
 
     try {
         // Get tool data from cache
-        let data: any = await cacheData.get(cacheKey);
+        let data: RepositoryData | undefined = await cacheDataManager.get(
+            cacheKey,
+        );
         if (!owner || !repo) {
             return null;
         }
@@ -69,13 +47,12 @@ export const getGithubStats = async (
                     updated: response.data.updated_at,
                 };
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
-                await cacheData.set(cacheKey, data, hours * 60 * 60);
+                await cacheDataManager.set(cacheKey, data, hours * 60 * 60);
             } else {
                 console.error(`Could not find stats for tool: ${toolId}`);
                 return null;
             }
         }
-        // TODO: Add typeguard
         return data;
     } catch (e) {
         console.error(e);

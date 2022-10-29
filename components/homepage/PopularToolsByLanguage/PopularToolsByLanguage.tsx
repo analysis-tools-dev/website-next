@@ -1,33 +1,20 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import { LinkButton, LoadingCogs, PanelHeader } from '@components/elements';
+import { LinkButton, PanelHeader } from '@components/elements';
 import { LanguageTopToolsWidget } from '@components/widgets';
 import styles from './PopularToolsByLanguage.module.css';
-
-import { usePopularLanguagesQuery } from '../queries';
+import { ToolsByLanguage } from '@components/tools';
 
 interface PopularToolsByLanguageProps {
+    toolsByLangauge: ToolsByLanguage;
     limit?: number;
 }
 
 const PopularToolsByLanguage: FC<PopularToolsByLanguageProps> = ({
+    toolsByLangauge,
     limit = 5,
 }) => {
-    const toolsByTopLanguages = usePopularLanguagesQuery();
-
-    if (
-        toolsByTopLanguages.isLoading ||
-        toolsByTopLanguages.isFetching ||
-        toolsByTopLanguages.isRefetching
-    ) {
-        return <LoadingCogs />;
-    }
-    if (toolsByTopLanguages.error || !toolsByTopLanguages.data) {
-        return null;
-    }
-
-    const languages = Object.keys(toolsByTopLanguages.data);
-    const tools = toolsByTopLanguages.data;
+    const languages = Object.keys(toolsByLangauge);
     return (
         <>
             <PanelHeader
@@ -44,8 +31,8 @@ const PopularToolsByLanguage: FC<PopularToolsByLanguageProps> = ({
                 <LanguageTopToolsWidget
                     key={index}
                     language={language}
-                    formatters={tools[language]?.formatters || []}
-                    linters={tools[language]?.linters || []}
+                    formatters={toolsByLangauge[language]?.formatters || []}
+                    linters={toolsByLangauge[language]?.linters || []}
                 />
             ))}
 

@@ -1,18 +1,8 @@
 import { Octokit } from '@octokit/core';
 import { isTagsApiData } from 'utils/type-guards';
+import { getCacheManager } from './cache';
 
-import cacheManager from 'cache-manager';
-import fsStore from 'cache-manager-fs-hash';
-
-const cacheData = cacheManager.caching({
-    store: fsStore,
-    options: {
-        path: 'diskcache', //path for cached files
-        ttl: 60 * 60 * 24, //time to life in seconds
-        subdirs: false, //create subdirectories
-        zip: false, //zip files to save diskspace (default: false)
-    },
-});
+const cacheDataManager = getCacheManager();
 
 export const getTag = async (type: string) => {
     const octokit = new Octokit({
@@ -24,7 +14,7 @@ export const getTag = async (type: string) => {
 
     try {
         // Get tool data from cache
-        let data = await cacheData.get(cacheKey);
+        let data = await cacheDataManager.get(cacheKey);
         if (!data) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
@@ -44,13 +34,13 @@ export const getTag = async (type: string) => {
             data = JSON.parse(response.data.toString());
             if (data) {
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
-                await cacheData.set(cacheKey, data, hours * 60 * 60);
+                await cacheDataManager.set(cacheKey, data, hours * 60 * 60);
             }
         }
 
         if (!isTagsApiData(data)) {
             console.error('Failed to load tags data');
-            await cacheData.del(cacheKey);
+            await cacheDataManager.del(cacheKey);
             return null;
         }
 
@@ -63,7 +53,7 @@ export const getTag = async (type: string) => {
         return requestedTags;
     } catch (e) {
         console.error('Error occurred: ', JSON.stringify(e));
-        await cacheData.del(cacheKey);
+        await cacheDataManager.del(cacheKey);
         return null;
     }
 };

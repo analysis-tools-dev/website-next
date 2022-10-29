@@ -20,10 +20,10 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
         : `${iconAssetsPath}/languages/${tool.languages[0]}.svg`;
     const languageTag = isMultiLanguage
         ? 'Multi-Language'
-        : deCamelString(tool.languages[0]);
+        : deCamelString(tool.languages[0] || tool.other[0] || '');
 
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 Information
             </Heading>
@@ -46,6 +46,22 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
                 />
             )}
             <InfoEntry
+                label={'Category'}
+                id="category"
+                value={tool.categories.join(', ')}
+            />
+            <InfoEntry
+                label={'Language(s)'}
+                id="language"
+                value={languageTag}
+                icon={languageIcon}
+            />
+            <InfoEntry
+                label={'Integration(s)'}
+                id="integrations"
+                value={tool.types.join(', ')}
+            />
+            <InfoEntry
                 label={'Homepage'}
                 id="homepage"
                 value={tool.homepage}
@@ -59,17 +75,6 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
                     icon={linkIcon}
                 />
             )}
-            <InfoEntry
-                label={'Language(s)'}
-                id="language"
-                value={languageTag}
-                icon={languageIcon}
-            />
-            <InfoEntry
-                label={'Integration(s)'}
-                id="types"
-                value={tool.types.join(', ')}
-            />
         </Card>
     );
 };

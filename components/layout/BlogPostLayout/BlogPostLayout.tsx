@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import classNames from 'classnames';
 import styles from './BlogPostLayout.module.css';
-import { Heading } from '@components/typography';
 import { type FrontMatter } from 'utils/types';
+import { Card } from '../Card';
+import { Heading } from '@components/typography';
 
 export interface BlogPostLayoutProps {
     meta: FrontMatter;
@@ -10,12 +10,20 @@ export interface BlogPostLayoutProps {
 }
 
 const BlogPostLayout: FC<BlogPostLayoutProps> = ({ meta, html }) => {
+    const articleDate = new Date(meta.date);
     return (
-        <div className={classNames(styles.wrapper)}>
-            <Heading level={2}>{meta.title}</Heading>
+        <Card>
+            <div className={styles.wrapper}>
+                <Heading level={1}>{meta.title}</Heading>
 
-            <main dangerouslySetInnerHTML={{ __html: html }} />
-        </div>
+                <span className={styles.date}>
+                    {articleDate.toLocaleDateString()}
+                </span>
+                <div
+                    className={styles.content}
+                    dangerouslySetInnerHTML={{ __html: html }}></div>
+            </div>
+        </Card>
     );
 };
 

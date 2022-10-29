@@ -12,9 +12,9 @@ export interface Language {
 export interface RepositoryData {
     source: string;
     name: string;
-    stars: string;
-    issues: string;
-    forks: string;
+    stars: number;
+    issues: number;
+    forks: number;
     created: string;
     updated: string;
 }
@@ -28,8 +28,8 @@ export interface Tool {
     licenses: string[];
     types: string[];
     homepage: string;
-    source: string;
-    pricing: string;
+    source: string | null;
+    pricing: string | null;
     plans: ToolPricePlan | null;
     description: string | null;
     discussion: string | null;
@@ -43,7 +43,7 @@ export interface Tool {
     installation?: string;
     documentation?: string;
     repositoryData?: RepositoryData;
-    stars?: { date: string; count: number }[];
+    stars?: { date: Date; count: number }[];
 }
 
 export interface ToolsByLanguage {

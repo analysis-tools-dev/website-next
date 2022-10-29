@@ -1,6 +1,9 @@
 .primary {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    width: 35px;
+    height: 84px;
 }
 
 .secondary {
@@ -9,6 +12,7 @@
     border: 1px solid #486a8b;
     border-radius: 10px;
     display: flex;
+    justify-content: center;
 }
 
 .voteBtn {
@@ -53,4 +57,8 @@
 .secondary .votes {
     border-left: 1px solid #486a8b;
     border-right: 1px solid #486a8b;
+}
+
+.secondary .loading {
+    flex: 1;
 }

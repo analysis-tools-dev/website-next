@@ -68,8 +68,7 @@ export default async function handler(
         res.status(200).json(votes);
         return res;
     } catch (e) {
-        console.log(e);
-        // console.log('Error occurred: ', JSON.stringify(e));
+        console.log('Error occurred: ', JSON.stringify(e));
         res.status(500).json({ error: 'Failed to load data' });
         return res;
     }

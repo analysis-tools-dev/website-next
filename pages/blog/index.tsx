@@ -1,14 +1,28 @@
 import { FC } from 'react';
-import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
+import { MainHead, Footer, Navbar, SponsorMessage } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { Heading } from '@components/typography';
+import { ArticleList, BlogSidebar } from '@components/blog';
+import { GetStaticProps } from 'next';
+import { getArticles } from 'utils-api/blog';
+import { Article } from 'utils/types';
+import { PanelHeader } from '@components/elements';
+
+export const getStaticProps: GetStaticProps = async () => {
+    const articles = await getArticles();
+
+    return {
+        props: {
+            articles,
+        },
+    };
+};
 
 // TODO: getStaticProps for blog articles
 export interface BlogPageProps {
-    posts?: [];
+    articles: Article[];
 }
 
-const BlogPage: FC<BlogPageProps> = ({ posts = [] }) => {
+const BlogPage: FC<BlogPageProps> = ({ articles }) => {
     const title = 'Analysis Tools';
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
@@ -20,14 +34,15 @@ const BlogPage: FC<BlogPageProps> = ({ posts = [] }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    {/* <FilterSidebar /> */}
+                    <BlogSidebar />
                     <Panel>
-                        <Heading level={1}>Blog Page</Heading>
+                        <PanelHeader level={2} text="Latest from our blog" />
+                        <ArticleList articles={articles} />
                     </Panel>
                 </Main>
             </Wrapper>
 
-            <SponsorCard />
+            <SponsorMessage />
             <Footer />
         </>
     );

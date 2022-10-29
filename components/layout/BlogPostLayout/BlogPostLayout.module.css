@@ -2,4 +2,48 @@
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
+    padding: 20px 100px;
+}
+
+.wrapper h1 {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0 0 18px 0;
+}
+
+.wrapper h2,
+.wrapper h3,
+.wrapper h4 {
+    font-size: 1.35em;
+    font-weight: 700;
+    margin: 1.5em 0 1em;
+}
+
+.date {
+    display: inline-block;
+    margin: 0 0 30px 0;
+    font-size: 16px;
+}
+
+.wrapper p {
+    line-height: 1.8em;
+    margin-bottom: 1em;
+    font-size: 1.1em;
+}
+
+.wrapper ul,
+.wrapper ol {
+    list-style: square;
+    margin-bottom: 1em;
+    margin-left: 2em;
+}
+
+.wrapper li {
+    line-height: 1.8em;
+    font-size: 1.1em;
+}
+
+.wrapper img {
+    max-width: 100%;
+    height: auto;
 }

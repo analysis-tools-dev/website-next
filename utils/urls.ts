@@ -1,7 +1,5 @@
-import { SearchState } from 'context/SearchProvider';
 import { objectToQueryString } from 'utils/query';
 import getConfig from 'next/config';
-import { ParsedUrlQuery } from 'querystring';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -9,6 +7,7 @@ export enum APIPaths {
     TOOLS = 'tools',
     TOOL = 'tool',
     BLOG = 'articles',
+    VOTE = 'vote',
     VOTES = 'votes',
     OTHER_TAGS = 'tags/other',
     LANGUAGE_TAGS = 'tags/languages',
@@ -26,7 +25,7 @@ export const getApiURL = (pathName?: string) => {
     return baseApiUrl;
 };
 
-export const getToolsApiURL = (query: any) => {
+export const getToolsApiURL = (query?: Record<string, any>) => {
     let apiUrl = getApiURL(APIPaths.TOOLS);
 
     if (query) {

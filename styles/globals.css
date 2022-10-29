@@ -92,6 +92,11 @@ p {
     font-family: Roboto-Bold;
 }
 
+strong {
+    font-family: Roboto-Bold;
+    font-weight: bold;
+}
+
 .font-size-s {
     font-size: 14px !important;
 }
@@ -282,6 +287,12 @@ p {
 
 .hidden {
     display: none;
+}
+
+.list-reset {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 @media only screen and (max-width: 900px) {

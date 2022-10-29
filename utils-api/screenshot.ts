@@ -1,30 +1,68 @@
-import fs from 'fs';
+import { Octokit } from '@octokit/core';
+import { getCacheManager } from './cache';
 
-// Create a slug from a string.
-export const slugify = (text: string) => {
-    return text
-        .toString()
-        .toLowerCase()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-        .replace(/\-\-+/g, '-') // Replace multiple - with single -
-        .replace(/^-+/, '') // Trim - from start of text
-        .replace(/-+$/, ''); // Trim - from end of text
-};
+const SCREENSHOTS_CACHE_TTL = 60 * 60 * 24 * 7;
 
-// Get the screenshot URL for a tool.
-export const getScreenshotsPath = (slug: string) => {
-    // Remove protocol from url for nicer file names.
-    const urlClean = slug.replace(/(^\w+:|^)\/\/(www)?/, '');
-    const urls: string[] = [];
+const cacheDataManager = getCacheManager(SCREENSHOTS_CACHE_TTL);
 
-    ['github', 'websites'].forEach((outDir) => {
-        const outPath = `${outDir}/${slugify(urlClean)}.jpg`;
-        const outURL = outPath.replace(/^static/, '');
-
-        if (fs.existsSync('./public/assets/images/screenshots/' + outURL)) {
-            urls.push('/assets/images/screenshots/' + outURL);
-        }
+export const getScreenshots = async (tool: string) => {
+    const octokit = new Octokit({
+        auth: process.env.GH_TOKEN,
+        userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
     });
-    return urls;
+
+    const cacheKey = `screenshots-${tool}`;
+
+    try {
+        // Get data from cache
+        let screenshots = await cacheDataManager.get(cacheKey);
+        if (!screenshots) {
+            console.log(
+                `Cache data for: ${cacheKey} does not exist - calling API`,
+            );
+
+            // Call API and refresh cache
+            const response = await octokit.request(
+                'GET /repos/{owner}/{repo}/contents/{path}',
+                {
+                    owner: 'analysis-tools-dev',
+                    repo: 'assets',
+                    path: `screenshots/${tool}`,
+                    headers: {
+                        accept: 'application/vnd.github+json',
+                    },
+                },
+            );
+
+            // TODO: Cleanup and add TypeGuards
+
+            const data = response.data as any;
+
+            // extract download url from response data
+            screenshots = data.map((screenshot: any) => {
+                return {
+                    original: screenshot.download_url,
+                    // get part behind last slash in download url and decode as url
+                    // decode twice (first for github API, second for filename URL encoding)
+                    // remove file extension
+                    url: decodeURIComponent(
+                        decodeURIComponent(
+                            screenshot.download_url
+                                .split('/')
+                                .pop()
+                                .replace(/\.[^/.]+$/, ''),
+                        ),
+                    ),
+                };
+            });
+
+            const hours = Number(process.env.API_CACHE_TTL) || 24;
+            await cacheDataManager.set(cacheKey, screenshots, hours * 60 * 60);
+        }
+        return screenshots;
+    } catch (e) {
+        console.error('Error occurred: ', JSON.stringify(e));
+        await cacheDataManager.del(cacheKey);
+        return null;
+    }
 };

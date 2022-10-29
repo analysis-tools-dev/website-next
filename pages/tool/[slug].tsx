@@ -1,69 +1,121 @@
 import { FC } from 'react';
-import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import { dehydrate, QueryClient } from 'react-query';
-import { MainHead, Footer, Navbar, SponsorCard } from '@components/core';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { ToolInfoCard, ToolInfoSidebar, ToolsList } from '@components/tools';
-import { prefetchArticles } from '@components/blog/queries';
+import { getTool } from 'utils-api/tools';
 import {
-    fetchToolData,
-    prefetchTool,
-    useToolQuery,
-} from '@components/tools/queries';
-import { LoadingCogs } from '@components/elements';
-import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
+    Tool,
+    ToolInfoCard,
+    ToolInfoSidebar,
+    ToolsList,
+} from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
-import { getScreenshotsPath } from 'utils-api/screenshot';
+import { getScreenshots } from 'utils-api/screenshot';
+import { getTools } from 'utils-api/tools';
+import { Article } from 'utils/types';
+import { containsArray } from 'utils/arrays';
+import { getVotes } from 'utils-api/votes';
+import { getArticles } from 'utils-api/blog';
 
-// TODO: Add fallback pages instead of 404, maybe says tool not found and asks user if they would like to add it?
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const { slug } = ctx.query;
+// This function gets called at build time
+export const getStaticPaths: GetStaticPaths = async () => {
+    // Call an external API endpoint to get tools
+    const data = await getTools();
+
+    if (!data) {
+        return { paths: [], fallback: false };
+    }
+
+    // Get the paths we want to pre-render based on the tools API response
+    const paths = Object.keys(data).map((id) => ({
+        params: { slug: id },
+    }));
+
+    // We'll pre-render only these paths at build time.
+    // { fallback: false } means other routes should 404.
+    return { paths, fallback: false };
+};
+
+// TODO: Add fallback pages instead of 404, maybe says tool not found and ask
+// user if they would like to add it?
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    const slug = params?.slug?.toString();
     if (!slug || slug === '') {
         return {
             notFound: true,
         };
     }
-    // Create a new QueryClient instance for each page request.
-    // This ensures that data is not shared between users and requests.
-    const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
 
-    // TODO: Check prefetching alternateTools (would need current tool data)
-    await prefetchTool(queryClient, slug.toString());
-    await prefetchArticles(queryClient);
+    const votes = await getVotes();
+    const apiTool = await getTool(slug);
+    const articles = await getArticles();
 
-    const tool = await fetchToolData(slug.toString());
+    const tool = {
+        id: slug,
+        ...apiTool,
+    };
+
+    const alternativeTools = await getTools();
+    let alternatives: Tool[] = [];
+    if (alternativeTools) {
+        alternatives = Object.entries(alternativeTools).reduce(
+            (acc, [id, tool]) => {
+                // if key is not equal to slug
+                if (id !== slug) {
+                    // push value to acc
+                    // add id and votes to value
+                    const voteKey = `toolsyaml${id.toString()}`;
+
+                    // check if we have votes for this tool
+                    // otherwise set to 0
+                    const voteData = votes
+                        ? votes[voteKey]
+                            ? votes[voteKey].sum
+                            : 0
+                        : 0;
+
+                    acc.push({ id, ...tool, votes: voteData });
+                }
+                return acc;
+            },
+            [] as Tool[],
+        );
+
+        // if in currentTool view, show only tools with the same type
+        if (tool) {
+            alternatives = alternatives.filter((alt) => {
+                return (
+                    containsArray(alt.types, tool.types || []) &&
+                    containsArray(alt.languages, tool.languages || []) &&
+                    containsArray(alt.categories, tool.categories || [])
+                );
+            });
+        }
+    }
 
     return {
         props: {
-            dehydratedState: dehydrate(queryClient),
-            screenshots: getScreenshotsPath(tool.homepage),
+            tool,
+            alternatives,
+            articles,
+            screenshots: (await getScreenshots(slug)) || null,
         },
     };
 };
 
 export interface ToolProps {
-    screenshots: string[];
+    tool: Tool;
+    alternatives: Tool[];
+    articles: Article[];
+    screenshots: { url: string; original: string }[];
 }
 
-const ToolPage: FC<ToolProps> = ({ screenshots }) => {
-    const router = useRouter();
-    const { slug } = router.query;
-
-    const toolResult = useToolQuery(slug?.toString() || '');
-    if (
-        toolResult.isLoading ||
-        toolResult.isFetching ||
-        toolResult.isRefetching
-    ) {
-        return <LoadingCogs />;
-    }
-    if (toolResult.error || !toolResult.data) {
-        return null;
-    }
-
-    const tool = toolResult.data;
-
+const ToolPage: FC<ToolProps> = ({
+    tool,
+    alternatives,
+    articles,
+    screenshots,
+}) => {
     const title = `${tool.name} - Analysis Tools`;
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
@@ -75,19 +127,16 @@ const ToolPage: FC<ToolProps> = ({ screenshots }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolInfoSidebar tool={tool} />
+                    <ToolInfoSidebar tool={tool} articles={articles} />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
 
-                        <ToolsList
-                            currentTool={tool}
-                            overrideLanguages={tool.languages}
-                        />
+                        <ToolsList tools={alternatives} />
                     </Panel>
                 </Main>
             </Wrapper>
 
-            <SponsorCard />
+            <SponsorBanner />
             <Footer />
         </SearchProvider>
     );

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { BlogPreview } from '@components/blog';
 import { ContributionCard, Newsletter } from '@components/elements';
 import { Sidebar } from '@components/layout';
-import { FilterCard } from './FilterCard';
+import { FilterCard, LanguageFilterCard } from './FilterCard';
 import styles from './ToolsSidebar.module.css';
 
 import {
@@ -13,8 +13,13 @@ import {
 } from '@appdata/filters';
 import { useLanguagesQuery } from '@components/tools/queries/languages';
 import { useOthersQuery } from '@components/tools/queries/others';
+import { Article } from 'utils/types';
 
-const ToolsSidebar: FC = () => {
+export interface ToolsSidebarProps {
+    articles: Article[];
+}
+
+const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles }) => {
     const otherResult = useOthersQuery();
     const languageResult = useLanguagesQuery();
 
@@ -26,7 +31,7 @@ const ToolsSidebar: FC = () => {
     }
     return (
         <Sidebar className={styles.bottomSticky}>
-            <FilterCard
+            <LanguageFilterCard
                 heading="Languages"
                 filter="languages"
                 options={languageResult.data}
@@ -55,7 +60,7 @@ const ToolsSidebar: FC = () => {
             />
 
             <ContributionCard />
-            <BlogPreview />
+            <BlogPreview articles={articles} />
             <Newsletter />
         </Sidebar>
     );

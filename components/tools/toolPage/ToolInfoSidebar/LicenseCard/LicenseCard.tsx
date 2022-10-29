@@ -7,14 +7,14 @@ import styles from './LicenseCard.module.css';
 export interface LicenseCardProps {
     name: string;
     licenses: string[];
-    pricing?: string;
+    pricing?: string | null;
 }
 
 const LicenseCard: FC<LicenseCardProps> = ({ name, licenses, pricing }) => {
     const license = licenses[0];
 
     return (
-        <Card className="m-b-30">
+        <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 License Type
             </Heading>

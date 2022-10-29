@@ -39,3 +39,21 @@
 .shareBtns {
     flex-grow: 1;
 }
+
+.originalClass :first-child {
+    border-radius: 6px;
+}
+
+.wrapper {
+    margin-bottom: 20px;
+}
+
+.screenshot {
+    border-radius: 6px;
+}
+
+.toolHeader {
+    display: inline;
+    vertical-align: top;
+    padding-right: 5px;
+}

@@ -4,7 +4,7 @@ import { initializeApp } from 'firebase-admin/app';
 export const initFirebase = () => {
     // Check if firebase already initialized
     if (!apps.length) {
-        if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        if (!!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
             initializeApp({
                 credential: credential.cert(
                     process.env.GOOGLE_APPLICATION_CREDENTIALS,
@@ -12,7 +12,9 @@ export const initFirebase = () => {
                 databaseURL: 'https://analysis-tools-dev.firebaseio.com',
             });
         } else {
-            console.error(`Missing Google Credentials`);
+            initializeApp({
+                databaseURL: 'https://analysis-tools-dev.firebaseio.com',
+            });
         }
     }
 };

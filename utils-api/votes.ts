@@ -1,19 +1,20 @@
 import { getFirestore } from 'firebase-admin/firestore';
 import { initFirebase } from './firebase';
 import { isVotesApiData } from 'utils/type-guards';
+import { createHash } from 'crypto';
 
-import cacheManager from 'cache-manager';
-import fsStore from 'cache-manager-fs-hash';
+import { VoteAction } from 'utils/votes';
 
-const cacheData = cacheManager.caching({
-    store: fsStore,
-    options: {
-        path: 'diskcache', //path for cached files
-        ttl: 60 * 60 * 24, //time to life in seconds
-        subdirs: false, //create subdirectories
-        zip: false, //zip files to save diskspace (default: false)
-    },
-});
+export interface Vote {
+    type: VoteType;
+    date: Date;
+    ip: string;
+}
+
+export enum VoteType {
+    Up = 'UP',
+    Down = 'DOWN',
+}
 
 // Get a list of votes from firestore
 export const getDBVotes = async () => {
@@ -38,28 +39,20 @@ export const getDBToolVotes = async (toolId: string) => {
     initFirebase();
     const db = getFirestore();
     const toolVotesDoc = db.collection('tags').doc(key);
-    const voteData = await toolVotesDoc.get();
-    return { id: voteData.id, ...voteData.data() };
+    const voteDoc = await toolVotesDoc.get();
+    const voteData = voteDoc.data();
+    return {
+        id: voteDoc.id,
+        sum: voteData?.sum || 0,
+        upVotes: voteData?.upVotes || 0,
+        downVotes: voteData?.downVotes || 0,
+    };
 };
 
 export async function getVotes() {
-    const cacheKey = `votes_data`;
     try {
-        // Get tool data from cache
-        let data: any = await cacheData.get(cacheKey);
-        if (!data) {
-            console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
-            );
-            data = await getDBVotes();
-            if (data) {
-                await cacheData.set(cacheKey, data, 30);
-            } else {
-                console.error(`ERROR: Failed to load votes data`);
-            }
-        }
+        const data = await getDBVotes();
         if (!isVotesApiData(data)) {
-            await cacheData.del(cacheKey);
             console.error('Votes TypeError');
             return null;
         }
@@ -71,22 +64,17 @@ export async function getVotes() {
 }
 
 export const getToolVotes = async (toolId: string) => {
-    const cacheKey = `${toolId}_votes_data`;
     try {
-        // Get tool data from cache
-        let data: any = await cacheData.get(cacheKey);
-        if (!data) {
-            console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
-            );
-            data = await getDBToolVotes(toolId);
-            if (data) {
-                await cacheData.set(cacheKey, data, 30);
-            } else {
-                console.error(`ERROR: Failed to load ${toolId} vote data`);
-            }
-        }
+        const data = await getDBToolVotes(toolId);
         // TODO: Add typeguard
+        if (!data) {
+            console.error('Votes TypeError');
+            return {
+                votes: 0,
+                upVotes: 0,
+                downVotes: 0,
+            };
+        }
         return {
             votes: Number(data.sum) || 0,
             upVotes: Number(data.upVotes || 0),
@@ -97,6 +85,70 @@ export const getToolVotes = async (toolId: string) => {
         return {
             votes: 0,
             upVotes: 0,
+            downVotes: 0,
         };
     }
+};
+
+export const publishVote = async (
+    toolId: string,
+    ip: string,
+    vote: VoteAction,
+) => {
+    const key = `${process.env.VOTE_PREFIX}${toolId}`;
+
+    // Check if firebase already initialized
+    initFirebase();
+    const db = getFirestore();
+    const toolVotesDoc = db.collection('tags').doc(key);
+
+    const hashedIP = hashIP(ip);
+    return await toolVotesDoc
+        .collection('votes')
+        .doc(hashedIP)
+        .set({
+            date: new Date(),
+            ip: hashedIP,
+            type: vote === 1 ? VoteType.Up : VoteType.Down,
+        });
+};
+
+export const recalculateToolVotes = async (toolId: string) => {
+    const key = `${process.env.VOTE_PREFIX}-${toolId}`;
+
+    let upVotes = 0;
+    let downVotes = 0;
+
+    // Check if firebase already initialized
+    initFirebase();
+    const db = getFirestore();
+    const toolVotesDoc = db.collection('tags').doc(key);
+
+    const allVotesSnapshot = await toolVotesDoc.collection('votes').get();
+    allVotesSnapshot.forEach((voteDoc) => {
+        const v = voteDoc.data() as Vote;
+        switch (v.type) {
+            case VoteType.Up:
+                upVotes++;
+                break;
+            case VoteType.Down:
+                downVotes++;
+                break;
+
+            default:
+                throw new Error(`Unknown vote type ${v.type}`);
+        }
+    });
+    await toolVotesDoc.set({
+        upVotes,
+        downVotes,
+        sum: upVotes - downVotes,
+    });
+};
+
+export const hashIP = (ip: string) => {
+    const salt = process.env.GH_TOKEN;
+    return createHash('md5')
+        .update(salt + ip)
+        .digest('hex');
 };
