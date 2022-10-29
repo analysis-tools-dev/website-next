@@ -13,7 +13,7 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
     const iconAssetsPath = '/assets/icons';
     const linkIcon = `${iconAssetsPath}/general/link.svg`;
 
-    const isMultiLanguage = tool.languages.length > 1;
+    const isMultiLanguage = tool.languages?.length > 1;
 
     const languageIcon = isMultiLanguage
         ? `${iconAssetsPath}/languages/multi-language.svg`

@@ -1,3 +1,4 @@
+import { Tool } from '@components/tools';
 import {
     ApiTag,
     Article,
@@ -25,6 +26,26 @@ export const isToolsApiData = (data: unknown): data is ToolsApiData => {
             return false;
         }
     }
+    return true;
+};
+
+export const isToolData = (data: unknown): data is Tool => {
+    if (!data || typeof data !== 'object') {
+        return false;
+    }
+
+    const res =
+        (data as Tool).name !== undefined &&
+        (data as Tool).categories !== undefined &&
+        (data as Tool).languages !== undefined &&
+        (data as Tool).licenses !== undefined &&
+        (data as Tool).types !== undefined &&
+        (data as Tool).homepage !== undefined;
+
+    if (!res) {
+        return false;
+    }
+
     return true;
 };
 
