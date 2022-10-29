@@ -1,6 +1,5 @@
-import { FC } from 'react';
-import styles from './AutocompleteSearch.module.css';
-
+import { FC, useState } from 'react';
+import Link from 'next/link';
 import algoliasearch from 'algoliasearch/lite';
 import {
     Configure,
@@ -10,65 +9,65 @@ import {
     Pagination,
     SearchBox,
 } from 'react-instantsearch-hooks-web';
+import { Card } from '@components/layout';
+import classNames from 'classnames';
+import { AlgoliaSearchHelper } from 'algoliasearch-helper';
+
+const configLoaded =
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID &&
+    process.env.NEXT_PUBLIC_ALGOLIA_API_KEY;
 
 const searchClient = algoliasearch(
-    'V0X7Z4KE9D',
-    '544bec33383dc791bcbca3e1ceaec11b',
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || '',
+    process.env.NEXT_PUBLIC_ALGOLIA_API_KEY || '',
 );
 
-// const searchClient = algoliasearch(
-//     'B1G2GM9NG0',
-//     'aadef574be1f9252bb48d4ea09b5cfe5',
-// );
-
-{
-    /* <Input
-    type="search"
-    className={styles.autocompleteInput}
-    name="search"
-    placeholder="Find analysis tools, formatters, linters..."
-/>; */
+interface SearchResult {
+    hit: any;
+    sendEvent: any;
 }
 
-function Hit({ hit }) {
+const Hit = (result: SearchResult) => {
     return (
-        <article>
-            <h1>
-                <Highlight attribute="name" hit={hit} />
-            </h1>
-        </article>
+        <Link href={result.hit.fields.slug} passHref>
+            <a>
+                <Highlight attribute="name" hit={result.hit} />
+            </a>
+        </Link>
     );
-}
+};
 
 const AutocompleteSearch: FC = () => {
-    // const box = searchBox({
-    //     container: '#searchbox',
-    //     // Optional parameters
-    //     // placeholder: string,
-    //     // autofocus: boolean,
-    //     // searchAsYouType: boolean,
-    //     // showReset: boolean,
-    //     // showSubmit: boolean,
-    //     // showLoadingIndicator: boolean,
-    //     // queryHook: function,
-    //     // templates: object,
-    //     // cssClasses: object,
-    // });
+    const [showResults, setShow] = useState(false);
+    const handleSearch = (e: AlgoliaSearchHelper) => {
+        const shouldShow =
+            e.state.query && e.state.query.length > 0 ? true : false;
+        setShow(shouldShow);
+        if (shouldShow) {
+            e.search();
+        }
+    };
 
-    return (
-        <InstantSearch searchClient={searchClient} indexName="tools">
-            <>
+    return configLoaded ? (
+        <InstantSearch
+            searchClient={searchClient}
+            indexName="tools"
+            searchFunction={handleSearch}>
+            <div>
                 <Configure hitsPerPage={10} typoTolerance={true} />
-                {/* {box} */}
-                <SearchBox
-                    className={styles.autocompleteInput}
-                    placeholder="Find analysis tools, formatters, linters.."
-                />
-                {/* <Hits hitComponent={Hit} /> */}
-                {/* <Pagination /> */}
-            </>
+                <SearchBox placeholder="Find analysis tools, formatters, linters.." />
+                <div className="relative">
+                    <Card
+                        className={classNames('search-results', {
+                            hidden: !showResults,
+                        })}>
+                        <Hits hitComponent={Hit} />
+                        <Pagination />
+                    </Card>
+                </div>
+            </div>
         </InstantSearch>
-    );
+    ) : null;
 };
 
 export default AutocompleteSearch;
