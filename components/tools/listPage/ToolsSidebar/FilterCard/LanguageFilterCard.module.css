@@ -4,6 +4,10 @@
     margin: 0 0 10px 0;
 }
 
+.faded {
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
 .checklist li {
     margin: 0 0 10px 0;
     display: flex;

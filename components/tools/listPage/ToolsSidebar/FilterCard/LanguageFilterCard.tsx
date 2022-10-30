@@ -50,6 +50,9 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     const shouldShowToggle = options.length > limit;
     const [listLimit, setLimit] = useState(limit);
 
+    // Fade out background when not showing all options
+    const [faded, setFaded] = useState(styles.faded);
+
     const toolsResult = useToolsQuery(search);
     if (toolsResult.error || !toolsResult.data) {
         return null;
@@ -57,8 +60,10 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     const toggleAll = () => {
         if (listLimit === 999) {
             setLimit(limit);
+            setFaded(styles.faded);
         } else {
             setLimit(999);
+            setFaded("");
         }
     };
 
@@ -84,7 +89,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                 {heading}
             </Heading>
 
-            <ul className={styles.checklist}>
+            <ul className={`${styles.checklist} ${faded}`}>
                 <li>
                     <Input
                         type="checkbox"
