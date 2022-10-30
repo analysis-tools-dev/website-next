@@ -12,6 +12,7 @@ import {
 import { Card } from '@components/layout';
 import classNames from 'classnames';
 import { AlgoliaSearchHelper } from 'algoliasearch-helper';
+import { useDocumentEvent } from 'hooks';
 
 const configLoaded =
     process.env.NEXT_PUBLIC_ALGOLIA_APP_ID &&
@@ -39,6 +40,13 @@ const Hit = (result: SearchResult) => {
 
 const AutocompleteSearch: FC = () => {
     const [showResults, setShow] = useState(false);
+
+    const handleShowResults = (e: any) => {
+        if (!!e.target.value) {
+            setShow(true);
+        }
+    };
+
     const handleSearch = (e: AlgoliaSearchHelper) => {
         const shouldShow =
             e.state.query && e.state.query.length > 0 ? true : false;
@@ -48,14 +56,38 @@ const AutocompleteSearch: FC = () => {
         }
     };
 
+    const handleHideDropdown = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+            setShow(false);
+        }
+    };
+
+    const handleClickOutside = (event: any) => {
+        if (
+            !event.path.find(
+                (el: any) => el.className === 'autocomplete-search',
+            )
+        ) {
+            setShow(false);
+        }
+    };
+
+    useDocumentEvent([
+        { type: 'click', callback: handleClickOutside },
+        { type: 'keydown', callback: handleHideDropdown },
+    ]);
+
     return configLoaded ? (
         <InstantSearch
             searchClient={searchClient}
             indexName="tools"
             searchFunction={handleSearch}>
-            <div>
+            <div className="autocomplete-search">
                 <Configure hitsPerPage={10} typoTolerance={true} />
-                <SearchBox placeholder="Find analysis tools, formatters, linters.." />
+                <SearchBox
+                    placeholder="Find analysis tools, formatters, linters.."
+                    onFocus={handleShowResults}
+                />
                 <div className="relative">
                     <Card
                         className={classNames('search-results', {
