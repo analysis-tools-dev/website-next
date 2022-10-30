@@ -39,15 +39,15 @@ const LanguageTopToolsWidget: FC<LanguageTopToolsWidgetProps> = ({
 
             <div className={styles.toolListWrapper}>
                 <ToolsListWidget
-                    title={`Most popular ${language} Formatters`}
-                    href="/tools"
-                    tools={formatters}
-                />
-
-                <ToolsListWidget
                     title={`Most popular ${language} Linters`}
                     href="/tools"
                     tools={linters}
+                />
+
+                <ToolsListWidget
+                    title={`Most popular ${language} Formatters`}
+                    href="/tools"
+                    tools={formatters}
                 />
             </div>
         </Card>
