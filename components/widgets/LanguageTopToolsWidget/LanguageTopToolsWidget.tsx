@@ -31,8 +31,7 @@ const LanguageTopToolsWidget: FC<LanguageTopToolsWidgetProps> = ({
                         alt={language}
                     />
                     <Heading level={2} className={styles.languageName}>
-                        {language.charAt(0).toUpperCase() + language.slice(1)}{' '}
-                        static analysis tools
+                        {language} static analysis tools
                     </Heading>
                 </a>
             </Link>
