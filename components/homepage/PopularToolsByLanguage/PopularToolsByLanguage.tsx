@@ -6,15 +6,15 @@ import styles from './PopularToolsByLanguage.module.css';
 import { ToolsByLanguage } from '@components/tools';
 
 interface PopularToolsByLanguageProps {
-    toolsByLangauge: ToolsByLanguage;
+    toolsByLanguage: ToolsByLanguage;
     limit?: number;
 }
 
 const PopularToolsByLanguage: FC<PopularToolsByLanguageProps> = ({
-    toolsByLangauge,
+    toolsByLanguage,
     limit = 5,
 }) => {
-    const languages = Object.keys(toolsByLangauge);
+    const languages = Object.keys(toolsByLanguage);
     return (
         <>
             <PanelHeader
@@ -31,8 +31,8 @@ const PopularToolsByLanguage: FC<PopularToolsByLanguageProps> = ({
                 <LanguageTopToolsWidget
                     key={index}
                     language={language}
-                    formatters={toolsByLangauge[language]?.formatters || []}
-                    linters={toolsByLangauge[language]?.linters || []}
+                    formatters={toolsByLanguage[language]?.formatters || []}
+                    linters={toolsByLanguage[language]?.linters || []}
                 />
             ))}
 

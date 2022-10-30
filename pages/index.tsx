@@ -59,7 +59,7 @@ const HomePage: FC<HomePageProps> = ({
                     </Sidebar>
                     <Panel>
                         <PopularToolsByLanguage
-                            toolsByLangauge={popularLanguages}
+                            toolsByLanguage={popularLanguages}
                         />
                         <MostViewedTools tools={mostViewed} />
                     </Panel>
