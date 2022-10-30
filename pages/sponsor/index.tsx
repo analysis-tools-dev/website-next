@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import type { GetServerSideProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { MainHead, Footer, Navbar } from '@components/core';
 import { Card, Main, Panel, Sidebar, Wrapper } from '@components/layout';
 import { Intro } from '@components/sponsors';
 import { BlogPreview } from '@components/blog';
-import { Newsletter } from '@components/elements';
+import { LinkButton, Newsletter } from '@components/elements';
 import { sponsors } from 'utils-api/sponsors';
 import { fetchArticles } from '@components/blog/queries/articles';
 import { Article } from 'utils/types';
@@ -66,6 +67,14 @@ const Sponsor: FC<SponsorPageProps> = ({ articles }) => {
                                         <p className="text-gray-500">
                                             {sponsor.description}
                                         </p>
+                                    </div>
+                                    <div className="flex ">
+                                    <LinkButton
+                                        label={sponsor.tool}
+                                        href={`/tool/${sponsor.tool}`}
+                                        newTab={false}
+                                        className="m-t-30"
+                                    />
                                     </div>
                                 </Card>
                             ))}

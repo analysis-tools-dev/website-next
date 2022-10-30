@@ -15,7 +15,7 @@ const Intro: FC = () => {
                 <Text
                     className={styles.textDescription}
                     dangerouslySetInnerHTML={{
-                        __html: "Thanks to our generous sponsors for supporting the project. Without them, we wouldn't be able to keep the site running.",
+                        __html: "Thanks to our generous sponsors for supporting the project. They allow us to keep the site free from ads and trackers. Please check out their offers below.",
                     }}></Text>
 
                 <LinkButton
