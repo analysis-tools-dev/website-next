@@ -2,14 +2,14 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { Heading, Text } from '@components/typography';
 import { Card } from '@components/layout';
-import styles from './SponsorCard.module.css';
 import { SponsorData } from 'utils/types';
+import styles from './SponsorSidebarCard.module.css';
 
-export interface SponsorCardProps {
+export interface SponsorSidebarCardProps {
     sponsors: SponsorData[];
 }
 
-const SponsorCard: FC<SponsorCardProps> = ({ sponsors }) => {
+const SponsorSidebarCard: FC<SponsorSidebarCardProps> = ({ sponsors }) => {
     return (
         <Card>
             <Heading level={3} className="inline font-bold m-b-16">
@@ -43,4 +43,4 @@ const SponsorCard: FC<SponsorCardProps> = ({ sponsors }) => {
     );
 };
 
-export default SponsorCard;
+export default SponsorSidebarCard;

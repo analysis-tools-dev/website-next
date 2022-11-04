@@ -26,7 +26,10 @@ const BlogPreviewEntry: FC<BlogPreviewEntryProps> = ({
                 className="m-b-8"
             />
             <div
-                className="font-light font-size-s m-t-16"
+                className={classNames(
+                    styles['text-preview'],
+                    'font-light font-size-s m-t-16',
+                )}
                 dangerouslySetInnerHTML={{ __html: summary }}
             />
             <Link href={link}>

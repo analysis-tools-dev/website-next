@@ -7,6 +7,7 @@ export interface LinkButtonProps {
     href: string;
     newTab?: boolean;
     type?: 'primary' | 'secondary' | 'github';
+    variant?: 'normal' | 'small';
     className?: string;
 }
 
@@ -15,11 +16,12 @@ const LinkButton: FC<LinkButtonProps> = ({
     href,
     newTab = false,
     type = 'primary',
+    variant = 'normal',
     className = '',
 }) => {
     return newTab ? (
         <a
-            className={`${styles.btn} ${styles[type]} ${className}`}
+            className={`${styles.btn} ${styles[type]} ${styles[variant]} ${className}`}
             href={href}
             itemProp="url"
             target="_blank"
@@ -29,7 +31,7 @@ const LinkButton: FC<LinkButtonProps> = ({
     ) : (
         <Link href={href}>
             <a
-                className={`${styles.btn} ${styles[type]} ${className}`}
+                className={`${styles.btn} ${styles[type]} ${styles[variant]} ${className}`}
                 href={href}>
                 {label}
             </a>

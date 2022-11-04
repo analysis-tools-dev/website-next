@@ -111,7 +111,9 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         className={styles.shareBtns}
                     />
                     <Link href={tool.homepage}>
-                        <a className="font-light font-size-s m-l-4">
+                        <a
+                            rel="noopener noreferrer"
+                            className="font-light font-size-s m-l-4">
                             Visit website
                         </a>
                     </Link>
