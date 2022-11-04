@@ -63,7 +63,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
             setFaded(styles.faded);
         } else {
             setLimit(999);
-            setFaded("");
+            setFaded('');
         }
     };
 
