@@ -1,34 +1,33 @@
 import { FC } from 'react';
-import type { GetServerSideProps } from 'next';
+import type { GetStaticProps } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import { MainHead, Footer, Navbar } from '@components/core';
 import { Card, Main, Panel, Sidebar, Wrapper } from '@components/layout';
 import { Intro } from '@components/sponsors';
 import { BlogPreview } from '@components/blog';
 import { LinkButton, Newsletter } from '@components/elements';
-import { sponsors } from 'utils-api/sponsors';
-import { fetchArticles } from '@components/blog/queries/articles';
-import { Article } from 'utils/types';
+import { Article, SponsorData } from 'utils/types';
+import { getArticles } from 'utils-api/blog';
+import { getSponsors } from 'utils-api/sponsors';
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    // // Create a new QueryClient instance for each page request.
-    // // This ensures that data is not shared between users and requests.
-    // const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
+export const getStaticProps: GetStaticProps = async () => {
+    const sponsors = getSponsors();
+    const articles = await getArticles();
 
-    const articles = await fetchArticles();
     return {
         props: {
+            sponsors: sponsors,
             articles: articles,
         },
     };
 };
 
 export interface SponsorPageProps {
+    sponsors: SponsorData[];
     articles: Article[];
 }
 
-const Sponsor: FC<SponsorPageProps> = ({ articles }) => {
+const Sponsor: FC<SponsorPageProps> = ({ sponsors, articles }) => {
     return (
         <>
             <MainHead
@@ -54,10 +53,10 @@ const Sponsor: FC<SponsorPageProps> = ({ articles }) => {
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         <Image
-                                            src={sponsor.logo}
+                                            src={sponsor.logo.src}
                                             alt={sponsor.name}
-                                            width={sponsor.width}
-                                            height={sponsor.height}
+                                            width={sponsor.logo.width}
+                                            height={sponsor.logo.height}
                                         />
                                     </a>
                                     <div className="mt-4 text-center">
@@ -69,12 +68,12 @@ const Sponsor: FC<SponsorPageProps> = ({ articles }) => {
                                         </p>
                                     </div>
                                     <div className="flex ">
-                                    <LinkButton
-                                        label={sponsor.tool}
-                                        href={`/tool/${sponsor.tool}`}
-                                        newTab={false}
-                                        className="m-t-30"
-                                    />
+                                        <LinkButton
+                                            label={sponsor.tool}
+                                            href={`/tool/${sponsor.tool}`}
+                                            newTab={false}
+                                            className="m-t-30"
+                                        />
                                     </div>
                                 </Card>
                             ))}

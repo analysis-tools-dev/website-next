@@ -10,7 +10,7 @@ import styles from './ToolCard.module.css';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 import { deCamelString } from 'utils/strings';
-import { isSponsor } from 'utils-api/sponsors';
+import { isSponsor } from 'utils/sponsor';
 import { useIntersection } from 'hooks';
 
 export interface ToolCardProps {

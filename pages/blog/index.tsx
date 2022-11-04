@@ -4,25 +4,28 @@ import { Main, Panel, Wrapper } from '@components/layout';
 import { ArticleList, BlogSidebar } from '@components/blog';
 import { GetStaticProps } from 'next';
 import { getArticles } from 'utils-api/blog';
-import { Article } from 'utils/types';
+import { getSponsors } from 'utils-api/sponsors';
+import { Article, SponsorData } from 'utils/types';
 import { PanelHeader } from '@components/elements';
 
 export const getStaticProps: GetStaticProps = async () => {
+    const sponsors = getSponsors();
     const articles = await getArticles();
 
     return {
         props: {
+            sponsors,
             articles,
         },
     };
 };
 
-// TODO: getStaticProps for blog articles
 export interface BlogPageProps {
+    sponsors: SponsorData[];
     articles: Article[];
 }
 
-const BlogPage: FC<BlogPageProps> = ({ articles }) => {
+const BlogPage: FC<BlogPageProps> = ({ sponsors, articles }) => {
     const title = 'Analysis Tools';
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
@@ -34,7 +37,7 @@ const BlogPage: FC<BlogPageProps> = ({ articles }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <BlogSidebar />
+                    <BlogSidebar sponsors={sponsors} />
                     <Panel>
                         <PanelHeader level={2} text="Latest from our blog" />
                         <ArticleList articles={articles} />

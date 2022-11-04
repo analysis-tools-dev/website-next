@@ -13,7 +13,7 @@ import '@splidejs/splide-extension-video/dist/css/splide-extension-video.min.css
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
-import { isSponsor } from 'utils-api/sponsors';
+import { isSponsor } from 'utils/sponsor';
 
 import Image from 'next/image';
 

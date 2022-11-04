@@ -1,6 +1,7 @@
 import {
     ApiTag,
     Article,
+    SponsorData,
     StatsApiData,
     TagsApiData,
     ToolsApiData,
@@ -97,6 +98,27 @@ export const isVotesApiData = (data: unknown): data is VotesApiData => {
             (data as VotesApiData)[key].sum !== undefined &&
             (data as VotesApiData)[key].upVotes !== undefined &&
             (data as VotesApiData)[key].downVotes !== undefined;
+        if (!res) {
+            return false;
+        }
+    }
+    return true;
+};
+
+export const isSponsorData = (data: unknown): data is SponsorData[] => {
+    if (!data || !Array.isArray(data)) {
+        return false;
+    }
+
+    for (const entry of data) {
+        const res =
+            (entry as SponsorData).name !== undefined &&
+            (entry as SponsorData).description !== undefined &&
+            (entry as SponsorData).href !== undefined &&
+            (entry as SponsorData).tool !== undefined &&
+            (entry as SponsorData).url !== undefined &&
+            (entry as SponsorData).logo !== undefined;
+
         if (!res) {
             return false;
         }

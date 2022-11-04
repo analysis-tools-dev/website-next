@@ -1,12 +1,15 @@
 import { FC } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { Heading, Text } from '@components/typography';
 import { Card } from '@components/layout';
 import styles from './SponsorCard.module.css';
-import { sponsors } from 'utils-api/sponsors';
+import { SponsorData } from 'utils/types';
 
-const SponsorCard: FC = () => {
+export interface SponsorCardProps {
+    sponsors: SponsorData[];
+}
+
+const SponsorCard: FC<SponsorCardProps> = ({ sponsors }) => {
     return (
         <Card>
             <Heading level={3} className="inline font-bold m-b-16">
@@ -21,32 +24,18 @@ const SponsorCard: FC = () => {
             <ul className={styles.sponsorList}>
                 {sponsors.map((sponsor, index) => (
                     <li key={index} className={styles.listItem}>
-                        {sponsor.external ? (
-                            <a
-                                className={`font-color-light ${styles.sponsorLink}`}
-                                href={sponsor.href}
-                                target={'_blank'}
-                                rel="noreferrer">
-                                <Image
-                                    src={sponsor.logo}
-                                    width={sponsor.width}
-                                    height={sponsor.height}
-                                    alt={sponsor.name}
-                                />
-                            </a>
-                        ) : (
-                            <Link href={sponsor.href}>
-                                <a
-                                    className={`font-color-light ${styles.sponsorLink}`}>
-                                    <Image
-                                        src={sponsor.logo}
-                                        width={sponsor.width}
-                                        height={sponsor.height}
-                                        alt={sponsor.name}
-                                    />
-                                </a>
-                            </Link>
-                        )}
+                        <a
+                            className={`font-color-light ${styles.sponsorLink}`}
+                            href={sponsor.href}
+                            target={'_blank'}
+                            rel="noreferrer">
+                            <Image
+                                src={sponsor.logo.src}
+                                width={sponsor.logo.width}
+                                height={sponsor.logo.height}
+                                alt={sponsor.name}
+                            />
+                        </a>
                     </li>
                 ))}
             </ul>
