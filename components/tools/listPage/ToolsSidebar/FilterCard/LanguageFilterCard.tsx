@@ -1,16 +1,15 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { withRouter, type Router } from 'next/router';
 import { Button, Input } from '@components/elements';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 
 import styles from './LanguageFilterCard.module.css';
-import { objectToQueryString } from 'utils/query';
-import { useRouterPush } from 'hooks';
 import { SearchFilter, useSearchState } from 'context/SearchProvider';
 import { isChecked, isSelectedFilter, sortByChecked } from './utils';
 import { changeQuery } from 'utils/query';
 import { useToolsQuery } from '@components/tools/queries';
+import classNames from 'classnames';
 
 export interface LanguageFilterOption {
     tag: string;
@@ -37,16 +36,6 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
 }) => {
     const { search, setSearch } = useSearchState();
 
-    const routerPush = useRouterPush();
-
-    useEffect(() => {
-        if (Object.keys(search).length) {
-            routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
-                shallow: true,
-            });
-        }
-    }, [search, routerPush]);
-
     const shouldShowToggle = options.length > limit;
     const [listLimit, setLimit] = useState(limit);
 
@@ -63,7 +52,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
             setFaded(styles.faded);
         } else {
             setLimit(999);
-            setFaded("");
+            setFaded('normal');
         }
     };
 
@@ -73,10 +62,6 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
             delete search[searchFilter];
         }
         setSearch({ ...search });
-
-        routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
-            shallow: true,
-        });
     };
 
     if (options.length > limit) {
@@ -89,7 +74,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                 {heading}
             </Heading>
 
-            <ul className={`${styles.checklist} ${faded}`}>
+            <ul className={classNames(styles.checklist, faded)}>
                 <li>
                     <Input
                         type="checkbox"
@@ -108,7 +93,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                 {options
                     .filter((option) => {
                         // check if any tool has this language
-                        return toolsResult.data.some((tool) => {
+                        return toolsResult.data?.some((tool) => {
                             return tool.languages.includes(option.tag);
                         });
                     })
