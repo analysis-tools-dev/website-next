@@ -11,6 +11,7 @@ import { SearchFilter, useSearchState } from 'context/SearchProvider';
 import { isChecked, isSelectedFilter, sortByChecked } from './utils';
 import { changeQuery } from 'utils/query';
 import { useToolsQuery } from '@components/tools/queries';
+import classNames from 'classnames';
 
 export interface LanguageFilterOption {
     tag: string;
@@ -63,7 +64,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
             setFaded(styles.faded);
         } else {
             setLimit(999);
-            setFaded("");
+            setFaded('normal');
         }
     };
 
@@ -89,7 +90,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                 {heading}
             </Heading>
 
-            <ul className={`${styles.checklist} ${faded}`}>
+            <ul className={classNames(styles.checklist, faded)}>
                 <li>
                     <Input
                         type="checkbox"
