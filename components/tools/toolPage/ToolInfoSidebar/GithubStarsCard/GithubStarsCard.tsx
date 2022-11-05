@@ -120,7 +120,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ source, stars }) => {
                     className={styles.link}
                     href={`https://star-history.com/#${github.owner}/${github.repo}`}
                     target="_blank"
-                    rel="noreferrer">
+                    rel="noopener noreferrer">
                     Github Star History
                 </a>
             </Heading>

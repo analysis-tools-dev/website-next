@@ -7,7 +7,12 @@ const SuggestLink: FC = () => {
     return (
         <Text className={styles.suggestLink}>
             Help make this list better.
-            <Link href="/suggest"> Suggest Tools</Link>
+            <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/analysis-tools-dev/static-analysis/blob/master/CONTRIBUTING.md">
+                Suggest Tools
+            </a>
         </Text>
     );
 };

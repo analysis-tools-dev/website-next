@@ -45,8 +45,8 @@ const Intro: FC = () => {
                 <Link href="https://www.freepik.com/free-vector/software-testing-isometric-banner-functional-test_9292792.htm">
                     <a
                         className={styles.introImageRef}
-                        target={'_blank'}
-                        rel="noreferrer">
+                        target="_blank"
+                        rel="noopener noreferrer">
                         Hero image by upklyak on Freepik
                     </a>
                 </Link>
