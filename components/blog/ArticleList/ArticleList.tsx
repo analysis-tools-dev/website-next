@@ -16,7 +16,7 @@ const ArticleList: FC<ArticleListProps> = ({ articles }) => {
                 <li key={index}>
                     <Card>
                         <BlogPreviewEntry
-                            title={post.meta?.title}
+                            meta={post.meta}
                             summary={post.summary}
                             link={`/blog/${post.slug}`}
                         />
