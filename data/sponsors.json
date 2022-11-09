@@ -1,0 +1,62 @@
+[
+    {
+        "name": "DeepCode",
+        "url": "https://www.deepcode.ai/",
+        "description": "DeepCode is a code review tool that helps developers write better code. It uses machine learning to analyze code and find bugs, security vulnerabilities, and performance issues.",
+        "tool": "deepcode",
+        "href": "/sponsor/deep-code",
+        "logo": {
+            "src": "/assets/images/sponsors/deepcode.png",
+            "width": "200px",
+            "height": "54px"
+        }
+    },
+    {
+        "name": "CodeScene",
+        "url": "https://codescene.com/",
+        "description": "CodeScene is a code intelligence platform that helps you understand your codebase and improve it.",
+        "tool": "codescene",
+        "href": "/sponsor/code-scene",
+        "logo": {
+            "src": "/assets/images/sponsors/codescene.svg",
+            "width": "200px",
+            "height": "50px"
+        }
+    },
+    {
+        "name": "semgrep",
+        "url": "https://semgrep.dev/",
+        "description": "semgrep is a fast, open-source, static analysis tool for finding bugs and enforcing code standards.",
+        "tool": "semgrep",
+        "href": "/sponsor/semgrep",
+        "logo": {
+            "src": "/assets/images/sponsors/semgrep.svg",
+            "width": "100px",
+            "height": "80px"
+        }
+    },
+    {
+        "name": "Codiga",
+        "url": "https://codiga.io/",
+        "description": "Codiga is a code review tool for developers.",
+        "tool": "codiga",
+        "href": "/sponsor/codiga",
+        "logo": {
+            "src": "/assets/images/sponsors/codiga.svg",
+            "width": "72px",
+            "height": "65px"
+        }
+    },
+    {
+        "name": "Offensive 360",
+        "url": "https://offensive360.com/",
+        "description": "Offensive 360 is a security company that provides security services and products.",
+        "tool": "offensive-360",
+        "href": "/sponsor/offensive-360",
+        "logo": {
+            "src": "/assets/images/sponsors/offensive360.png",
+            "width": "209px",
+            "height": "74px"
+        }
+    }
+]

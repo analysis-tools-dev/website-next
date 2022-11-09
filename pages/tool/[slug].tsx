@@ -12,10 +12,11 @@ import {
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
-import { Article } from 'utils/types';
+import { Article, SponsorData } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticles } from 'utils-api/blog';
+import { getSponsors } from 'utils-api/sponsors';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -46,6 +47,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 
+    const sponsors = getSponsors();
     const votes = await getVotes();
     const apiTool = await getTool(slug);
     const articles = await getArticles();
@@ -97,6 +99,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         props: {
             tool,
             alternatives,
+            sponsors,
             articles,
             screenshots: (await getScreenshots(slug)) || null,
         },
@@ -106,6 +109,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export interface ToolProps {
     tool: Tool;
     alternatives: Tool[];
+    sponsors: SponsorData[];
     articles: Article[];
     screenshots: { url: string; original: string }[];
 }
@@ -113,6 +117,7 @@ export interface ToolProps {
 const ToolPage: FC<ToolProps> = ({
     tool,
     alternatives,
+    sponsors,
     articles,
     screenshots,
 }) => {
@@ -136,7 +141,7 @@ const ToolPage: FC<ToolProps> = ({
                 </Main>
             </Wrapper>
 
-            <SponsorBanner />
+            <SponsorBanner sponsors={sponsors} />
             <Footer />
         </SearchProvider>
     );

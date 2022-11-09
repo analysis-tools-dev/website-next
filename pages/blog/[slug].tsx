@@ -11,29 +11,13 @@ import {
     markdownToHtml,
     getParsedFileContentBySlug,
 } from 'utils-api/blog';
-import { type MarkdownRenderingResult } from 'utils/types';
+import { SponsorData, type MarkdownRenderingResult } from 'utils/types';
 import { BlogSidebar } from '@components/blog';
+import { getSponsors } from 'utils-api/sponsors';
 
 interface ArticleProps extends ParsedUrlQuery {
     slug: string;
 }
-
-export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = ({
-    params,
-}) => {
-    const articleMarkdownContent = getParsedFileContentBySlug(
-        params?.slug?.toString() || '',
-    );
-
-    const renderedHTML = markdownToHtml(articleMarkdownContent.content);
-
-    return {
-        props: {
-            frontMatter: articleMarkdownContent.frontMatter,
-            html: renderedHTML,
-        },
-    };
-};
 
 export const getStaticPaths: GetStaticPaths<ArticleProps> = () => {
     const paths = readdirSync(POSTS_PATH)
@@ -50,9 +34,37 @@ export const getStaticPaths: GetStaticPaths<ArticleProps> = () => {
     };
 };
 
+export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = ({
+    params,
+}) => {
+    const articleMarkdownContent = getParsedFileContentBySlug(
+        params?.slug?.toString() || '',
+    );
+
+    const renderedHTML = markdownToHtml(articleMarkdownContent.content);
+
+    const sponsors = getSponsors();
+
+    return {
+        props: {
+            sponsors,
+            frontMatter: articleMarkdownContent.frontMatter,
+            html: renderedHTML,
+        },
+    };
+};
+
+export interface BlogPostPageProps extends MarkdownRenderingResult {
+    sponsors: SponsorData[];
+}
+
 // TODO: Add BreadCrumbs
 // TOOD: Add next/prev article links
-const BlogPostPage: FC<MarkdownRenderingResult> = ({ frontMatter, html }) => {
+const BlogPostPage: FC<BlogPostPageProps> = ({
+    sponsors,
+    frontMatter,
+    html,
+}) => {
     const title = 'Analysis Tools';
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
@@ -64,7 +76,7 @@ const BlogPostPage: FC<MarkdownRenderingResult> = ({ frontMatter, html }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <BlogSidebar />
+                    <BlogSidebar sponsors={sponsors} />
                     <Panel>
                         <BlogPostLayout meta={frontMatter} html={html} />
                     </Panel>

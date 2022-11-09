@@ -16,8 +16,8 @@ const Navbar: FC = () => {
             href: '/blog',
         },
         {
-            label: 'Sponsor',
-            href: '/sponsor',
+            label: 'Sponsors',
+            href: '/sponsors',
         },
         {
             label: 'Contributing',

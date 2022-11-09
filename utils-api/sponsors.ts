@@ -1,69 +1,22 @@
-export const sponsors = [
-    {
-        name: 'DeepCode',
-        url: 'https://www.deepcode.ai/',
-        description:
-            'DeepCode is a code review tool that helps developers write better code. It uses machine learning to analyze code and find bugs, security vulnerabilities, and performance issues.',
-        tools: ['deepcode', 'snyk'],
-        href: '/sponsor/deep-code',
-        logo: '/assets/images/sponsors/deepcode.png',
-        width: '200px',
-        height: '54px',
-        external: false,
-    },
-    {
-        name: 'CodeScene',
-        url: 'https://codescene.com/',
-        description:
-            'CodeScene is a code intelligence platform that helps you understand your codebase and improve it.',
-        tools: ['codescene'],
-        href: '/sponsor/code-scene',
-        logo: '/assets/images/sponsors/codescene.svg',
-        width: '200px',
-        height: '50px',
-        external: false,
-    },
-    {
-        name: 'semgrep',
-        url: 'https://semgrep.dev/',
-        description:
-            'semgrep is a fast, open-source, static analysis tool for finding bugs and enforcing code standards.',
-        tools: ['semgrep'],
-        href: '/sponsor/semgrep',
-        logo: '/assets/images/sponsors/semgrep.svg',
-        width: '100px',
-        height: '80px',
-        external: false,
-    },
-    {
-        name: 'Codiga',
-        url: 'https://codiga.io/',
-        description: 'Codiga is a code review tool for developers.',
-        tools: ['codiga'],
-        href: '/sponsor/codiga',
-        logo: '/assets/images/sponsors/codiga.svg',
-        width: '72px',
-        height: '65px',
-        external: false,
-    },
-    {
-        name: 'Offensive 360',
-        url: 'https://offensive360.com/',
-        description:
-            'Offensive 360 is a security company that provides security services and products.',
-        tools: ['offensive-360'],
-        href: '/sponsor/offensive-360',
-        logo: '/assets/images/sponsors/offensive360.png',
-        width: '209px',
-        height: '74px',
-        external: false,
-    },
-];
+import { readFileSync } from 'fs';
+import { isSponsorData } from 'utils/type-guards';
+import { SponsorData } from 'utils/types';
 
-// Check if tool is a sponsor by checking if the tool name is in any of the
-// tools fields of the sponsor object
-export const isSponsor = (toolSlug: string) => {
-    return sponsors.some((sponsor) =>
-        sponsor.tools.some((toolName) => toolName === toolSlug),
-    );
+const SPONSOR_DATA_FILE_PATH = `${process.cwd()}/data/sponsors.json`;
+
+export const getSponsors = () => {
+    // Get sponsor data from JSON file
+    try {
+        const data = readFileSync(SPONSOR_DATA_FILE_PATH).toString() || '';
+        const sponsors = JSON.parse(data) || [];
+
+        if (!isSponsorData(sponsors)) {
+            return [];
+        }
+
+        return sponsors as SponsorData[];
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
 };
