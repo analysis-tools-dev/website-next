@@ -14,7 +14,7 @@ This project would not be possible without the generous support of our sponsors.
 
 <table>
   <tr>
-    <td><a href="https://deepcode.ai"><img width="200px" src="static/sponsors/deepcode.png" /></a></td>
+    <td><a href="https://deepcode.ai"><img width="200px" src="static/sponsors/deepcode.svg" /></a></td>
     <td><a href="https://codescene.io/"><img width="200px" src="static/sponsors/codescene.svg" /></a></td>
     <td><a href="https://semgrep.dev/"><img width="200px" src="static/sponsors/semgrep.svg" /></a></td>
     <td><a href="https://codiga.io/"><img width="200px" src="static/sponsors/codiga.svg" /></a></td>
