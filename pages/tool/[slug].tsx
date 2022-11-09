@@ -51,8 +51,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const articles = await getArticles();
 
     const tool = {
-        id: slug,
         ...apiTool,
+        id: slug,
     };
 
     const alternativeTools = await getTools();

@@ -1,4 +1,7 @@
 export const deCamelString = (str: string) => {
+    if (!str) {
+        return '';
+    }
     return (
         str
             // insert a space before all caps

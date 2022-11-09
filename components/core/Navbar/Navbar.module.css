@@ -34,7 +34,7 @@
 }
 
 .searchField {
-    flex: 1 300px;
+    flex: 1 400px;
 }
 
 @media only screen and (max-width: 900px) {
