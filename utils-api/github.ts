@@ -45,6 +45,7 @@ export const getGithubStats = async (
                     forks: response.data.forks,
                     created: response.data.created_at,
                     updated: response.data.updated_at,
+                    owner: owner,
                 };
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
                 await cacheDataManager.set(cacheKey, data, hours * 60 * 60);

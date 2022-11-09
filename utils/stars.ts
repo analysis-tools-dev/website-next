@@ -5,6 +5,27 @@
 // Number of stargazers to fetch per page
 const DEFAULT_PER_PAGE = 30;
 
+export function getTimeStampByDate(t: Date | number | string): number {
+    const d = new Date(t);
+    return d.getTime();
+}
+
+export const getDateString = (
+    t: Date | number | string,
+    format = 'yyyy/MM',
+): string => {
+    const d = new Date(getTimeStampByDate(t));
+
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+
+    const formatedString = format
+        .replace('yyyy', String(year))
+        .replace('MM', String(month));
+
+    return formatedString;
+};
+
 const range = (from: number, to: number): number[] => {
     const result = [];
     for (let i = from; i <= to; i++) {
@@ -158,7 +179,10 @@ export const getRepoStarRecords = async (
             count: currentStars,
         });
     }
-    return starRecords;
+    return starRecords.map((record) => ({
+        date: getDateString(record.date),
+        count: record.count,
+    }));
 };
 
 export const getRepoLogoUrl = async (repo: string, token?: string) => {

@@ -1,9 +1,12 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect, useEffect } from 'react';
+
+const canUseDOM = typeof window !== 'undefined';
+const useIsomorphicLayoutEffect = canUseDOM ? useLayoutEffect : useEffect;
 
 export const useIntersection = (element: any, rootMargin = '0px') => {
     const [isVisible, setState] = useState(false);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
