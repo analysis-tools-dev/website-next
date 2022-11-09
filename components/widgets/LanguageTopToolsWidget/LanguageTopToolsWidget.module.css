@@ -10,6 +10,7 @@
 
 .languageName {
     padding: 0 0 0 15px;
+    text-transform: capitalize;
 }
 
 .toolListWrapper {

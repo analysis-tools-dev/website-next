@@ -1,9 +1,11 @@
 name: deploy
 on:
+  repository_dispatch:
+  workflow_dispatch:
   push:
     branches:
       - main
-  pull_request_target:
+  pull_request:
 
 env:
   IMAGE_NAME: us-central1-docker.pkg.dev/analysis-tools-dev/analysis-tools/website:${{ github.sha }}

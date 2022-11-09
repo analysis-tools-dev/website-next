@@ -11,19 +11,22 @@ import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
 
 import homepageData from '@appdata/homepage.json';
-import { Article } from 'utils/types';
+import { Article, SponsorData } from 'utils/types';
 import { Tool, ToolsByLanguage } from '@components/tools';
 import { getArticles } from 'utils-api/blog';
 import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
 import { getMostViewedTools } from 'utils-api/mostViewedTools';
+import { getSponsors } from 'utils-api/sponsors';
 
 export const getStaticProps: GetStaticProps = async () => {
+    const sponsors = getSponsors();
     const articles = await getArticles();
     const popularLanguages = await getPopularLanguageStats();
     const mostViewed = await getMostViewedTools();
 
     return {
         props: {
+            sponsors,
             articles,
             popularLanguages,
             mostViewed,
@@ -31,12 +34,14 @@ export const getStaticProps: GetStaticProps = async () => {
     };
 };
 export interface HomePageProps {
+    sponsors: SponsorData[];
     articles: Article[];
     popularLanguages: ToolsByLanguage;
     mostViewed: Tool[];
 }
 
 const HomePage: FC<HomePageProps> = ({
+    sponsors,
     articles,
     popularLanguages,
     mostViewed,
@@ -59,14 +64,14 @@ const HomePage: FC<HomePageProps> = ({
                     </Sidebar>
                     <Panel>
                         <PopularToolsByLanguage
-                            toolsByLangauge={popularLanguages}
+                            toolsByLanguage={popularLanguages}
                         />
                         <MostViewedTools tools={mostViewed} />
                     </Panel>
                 </Main>
             </Wrapper>
 
-            <SponsorBanner />
+            <SponsorBanner sponsors={sponsors} />
             <Footer />
         </>
     );

@@ -13,7 +13,7 @@ import '@splidejs/splide-extension-video/dist/css/splide-extension-video.min.css
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
-import { isSponsor } from 'utils-api/sponsors';
+import { isSponsor } from 'utils/sponsor';
 
 import Image from 'next/image';
 
@@ -111,7 +111,9 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         className={styles.shareBtns}
                     />
                     <Link href={tool.homepage}>
-                        <a className="font-light font-size-s m-l-4">
+                        <a
+                            rel="noopener noreferrer"
+                            className="font-light font-size-s m-l-4">
                             Visit website
                         </a>
                     </Link>

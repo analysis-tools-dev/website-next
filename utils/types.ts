@@ -89,3 +89,16 @@ export interface VotesApiData {
         upVotes: number;
     };
 }
+
+export interface SponsorData {
+    name: string;
+    url: string;
+    description: string;
+    tool: string;
+    href: string;
+    logo: {
+        src: string;
+        width: string;
+        height: string;
+    };
+}

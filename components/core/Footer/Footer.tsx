@@ -18,8 +18,8 @@ const Footer: FC = () => {
             external: false,
         },
         {
-            label: 'Sponsor',
-            href: '/sponsor',
+            label: 'Sponsors',
+            href: '/sponsors',
             external: false,
         },
         {

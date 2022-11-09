@@ -11,6 +11,7 @@ import { SearchFilter, useSearchState } from 'context/SearchProvider';
 import { isChecked, isSelectedFilter, sortByChecked } from './utils';
 import { changeQuery } from 'utils/query';
 import { useToolsQuery } from '@components/tools/queries';
+import classNames from 'classnames';
 
 export interface LanguageFilterOption {
     tag: string;
@@ -50,6 +51,9 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     const shouldShowToggle = options.length > limit;
     const [listLimit, setLimit] = useState(limit);
 
+    // Fade out background when not showing all options
+    const [faded, setFaded] = useState(styles.faded);
+
     const toolsResult = useToolsQuery(search);
     if (toolsResult.error || !toolsResult.data) {
         return null;
@@ -57,8 +61,10 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     const toggleAll = () => {
         if (listLimit === 999) {
             setLimit(limit);
+            setFaded(styles.faded);
         } else {
             setLimit(999);
+            setFaded('normal');
         }
     };
 
@@ -84,7 +90,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                 {heading}
             </Heading>
 
-            <ul className={styles.checklist}>
+            <ul className={classNames(styles.checklist, faded)}>
                 <li>
                     <Input
                         type="checkbox"

@@ -1,6 +1,8 @@
+import { Tool } from '@components/tools';
 import {
     ApiTag,
     Article,
+    SponsorData,
     StatsApiData,
     TagsApiData,
     ToolsApiData,
@@ -25,6 +27,26 @@ export const isToolsApiData = (data: unknown): data is ToolsApiData => {
             return false;
         }
     }
+    return true;
+};
+
+export const isToolData = (data: unknown): data is Tool => {
+    if (!data || typeof data !== 'object') {
+        return false;
+    }
+
+    const res =
+        (data as Tool).name !== undefined &&
+        (data as Tool).categories !== undefined &&
+        (data as Tool).languages !== undefined &&
+        (data as Tool).licenses !== undefined &&
+        (data as Tool).types !== undefined &&
+        (data as Tool).homepage !== undefined;
+
+    if (!res) {
+        return false;
+    }
+
     return true;
 };
 
@@ -97,6 +119,27 @@ export const isVotesApiData = (data: unknown): data is VotesApiData => {
             (data as VotesApiData)[key].sum !== undefined &&
             (data as VotesApiData)[key].upVotes !== undefined &&
             (data as VotesApiData)[key].downVotes !== undefined;
+        if (!res) {
+            return false;
+        }
+    }
+    return true;
+};
+
+export const isSponsorData = (data: unknown): data is SponsorData[] => {
+    if (!data || !Array.isArray(data)) {
+        return false;
+    }
+
+    for (const entry of data) {
+        const res =
+            (entry as SponsorData).name !== undefined &&
+            (entry as SponsorData).description !== undefined &&
+            (entry as SponsorData).href !== undefined &&
+            (entry as SponsorData).tool !== undefined &&
+            (entry as SponsorData).url !== undefined &&
+            (entry as SponsorData).logo !== undefined;
+
         if (!res) {
             return false;
         }

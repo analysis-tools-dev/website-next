@@ -41,7 +41,7 @@ environment variables in it:
 
 Create a file named
 
-```
+```env
 NEXT_PUBLIC_HOST=http://localhost:3000
 GOOGLE_APPLICATION_CREDENTIALS=firebase-key.json
 GH_TOKEN=ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -50,7 +50,7 @@ API_CACHE_TTL=12
 
 3. **Install the dependencies**
 
-```
+```shell
 npm install
 ```
 
