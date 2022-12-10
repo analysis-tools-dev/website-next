@@ -5,6 +5,7 @@ import styles from './VoteWidget.module.css';
 import { LoadingDots } from '@components/elements';
 import { useToolVotesQuery } from './query';
 import { isApiTag } from 'utils/type-guards';
+import classNames from 'classnames';
 export interface VoteWidgetProps {
     toolId: string;
     type?: 'primary' | 'secondary';
@@ -13,15 +14,22 @@ export interface VoteWidgetProps {
 const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
     const theme = type === 'primary' ? styles.primary : styles.secondary;
     const [votes, setVotes] = useState(0);
+    const [voteAction, setVoteAction] = useState('');
 
     const { data, isLoading, isFetching, isRefetching, error, refetch } =
         useToolVotesQuery(toolId);
 
     useEffect(() => {
+        // Check local storage for vote
+        const localVote = localStorage.getItem(`vote-${toolId}`);
+
         if (data?.votes) {
             setVotes(data?.votes || 0);
         }
-    }, [data]);
+        if (localVote) {
+            setVoteAction(localVote);
+        }
+    }, [data, toolId]);
 
     if (isLoading || isFetching || isRefetching) {
         return (
@@ -46,16 +54,16 @@ const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
             if (localVote === 'downvote') {
                 // voteData += 2;
                 setVotes((prevVotes) => prevVotes + 2);
-                // remove downvote and add upvote
-                // await submitVote(toolId, 1);
+                await submitVote(toolId, 1);
                 localStorage.setItem(`vote-${toolId}`, 'upvote');
+                setVoteAction('upvote');
             }
         } else {
             // No vote in local storage. Add upvote
-            // await submitVote(toolId, 1);
-            // voteData += 1;
+            await submitVote(toolId, 1);
             setVotes((prevVotes) => prevVotes + 1);
             localStorage.setItem(`vote-${toolId}`, 'upvote');
+            setVoteAction('upvote');
         }
         console.log('upVoteButtonClick', votes);
     };
@@ -69,16 +77,16 @@ const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
             if (localVote === 'upvote') {
                 // voteData -= 2;
                 setVotes((prevVotes) => prevVotes - 2);
-                // remove upvote and add downvote
-                // await submitVote(toolId, -1);
+                await submitVote(toolId, -1);
                 localStorage.setItem(`vote-${toolId}`, 'downvote');
+                setVoteAction('downvote');
             }
         } else {
             // No vote in local storage. Add downvote
-            // await submitVote(toolId, -1);
-            // voteData -= 1;
+            await submitVote(toolId, -1);
             setVotes((prevVotes) => prevVotes - 1);
             localStorage.setItem(`vote-${toolId}`, 'downvote');
+            setVoteAction('downvote');
         }
         console.log('downVoteButtonClick', votes);
     };
@@ -86,11 +94,15 @@ const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
     return (
         <div className={cn(theme)}>
             <button
-                className={styles.voteBtn}
+                className={cn(styles.voteBtn, {
+                    [styles.activeUpvote]: voteAction === 'upvote',
+                })}
                 onClick={upVoteButtonClick}></button>
             <span className={styles.votes}>{votesFormatter(votes)}</span>
             <button
-                className={cn(styles.voteBtn, styles.downvoteBtn)}
+                className={classNames(styles.voteBtn, styles.downvoteBtn, {
+                    [styles.activeDownvote]: voteAction === 'downvote',
+                })}
                 onClick={downVoteButtonClick}></button>
         </div>
     );
