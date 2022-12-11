@@ -9,3 +9,7 @@ dev: ## Run development server
 .PHONY: build
 build: ## Build for production
 	npm run build
+
+.PHONY: start
+start: ## Start Node server
+	npm run start
