@@ -5,3 +5,7 @@ install: ## Install dependencies
 .PHONY: dev
 dev: ## Run development server
 	npm run dev
+
+.PHONY: build
+build: ## Build for production
+	npm run build
