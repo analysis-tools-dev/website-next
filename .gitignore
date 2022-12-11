@@ -39,4 +39,6 @@ yarn-error.log*
 # firebase
 firebase-key.json
 .vscode
-diskcache
+
+# project
+.cache
