@@ -55,9 +55,7 @@ export const getScreenshots = async (tool: string) => {
                     ),
                 };
             });
-
-            const hours = Number(process.env.API_CACHE_TTL) || 24;
-            await cacheDataManager.set(cacheKey, screenshots, hours * 60 * 60);
+            await cacheDataManager.set(cacheKey, screenshots);
         }
         return screenshots;
     } catch (e) {
