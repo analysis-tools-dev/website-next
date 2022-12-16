@@ -6,7 +6,6 @@ import { LinkButton } from '@components/elements';
 import { Wrapper } from '@components/layout';
 
 import homepageData from '@appdata/homepage.json';
-import Link from 'next/link';
 
 const Intro: FC = () => {
     const homepageIntro = homepageData.intro;

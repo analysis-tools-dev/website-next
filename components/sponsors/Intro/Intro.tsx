@@ -4,7 +4,6 @@ import styles from './Intro.module.css';
 import { Heading, Text } from '@components/typography';
 import { LinkButton } from '@components/elements';
 import { Wrapper } from '@components/layout';
-import Link from 'next/link';
 
 const Intro: FC = () => {
     return (

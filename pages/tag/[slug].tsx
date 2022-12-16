@@ -2,19 +2,12 @@ import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
-import {
-    LanguageCard,
-    ListPageComponent,
-    Tool,
-    ToolInfoCard,
-    ToolInfoSidebar,
-    ToolsList,
-} from '@components/tools';
+import { LanguageCard, Tool, ToolsList } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { getTools } from 'utils-api/tools';
 import { Article, LanguageData, SponsorData } from 'utils/types';
 import { getArticles } from 'utils-api/blog';
-import { getLanguageData, getTag, getTags } from 'utils-api/tags';
+import { getLanguageData, getTags } from 'utils-api/tags';
 import { filterResults } from 'utils-api/filters';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';

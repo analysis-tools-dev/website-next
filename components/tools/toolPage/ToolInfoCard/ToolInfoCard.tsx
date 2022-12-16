@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
-import Link from 'next/link';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import { type Tool } from '@components/tools';

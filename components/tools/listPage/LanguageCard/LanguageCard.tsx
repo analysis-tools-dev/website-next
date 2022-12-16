@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Card } from '@components/layout';
 import { Heading, Text } from '@components/typography';
-import { type Language } from '@components/tools/types';
 
 import styles from './LanguageCard.module.css';
 import { ShareBtns } from '@components/core';

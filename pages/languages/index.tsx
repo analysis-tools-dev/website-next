@@ -2,30 +2,25 @@ import { FC } from 'react';
 import type { GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
-import { Intro, PopularToolsByLanguage } from '@components/homepage';
+import { PopularToolsByLanguage } from '@components/homepage';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
-
-import homepageData from '@appdata/homepage.json';
 import { Article, SponsorData } from 'utils/types';
 import { ToolsByLanguage } from '@components/tools';
 import { getArticles } from 'utils-api/blog';
 import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
-import { getMostViewedTools } from 'utils-api/mostViewedTools';
 import { getSponsors } from 'utils-api/sponsors';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const articles = await getArticles();
     const popularLanguages = await getPopularLanguageStats();
-    const mostViewed = await getMostViewedTools();
 
     return {
         props: {
             sponsors,
             articles,
             popularLanguages,
-            mostViewed,
         },
     };
 };

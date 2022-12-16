@@ -118,7 +118,6 @@ export const getLanguageData = async (tagId: string) => {
         }
         const fileContents = readFileSync(languageFilePath);
         const data = JSON.parse(fileContents.toString());
-        console.log('data', data);
         if (!data || !isLanguageData(data)) {
             return defaultTagData;
         }
