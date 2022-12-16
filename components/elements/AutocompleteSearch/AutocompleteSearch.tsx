@@ -64,6 +64,7 @@ const AutocompleteSearch: FC = () => {
 
     const handleClickOutside = (event: any) => {
         if (
+            event.path &&
             !event.path.find(
                 (el: any) => el.className === 'autocomplete-search',
             )

@@ -3,28 +3,31 @@ import Link from 'next/link';
 import { PanelHeader } from '@components/elements';
 import styles from './BlogPreviewEntry.module.css';
 import classNames from 'classnames';
+import { FrontMatter } from 'utils/types';
 
 export interface BlogPreviewEntryProps {
-    title: string;
+    meta: FrontMatter;
     summary: string;
     link: string;
     className?: string;
 }
 
 const BlogPreviewEntry: FC<BlogPreviewEntryProps> = ({
-    title,
+    meta,
     summary,
     link,
     className,
 }) => {
+    const postDate = new Date(meta.date);
     return (
         <div className={classNames(styles.previewCard, className)}>
             <PanelHeader
                 level={4}
-                text={title}
+                text={meta.title}
                 headingClass="font-size-15"
-                className="m-b-8"
-            />
+                className="m-b-8">
+                {postDate.toLocaleDateString()}
+            </PanelHeader>
             <div
                 className={classNames(
                     styles['text-preview'],

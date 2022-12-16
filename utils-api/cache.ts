@@ -4,7 +4,7 @@ import fsStore from 'cache-manager-fs-hash';
 const DEFAULT_TTL = 60 * 60 * 24; // 24 hours in seconds
 
 // Cache manager directory
-const chacheDir = `${process.cwd()}/diskcache`;
+const chacheDir = `${process.cwd()}/.cache`;
 
 export const getCacheManager = (ttl: number = DEFAULT_TTL) =>
     cacheManager.caching({

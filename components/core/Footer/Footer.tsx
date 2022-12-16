@@ -29,7 +29,7 @@ const Footer: FC = () => {
         },
         {
             label: 'How to Contribute',
-            href: 'https://github.com/analysis-tools-dev/static-analysis/blob/master/CONTRIBUTING.md',
+            href: '/contributing',
             external: true,
         },
     ];

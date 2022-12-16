@@ -21,7 +21,7 @@ const Navbar: FC = () => {
         },
         {
             label: 'Contributing',
-            href: 'https://github.com/analysis-tools-dev/static-analysis/blob/master/CONTRIBUTING.md',
+            href: '/contributing',
             newTab: true,
         },
     ];
