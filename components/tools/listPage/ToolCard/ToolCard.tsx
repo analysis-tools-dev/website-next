@@ -21,11 +21,14 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
     const votesRef = useRef(null);
     const isVotesInViewport = useIntersection(votesRef);
 
+    const isSingleLanguage = tool.languages.length === 1;
+
     const toolStatus = tool.deprecated ? 'Deprecated' : 'Maintained';
-    const toolLanguage =
-        tool.languages.length === 1
-            ? deCamelString(tool.languages[0])
-            : 'Multi-Language';
+    const toolLanguage = isSingleLanguage
+        ? deCamelString(tool.languages[0])
+        : 'Multi-Language';
+
+    // TODO: Link to language tag pag in case or single language, need to get language tag from name to work as href
     return (
         <Card className={styles.toolCardWrapper}>
             <div className={styles.votes} ref={votesRef}>

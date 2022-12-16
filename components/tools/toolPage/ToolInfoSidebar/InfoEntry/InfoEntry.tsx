@@ -40,8 +40,8 @@ const InfoEntry: FC<InfoEntryProps> = ({
                     <a
                         className={styles.entryUrl}
                         href={value}
-                        target={'_blank'}
-                        rel="noreferrer">
+                        target="_blank"
+                        rel="noopener noreferrer">
                         {value}
                     </a>
                 ) : (

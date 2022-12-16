@@ -59,8 +59,8 @@ const Footer: FC = () => {
                                     <a
                                         className={`font-color-light ${styles.navLink}`}
                                         href={link.href}
-                                        target={'_blank'}
-                                        rel="noreferrer">
+                                        target="_blank"
+                                        rel="noopener noreferrer">
                                         {link.label}
                                     </a>
                                 ) : (
