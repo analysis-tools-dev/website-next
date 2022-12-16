@@ -28,7 +28,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
         ? deCamelString(tool.languages[0])
         : 'Multi-Language';
 
-    // TODO: Link to language tag pag in case or single language, need to get language tag from name to work as href
+    // FIXME: Get language tag from name to work as href, some languages have different names then their tag
     return (
         <Card className={styles.toolCardWrapper}>
             <div className={styles.votes} ref={votesRef}>
@@ -77,7 +77,17 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                             src={`/assets/icons/languages/${toolLanguage.toLowerCase()}.svg`}
                             alt={toolStatus}
                         />
-                        <span className={styles.metaInfo}>{toolLanguage}</span>
+                        {isSingleLanguage ? (
+                            <Link href={`/tag/${toolLanguage.toLowerCase()}`}>
+                                <a className={styles.languageLink}>
+                                    {toolLanguage}
+                                </a>
+                            </Link>
+                        ) : (
+                            <span className={styles.metaInfo}>
+                                {toolLanguage}
+                            </span>
+                        )}
                     </li>
 
                     <li>
