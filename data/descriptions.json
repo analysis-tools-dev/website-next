@@ -1,0 +1,130 @@
+{
+    "abap": {
+        "source": "https://en.wikipedia.org/wiki/ABAP",
+        "website": "https://community.sap.com/topics/abap",
+        "description": "ABAP (Advanced Business Application Programming, originally Allgemeiner Berichts-Aufbereitungs-Prozessor, German for \"general report creation processor\") is a high-level programming language created by the German software company SAP SE. It is extracted from the base computing languages Java, C, C++ and Python."
+    },
+    "binary": {
+        "website": "https://en.wikipedia.org/wiki/Binary_file",
+        "description": "A binary file is a computer file that contains only binary digits (bits). The term \"binary\" comes from the fact that these files contain data expressed in base-2 numeral system. Binary files are often contrasted with text files, which contain human-readable characters encoded using some character encoding scheme. Binary files are often used to store machine code, which is the basic instructions that a computer understands."
+    },
+    "c": {
+        "source": "https://en.wikipedia.org/wiki/C_(programming_language)",
+        "website": "https://en.wikipedia.org/wiki/C_(programming_language)",
+        "description": "C is an imperative procedural language. It was designed to be compiled to provide low-level access to memory and language constructs that map efficiently to machine instructions, all with minimal runtime support. Despite its low-level capabilities, the language was designed to encourage cross-platform programming. A standards-compliant C program written with portability in mind can be compiled for a wide variety of computer platforms and operating systems with few changes to its source code."
+    },
+    "container": {
+        "website": "https://en.wikipedia.org/wiki/Containerization_(computing)",
+        "description": "Linux containers are a way to run isolated Linux systems (containers) on a single Linux server. Containers are very lightweight and fast because they share the kernel of the host system. Each container can have its own users, file systems, applications, and configuration files."
+    },
+    "cpp": {
+        "source": "https://en.wikipedia.org/wiki/C%2B%2B",
+        "website": "https://isocpp.org/",
+        "description": "C++ is a general-purpose programming language created by Bjarne Stroustrup as an extension of the C programming language, or \"C with Classes\". The language has expanded significantly over time, and modern C++ now has object-oriented, generic, and functional features in addition to facilities for low-level memory manipulation. It is almost always implemented as a compiled language, and many vendors provide C++ compilers, including the Free Software Foundation, LLVM, Microsoft, Intel, Oracle, and IBM, so it is available on many platforms."
+    },
+    "c#": {
+        "source": "https://en.wikipedia.org/wiki/C_Sharp_(programming_language)",
+        "website": "https://docs.microsoft.com/en-us/dotnet/csharp/",
+        "description": "C# (pronounced see sharp, like the musical note C♯, but written with the number sign) is a general-purpose, multi-paradigm programming language encompassing strong typing, lexically scoped, imperative, declarative, functional, generic, object-oriented (class-based), and component-oriented programming disciplines. It was developed around 2000 by Microsoft as part of its .NET initiative and later approved as an international standard by Ecma (ECMA-334) in 2002 and ISO (ISO/IEC 23270) in 2003."
+    },
+    "css": {
+        "website": "https://www.w3.org/TR/CSS/#css",
+        "description": "CSS (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in a markup language. A style sheet is a collection of rules that tells a web browser how to display an HTML document."
+    },
+    "dotnet": {
+        "source": "https://en.wikipedia.org/wiki/.NET_Framework",
+        "website": "https://dotnet.microsoft.com/",
+        "description": ".NET Framework (pronounced as \"dot net\") is a software framework developed by Microsoft that runs primarily on Microsoft Windows. It includes a large class library called Framework Class Library (FCL) and provides language interoperability (each language can use code written in other languages) across several programming languages."
+    },
+    "go": {
+        "source": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+        "website": "https://golang.org/",
+        "description": "Go is a statically typed, compiled programming language designed at Google by Robert Griesemer, Rob Pike, and Ken Thompson. Go is syntactically similar to C, but with memory safety, garbage collection, structural typing, and CSP-style concurrency. The language is often referred to as \"Golang\" because of its domain name, golang.org, but the proper name is Go."
+    },
+    "groovy": {
+        "website": "http://groovy.codehaus.org/",
+        "description": "The Groovy programming language is a powerful, dynamic language that makes writing code easy and fun. It has a simple syntax that is easy to learn, and its features include closures, comprehensions, metaprogramming, and more. Groovy also integrates well with Java code, making it an ideal choice for developing Java applications."
+    },
+    "java": {
+        "source": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+        "website": "https://www.java.com",
+        "description": "Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers write once, run anywhere ... meaning that compiled Java code can run on all platforms that support Java without the need for recompilation. Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of the underlying computer architecture. The syntax of Java is similar to C and C++, but it has fewer low-level facilities than either of them."
+    },
+    "javascript": {
+        "source": "https://en.wikipedia.org/wiki/JavaScript",
+        "website": "https://en.wikipedia.org/wiki/JavaScript",
+        "description": "Alongside HTML and CSS, JavaScript is one of the core technologies of the World Wide Web. JavaScript enables interactive web pages and is an essential part of web applications. The vast majority of websites use it for client-side page behavior, and all major web browsers have a dedicated JavaScript engine to execute it."
+    },
+    "kotlin": {
+        "website": "https://kotlinlang.org/",
+        "description": "Kotlin is a statically typed programming language that runs on the Java virtual machine and also can be compiled to JavaScript. Kotlin was created by JetBrains, a company best known for creating the IntelliJ IDEA integrated development environment (IDE). Kotlin is designed to interoperate with Java code and libraries, but also can be used for standalone applications."
+    },
+    "lua": {
+        "website": "https://www.lua.org/",
+        "description": "Lua is a powerful, lightweight programming language designed for extending applications. It has been used in video games, mobile apps, and web development. Lua's simple syntax and efficient use of memory make it an ideal choice for scripting."
+    },
+    "nodejs": {
+        "website": "https://nodejs.org",
+        "description": "Node.js is a runtime environment and library for running JavaScript applications outside of the browser. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices."
+    },
+    "perl": {
+        "website": "http://www.perl.org/",
+        "description": "The Perl programming language is a powerful tool for solving problems. It is easy to learn, and has many modules that allow you to do complex tasks with just a few lines of code. Perl also has a huge community of users who are always willing to help out."
+    },
+    "php": {
+        "source": "https://en.wikipedia.org/wiki/PHP",
+        "website": "https://www.php.net/",
+        "description": "PHP is a general-purpose scripting language especially suited to web development. It was originally created by Danish-Canadian programmer Rasmus Lerdorf in 1994; (...). PHP originally stood for Personal Home Page, but it now stands for the recursive initialism PHP: Hypertext Preprocessor. (...) PHP code is usually processed on a web server by a PHP interpreter implemented as a module, a daemon or as a Common Gateway Interface (CGI) executable."
+    },
+    "plsql": {
+        "website": "https://www.oracle.com/technetwork/database/application-development/plsql/overview/index.html",
+        "description": "PL/SQL is a powerful programming language that enables developers to create robust and reliable applications. It has a rich set of features that makes it an ideal choice for developing enterprise-level applications. PL/SQL also offers excellent performance, making it the perfect choice for high-traffic websites and systems."
+    },
+    "powershell": {
+        "source": "https://en.wikipedia.org/wiki/PowerShell",
+        "website": "https://en.wikipedia.org/wiki/PowerShell",
+        "description": "PowerShell is a task automation and configuration management framework from Microsoft, consisting of a command-line shell and associated scripting language. Initially a Windows component only, known as Windows PowerShell, it was made open-source and cross-platform on 18 August 2016 with the introduction of PowerShell Core. The former is built on the .NET Framework, the latter on .NET Core."
+    },
+    "protobuf": {
+        "source": "https: //en.wikipedia.org/wiki/Protocol_Buffers",
+        "website": "https://developers.google.com/protocol-buffers/",
+        "description": "Protocol Buffers (Protobuf) is a method of serializing structured data. It is useful in developing programs to communicate with each other over a wire or for storing data.  The method involves an interface description language that describes the structure of some data and a program that generates source code from that description for generating or parsing a stream of bytes that represents the structured data. Google developed Protocol Buffers for internal use and provided a code generator for multiple languages under an open source license."
+    },
+    "python": {
+        "source": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+        "website": "https://www.python.org/",
+        "description": "Python is an interpreted, high-level and general-purpose programming language. Created by Guido van Rossum and first released in 1991, Python's design philosophy emphasizes code readability with its notable use of significant whitespace. Its language constructs and object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects. Python is dynamically typed and garbage-collected. It supports multiple programming paradigms, including structured (particularly, procedural), object-oriented, and functional programming. Python is often described as a \"batteries included\" language due to its comprehensive standard library."
+    },
+    "r": {
+        "website": "https://www.r-project.org/",
+        "description": "There are many programming languages to choose from, but R is a unique option. It's specifically designed for data analysis, so it's perfect for scientists and statisticians. Additionally, the R community is very active and supportive, so you can always find help when you need it."
+    },
+    "ruby": {
+        "source": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+        "website": "https://www.ruby-lang.org",
+        "description": "Ruby is an interpreted, high-level, general-purpose programming language. It was designed and developed in the mid-1990s by Yukihiro Matsumoto in Japan. Ruby is dynamically typed and uses garbage collection. It supports multiple programming paradigms, including procedural, object-oriented, and functional programming. According to the creator, Ruby was influenced by Perl, Smalltalk, Eiffel, Ada, Basic, and Lisp."
+    },
+    "rust": {
+        "source": "https://en.wikipedia.org/wiki/Rust_(programming_language)",
+        "website": "https://www.rust-lang.org/",
+        "description": "Rust is a multi-paradigm programming language focused on performance and safety, especially safe concurrency. Rust is syntactically similar to C++, and provides memory safety without using garbage collection. Rust was originally designed by Graydon Hoare at Mozilla Research, with contributions from Dave Herman, Brendan Eich, and others. The designers refined the language while writing the Servo layout or browser engine, and the Rust compiler. It has gained increasing use in industry, and Microsoft has been experimenting with the language for secure and safety-critical software components. Rust has been named the \"most loved programming language\" in the Stack Overflow Developer Survey every year since 2016."
+    },
+    "sql": {
+        "website": "https://www.w3schools.com/sql/default.asp",
+        "description": "There are many programming languages in the world, but SQL is one of the most important ones. It is used to communicate with databases, making it essential for managing and querying data. SQL is easy to learn and use, making it a popular choice for developers."
+    },
+    "swift": {
+        "website": "https://swift.org/",
+        "description": "Swift is a powerful programming language that makes development on Apple products faster and easier. It has been designed to work with Cocoa and Cocoa Touch, making it the perfect choice for developing apps for iPhone, iPad, Mac, and Apple Watch. Swift is also open source, which means that developers can contribute to its improvement."
+    },
+    "typescript": {
+        "source": "https://en.wikipedia.org/wiki/TypeScript",
+        "website": "https://www.typescriptlang.org/",
+        "description": "TypeScript is an open-source programming language developed and maintained by Microsoft. It is a strict syntactical superset of JavaScript and adds optional static typing to the language. TypeScript is designed for development of large applications and transcompiles to JavaScript. As TypeScript is a superset of JavaScript, existing JavaScript programs are also valid TypeScript programs."
+    },
+    "vue": {
+        "source": "https://en.wikipedia.org/wiki/Vue.js",
+        "website": "https://vuejs.org/",
+        "description": "Vue.js (commonly referred to as Vue; pronounced /vjuː/, like \"view\") is an open-source model–view–viewmodel front end JavaScript framework for building user interfaces and single-page applications. It was created by Evan You, and is maintained by him and the rest of the active core team members coming from various companies such as Netlify and Netguru."
+    }
+}
