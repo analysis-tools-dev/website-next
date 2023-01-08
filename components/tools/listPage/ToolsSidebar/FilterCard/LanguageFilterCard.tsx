@@ -22,6 +22,7 @@ export interface LanguageFilterOption {
 
 export interface LanguageFilterCardProps {
     heading: string;
+    showAllCheckbox?: boolean;
     filter: string;
     options: LanguageFilterOption[];
     limit?: number;
@@ -32,6 +33,7 @@ export interface LanguageFilterCardProps {
 // TODO: Add click functionality and debounce
 const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     heading,
+    showAllCheckbox,
     filter,
     options,
     limit = 10,
@@ -84,28 +86,36 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
         options.sort(sortByChecked(filter, search));
     }
 
+    // Don't fade out background if the list is short
+    let listClassNames = classNames(styles.checklist);
+    if (shouldShowToggle) {
+        listClassNames = classNames(styles.checklist, faded);
+    }
+
     return (
         <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 {heading}
             </Heading>
 
-            <ul className={classNames(styles.checklist, faded)}>
-                <li>
-                    <Input
-                        type="checkbox"
-                        id="checkbox_all"
-                        data-filter={filter}
-                        checked={!isSelectedFilter(filter, search)}
-                        onChange={resetFilter}
-                    />
-                    <label
-                        className={styles.checkboxLabel}
-                        htmlFor="checkbox_all"
-                        onClick={resetFilter}>
-                        All
-                    </label>
-                </li>
+            <ul className={listClassNames}>
+                {showAllCheckbox ? (
+                    <li>
+                        <Input
+                            type="checkbox"
+                            id="checkbox_all"
+                            data-filter={filter}
+                            checked={!isSelectedFilter(filter, search)}
+                            onChange={resetFilter}
+                        />
+                        <label
+                            className={styles.checkboxLabel}
+                            htmlFor="checkbox_all"
+                            onClick={resetFilter}>
+                            All
+                        </label>
+                    </li>
+                ) : null}
                 {options
                     .filter((option) => {
                         // check if any tool has this language
