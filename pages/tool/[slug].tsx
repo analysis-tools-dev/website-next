@@ -111,7 +111,7 @@ export interface ToolProps {
     alternatives: Tool[];
     sponsors: SponsorData[];
     articles: Article[];
-    screenshots: { url: string; original: string }[];
+    screenshots: { path: string; url: string }[];
 }
 
 const ToolPage: FC<ToolProps> = ({
