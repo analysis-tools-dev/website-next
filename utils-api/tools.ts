@@ -1,19 +1,15 @@
 import { type Tool } from '@components/tools';
-import { Octokit } from '@octokit/core';
 import { getRepoStarRecords } from 'utils/stars';
 import { getRepositoryMeta } from 'utils/github';
 import { isToolsApiData } from 'utils/type-guards';
 import { getCacheManager } from './cache';
 import { getGithubStats } from './github';
+import { createThrottledOctokit } from './githubClient';
 
 const cacheDataManager = getCacheManager();
 
 export const getTools = async () => {
-    const octokit = new Octokit({
-        auth: process.env.GH_TOKEN,
-        userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
-    });
-
+    const octokit = createThrottledOctokit();
     // TODO: Improve cache by adding entire request with filters in key
     const cacheKey = 'tools_data';
 

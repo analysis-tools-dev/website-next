@@ -1,16 +1,12 @@
-import { Octokit } from '@octokit/core';
 import { ToolsByLanguage } from '@components/tools';
 import { isStatsApiData } from 'utils/type-guards';
 import { getCacheManager } from './cache';
+import { createThrottledOctokit } from './githubClient';
 
 const cacheDataManager = getCacheManager();
 
 export async function getStats(file: string) {
-    const octokit = new Octokit({
-        auth: process.env.GH_TOKEN,
-        userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
-    });
-
+    const octokit = createThrottledOctokit();
     const cacheKey = `${file}_stats`;
     try {
         let data: any = await cacheDataManager.get(cacheKey);

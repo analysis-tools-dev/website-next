@@ -1,15 +1,11 @@
-import { Octokit } from '@octokit/core';
 import { isTagsApiData } from 'utils/type-guards';
 import { getCacheManager } from './cache';
+import { createThrottledOctokit } from './githubClient';
 
 const cacheDataManager = getCacheManager();
 
 export const getTag = async (type: string) => {
-    const octokit = new Octokit({
-        auth: process.env.GH_TOKEN,
-        userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
-    });
-
+    const octokit = createThrottledOctokit();
     const cacheKey = `tags_${type}`;
 
     try {

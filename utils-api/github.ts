@@ -1,6 +1,6 @@
 import { RepositoryData } from '@components/tools/types';
-import { Octokit } from '@octokit/core';
 import { getCacheManager } from './cache';
+import { createThrottledOctokit } from './githubClient';
 
 const cacheDataManager = getCacheManager();
 
@@ -9,11 +9,7 @@ export const getGithubStats = async (
     owner: string,
     repo: string,
 ): Promise<RepositoryData | null> => {
-    const octokit = new Octokit({
-        auth: process.env.GH_TOKEN,
-        userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
-    });
-
+    const octokit = createThrottledOctokit();
     const cacheKey = `${toolId}_github_data`;
 
     try {

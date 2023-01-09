@@ -1,5 +1,5 @@
-import { Octokit } from '@octokit/core';
 import { getCacheManager } from './cache';
+import { createThrottledOctokit } from './githubClient';
 
 // Type for screenshot data
 // Format:
@@ -29,10 +29,7 @@ export type Screenshots = {
 };
 
 async function downloadScreenshotsFile() {
-    const octokit = new Octokit({
-        auth: process.env.GH_TOKEN,
-        userAgent: 'analysis-tools',
-    });
+    const octokit = createThrottledOctokit();
 
     const response = await octokit.request(
         'GET /repos/{owner}/{repo}/contents/{path}',
