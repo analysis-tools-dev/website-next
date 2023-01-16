@@ -49,11 +49,11 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          cp "${GOOGLE_APPLICATION_CREDENTIALS}" ./credentials.json
+          echo "${{ secrets.FIREBASE_TOKEN }}" >> ./credentials.json
           docker build --build-arg GH_TOKEN=${{ env.GH_TOKEN }} \
             --build-arg PROJECT_ID=analysis-tools-dev \
             -t ${IMAGE_NAME} .
-          rm "${GOOGLE_APPLICATION_CREDENTIALS}"
+          rm ./credentials.json
 
       - name: "Push docker image"
         run: |
