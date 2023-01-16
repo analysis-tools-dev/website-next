@@ -6,6 +6,7 @@ ADD package-lock.json /src
 RUN npm install
 
 ENV GOOGLE_APPLICATION_CREDENTIALS=/src/credentials.json
+ENV FIREBASE_PROJECT_ID=analysis-tools-dev
 ARG GH_TOKEN
 ARG PROJECT_ID
 
