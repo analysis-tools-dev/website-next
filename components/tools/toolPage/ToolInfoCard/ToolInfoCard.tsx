@@ -36,8 +36,8 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                     <Image
                         key={`sponsor-${tool.id}`}
                         className={styles.sponsorLogo}
-                        height="35px"
-                        width="35px"
+                        height="35"
+                        width="35"
                         src="/assets/icons/general/sponsor.svg"
                         alt="Sponsor"
                     />
@@ -46,13 +46,12 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                     <ReactMarkdown className={styles.description}>
                         {tool.description || ''}
                     </ReactMarkdown>
-                    <Link href={tool.homepage}>
-                        <a
-                            className="font-light font-size-s"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            More info
-                        </a>
+                    <Link
+                        href={tool.homepage}
+                        className="font-light font-size-s"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        More info
                     </Link>
                 </div>
                 <Splide
@@ -110,12 +109,11 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         url={`https://analysis-tools.dev/tool/${tool.name}`}
                         className={styles.shareBtns}
                     />
-                    <Link href={tool.homepage}>
-                        <a
-                            rel="noopener noreferrer"
-                            className="font-light font-size-s m-l-4">
-                            Visit website
-                        </a>
+                    <Link
+                        href={tool.homepage}
+                        rel="noopener noreferrer"
+                        className="font-light font-size-s m-l-4">
+                        Visit website
                     </Link>
                 </div>
             </div>

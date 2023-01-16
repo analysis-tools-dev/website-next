@@ -29,12 +29,10 @@ const LinkButton: FC<LinkButtonProps> = ({
             {label}
         </a>
     ) : (
-        <Link href={href}>
-            <a
-                className={`${styles.btn} ${styles[type]} ${styles[variant]} ${className}`}
-                href={href}>
-                {label}
-            </a>
+        <Link
+            href={href}
+            className={`${styles.btn} ${styles[type]} ${styles[variant]} ${className}`}>
+            {label}
         </Link>
     );
 };

@@ -1,10 +1,8 @@
 import { FC } from 'react';
 import type { GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorMessage } from '@components/core';
-import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
+import { Main, Panel, Wrapper } from '@components/layout';
 import { Intro, SponsorSidebar, SponsorsList } from '@components/sponsors';
-import { BlogPreview } from '@components/blog';
-import { Newsletter } from '@components/elements';
 import { Article, SponsorData } from 'utils/types';
 import { getArticles } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';

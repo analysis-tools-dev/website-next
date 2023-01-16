@@ -22,18 +22,11 @@ const LanguageTopToolsWidget: FC<LanguageTopToolsWidgetProps> = ({
 
     return (
         <Card className={styles.languageCardWrapper}>
-            <Link href={href}>
-                <a className={styles.languageLink}>
-                    <Image
-                        height="50px"
-                        width="50px"
-                        src={logo}
-                        alt={language}
-                    />
-                    <Heading level={2} className={styles.languageName}>
-                        {language} static analysis tools
-                    </Heading>
-                </a>
+            <Link href={href} className={styles.languageLink}>
+                <Image height="50" width="50" src={logo} alt={language} />
+                <Heading level={2} className={styles.languageName}>
+                    {language} static analysis tools
+                </Heading>
             </Link>
 
             <div className={styles.toolListWrapper}>

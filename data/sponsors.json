@@ -7,8 +7,8 @@
         "href": "/sponsor/deep-code",
         "logo": {
             "src": "/assets/images/sponsors/deepcode.svg",
-            "width": "200px",
-            "height": "54px"
+            "width": 200,
+            "height": 54
         }
     },
     {
@@ -19,8 +19,8 @@
         "href": "/sponsor/code-scene",
         "logo": {
             "src": "/assets/images/sponsors/codescene.svg",
-            "width": "200px",
-            "height": "50px"
+            "width": 200,
+            "height": 50
         }
     },
     {
@@ -31,8 +31,8 @@
         "href": "/sponsor/semgrep",
         "logo": {
             "src": "/assets/images/sponsors/semgrep.svg",
-            "width": "100px",
-            "height": "80px"
+            "width": 100,
+            "height": 80
         }
     },
     {
@@ -43,8 +43,8 @@
         "href": "/sponsor/codiga",
         "logo": {
             "src": "/assets/images/sponsors/codiga.svg",
-            "width": "72px",
-            "height": "65px"
+            "width": 72,
+            "height": 65
         }
     },
     {
@@ -55,8 +55,8 @@
         "href": "/sponsor/offensive-360",
         "logo": {
             "src": "/assets/images/sponsors/offensive360.png",
-            "width": "209px",
-            "height": "74px"
+            "width": "209",
+            "height": "74"
         }
     }
 ]

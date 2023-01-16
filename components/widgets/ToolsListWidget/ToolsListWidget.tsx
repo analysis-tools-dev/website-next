@@ -26,7 +26,9 @@ const ToolsListWidget: FC<ToolsListWidgetProps> = ({
                 className={styles.listHeader}
                 headingClass={styles.listHeading}>
                 {tools.length > limit ? (
-                    <Link href={href}>{`Show all (${tools.length})`}</Link>
+                    <Link
+                        href={href}
+                        legacyBehavior>{`Show all (${tools.length})`}</Link>
                 ) : null}
             </PanelHeader>
             {tools.slice(0, limit).map((tool, index) => (

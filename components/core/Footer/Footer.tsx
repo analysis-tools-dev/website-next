@@ -37,18 +37,16 @@ const Footer: FC = () => {
     return (
         <footer className={styles.footer}>
             <Wrapper className={styles.wrapper}>
-                <Link href="/">
-                    <a className={styles.logoLink}>
-                        <Image
-                            height="30px"
-                            width="30px"
-                            src="/assets/images/logo-icon.png"
-                            alt=""
-                        />
-                        <span className={styles.logoText}>
-                            &copy; analysis-tools.dev
-                        </span>
-                    </a>
+                <Link href="/" className={styles.logoLink}>
+                    <Image
+                        height="30"
+                        width="30"
+                        src="/assets/images/logo-icon.png"
+                        alt=""
+                    />
+                    <span className={styles.logoText}>
+                        &copy; analysis-tools.dev
+                    </span>
                 </Link>
 
                 <nav>
@@ -64,11 +62,10 @@ const Footer: FC = () => {
                                         {link.label}
                                     </a>
                                 ) : (
-                                    <Link href={link.href}>
-                                        <a
-                                            className={`font-color-light ${styles.navLink}`}>
-                                            {link.label}
-                                        </a>
+                                    <Link
+                                        href={link.href}
+                                        className={`font-color-light ${styles.navLink}`}>
+                                        {link.label}
                                     </Link>
                                 )}
                             </li>

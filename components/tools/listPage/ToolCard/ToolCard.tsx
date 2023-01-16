@@ -32,18 +32,19 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                 {isVotesInViewport && <VoteWidget toolId={tool.id} />}
             </div>
             <div className={styles.info}>
-                <Link href={`/tool/${tool.id}`}>
-                    <a className={styles.toolLink}>
-                        <Heading level={3} className={styles.toolName}>
-                            {tool.name}
-                        </Heading>
-                    </a>
+                <Link
+                    href={`/tool/${tool.id}`}
+                    passHref={true}
+                    className={styles.toolLink}>
+                    <Heading level={3} className={styles.toolName}>
+                        {tool.name}
+                    </Heading>
                 </Link>
                 {isSponsor(tool.id) && (
                     <Image
                         className={styles.sponsorLogo}
-                        height="20px"
-                        width="20px"
+                        height="20"
+                        width="20"
                         src="/assets/icons/general/sponsor.svg"
                         alt="Sponsor"
                     />
@@ -58,8 +59,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                     <li>
                         <Image
                             key={`status-${tool.id}`}
-                            height="13px"
-                            width="13px"
+                            height="13"
+                            width="13"
                             src={`/assets/icons/general/${toolStatus.toLowerCase()}.svg`}
                             alt={toolStatus}
                         />
@@ -69,8 +70,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                     <li>
                         <Image
                             key={`language-${tool.id}`}
-                            height="15px"
-                            width="15px"
+                            height="15"
+                            width="15"
                             src={`/assets/icons/languages/${toolLanguage.toLowerCase()}.svg`}
                             alt={toolStatus}
                         />
@@ -83,8 +84,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                                 key={`type-${index}`}
                                 className={styles.toolType}>
                                 <Image
-                                    height="14px"
-                                    width="14px"
+                                    height="14"
+                                    width="14"
                                     src={`/assets/icons/types/${type}.svg`}
                                     alt={toolStatus}
                                 />
@@ -98,8 +99,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                                 key={`category-${index}`}
                                 className={styles.category}>
                                 <Image
-                                    height="14px"
-                                    width="14px"
+                                    height="14"
+                                    width="14"
                                     src={`/assets/icons/category/${category}.svg`}
                                     alt={toolStatus}
                                 />

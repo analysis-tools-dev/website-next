@@ -30,21 +30,19 @@ const Navbar: FC = () => {
         <header className={styles.header}>
             <Wrapper className={styles.wrapper}>
                 <Link href="/">
-                    <a>
-                        <Image
-                            height="35px"
-                            width="175px"
-                            src="/assets/images/logo2.svg"
-                            alt=""
-                        />
-                    </a>
+                    <Image
+                        height="35"
+                        width="175"
+                        src="/assets/images/logo2.svg"
+                        alt=""
+                    />
                 </Link>
 
                 <nav className={styles.nav}>
                     <ul className={styles.linkList}>
                         {links.map((link, index) => (
                             <li key={index} className={styles.listItem}>
-                                <Link href={link.href}>
+                                <Link href={link.href} legacyBehavior>
                                     {link.newTab ? (
                                         <a
                                             className={`font-color-light ${styles.navLink}`}

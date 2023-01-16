@@ -14,33 +14,33 @@ export interface LanguageCardProps {
 const LanguageCard: FC<LanguageCardProps> = ({ language }) => {
     return (
         <Card className={styles.languageCardWrapper}>
-            <Link href={language.href}>
-                <a className={styles.languageLink}>
-                    <Image
-                        height="50px"
-                        width="50px"
-                        src={language.logo}
-                        alt={language.name}
-                    />
-                    <Heading level={2} className={styles.languageName}>
-                        {language.name} static analysis tools
-                    </Heading>
-                </a>
+            <Link href={language.href} className={styles.languageLink}>
+                <Image
+                    height="50"
+                    width="50"
+                    src={language.logo}
+                    alt={language.name}
+                />
+                <Heading level={2} className={styles.languageName}>
+                    {language.name} static analysis tools
+                </Heading>
             </Link>
             <Text>
                 {language.description}
                 <br />
-                <Link href={language.infoLink}>
-                    <a className="font-light font-size-s">More info</a>
+                <Link
+                    href={language.infoLink}
+                    className="font-light font-size-s">
+                    More info
                 </Link>
             </Text>
 
             <div className={styles.cardFooter}>
                 <ShareBtns url={language.href} className={styles.shareBtns} />
-                <Link href={language.website}>
-                    <a className="font-light font-size-s m-l-4">
-                        Visit website
-                    </a>
+                <Link
+                    href={language.website}
+                    className="font-light font-size-s m-l-4">
+                    Visit website
                 </Link>
             </div>
         </Card>
