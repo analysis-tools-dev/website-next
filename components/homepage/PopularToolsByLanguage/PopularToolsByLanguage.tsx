@@ -21,7 +21,7 @@ const PopularToolsByLanguage: FC<PopularToolsByLanguageProps> = ({
                 level={2}
                 text="Popular Static/Dynamic Analysis Tools by Language">
                 {languages.length > limit ? (
-                    <Link href="/languages">
+                    <Link href="/languages" legacyBehavior>
                         {`Show all (${languages.length})`}
                     </Link>
                 ) : null}

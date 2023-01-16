@@ -22,8 +22,8 @@ const LicenseCard: FC<LicenseCardProps> = ({ name, licenses, pricing }) => {
             <div>
                 <div className={styles.icon}>
                     <Image
-                        height="15x"
-                        width="15px"
+                        height="15"
+                        width="15"
                         src="/assets/icons/general/copyright.svg"
                         alt={license}
                     />
@@ -38,8 +38,8 @@ const LicenseCard: FC<LicenseCardProps> = ({ name, licenses, pricing }) => {
                             rel="noopener noreferrer">
                             <span className={styles.urlIcon}>
                                 <Image
-                                    height="12x"
-                                    width="12px"
+                                    height="12"
+                                    width="12"
                                     src="/assets/icons/general/link-alt.svg"
                                     alt={license}
                                 />

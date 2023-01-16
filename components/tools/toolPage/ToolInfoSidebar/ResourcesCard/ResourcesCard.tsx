@@ -31,8 +31,8 @@ const ResourcesCard: FC<ResourcesCardProps> = ({ resources }) => {
                                 rel="noopener noreferrer">
                                 <span className={styles.icon}>
                                     <Image
-                                        height="15x"
-                                        width="15px"
+                                        height="15"
+                                        width="15"
                                         src="/assets/icons/general/link-alt.svg"
                                         alt={resource.title}
                                     />

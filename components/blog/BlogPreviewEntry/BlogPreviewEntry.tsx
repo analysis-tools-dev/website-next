@@ -37,8 +37,8 @@ const BlogPreviewEntry: FC<BlogPreviewEntryProps> = ({
                 )}
                 dangerouslySetInnerHTML={{ __html: summary }}
             />
-            <Link href={link}>
-                <a className="font-light font-size-s m-t-8 inline">Read more</a>
+            <Link href={link} className="font-light font-size-s m-t-16 inline">
+                Read more
             </Link>
         </div>
     );

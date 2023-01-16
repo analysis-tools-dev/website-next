@@ -34,13 +34,12 @@ const Intro: FC = () => {
                     width="800"
                     height="600"
                 />
-                <Link href="https://www.freepik.com/free-vector/hackathon-isometric-landing-software-development_9292828.htm">
-                    <a
-                        className={styles.introImageRef}
-                        target={'_blank'}
-                        rel="noopener noreferrer">
-                        Image by upklyak on Freepik
-                    </a>
+                <Link
+                    href="https://www.freepik.com/free-vector/hackathon-isometric-landing-software-development_9292828.htm"
+                    className={styles.introImageRef}
+                    target={'_blank'}
+                    rel="noopener noreferrer">
+                    Image by upklyak on Freepik
                 </Link>
             </div>
         </Wrapper>

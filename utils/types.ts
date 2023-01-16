@@ -112,8 +112,8 @@ export interface SponsorData {
     href: string;
     logo: {
         src: string;
-        width: string;
-        height: string;
+        width: number;
+        height: number;
     };
 }
 

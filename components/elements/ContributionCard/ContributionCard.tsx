@@ -23,8 +23,8 @@ const ContributionCard: FC = () => {
                     rel="noopener noreferrer">
                     on Github{' '}
                     <Image
-                        height="15px"
-                        width="15px"
+                        height="15"
+                        width="15"
                         src="/assets/icons/general/github-icon.svg"
                         alt="GitHub"
                     />

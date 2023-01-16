@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import { ToolsListWidget } from '@components/widgets';
@@ -23,19 +22,17 @@ const LanguageTopToolsWidget: FC<LanguageTopToolsWidgetProps> = ({
 
     return (
         <Card className={styles.languageCardWrapper}>
-            <Link href={href}>
-                <a className={styles.languageLink}>
-                    <ImageWithFallback
-                        height="50px"
-                        width="50px"
-                        src={logo}
-                        fallbackSrc="/assets/icons/languages/multi-language.svg"
-                        alt={language}
-                    />
-                    <Heading level={2} className={styles.languageName}>
-                        {language} static analysis tools
-                    </Heading>
-                </a>
+            <Link href={href} className={styles.languageLink} passHref={true}>
+                <ImageWithFallback
+                    height="50px"
+                    width="50px"
+                    src={logo}
+                    fallbackSrc="/assets/icons/languages/multi-language.svg"
+                    alt={language}
+                />
+                <Heading level={2} className={styles.languageName}>
+                    {language} static analysis tools
+                </Heading>
             </Link>
 
             <div className={styles.toolListWrapper}>

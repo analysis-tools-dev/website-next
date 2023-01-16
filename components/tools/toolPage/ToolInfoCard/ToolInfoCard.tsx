@@ -11,6 +11,7 @@ import { isSponsor } from 'utils/sponsor';
 import { type Tool } from '@components/tools';
 
 import styles from './ToolInfoCard.module.css';
+import Link from 'next/link';
 
 export interface ToolInfoCardProps {
     tool: Tool;
@@ -78,13 +79,13 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
                         url={`https://analysis-tools.dev/tool/${tool.name}`}
                         className={styles.shareBtns}
                     />
-                    <a
+                    <Link
                         href={tool.homepage}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-light font-size-s m-l-4">
                         Visit website
-                    </a>
+                    </Link>
                 </div>
             </div>
         </Card>

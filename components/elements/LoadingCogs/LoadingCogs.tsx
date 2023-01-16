@@ -8,8 +8,8 @@ const LoadingCogs: FC = () => {
                 <svg
                     className={styles.machine}
                     xmlns="http://www.w3.org/2000/svg"
-                    x="0px"
-                    y="0px"
+                    x="0"
+                    y="0"
                     viewBox="0 0 645 526">
                     <defs />
                     <g>
