@@ -184,15 +184,3 @@ export const getRepoStarRecords = async (
         count: record.count,
     }));
 };
-
-export const getRepoLogoUrl = async (repo: string, token?: string) => {
-    const owner = repo.split('/')[0];
-    const data = await fetch(`https://api.github.com/users/${owner}`, {
-        headers: {
-            Accept: 'application/vnd.github.v3.star+json',
-            Authorization: token ? `token ${token}` : '',
-        },
-    });
-    const json = await data.json();
-    return await json.avatar_url;
-};
