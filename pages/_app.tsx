@@ -4,7 +4,10 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+    Component,
+    pageProps,
+}: AppProps<{ dehydratedState: unknown }>) {
     const [queryClient] = React.useState(
         () => new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS),
     );

@@ -86,103 +86,104 @@ export const getRepoStarRecords = async (
     token: string,
     requests: number,
 ) => {
+    return [];
     // Get the total number of pages
-    const initialRequest = await getRepoStargazers(repo, token);
-    const linkHeader = initialRequest.headers.get('link');
-    if (!linkHeader) {
-        throw {
-            status: initialRequest.status,
-            data: [],
-        };
-    }
+    // const initialRequest = await getRepoStargazers(repo, token);
+    // const linkHeader = initialRequest.headers.get('link');
+    // if (!linkHeader) {
+    //     throw {
+    //         status: initialRequest.status,
+    //         data: [],
+    //     };
+    // }
 
-    let pageCount = 1;
-    const lastPage = /next.*&page=(\d*).*last/.exec(linkHeader);
-    if (lastPage) {
-        const lastPageId = lastPage[1];
-        if (lastPageId && Number.isInteger(Number(lastPageId))) {
-            pageCount = Number(lastPageId);
-        }
-    }
+    // let pageCount = 1;
+    // const lastPage = /next.*&page=(\d*).*last/.exec(linkHeader);
+    // if (lastPage) {
+    //     const lastPageId = lastPage[1];
+    //     if (lastPageId && Number.isInteger(Number(lastPageId))) {
+    //         pageCount = Number(lastPageId);
+    //     }
+    // }
 
-    const json = await initialRequest.json();
-    if (pageCount === 1 && json.length === 0) {
-        throw {
-            status: initialRequest.status,
-            data: [],
-        };
-    }
+    // const json = await initialRequest.json();
+    // if (pageCount === 1 && json.length === 0) {
+    //     throw {
+    //         status: initialRequest.status,
+    //         data: [],
+    //     };
+    // }
 
-    const requestPages = getRequestPages(pageCount, requests);
+    // const requestPages = getRequestPages(pageCount, requests);
 
-    const resArray = await Promise.all(
-        requestPages.map(async (page) => {
-            return await getRepoStargazers(repo, token, page);
-        }),
-    );
+    // const resArray = await Promise.all(
+    //     requestPages.map(async (page) => {
+    //         return await getRepoStargazers(repo, token, page);
+    //     }),
+    // );
 
-    const starRecordsMap: Map<Date, number> = new Map();
+    // const starRecordsMap: Map<Date, number> = new Map();
 
-    if (requestPages.length < requests) {
-        const starRecordsData: {
-            starred_at: Date;
-        }[] = [];
-        for (const res of resArray) {
-            const data = await res.json();
-            starRecordsData.push(...data);
-        }
-        for (let i = 0; i < starRecordsData.length; ) {
-            const date = new Date(starRecordsData[i].starred_at);
-            starRecordsMap.set(date, i + 1);
-            i += Math.floor(starRecordsData.length / requests) || 1;
-        }
-    } else {
-        resArray.map(async (res, index) => {
-            const data = await res.json();
-            if (data.length > 0) {
-                const starRecord = data[0];
-                const date = new Date(starRecord.starred_at);
-                starRecordsMap.set(
-                    date,
-                    DEFAULT_PER_PAGE * (requestPages[index] - 1),
-                );
-            }
-        });
-    }
+    // if (requestPages.length < requests) {
+    //     const starRecordsData: {
+    //         starred_at: Date;
+    //     }[] = [];
+    //     for (const res of resArray) {
+    //         const data = await res.json();
+    //         starRecordsData.push(...data);
+    //     }
+    //     for (let i = 0; i < starRecordsData.length; ) {
+    //         const date = new Date(starRecordsData[i].starred_at);
+    //         starRecordsMap.set(date, i + 1);
+    //         i += Math.floor(starRecordsData.length / requests) || 1;
+    //     }
+    // } else {
+    //     resArray.map(async (res, index) => {
+    //         const data = await res.json();
+    //         if (data.length > 0) {
+    //             const starRecord = data[0];
+    //             const date = new Date(starRecord.starred_at);
+    //             starRecordsMap.set(
+    //                 date,
+    //                 DEFAULT_PER_PAGE * (requestPages[index] - 1),
+    //             );
+    //         }
+    //     });
+    // }
 
-    const currentStars = await getRepoStargazersCount(repo, token);
+    // const currentStars = await getRepoStargazersCount(repo, token);
 
-    const starRecords: {
-        date: Date;
-        count: number;
-    }[] = [];
+    // const starRecords: {
+    //     date: Date;
+    //     count: number;
+    // }[] = [];
 
-    starRecordsMap.forEach((v, k) => {
-        starRecords.push({
-            date: k,
-            count: v,
-        });
-    });
-    starRecords.sort((a, b) => {
-        return a.date.getTime() - b.date.getTime();
-    });
+    // starRecordsMap.forEach((v, k) => {
+    //     starRecords.push({
+    //         date: k,
+    //         count: v,
+    //     });
+    // });
+    // starRecords.sort((a, b) => {
+    //     return a.date.getTime() - b.date.getTime();
+    // });
 
-    // Add the current stars if the last datapoint is older than three months
-    if (
-        starRecords.length > 0 &&
-        new Date().getTime() -
-            starRecords[starRecords.length - 1].date.getTime() >
-            3 * 30 * 24 * 60 * 60 * 1000
-    ) {
-        starRecords.push({
-            date: new Date(),
-            count: currentStars,
-        });
-    }
-    return starRecords.map((record) => ({
-        date: getDateString(record.date),
-        count: record.count,
-    }));
+    // // Add the current stars if the last datapoint is older than three months
+    // if (
+    //     starRecords.length > 0 &&
+    //     new Date().getTime() -
+    //         starRecords[starRecords.length - 1].date.getTime() >
+    //         3 * 30 * 24 * 60 * 60 * 1000
+    // ) {
+    //     starRecords.push({
+    //         date: new Date(),
+    //         count: currentStars,
+    //     });
+    // }
+    // return starRecords.map((record) => ({
+    //     date: getDateString(record.date),
+    //     count: record.count,
+    // }));
 };
 
 export const getRepoLogoUrl = async (repo: string, token?: string) => {

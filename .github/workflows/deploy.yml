@@ -38,9 +38,22 @@ jobs:
       - name: Configure docker
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
+      - name: Generate GitHub token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
       - name: "Build docker image"
+        env:
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          docker build -t ${IMAGE_NAME} .
+          cp "$(GOOGLE_APPLICATION_CREDENTIALS)" ./credentials.json
+          docker build --build-arg GH_TOKEN=${{ env.GH_TOKEN }} \
+            --build-arg PROJECT_ID=analysis-tools-dev \
+            -t ${IMAGE_NAME} .
+          rm "$(GOOGLE_APPLICATION_CREDENTIALS)"
 
       - name: "Push docker image"
         run: |

@@ -1,12 +1,20 @@
-FROM node
+FROM node as build
 WORKDIR /src
 
 ADD package.json /src
-ADD yarn.lock /src
-RUN yarn install
+ADD package-lock.json /src
+RUN npm install
+
+ENV GOOGLE_APPLICATION_CREDENTIALS=/src/credentials.json
+ARG GH_TOKEN
+ARG PROJECT_ID
 
 ADD . /src
+RUN npm run build
+RUN rm /src/credentials.json
 
-RUN yarn run build
+FROM node
+WORKDIR /src
+ENTRYPOINT ["npm", "run", "start"]
 
-ENTRYPOINT ["yarn", "start"]
+COPY --from=build /src /src
