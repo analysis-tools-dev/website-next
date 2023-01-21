@@ -1,34 +1,9 @@
 import { Octokit } from '@octokit/core';
+import { isScreenshotApiData } from 'utils/type-guards';
+import { Screenshot, ScreenshotApiData } from 'utils/types';
 import { getCacheManager } from './cache';
 
-// Type for screenshot data
-// Format:
-// {
-//     "tool": [
-//         {
-//           "path": "path/to/screenshot1",
-//           "url": "https://example.com",
-//         },
-//         {
-//           "path": "path/to/screenshot2",
-//           "url": "https://example.com",
-//         }
-//     ],
-//     "tool2": [
-//           ...
-//     ],
-// }
-
-export type Screenshot = {
-    path: string;
-    url: string;
-};
-
-export type Screenshots = {
-    [key: string]: Screenshot[];
-};
-
-async function downloadScreenshotsFile() {
+async function getScreentshotData() {
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools',
@@ -46,29 +21,35 @@ async function downloadScreenshotsFile() {
         },
     );
 
-    // TODO: Fix type error
-    // @ts-ignore
-    return JSON.parse(response.data);
+    const data = JSON.parse(response.data.toString());
+    if (!isScreenshotApiData(data)) {
+        console.error('Screenshot TypeError');
+        return null;
+    }
+    return data;
 }
 
 // Retrieve `analysis-tools-dev/assets/screenshots.json` file
 // and cache it for 24 hours
-export const getAllScreenshots = async (): Promise<Screenshots | null> => {
-    const cacheDataManager = getCacheManager();
-    const cacheKey = 'screenshots';
+export const getAllScreenshots =
+    async (): Promise<ScreenshotApiData | null> => {
+        const cacheDataManager = getCacheManager();
+        const cacheKey = 'screenshots';
 
-    // Get data from cache
-    const screenshots: Screenshots = (await cacheDataManager.get(
-        cacheKey,
-    )) as Screenshots;
+        // Get data from cache
+        const screenshots: ScreenshotApiData = (await cacheDataManager.get(
+            cacheKey,
+        )) as ScreenshotApiData;
 
-    if (!screenshots) {
-        console.log(`Cache data for: ${cacheKey} does not exist - calling API`);
-        const screenshots = await downloadScreenshotsFile();
-        await cacheDataManager.set(cacheKey, screenshots);
-    }
-    return screenshots;
-};
+        if (!screenshots) {
+            console.log(
+                `Cache data for: ${cacheKey} does not exist - calling API`,
+            );
+            const screenshots = await getScreentshotData();
+            await cacheDataManager.set(cacheKey, screenshots);
+        }
+        return screenshots;
+    };
 
 // Get all screenshots for a specific tool
 export const getScreenshots = async (tool: string): Promise<Screenshot[]> => {

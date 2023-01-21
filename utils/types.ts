@@ -110,3 +110,12 @@ export interface LanguageData {
     website: string;
     description: string;
 }
+
+export interface ScreenshotApiData {
+    [key: string]: Screenshot[];
+}
+
+export type Screenshot = {
+    path: string;
+    url: string;
+};

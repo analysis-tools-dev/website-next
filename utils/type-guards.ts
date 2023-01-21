@@ -3,6 +3,7 @@ import {
     ApiTag,
     Article,
     LanguageData,
+    ScreenshotApiData,
     SponsorData,
     StatsApiData,
     TagsApiData,
@@ -159,4 +160,23 @@ export const isLanguageData = (data: unknown): data is LanguageData => {
         (data as LanguageData).website !== undefined &&
         (data as LanguageData).description !== undefined
     );
+};
+
+export const isScreenshotApiData = (
+    data: unknown,
+): data is ScreenshotApiData => {
+    if (!data || typeof data !== 'object') {
+        return false;
+    }
+
+    for (const key of Object.keys(data)) {
+        const res =
+            (data as ScreenshotApiData)[key][0].path !== undefined &&
+            (data as ScreenshotApiData)[key][0].url !== undefined;
+
+        if (!res) {
+            return false;
+        }
+    }
+    return true;
 };
