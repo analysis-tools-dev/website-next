@@ -1,6 +1,5 @@
 import { type Tool } from '@components/tools';
 import { Octokit } from '@octokit/core';
-import { getRepoStarRecords } from 'utils/stars';
 import { getRepositoryMeta } from 'utils/github';
 import { isToolsApiData } from 'utils/type-guards';
 import { getCacheManager } from './cache';
@@ -56,7 +55,6 @@ export const getTools = async () => {
 };
 
 export const getTool = async (toolId: string) => {
-    console.log(`Loading ${toolId} data...`);
     const tools = await getTools();
 
     if (!tools) {
@@ -76,15 +74,10 @@ export const getTool = async (toolId: string) => {
             repoMeta.owner,
             repoMeta.repo,
         );
-        const stars = await getRepoStarRecords(
-            `${repoMeta.owner}/${repoMeta.repo}`,
-            process.env.GH_TOKEN || '',
-            10,
-        );
+
         tool = {
             ...tool,
             ...(repositoryData ? { repositoryData: repositoryData } : {}),
-            ...(stars ? { stars: stars } : {}),
         };
     }
     return tool as Tool;

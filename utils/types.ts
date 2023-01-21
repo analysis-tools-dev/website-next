@@ -119,3 +119,8 @@ export type Screenshot = {
     path: string;
     url: string;
 };
+
+export type RepositoryMeta = {
+    owner: string;
+    repo: string;
+};

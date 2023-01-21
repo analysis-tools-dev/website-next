@@ -16,6 +16,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Tool } from '@components/tools/types';
+import { useStarsQuery } from 'utils-api/stars';
 
 ChartJS.register(
     CategoryScale,
@@ -32,6 +33,9 @@ export interface GithubStarsCardProps {
 }
 
 const GithubStarsCard: FC<GithubStarsCardProps> = ({ tool }) => {
+    const { owner, name } = tool.repositoryData || { owner: '', name: '' };
+    const stars = useStarsQuery({ owner, repo: name });
+
     const options = {
         responsive: true,
         tension: 0.5,
@@ -62,7 +66,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ tool }) => {
         },
     };
     const data = {
-        labels: tool.stars?.map((star) => star.date),
+        labels: stars.data?.map((star) => star.date),
         datasets: [
             {
                 label: 'Stars',
@@ -79,7 +83,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ tool }) => {
                     gradient.addColorStop(1, 'rgba(0, 231, 255, 0)');
                     return gradient;
                 },
-                data: tool.stars?.map((star) => star.count),
+                data: stars.data?.map((star) => star.count),
                 fill: true,
             },
         ],
