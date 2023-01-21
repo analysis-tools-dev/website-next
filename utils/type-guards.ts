@@ -150,13 +150,12 @@ export const isSponsorData = (data: unknown): data is SponsorData[] => {
 };
 
 export const isTagsType = (data: unknown): data is TagsType => {
-    return data === 'languages' || data === 'other';
+    return data === 'languages' || data === 'other' || data === 'all';
 };
 
 export const isLanguageData = (data: unknown): data is LanguageData => {
     return (
-        (data as LanguageData).tag !== undefined &&
-        (data as LanguageData).source !== undefined &&
+        (data as LanguageData).name !== undefined &&
         (data as LanguageData).website !== undefined &&
         (data as LanguageData).description !== undefined
     );

@@ -11,7 +11,7 @@ import { join } from 'path';
 export const LANGUAGE_DATA_PATH = join(
     process.cwd(),
     'data',
-    'tag-descriptions',
+    'descriptions.json',
 );
 
 const cacheDataManager = getCacheManager();
@@ -61,6 +61,15 @@ export const getTags = async (type: TagsType) => {
             return null;
         }
 
+        if (type === 'all') {
+            // Deconstruct the data object into an array of tags
+            const allTags = Object.values(data).reduce(
+                (acc, curr) => [...acc, ...curr],
+                [],
+            );
+            return allTags;
+        }
+
         const requestedTags = data[type];
         if (!requestedTags) {
             console.error(`Could not load ${type} tags`);
@@ -104,10 +113,10 @@ export const getTag = async (type: TagsType, tagId: string) => {
 };
 
 export const getLanguageData = async (tagId: string) => {
-    const languageFilePath = join(LANGUAGE_DATA_PATH, `${tagId}.json`);
+    const languageFilePath = LANGUAGE_DATA_PATH;
     const defaultTagData = {
-        tag: tagId,
-        source: '',
+        // capitalize first letter
+        tag: tagId.charAt(0).toUpperCase() + tagId.slice(1),
         website: '',
         description: '',
     };
@@ -118,11 +127,11 @@ export const getLanguageData = async (tagId: string) => {
         }
         const fileContents = readFileSync(languageFilePath);
         const data = JSON.parse(fileContents.toString());
-        if (!data || !isLanguageData(data)) {
+        if (!data || !data[tagId] || !isLanguageData(data[tagId])) {
             return defaultTagData;
         }
 
-        return data;
+        return data[tagId];
     } catch (e) {
         console.error('Error occurred: ', JSON.stringify(e));
         return defaultTagData;

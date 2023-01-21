@@ -9,38 +9,39 @@ import { ShareBtns } from '@components/core';
 import { LanguageData } from 'utils/types';
 
 export interface LanguageCardProps {
-    language: LanguageData;
+    tag: string;
+    tagData: LanguageData;
 }
-const LanguageCard: FC<LanguageCardProps> = ({ language }) => {
+const LanguageCard: FC<LanguageCardProps> = ({ tag, tagData }) => {
     return (
         <Card className={styles.languageCardWrapper}>
-            <Link href={`/tag/${language.tag}`}>
+            <Link href={`/tag/${tag}`}>
                 <a className={styles.languageLink}>
                     <Image
                         height="50px"
                         width="50px"
                         src={'/assets/icons/languages/multi-language.svg'}
-                        alt={language.tag}
+                        alt={tagData.name}
                     />
                     <Heading level={2} className={styles.languageName}>
-                        {language.tag} Static Analysis Tools
+                        {tagData.name} Static Analysis Tools
                     </Heading>
                 </a>
             </Link>
-            {language.description && language.description !== '' && (
+            {tagData.description && tagData.description !== '' && (
                 <Text className={styles.description}>
-                    {language.description}
+                    {tagData.description}
                 </Text>
             )}
 
             <div className={styles.cardFooter}>
                 <ShareBtns
-                    url={`https://analysis-tools.dev/tag/${language.tag}`}
+                    url={`https://analysis-tools.dev/tag/${tag}`}
                     className={styles.shareBtns}
                 />
                 <a
                     className="font-light font-size-s m-l-4"
-                    href={language.website}
+                    href={tagData.website}
                     target="_blank"
                     rel="noopener noreferrer">
                     Visit website
