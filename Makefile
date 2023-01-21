@@ -13,3 +13,8 @@ build: ## Build for production
 .PHONY: start
 start: ## Start Node server
 	npm run start
+
+.PHONY: clean
+clean: ## Clean build
+	rm -rf .next
+

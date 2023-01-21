@@ -1,66 +1,85 @@
 import { Octokit } from '@octokit/core';
 import { getCacheManager } from './cache';
 
-const SCREENSHOTS_CACHE_TTL = 60 * 60 * 24 * 7;
+// Type for screenshot data
+// Format:
+// {
+//     "tool": [
+//         {
+//           "path": "path/to/screenshot1",
+//           "url": "https://example.com",
+//         },
+//         {
+//           "path": "path/to/screenshot2",
+//           "url": "https://example.com",
+//         }
+//     ],
+//     "tool2": [
+//           ...
+//     ],
+// }
 
-const cacheDataManager = getCacheManager(SCREENSHOTS_CACHE_TTL);
+export type Screenshot = {
+    path: string;
+    url: string;
+};
 
-export const getScreenshots = async (tool: string) => {
+export type Screenshots = {
+    [key: string]: Screenshot[];
+};
+
+async function downloadScreenshotsFile() {
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
-        userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
+        userAgent: 'analysis-tools',
     });
 
-    const cacheKey = `screenshots-${tool}`;
+    const response = await octokit.request(
+        'GET /repos/{owner}/{repo}/contents/{path}',
+        {
+            owner: 'analysis-tools-dev',
+            repo: 'assets',
+            path: 'screenshots.json',
+            headers: {
+                accept: 'application/vnd.github.raw',
+            },
+        },
+    );
 
-    try {
-        // Get data from cache
-        let screenshots = await cacheDataManager.get(cacheKey);
-        if (!screenshots) {
-            console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
-            );
+    // TODO: Fix type error
+    // @ts-ignore
+    return JSON.parse(response.data);
+}
 
-            // Call API and refresh cache
-            const response = await octokit.request(
-                'GET /repos/{owner}/{repo}/contents/{path}',
-                {
-                    owner: 'analysis-tools-dev',
-                    repo: 'assets',
-                    path: `screenshots/${tool}`,
-                    headers: {
-                        accept: 'application/vnd.github+json',
-                    },
-                },
-            );
+// Retrieve `analysis-tools-dev/assets/screenshots.json` file
+// and cache it for 24 hours
+export const getAllScreenshots = async (): Promise<Screenshots | null> => {
+    const cacheDataManager = getCacheManager();
+    const cacheKey = 'screenshots';
 
-            // TODO: Cleanup and add TypeGuards
+    // Get data from cache
+    const screenshots: Screenshots = (await cacheDataManager.get(
+        cacheKey,
+    )) as Screenshots;
 
-            const data = response.data as any;
-
-            // extract download url from response data
-            screenshots = data.map((screenshot: any) => {
-                return {
-                    original: screenshot.download_url,
-                    // get part behind last slash in download url and decode as url
-                    // decode twice (first for github API, second for filename URL encoding)
-                    // remove file extension
-                    url: decodeURIComponent(
-                        decodeURIComponent(
-                            screenshot.download_url
-                                .split('/')
-                                .pop()
-                                .replace(/\.[^/.]+$/, ''),
-                        ),
-                    ),
-                };
-            });
-            await cacheDataManager.set(cacheKey, screenshots);
-        }
-        return screenshots;
-    } catch (e) {
-        console.error('Error occurred: ', JSON.stringify(e));
-        await cacheDataManager.del(cacheKey);
-        return null;
+    if (!screenshots) {
+        console.log(`Cache data for: ${cacheKey} does not exist - calling API`);
+        const screenshots = await downloadScreenshotsFile();
+        await cacheDataManager.set(cacheKey, screenshots);
     }
+    return screenshots;
+};
+
+// Get all screenshots for a specific tool
+export const getScreenshots = async (tool: string): Promise<Screenshot[]> => {
+    const screenshots = await getAllScreenshots();
+    if (!screenshots) {
+        return [];
+    }
+    const r = screenshots[tool];
+    console.log('Found ' + r.length + ' screenshot(s) for ' + tool);
+    if (!r) {
+        return [];
+    }
+    return r;
 };

@@ -52,6 +52,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const apiTool = await getTool(slug);
     const articles = await getArticles();
 
+    if (!apiTool) {
+        return {
+            notFound: true,
+        };
+    }
+
     const tool = {
         ...apiTool,
         id: slug,
@@ -111,7 +117,7 @@ export interface ToolProps {
     alternatives: Tool[];
     sponsors: SponsorData[];
     articles: Article[];
-    screenshots: { url: string; original: string }[];
+    screenshots: { path: string; url: string }[];
 }
 
 const ToolPage: FC<ToolProps> = ({

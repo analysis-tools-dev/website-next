@@ -56,6 +56,7 @@ export const getTools = async () => {
 };
 
 export const getTool = async (toolId: string) => {
+    console.log(`Loading ${toolId} data...`);
     const tools = await getTools();
 
     if (!tools) {

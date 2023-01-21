@@ -18,7 +18,7 @@ import Image from 'next/image';
 
 export interface ToolInfoCardProps {
     tool: Tool;
-    screenshots: { url: string; original: string }[];
+    screenshots: { path: string; url: string }[];
 }
 
 const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
@@ -77,25 +77,25 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         screenshots.map((screenshot, index) =>
                             screenshot.url.includes('youtube.com') ? (
                                 <SplideSlide
-                                    key={`${screenshot.original}-${index}`}
+                                    key={`${screenshot.path}-${index}`}
                                     // add youtube link if youtube video
                                     data-splide-youtube={screenshot.url}>
                                     <Image
                                         className={styles.screenshot}
                                         width={1280}
                                         height={720}
-                                        src={screenshot.original}
+                                        src={screenshot.path}
                                         alt={`${tool.name} screenshot`}
                                     />
                                 </SplideSlide>
                             ) : (
                                 <SplideSlide
-                                    key={`${screenshot.original}-${index}`}>
+                                    key={`${screenshot.path}-${index}`}>
                                     <Image
                                         className={styles.screenshot}
                                         width={1280}
                                         height={720}
-                                        src={screenshot.original}
+                                        src={screenshot.path}
                                         alt={`${tool.name} screenshot`}
                                     />
                                 </SplideSlide>

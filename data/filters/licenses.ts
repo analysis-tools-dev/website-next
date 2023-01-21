@@ -8,7 +8,7 @@ export const LICENSE_OPTIONS = [
         name: 'GNU License',
     },
     {
-        tag: 'other',
-        name: 'Other',
+        tag: 'proprietary',
+        name: 'Proprietary (Non-Free)',
     },
 ];
