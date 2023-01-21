@@ -2,9 +2,8 @@ import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
-import { LanguageCard, Tool, ToolsList } from '@components/tools';
+import { LanguageCard, AlternateToolsList, Tool } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
-import { getTools } from 'utils-api/tools';
 import { Article, LanguageData, SponsorData } from 'utils/types';
 import { getArticles } from 'utils-api/blog';
 import { getLanguageData, getTags } from 'utils-api/tags';
@@ -12,6 +11,7 @@ import { filterByTags } from 'utils-api/filters';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
 import { getSponsors } from 'utils-api/sponsors';
+import { getToolsWithVotes } from 'utils-api/toolsWithVotes';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 
     const tagData = await getLanguageData(slug);
-    const tools = await getTools();
+    const tools = await getToolsWithVotes();
     const articles = await getArticles();
     const sponsors = getSponsors();
 
@@ -73,7 +73,6 @@ const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 
-    // TODO: Fix list sorting
     return (
         <SearchProvider>
             <MainHead title={title} description={description} />
@@ -87,7 +86,7 @@ const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
                     </Sidebar>
                     <Panel>
                         <LanguageCard tag={slug} tagData={tag} />
-                        <ToolsList tools={tools} />
+                        <AlternateToolsList tools={tools} />
                     </Panel>
                 </Main>
             </Wrapper>
