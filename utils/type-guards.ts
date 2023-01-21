@@ -2,9 +2,11 @@ import { Tool } from '@components/tools';
 import {
     ApiTag,
     Article,
+    LanguageData,
     SponsorData,
     StatsApiData,
     TagsApiData,
+    TagsType,
     ToolsApiData,
     VotesApiData,
 } from './types';
@@ -145,4 +147,16 @@ export const isSponsorData = (data: unknown): data is SponsorData[] => {
         }
     }
     return true;
+};
+
+export const isTagsType = (data: unknown): data is TagsType => {
+    return data === 'languages' || data === 'other' || data === 'all';
+};
+
+export const isLanguageData = (data: unknown): data is LanguageData => {
+    return (
+        (data as LanguageData).name !== undefined &&
+        (data as LanguageData).website !== undefined &&
+        (data as LanguageData).description !== undefined
+    );
 };

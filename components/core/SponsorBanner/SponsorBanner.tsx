@@ -29,8 +29,8 @@ const SponsorBanner: FC<SponsorBannerProps> = ({ sponsors }) => {
                             <a
                                 className={`font-color-light ${styles.sponsorLink}`}
                                 href={sponsor.href}
-                                target={'_blank'}
-                                rel="noreferrer">
+                                target="_blank"
+                                rel="noopener noreferrer">
                                 <Image
                                     src={sponsor.logo.src}
                                     width={sponsor.logo.width}

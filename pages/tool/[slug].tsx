@@ -4,10 +4,10 @@ import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { getTool } from 'utils-api/tools';
 import {
+    AlternateToolsList,
     Tool,
     ToolInfoCard,
     ToolInfoSidebar,
-    ToolsList,
 } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
@@ -141,8 +141,7 @@ const ToolPage: FC<ToolProps> = ({
                     <ToolInfoSidebar tool={tool} articles={articles} />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
-
-                        <ToolsList tools={alternatives} />
+                        <AlternateToolsList tools={alternatives} />
                     </Panel>
                 </Main>
             </Wrapper>

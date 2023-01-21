@@ -12,7 +12,7 @@
     border: 1px solid #ffffff;
 }
 .github {
-    padding: 8px 20px 8px 45px;
+    padding: 8px 20px 8px 45px !important;
     background: url('/assets/icons/general/github-icon.svg') no-repeat;
     background-position: 20px;
     background-size: 15px;

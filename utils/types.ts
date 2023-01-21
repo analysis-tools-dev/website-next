@@ -1,4 +1,6 @@
 export type Nullable<D> = D | null | undefined;
+
+export type TagsType = 'languages' | 'other' | 'all';
 export interface ToolsApiData {
     [key: string]: ApiTool;
 }
@@ -101,4 +103,10 @@ export interface SponsorData {
         width: string;
         height: string;
     };
+}
+
+export interface LanguageData {
+    name: string;
+    website: string;
+    description: string;
 }

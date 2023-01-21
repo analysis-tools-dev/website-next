@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
-import Link from 'next/link';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import { type Tool } from '@components/tools';
@@ -46,14 +45,13 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                     <ReactMarkdown className={styles.description}>
                         {tool.description || ''}
                     </ReactMarkdown>
-                    <Link href={tool.homepage}>
-                        <a
-                            className="font-light font-size-s"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            More info
-                        </a>
-                    </Link>
+                    <a
+                        className="font-light font-size-s"
+                        href={tool.homepage}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        More info
+                    </a>
                 </div>
                 <Splide
                     extensions={{ Video }}
@@ -110,13 +108,13 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         url={`https://analysis-tools.dev/tool/${tool.name}`}
                         className={styles.shareBtns}
                     />
-                    <Link href={tool.homepage}>
-                        <a
-                            rel="noopener noreferrer"
-                            className="font-light font-size-s m-l-4">
-                            Visit website
-                        </a>
-                    </Link>
+                    <a
+                        href={tool.homepage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-light font-size-s m-l-4">
+                        Visit website
+                    </a>
                 </div>
             </div>
         </Card>
