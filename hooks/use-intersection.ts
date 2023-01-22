@@ -10,7 +10,7 @@ export const useIntersection = (
 ) => {
     const [isVisible, setState] = useState(false);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const el = element.current;
         const observer = new IntersectionObserver(
             ([entry]) => {
