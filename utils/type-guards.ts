@@ -170,12 +170,14 @@ export const isScreenshotApiData = (
     }
 
     for (const key of Object.keys(data)) {
-        const res =
-            (data as ScreenshotApiData)[key][0].path !== undefined &&
-            (data as ScreenshotApiData)[key][0].url !== undefined;
+        if ((data as ScreenshotApiData)[key].length !== 0) {
+            const res =
+                (data as ScreenshotApiData)[key][0]?.path !== undefined &&
+                (data as ScreenshotApiData)[key][0]?.url !== undefined;
 
-        if (!res) {
-            return false;
+            if (!res) {
+                return false;
+            }
         }
     }
     return true;

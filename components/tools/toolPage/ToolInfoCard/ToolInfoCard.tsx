@@ -15,10 +15,11 @@ import '@splidejs/react-splide/css';
 import { isSponsor } from 'utils/sponsor';
 
 import Image from 'next/image';
+import { Screenshot } from 'utils/types';
 
 export interface ToolInfoCardProps {
     tool: Tool;
-    screenshots: { path: string; url: string }[];
+    screenshots: Screenshot[];
 }
 
 const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
