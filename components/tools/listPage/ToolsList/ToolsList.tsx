@@ -27,6 +27,15 @@ interface ToolsListProps {
     tools: Tool[];
 }
 
+/**
+ * @deprecated since PR#24, issues with sorting and infinite scroll
+ * @param {ToolsListProps} tools
+ * @returns {JSX.Element}
+ * @description
+ * This component is used to render the list of tools
+ * on the tools page.
+ *
+ **/
 export const ToolsList: FC<ToolsListProps> = ({ tools }) => {
     // const shouldShowClearFilterButton =
     //     window.location.search !== '' && window.location.search !== '?';

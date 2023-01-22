@@ -56,9 +56,9 @@ const HomePage: FC<HomePageProps> = ({
             <Navbar />
 
             <Intro />
-            <Wrapper>
-                <Main className="m-b-30">
-                    <Sidebar className="bottomSticky">
+            <Wrapper className="m-t-20 m-b-30 ">
+                <Main>
+                    <Sidebar className="topSticky">
                         <BlogPreview articles={articles} />
                         <Newsletter />
                     </Sidebar>

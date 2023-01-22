@@ -35,8 +35,8 @@ const Sponsor: FC<SponsorPageProps> = ({ sponsors, articles }) => {
             <Navbar />
 
             <Intro />
-            <Wrapper>
-                <Main className="m-b-30">
+            <Wrapper className="m-t-20 m-b-30 ">
+                <Main>
                     <SponsorSidebar articles={articles} />
                     <Panel>
                         <SponsorsList sponsors={sponsors} />
