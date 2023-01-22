@@ -40,16 +40,26 @@
 
 @media only screen and (max-width: 900px) {
     .introContainer {
-        padding: 100px 0;
+        padding: 80px 0;
         align-content: center;
         justify-content: center;
     }
 
     .textContainer {
         text-align: center;
+        padding: 0 20px;
     }
 
     .introImage {
         display: none;
+    }
+
+    .textHeading {
+        font-size: 50px;
+    }
+
+    .textDescription {
+        font-size: 18px;
+        margin: 50px 0 80px 0;
     }
 }

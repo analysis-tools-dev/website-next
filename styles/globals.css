@@ -124,6 +124,9 @@ strong {
 .m-30 {
     margin: 30px !important;
 }
+.m-40 {
+    margin: 40px !important;
+}
 
 .m-t-4 {
     margin-top: 4px !important;
@@ -139,6 +142,9 @@ strong {
 }
 .m-t-30 {
     margin-top: 30px !important;
+}
+.m-t-40 {
+    margin-top: 40px !important;
 }
 
 .m-b-4 {
@@ -156,6 +162,9 @@ strong {
 .m-b-30 {
     margin-bottom: 30px !important;
 }
+.m-b-40 {
+    margin-bottom: 40px !important;
+}
 
 .m-l-4 {
     margin-left: 4px !important;
@@ -169,6 +178,9 @@ strong {
 .m-l-30 {
     margin-left: 30px !important;
 }
+.m-l-40 {
+    margin-left: 40px !important;
+}
 
 .m-l-4 {
     margin-right: 4px !important;
@@ -181,6 +193,9 @@ strong {
 }
 .m-r-30 {
     margin-right: 30px !important;
+}
+.m-r-40 {
+    margin-right: 40px !important;
 }
 
 /* END Margins */

@@ -17,3 +17,12 @@
 .suggestBtn {
     width: 140px;
 }
+
+@media only screen and (max-width: 900px) {
+    .listWrapper {
+        padding: 20px 0;
+    }
+    .listHeading {
+        font-size: 16px;
+    }
+}

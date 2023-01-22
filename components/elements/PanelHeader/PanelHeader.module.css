@@ -16,3 +16,18 @@
     gap: 4px;
     margin-bottom: 4px;
 }
+
+@media only screen and (max-width: 900px) {
+    .panelHeader {
+        flex-direction: column;
+    }
+
+    .title {
+        margin: 0 0 10px 0;
+    }
+
+    .actionBtns {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+}

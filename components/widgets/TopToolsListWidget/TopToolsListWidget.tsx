@@ -33,7 +33,7 @@ const TopToolsWidget: FC<TopToolsWidgetProps> = ({ tools }) => {
                                         />
                                     </div>
                                     <div className={styles.toolCardInfo}>
-                                        <Heading level={2}>{tool.name}</Heading>
+                                        <Heading level={3}>{tool.name}</Heading>
                                         <Text className={styles.toolInfo}>
                                             {tool.types[0]} - {tool.licenses[0]}{' '}
                                             - {votesFormatter(tool.votes)} votes

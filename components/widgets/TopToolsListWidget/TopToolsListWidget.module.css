@@ -29,7 +29,7 @@
 
 .toolCardInfo {
     width: calc(100% - 45px);
-    padding: 0 0 0 8px;
+    padding: 0px 15px;
     background-image: url('/assets/icons/general/chevron.png');
     background-repeat: no-repeat;
     background-position: right top 20px;
@@ -48,5 +48,10 @@
 
     .toolsListEntry {
         width: 100%;
+    }
+
+    .toolIcon {
+        width: 40px;
+        height: 40px;
     }
 }
