@@ -1,11 +1,14 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AutocompleteSearch } from '@components/elements';
 import { Wrapper } from '@components/layout';
 import styles from './Navbar.module.css';
+import classNames from 'classnames';
+import { AutocompleteSearch } from '@components/elements';
 
 const Navbar: FC = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const links = [
         {
             label: 'Tools',
@@ -25,21 +28,53 @@ const Navbar: FC = () => {
         },
     ];
 
+    function handleClickOutside(event: any) {
+        if (
+            !event.target.closest('.menu') &&
+            !event.target.closest('.search')
+        ) {
+            setIsMenuOpen(false);
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, [isMenuOpen]);
+
     return (
         <header className={styles.header}>
             <Wrapper className={styles.wrapper}>
-                <Link href="/">
-                    <a>
-                        <Image
-                            height="35px"
-                            width="175px"
-                            src="/assets/images/logo2.svg"
-                            alt=""
-                        />
-                    </a>
-                </Link>
+                <div className={styles.logoWrapper}>
+                    <Link href="/">
+                        <a className={styles.logo}>
+                            <Image
+                                height="35px"
+                                width="175px"
+                                src="/assets/images/logo2.svg"
+                                alt=""
+                            />
+                        </a>
+                    </Link>
+                    <button
+                        className={classNames(styles.hamburger, {
+                            [`${styles.showMenu}`]: isMenuOpen,
+                        })}
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        <span className={styles.hamburgerBox}>
+                            <span className={styles.hamburgerInner}></span>
+                            <span className={styles.hamburgerInner}></span>
+                            <span className={styles.hamburgerInner}></span>
+                        </span>
+                    </button>
+                </div>
 
-                <nav className={styles.nav}>
+                <nav
+                    className={classNames('menu', styles.nav, {
+                        [`${styles.showMenu}`]: isMenuOpen,
+                    })}>
                     <ul className={styles.linkList}>
                         {links.map((link, index) => (
                             <li key={index} className={styles.listItem}>
@@ -54,7 +89,10 @@ const Navbar: FC = () => {
                     </ul>
                 </nav>
 
-                <div className={styles.searchField}>
+                <div
+                    className={classNames('search', styles.searchField, {
+                        [`${styles.showMenu}`]: isMenuOpen,
+                    })}>
                     <AutocompleteSearch />
                 </div>
             </Wrapper>
