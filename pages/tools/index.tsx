@@ -8,11 +8,13 @@ import { Main, Wrapper } from '@components/layout';
 import { prefetchLanguages } from '@components/tools/queries/languages';
 import { fetchArticles } from '@components/blog/queries/articles';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
-import { Article } from 'utils/types';
+import { Article, SponsorData } from 'utils/types';
 import { prefetchTools } from '@components/tools/queries';
 import { ListPageComponent } from '@components/tools';
+import { getSponsors } from 'utils-api/sponsors';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const sponsors = getSponsors();
     const articles = await fetchArticles();
 
     // Create a new QueryClient instance for each page request.
@@ -23,6 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     return {
         props: {
+            sponsors,
             articles,
             dehydratedState: dehydrate(queryClient),
         },
@@ -30,10 +33,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 export interface ToolsProps {
+    sponsors: SponsorData[];
     articles: Article[];
 }
 
-const ToolsPage: FC<ToolsProps> = ({ articles }) => {
+const ToolsPage: FC<ToolsProps> = ({ sponsors, articles }) => {
     // TODO: Update title and description to include language or filters
     const title = 'Analysis Tools';
     const description =
@@ -50,7 +54,7 @@ const ToolsPage: FC<ToolsProps> = ({ articles }) => {
                 </Main>
             </Wrapper>
 
-            <SponsorBanner />
+            <SponsorBanner sponsors={sponsors} />
             <Footer />
         </SearchProvider>
     );

@@ -17,7 +17,7 @@ const LanguageTopToolsWidget: FC<LanguageTopToolsWidgetProps> = ({
     formatters,
     linters,
 }) => {
-    const href = `/tools?languages=${language}`;
+    const href = `/tag/${language}`;
     const logo = `/assets/icons/languages/${language}.svg`;
 
     return (

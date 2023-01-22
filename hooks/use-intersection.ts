@@ -1,4 +1,7 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect, useEffect } from 'react';
+
+const canUseDOM = typeof window !== 'undefined';
+const useIsomorphicLayoutEffect = canUseDOM ? useLayoutEffect : useEffect;
 
 export const useIntersection = (
     element: any,

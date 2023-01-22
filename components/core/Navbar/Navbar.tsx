@@ -16,12 +16,12 @@ const Navbar: FC = () => {
             href: '/blog',
         },
         {
-            label: 'Sponsor',
-            href: '/sponsor',
+            label: 'Sponsors',
+            href: '/sponsors',
         },
         {
             label: 'Contributing',
-            href: 'https://github.com/analysis-tools-dev/static-analysis/blob/master/CONTRIBUTING.md',
+            href: '/contributing',
             newTab: true,
         },
     ];

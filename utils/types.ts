@@ -1,4 +1,6 @@
 export type Nullable<D> = D | null | undefined;
+
+export type TagsType = 'languages' | 'other' | 'all';
 export interface ToolsApiData {
     [key: string]: ApiTool;
 }
@@ -89,3 +91,36 @@ export interface VotesApiData {
         upVotes: number;
     };
 }
+
+export interface SponsorData {
+    name: string;
+    url: string;
+    description: string;
+    tool: string;
+    href: string;
+    logo: {
+        src: string;
+        width: string;
+        height: string;
+    };
+}
+
+export interface LanguageData {
+    name: string;
+    website: string;
+    description: string;
+}
+
+export interface ScreenshotApiData {
+    [key: string]: Screenshot[];
+}
+
+export type Screenshot = {
+    path: string;
+    url: string;
+};
+
+export type RepositoryMeta = {
+    owner: string;
+    repo: string;
+};

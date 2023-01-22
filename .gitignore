@@ -25,6 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -39,4 +40,7 @@ yarn-error.log*
 # firebase
 firebase-key.json
 .vscode
+
+# project
 diskcache
+.cache

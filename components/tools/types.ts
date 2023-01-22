@@ -17,6 +17,12 @@ export interface RepositoryData {
     forks: number;
     created: string;
     updated: string;
+    owner: string;
+}
+
+export interface RepoStarsData {
+    date: string;
+    count: number;
 }
 
 export interface Tool {
@@ -43,7 +49,7 @@ export interface Tool {
     installation?: string;
     documentation?: string;
     repositoryData?: RepositoryData;
-    stars?: { date: Date; count: number }[];
+    stars?: RepoStarsData[];
 }
 
 export interface ToolsByLanguage {

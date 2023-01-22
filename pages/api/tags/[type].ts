@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getTag } from 'utils-api/tags';
+import { getTags } from 'utils-api/tags';
+import { isTagsType } from 'utils/type-guards';
 
 export default async function handler(
     req: NextApiRequest,
@@ -7,13 +8,13 @@ export default async function handler(
 ) {
     const { type } = req.query;
 
-    if (!type) {
+    if (!isTagsType(type)) {
         console.error(`ERROR: Invalid request - type not specified`);
         res.status(500);
         return res;
     }
 
-    const data = await getTag(type.toString());
+    const data = await getTags(type);
     if (!data) {
         console.error(`ERROR: Failed to load ${type} data`);
         res.status(500).json({ error: 'Failed to load data' });

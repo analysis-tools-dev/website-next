@@ -4,18 +4,19 @@ import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { getTool } from 'utils-api/tools';
 import {
+    AlternateToolsList,
     Tool,
     ToolInfoCard,
     ToolInfoSidebar,
-    ToolsList,
 } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
-import { Article } from 'utils/types';
+import { Article, SponsorData } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticles } from 'utils-api/blog';
+import { getSponsors } from 'utils-api/sponsors';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -46,13 +47,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 
+    const sponsors = getSponsors();
     const votes = await getVotes();
     const apiTool = await getTool(slug);
     const articles = await getArticles();
 
+    if (!apiTool) {
+        return {
+            notFound: true,
+        };
+    }
+
     const tool = {
-        id: slug,
         ...apiTool,
+        id: slug,
     };
 
     const alternativeTools = await getTools();
@@ -97,6 +105,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         props: {
             tool,
             alternatives,
+            sponsors,
             articles,
             screenshots: (await getScreenshots(slug)) || null,
         },
@@ -106,13 +115,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export interface ToolProps {
     tool: Tool;
     alternatives: Tool[];
+    sponsors: SponsorData[];
     articles: Article[];
-    screenshots: { url: string; original: string }[];
+    screenshots: { path: string; url: string }[];
 }
 
 const ToolPage: FC<ToolProps> = ({
     tool,
     alternatives,
+    sponsors,
     articles,
     screenshots,
 }) => {
@@ -130,13 +141,12 @@ const ToolPage: FC<ToolProps> = ({
                     <ToolInfoSidebar tool={tool} articles={articles} />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
-
-                        <ToolsList tools={alternatives} />
+                        <AlternateToolsList tools={alternatives} />
                     </Panel>
                 </Main>
             </Wrapper>
 
-            <SponsorBanner />
+            <SponsorBanner sponsors={sponsors} />
             <Footer />
         </SearchProvider>
     );

@@ -1,9 +1,9 @@
+import React from 'react';
 import { FC } from 'react';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import styles from './GithubStarsCard.module.css';
 
-import React from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -15,7 +15,8 @@ import {
     Tooltip,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { getRepositoryMeta } from 'utils/github';
+import { Tool } from '@components/tools/types';
+import { useStarsQuery } from 'utils-api/stars';
 
 ChartJS.register(
     CategoryScale,
@@ -27,34 +28,14 @@ ChartJS.register(
     Tooltip,
 );
 
-export function getTimeStampByDate(t: Date | number | string): number {
-    const d = new Date(t);
-    return d.getTime();
-}
-
-function getDateString(t: Date | number | string, format = 'yyyy/MM'): string {
-    const d = new Date(getTimeStampByDate(t));
-
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
-    // const date = d.getDate();
-    // const hours = d.getHours();
-    // const minutes = d.getMinutes();
-    // const seconds = d.getSeconds();
-
-    const formatedString = format
-        .replace('yyyy', String(year))
-        .replace('MM', String(month));
-
-    return formatedString;
-}
-
 export interface GithubStarsCardProps {
-    source: string | null;
-    stars: { date: Date; count: number }[];
+    tool: Tool;
 }
 
-const GithubStarsCard: FC<GithubStarsCardProps> = ({ source, stars }) => {
+const GithubStarsCard: FC<GithubStarsCardProps> = ({ tool }) => {
+    const { owner, name } = tool.repositoryData || { owner: '', name: '' };
+    const stars = useStarsQuery({ owner, repo: name });
+
     const options = {
         responsive: true,
         tension: 0.5,
@@ -85,7 +66,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ source, stars }) => {
         },
     };
     const data = {
-        labels: stars.map((star) => getDateString(star.date)),
+        labels: stars.data?.map((star) => star.date),
         datasets: [
             {
                 label: 'Stars',
@@ -102,14 +83,14 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ source, stars }) => {
                     gradient.addColorStop(1, 'rgba(0, 231, 255, 0)');
                     return gradient;
                 },
-                data: stars.map((star) => star.count),
+                data: stars.data?.map((star) => star.count),
                 fill: true,
             },
         ],
     };
 
-    const github = getRepositoryMeta(source);
-    if (!github) {
+    const github = tool.repositoryData;
+    if (!github?.source) {
         return null;
     }
 
@@ -118,7 +99,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ source, stars }) => {
             <Heading level={3} className="m-b-16 font-bold">
                 <a
                     className={styles.link}
-                    href={`https://star-history.com/#${github.owner}/${github.repo}`}
+                    href={`https://star-history.com/#${github.owner}/${github.name}`}
                     target="_blank"
                     rel="noopener noreferrer">
                     Github Star History

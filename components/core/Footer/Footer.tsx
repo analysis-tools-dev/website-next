@@ -18,8 +18,8 @@ const Footer: FC = () => {
             external: false,
         },
         {
-            label: 'Sponsor',
-            href: '/sponsor',
+            label: 'Sponsors',
+            href: '/sponsors',
             external: false,
         },
         {
@@ -29,7 +29,7 @@ const Footer: FC = () => {
         },
         {
             label: 'How to Contribute',
-            href: 'https://github.com/analysis-tools-dev/static-analysis/blob/master/CONTRIBUTING.md',
+            href: '/contributing',
             external: true,
         },
     ];

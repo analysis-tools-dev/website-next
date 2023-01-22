@@ -1,12 +1,17 @@
 import { FC } from 'react';
 import { ContributionCard, Newsletter } from '@components/elements';
 import { Sidebar } from '@components/layout';
-import { SponsorCard } from '@components/core';
+import { SponsorSidebarCard } from '@components/core';
+import { SponsorData } from 'utils/types';
 
-const BlogSidebar: FC = () => {
+export interface BlogSidebarProps {
+    sponsors: SponsorData[];
+}
+
+const BlogSidebar: FC<BlogSidebarProps> = ({ sponsors }) => {
     return (
         <Sidebar className="bottomSticky">
-            <SponsorCard />
+            <SponsorSidebarCard sponsors={sponsors} />
             <ContributionCard />
             <Newsletter />
         </Sidebar>

@@ -10,7 +10,7 @@ import styles from './ToolCard.module.css';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 import { deCamelString } from 'utils/strings';
-import { isSponsor } from 'utils-api/sponsors';
+import { isSponsor } from 'utils/sponsor';
 import { useIntersection } from 'hooks';
 
 export interface ToolCardProps {
@@ -21,11 +21,14 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
     const votesRef = useRef(null);
     const isVotesInViewport = useIntersection(votesRef);
 
+    const isSingleLanguage = tool.languages.length === 1;
+
     const toolStatus = tool.deprecated ? 'Deprecated' : 'Maintained';
-    const toolLanguage =
-        tool.languages.length === 1
-            ? deCamelString(tool.languages[0])
-            : 'Multi-Language';
+    const toolLanguage = isSingleLanguage
+        ? deCamelString(tool.languages[0])
+        : 'Multi-Language';
+
+    // FIXME: Get language tag from name to work as href, some languages have different names then their tag
     return (
         <Card className={styles.toolCardWrapper}>
             <div className={styles.votes} ref={votesRef}>
@@ -74,7 +77,17 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                             src={`/assets/icons/languages/${toolLanguage.toLowerCase()}.svg`}
                             alt={toolStatus}
                         />
-                        <span className={styles.metaInfo}>{toolLanguage}</span>
+                        {isSingleLanguage ? (
+                            <Link href={`/tag/${toolLanguage.toLowerCase()}`}>
+                                <a className={styles.languageLink}>
+                                    {toolLanguage}
+                                </a>
+                            </Link>
+                        ) : (
+                            <span className={styles.metaInfo}>
+                                {toolLanguage}
+                            </span>
+                        )}
                     </li>
 
                     <li>

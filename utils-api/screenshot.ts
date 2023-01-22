@@ -1,68 +1,66 @@
 import { Octokit } from '@octokit/core';
+import { isScreenshotApiData } from 'utils/type-guards';
+import { Screenshot, ScreenshotApiData } from 'utils/types';
 import { getCacheManager } from './cache';
 
-const SCREENSHOTS_CACHE_TTL = 60 * 60 * 24 * 7;
-
-const cacheDataManager = getCacheManager(SCREENSHOTS_CACHE_TTL);
-
-export const getScreenshots = async (tool: string) => {
+async function getScreentshotData() {
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
-        userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
+        userAgent: 'analysis-tools',
     });
 
-    const cacheKey = `screenshots-${tool}`;
+    const response = await octokit.request(
+        'GET /repos/{owner}/{repo}/contents/{path}',
+        {
+            owner: 'analysis-tools-dev',
+            repo: 'assets',
+            path: 'screenshots.json',
+            headers: {
+                accept: 'application/vnd.github.raw',
+            },
+        },
+    );
 
-    try {
+    const data = JSON.parse(response.data.toString());
+    if (!isScreenshotApiData(data)) {
+        console.error('Screenshot TypeError');
+        return null;
+    }
+    return data;
+}
+
+// Retrieve `analysis-tools-dev/assets/screenshots.json` file
+// and cache it for 24 hours
+export const getAllScreenshots =
+    async (): Promise<ScreenshotApiData | null> => {
+        const cacheDataManager = getCacheManager();
+        const cacheKey = 'screenshots';
+
         // Get data from cache
-        let screenshots = await cacheDataManager.get(cacheKey);
+        const screenshots: ScreenshotApiData = (await cacheDataManager.get(
+            cacheKey,
+        )) as ScreenshotApiData;
+
         if (!screenshots) {
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
             );
-
-            // Call API and refresh cache
-            const response = await octokit.request(
-                'GET /repos/{owner}/{repo}/contents/{path}',
-                {
-                    owner: 'analysis-tools-dev',
-                    repo: 'assets',
-                    path: `screenshots/${tool}`,
-                    headers: {
-                        accept: 'application/vnd.github+json',
-                    },
-                },
-            );
-
-            // TODO: Cleanup and add TypeGuards
-
-            const data = response.data as any;
-
-            // extract download url from response data
-            screenshots = data.map((screenshot: any) => {
-                return {
-                    original: screenshot.download_url,
-                    // get part behind last slash in download url and decode as url
-                    // decode twice (first for github API, second for filename URL encoding)
-                    // remove file extension
-                    url: decodeURIComponent(
-                        decodeURIComponent(
-                            screenshot.download_url
-                                .split('/')
-                                .pop()
-                                .replace(/\.[^/.]+$/, ''),
-                        ),
-                    ),
-                };
-            });
-
-            const hours = Number(process.env.API_CACHE_TTL) || 24;
-            await cacheDataManager.set(cacheKey, screenshots, hours * 60 * 60);
+            const screenshots = await getScreentshotData();
+            await cacheDataManager.set(cacheKey, screenshots);
         }
         return screenshots;
-    } catch (e) {
-        console.error('Error occurred: ', JSON.stringify(e));
-        await cacheDataManager.del(cacheKey);
-        return null;
+    };
+
+// Get all screenshots for a specific tool
+export const getScreenshots = async (tool: string): Promise<Screenshot[]> => {
+    const screenshots = await getAllScreenshots();
+    if (!screenshots) {
+        return [];
     }
+    const r = screenshots[tool];
+    console.log('Found ' + r.length + ' screenshot(s) for ' + tool);
+    if (!r) {
+        return [];
+    }
+    return r;
 };

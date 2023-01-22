@@ -1,8 +1,6 @@
 .btn {
     color: #ffffff;
-    padding: 9px 20px;
-    font-family: Roboto-Bold;
-    font-size: 16px;
+
     border-radius: 6px;
 }
 
@@ -14,10 +12,22 @@
     border: 1px solid #ffffff;
 }
 .github {
-    padding: 8px 20px 8px 45px;
+    padding: 8px 20px 8px 45px !important;
     background: url('/assets/icons/general/github-icon.svg') no-repeat;
     background-position: 20px;
     background-size: 15px;
     background-color: #0e2439;
     border: 1px solid #ffffff;
+}
+
+.normal {
+    padding: 9px 20px;
+    font-family: Roboto-Bold;
+    font-size: 16px;
+}
+
+.small {
+    font-size: 14px;
+    padding: 8px 10px;
+    font-family: Roboto;
 }

@@ -19,7 +19,7 @@ const BlogPreview: FC<BlogPreviewProps> = ({ articles }) => {
             {articles.map((post, index) => (
                 <BlogPreviewEntry
                     key={index}
-                    title={post.meta?.title}
+                    meta={post.meta}
                     summary={post.summary}
                     link={`/blog/${post.slug}`}
                     className="m-t-30 m-b-30"

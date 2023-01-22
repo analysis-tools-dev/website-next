@@ -1,0 +1,46 @@
+.sponsorCardWrapper {
+    margin: 0 0 30px 0;
+    display: flex;
+    padding: 0;
+}
+
+.logo {
+    background-color: #000000;
+    border-radius: 6px 0 0 6px;
+    padding: 24px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info {
+    position: relative;
+    padding: 15px 15px 80px 15px;
+    width: calc(100% - 200px);
+}
+
+.description {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.cardFooter {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 30px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.actions {
+    margin: 30px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.toolName {
+    display: inline;
+    vertical-align: top;
+    padding-right: 5px;
+}

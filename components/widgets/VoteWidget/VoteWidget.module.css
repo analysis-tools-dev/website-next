@@ -26,6 +26,7 @@
     background-position: center;
     background-image: url('/assets/icons/general/vote.svg');
     background-size: 18px;
+    outline: none;
 }
 
 .voteBtn:hover {
@@ -38,7 +39,6 @@
 
 .secondary .voteBtn {
     background-size: 14px;
-    background-color: #345779;
 }
 
 .downvoteBtn {
@@ -61,4 +61,12 @@
 
 .secondary .loading {
     flex: 1;
+}
+
+.activeUpvote {
+    filter: invert(0.5) sepia(1) saturate(40) hue-rotate(0deg);
+}
+
+.activeDownvote {
+    filter: invert(0.5) sepia(1) saturate(40) hue-rotate(30deg);
 }

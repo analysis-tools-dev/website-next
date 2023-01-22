@@ -12,11 +12,11 @@ const Intro: FC = () => {
                 <Heading level={1} className={styles.textHeading}>
                     Our Sponsors
                 </Heading>
-                <Text
-                    className={styles.textDescription}
-                    dangerouslySetInnerHTML={{
-                        __html: "Thanks to our generous sponsors for supporting the project. Without them, we wouldn't be able to keep the site running.",
-                    }}></Text>
+                <Text className={styles.textDescription}>
+                    Thanks to our generous sponsors for supporting the project.
+                    They allow us to keep the site free from ads and trackers.
+                    Please check out their offers below.
+                </Text>
 
                 <LinkButton
                     label="Become a sponsor"
@@ -33,6 +33,13 @@ const Intro: FC = () => {
                     width="800"
                     height="600"
                 />
+                <a
+                    className={styles.introImageRef}
+                    href="https://www.freepik.com/free-vector/holiday-gift-wrapping-packing-service-isometric-web-banner-landing-page_4758639.htm"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Sponsor image by vectorpuch on Freepik
+                </a>
             </div>
         </Wrapper>
     );

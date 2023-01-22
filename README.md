@@ -1,5 +1,5 @@
   <a href="http://analysis-tools.dev/">
-    <img width="400px" alt="Analysis Tools" src="static/logo.png" />
+    <img width="300px" alt="Analysis Tools" src="public/assets/images/logo.svg" />
   </a>
 
 ![CI](https://github.com/analysis-tools-dev/website-next/workflows/deploy/badge.svg)
@@ -14,10 +14,10 @@ This project would not be possible without the generous support of our sponsors.
 
 <table>
   <tr>
-    <td><a href="https://deepcode.ai"><img width="200px" src="static/sponsors/deepcode.png" /></a></td>
-    <td><a href="https://codescene.io/"><img width="200px" src="static/sponsors/codescene.svg" /></a></td>
-    <td><a href="https://semgrep.dev/"><img width="200px" src="static/sponsors/semgrep.svg" /></a></td>
-    <td><a href="https://codiga.io/"><img width="200px" src="static/sponsors/codiga.svg" /></a></td>
+    <td><a href="https://deepcode.ai"><img width="200px" src="public/assets/images/sponsors/deepcode.svg" /></a></td>
+    <td><a href="https://codescene.io/"><img width="200px" src="public/assets/images/sponsors/codescene.svg" /></a></td>
+    <td><a href="https://semgrep.dev/"><img width="200px" src="public/assets/images/sponsors/semgrep.svg" /></a></td>
+    <td><a href="https://codiga.io/"><img width="200px" src="public/assets/images/sponsors/codiga.svg" /></a></td>
   </tr>
 </table>
 
@@ -41,7 +41,7 @@ environment variables in it:
 
 Create a file named
 
-```
+```env
 NEXT_PUBLIC_HOST=http://localhost:3000
 GOOGLE_APPLICATION_CREDENTIALS=firebase-key.json
 GH_TOKEN=ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -50,7 +50,7 @@ API_CACHE_TTL=12
 
 3. **Install the dependencies**
 
-```
+```shell
 npm install
 ```
 

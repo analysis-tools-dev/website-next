@@ -3,7 +3,7 @@ import { getGithubStats } from 'utils-api/github';
 import { getTool } from 'utils-api/tools';
 import { getToolVotes } from 'utils-api/votes';
 import { type Tool } from '@components/tools';
-import { getRepoStarRecords } from '../stars';
+import { getRepoStarRecords } from 'utils/stars';
 import { getRepositoryMeta } from 'utils/github';
 
 export default async function handler(
@@ -40,8 +40,8 @@ export default async function handler(
         );
         if (repositoryData) {
             res.status(200).json({
-                id: toolId.toString(),
                 ...data,
+                id: toolId.toString(),
                 votes,
                 upVotes,
                 downVotes,
@@ -51,6 +51,6 @@ export default async function handler(
             return res;
         }
     }
-    res.status(200).json({ id: toolId.toString(), ...data, votes: votes });
+    res.status(200).json({ ...data, id: toolId.toString(), votes: votes });
     return res;
 }
