@@ -10,7 +10,7 @@ export interface SponsorSidebarProps {
 
 const SponsorSidebar: FC<SponsorSidebarProps> = ({ articles }) => {
     return (
-        <Sidebar className="bottomSticky">
+        <Sidebar className="topSticky">
             <BlogPreview articles={articles} />
             <Newsletter />
         </Sidebar>

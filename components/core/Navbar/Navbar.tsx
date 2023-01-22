@@ -22,7 +22,6 @@ const Navbar: FC = () => {
         {
             label: 'Contributing',
             href: '/contributing',
-            newTab: true,
         },
     ];
 
@@ -45,19 +44,10 @@ const Navbar: FC = () => {
                         {links.map((link, index) => (
                             <li key={index} className={styles.listItem}>
                                 <Link href={link.href}>
-                                    {link.newTab ? (
-                                        <a
-                                            className={`font-color-light ${styles.navLink}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer">
-                                            {link.label}
-                                        </a>
-                                    ) : (
-                                        <a
-                                            className={`font-color-light ${styles.navLink}`}>
-                                            {link.label}
-                                        </a>
-                                    )}
+                                    <a
+                                        className={`font-color-light ${styles.navLink}`}>
+                                        {link.label}
+                                    </a>
                                 </Link>
                             </li>
                         ))}

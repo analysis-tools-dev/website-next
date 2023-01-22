@@ -44,9 +44,9 @@ const LagnuagesPage: FC<LanguagesPageProps> = ({
             <MainHead title={title} description={description} />
             <Navbar />
 
-            <Wrapper>
-                <Main className="m-b-30">
-                    <Sidebar className="bottomSticky">
+            <Wrapper className="m-t-20 m-b-30 ">
+                <Main>
+                    <Sidebar className="topSticky">
                         <BlogPreview articles={articles} />
                         <Newsletter />
                     </Sidebar>

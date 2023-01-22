@@ -80,7 +80,7 @@ const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <Sidebar className="bottomSticky">
+                    <Sidebar className="topSticky">
                         <BlogPreview articles={articles} />
                         <Newsletter />
                     </Sidebar>
