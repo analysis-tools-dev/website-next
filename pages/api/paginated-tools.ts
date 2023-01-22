@@ -8,6 +8,19 @@ interface PaginatedData {
     nextCursor?: number;
 }
 
+const pickSort = (sort: string) => {
+    switch (sort) {
+        case 'votes_asc':
+            return (a: Tool, b: Tool) => a.votes - b.votes;
+        case 'alphabetical_asc':
+            return (a: Tool, b: Tool) => a.name.localeCompare(b.name);
+        case 'alphabetical_desc':
+            return (a: Tool, b: Tool) => b.name.localeCompare(a.name);
+        default:
+            return (a: Tool, b: Tool) => b.votes - a.votes;
+    }
+};
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<PaginatedData | { error: string }>,
@@ -20,6 +33,12 @@ export default async function handler(
     }
 
     const filteredData = filterResults(data, req.query);
+    let sortedTools = [];
+    if (req.query.sorting) {
+        sortedTools = filteredData.sort(pickSort(req.query.sorting.toString()));
+    } else {
+        sortedTools = filteredData.sort(pickSort('votes_desc'));
+    }
 
     // Check if limit is set and is number
     const limit = Number(req.query.limit);
@@ -28,7 +47,7 @@ export default async function handler(
     if (limit) {
         const startIndex = offset * limit;
         const endIndex = startIndex + limit;
-        const data = filteredData.slice(startIndex, endIndex);
+        const data = sortedTools.slice(startIndex, endIndex);
         const paginatedData = {
             data,
             nextCursor: data.length === limit ? offset + 1 : undefined,
@@ -37,6 +56,6 @@ export default async function handler(
         res.status(200).json(paginatedData);
         return res;
     }
-    res.status(200).json({ data: filteredData });
+    res.status(200).json({ data: sortedTools });
     return res;
 }

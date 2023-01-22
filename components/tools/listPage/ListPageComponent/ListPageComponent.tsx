@@ -1,6 +1,6 @@
-import { LoadingDots } from '@components/elements';
+import { Dropdown, LoadingDots, PanelHeader } from '@components/elements';
 import { Panel } from '@components/layout';
-import { ToolsList, ToolsSidebar } from '@components/tools';
+import { Tool, ToolCard, ToolsSidebar } from '@components/tools';
 import { useSearchState } from 'context/SearchProvider';
 import { useRouterPush } from 'hooks';
 import { FC, useCallback, useEffect, useRef } from 'react';
@@ -14,8 +14,10 @@ export interface ListComponentProps {
     articles: Article[];
 }
 const ListComponent: FC<ListComponentProps> = ({ articles }) => {
+    const heading = `Static Analysis Tools`;
+
     const observerElem = useRef(null);
-    const { search } = useSearchState();
+    const { search, setSearch } = useSearchState();
 
     const fetchTools = async ({ pageParam = 0 }) => {
         const apiURL =
@@ -81,14 +83,27 @@ const ListComponent: FC<ListComponentProps> = ({ articles }) => {
         return null;
     }
 
+    const changeSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const sorting = e.target.value;
+        setSearch({
+            ...search,
+            sorting,
+        });
+    };
+
     return (
         <>
             <ToolsSidebar articles={articles} />
             <Panel>
+                <PanelHeader level={3} text={heading}>
+                    <Dropdown changeSort={changeSort} />
+                </PanelHeader>
                 {data?.pages?.map((page, i) => {
-                    return page.data ? (
-                        <ToolsList key={i} tools={page.data} />
-                    ) : null;
+                    return page.data
+                        ? page.data.map((tool: Tool, index: number) => (
+                              <ToolCard key={`tool-${index}`} tool={tool} />
+                          ))
+                        : null;
                 })}
                 <div ref={observerElem}>
                     {isFetchingNextPage && hasNextPage ? <LoadingDots /> : null}

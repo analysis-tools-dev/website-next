@@ -1,5 +1,6 @@
 import { Card } from '@components/layout';
-import { FC } from 'react';
+import { useSearchState } from 'context/SearchProvider';
+import { FC, useEffect, useState } from 'react';
 import styles from './Dropdown.module.css';
 
 interface DropdownProps {
@@ -7,6 +8,16 @@ interface DropdownProps {
 }
 
 const Dropdown: FC<DropdownProps> = ({ changeSort }) => {
+    const [state, setState] = useState('initial');
+    const { search } = useSearchState();
+
+    useEffect(() => {
+        const sortValue = search.sorting;
+        if (sortValue) {
+            setState(sortValue);
+        }
+    }, [search.sorting]);
+
     return (
         <Card className={styles.selectWrapper}>
             <label className={styles.label} htmlFor="sort-select">
@@ -15,6 +26,7 @@ const Dropdown: FC<DropdownProps> = ({ changeSort }) => {
             <select
                 className={styles.select}
                 onChange={changeSort}
+                value={state}
                 id="sort-select">
                 <optgroup label="Votes">
                     <option value="votes_desc">Votes Desc</option>
