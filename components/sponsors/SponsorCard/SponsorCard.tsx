@@ -22,7 +22,6 @@ const SponsorCard: FC<SponsorCardProps> = ({ sponsor }) => {
                         alt={sponsor.name}
                         width={sponsor.logo.width}
                         height={sponsor.logo.height}
-                        objectFit="cover"
                     />
                 </a>
             </div>
