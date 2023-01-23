@@ -40,7 +40,7 @@ const SponsorCard: FC<SponsorCardProps> = ({ sponsor }) => {
 
                 <div className={styles.cardFooter}>
                     <LinkButton
-                        label="Check out their tool"
+                        label="More Info"
                         href={`/tool/${sponsor.tool}`}
                         newTab={false}
                         variant={'small'}
