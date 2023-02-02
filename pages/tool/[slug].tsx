@@ -12,11 +12,12 @@ import {
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
-import { Article, SponsorData } from 'utils/types';
+import { Article, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticles } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
+import { getStars } from 'utils-api/stars';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -49,6 +50,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const sponsors = getSponsors();
     const votes = await getVotes();
+    const starHistory = await getStars(slug);
     const apiTool = await getTool(slug);
     const articles = await getArticles();
 
@@ -108,6 +110,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             sponsors,
             articles,
             screenshots: (await getScreenshots(slug)) || null,
+            starHistory,
         },
     };
 };
@@ -118,6 +121,7 @@ export interface ToolProps {
     sponsors: SponsorData[];
     articles: Article[];
     screenshots: { path: string; url: string }[];
+    starHistory: StarHistory;
 }
 
 const ToolPage: FC<ToolProps> = ({
@@ -126,6 +130,7 @@ const ToolPage: FC<ToolProps> = ({
     sponsors,
     articles,
     screenshots,
+    starHistory,
 }) => {
     const title = `${tool.name} - Analysis Tools`;
     const description =
@@ -138,7 +143,11 @@ const ToolPage: FC<ToolProps> = ({
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolInfoSidebar tool={tool} articles={articles} />
+                    <ToolInfoSidebar
+                        tool={tool}
+                        articles={articles}
+                        starHistory={starHistory}
+                    />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
                         <AlternateToolsList tools={alternatives} />

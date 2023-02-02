@@ -33,9 +33,7 @@ export default async function handler(
             repoMeta.owner,
             repoMeta.repo,
         );
-        const stars = await getRepoStarRecords(
-            `${repoMeta.owner}/${repoMeta.repo}`,
-        );
+        const stars = await getRepoStarRecords(toolId.toString());
         console.log('stars', stars);
         if (repositoryData) {
             res.status(200).json({

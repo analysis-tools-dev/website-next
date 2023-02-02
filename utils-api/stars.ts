@@ -22,21 +22,11 @@
 
 import { RepoStarsData } from '@components/tools';
 import { Octokit } from '@octokit/core';
-import { useQuery } from 'react-query';
 import { isAllStarHistoryData } from 'utils/type-guards';
-import { RepositoryMeta, StarHistoryApiData } from 'utils/types';
+import { StarHistoryApiData } from 'utils/types';
 import { getCacheManager } from './cache';
 
-/**
- * Fetches data from API using `useQuery` (react-query) or cache/prefetch data if it exists
- *
- * @see https://react-query.tanstack.com/guides/queries
- */
-export function useStarsQuery(repoMeta: RepositoryMeta) {
-    return useQuery<RepoStarsData[]>(`stars-${repoMeta.repo}`, () =>
-        fetchToolStars(repoMeta),
-    );
-}
+const cacheDataManager = getCacheManager(7 * 24 * 60 * 60);
 
 async function getAllStarHistoryData() {
     const octokit = new Octokit({
@@ -58,15 +48,14 @@ async function getAllStarHistoryData() {
 
     const data = JSON.parse(response.data.toString());
     if (!isAllStarHistoryData(data)) {
-        console.error('Screenshot TypeError');
+        console.error('Star History TypeError');
         return null;
     }
     return data;
 }
 
 const getAllStarHistory = async () => {
-    const cacheDataManager = getCacheManager(7 * 24 * 60 * 60);
-    const cacheKey = 'screenshots';
+    const cacheKey = 'starHistory';
 
     // Get data from cache
     const allStarHistory: StarHistoryApiData = (await cacheDataManager.get(
@@ -81,9 +70,9 @@ const getAllStarHistory = async () => {
     return allStarHistory;
 };
 
-export const getRepoStarRecords = async (repo: string) => {
+export const getRepoStarRecords = async (toolId: string) => {
     const allStarHistory = await getAllStarHistory();
-    return allStarHistory[repo];
+    return allStarHistory[toolId];
 };
 
 /**
@@ -92,10 +81,6 @@ export const getRepoStarRecords = async (repo: string) => {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchToolStars(
-    repoMeta: RepositoryMeta,
-): Promise<RepoStarsData[]> {
-    return getRepoStarRecords(`${repoMeta.owner}/${repoMeta.repo}`).then(
-        (response) => response,
-    );
+export function getStars(toolId: string): Promise<RepoStarsData[]> {
+    return getRepoStarRecords(toolId);
 }

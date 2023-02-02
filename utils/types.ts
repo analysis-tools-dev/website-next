@@ -130,6 +130,8 @@ export type Stars = {
     count: number;
 };
 
+export type StarHistory = Stars[];
+
 export interface StarHistoryApiData {
-    [key: string]: Stars[];
+    [key: string]: StarHistory;
 }
