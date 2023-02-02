@@ -17,7 +17,6 @@ import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticles } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
-import { getStars } from 'utils-api/stars';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -50,7 +49,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const sponsors = getSponsors();
     const votes = await getVotes();
-    const starHistory = await getStars(slug);
     const apiTool = await getTool(slug);
     const articles = await getArticles();
 
@@ -110,7 +108,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             sponsors,
             articles,
             screenshots: (await getScreenshots(slug)) || null,
-            starHistory,
         },
     };
 };
@@ -143,11 +140,7 @@ const ToolPage: FC<ToolProps> = ({
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolInfoSidebar
-                        tool={tool}
-                        articles={articles}
-                        starHistory={starHistory}
-                    />
+                    <ToolInfoSidebar tool={tool} articles={articles} />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
                         <AlternateToolsList tools={alternatives} />

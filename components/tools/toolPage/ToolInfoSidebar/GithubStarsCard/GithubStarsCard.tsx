@@ -16,7 +16,6 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Tool } from '@components/tools/types';
-import { StarHistory } from 'utils/types';
 
 ChartJS.register(
     CategoryScale,
@@ -30,10 +29,9 @@ ChartJS.register(
 
 export interface GithubStarsCardProps {
     tool: Tool;
-    starHistory: StarHistory;
 }
 
-const GithubStarsCard: FC<GithubStarsCardProps> = ({ tool, starHistory }) => {
+const GithubStarsCard: FC<GithubStarsCardProps> = ({ tool }) => {
     const options = {
         responsive: true,
         tension: 0.5,
@@ -64,7 +62,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ tool, starHistory }) => {
         },
     };
     const data = {
-        labels: starHistory?.map((star) => star.date),
+        labels: tool.stars?.map((star) => star.date),
         datasets: [
             {
                 label: 'Stars',
@@ -81,7 +79,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ tool, starHistory }) => {
                     gradient.addColorStop(1, 'rgba(0, 231, 255, 0)');
                     return gradient;
                 },
-                data: starHistory?.map((star) => star.count),
+                data: tool.stars?.map((star) => star.count),
                 fill: true,
             },
         ],

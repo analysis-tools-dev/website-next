@@ -20,10 +20,9 @@
 // }
 // It can be cached for 7 days
 
-import { RepoStarsData } from '@components/tools';
 import { Octokit } from '@octokit/core';
 import { isAllStarHistoryData } from 'utils/type-guards';
-import { StarHistoryApiData } from 'utils/types';
+import { StarHistory, StarHistoryApiData } from 'utils/types';
 import { getCacheManager } from './cache';
 
 const cacheDataManager = getCacheManager(7 * 24 * 60 * 60);
@@ -72,15 +71,15 @@ const getAllStarHistory = async () => {
 
 export const getRepoStarRecords = async (toolId: string) => {
     const allStarHistory = await getAllStarHistory();
-    return allStarHistory[toolId];
-};
+    if (!allStarHistory) {
+        return null;
+    }
+    const stars = allStarHistory[toolId];
 
-/**
- * Call API and return Promise to resolve `JSON` response
- * @desc Used as needed by `react-query` functions
- *
- * @see https://react-query.tanstack.com/guides/queries
- */
-export function getStars(toolId: string): Promise<RepoStarsData[]> {
-    return getRepoStarRecords(toolId);
-}
+    if (!stars) {
+        console.error(`Could not find ${toolId} star history`);
+        return null;
+    }
+
+    return stars as StarHistory;
+};

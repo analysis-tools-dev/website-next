@@ -9,22 +9,17 @@ import RepositoryCard from './RepositoryCard/RepositoryCard';
 import LicenseCard from './LicenseCard/LicenseCard';
 import ResourcesCard from './ResourcesCard/ResourcesCard';
 import GithubStarsCard from './GithubStarsCard/GithubStarsCard';
-import { Article, StarHistory } from 'utils/types';
+import { Article } from 'utils/types';
 interface ToolInfoSidebarProps {
     tool: Tool;
     articles: Article[];
-    starHistory: StarHistory;
 }
 
-const ToolInfoSidebar: FC<ToolInfoSidebarProps> = ({
-    tool,
-    articles,
-    starHistory,
-}) => {
+const ToolInfoSidebar: FC<ToolInfoSidebarProps> = ({ tool, articles }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <InformationCard tool={tool} />
-            <GithubStarsCard tool={tool} starHistory={starHistory} />
+            <GithubStarsCard tool={tool} />
             {tool.repositoryData && (
                 <RepositoryCard data={tool.repositoryData} />
             )}
