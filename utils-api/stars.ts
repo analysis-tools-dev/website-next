@@ -81,5 +81,6 @@ export const getRepoStarRecords = async (toolId: string) => {
         return null;
     }
 
+    console.log(`Found ${stars.length} star records for ${toolId}!`);
     return stars as StarHistory;
 };
