@@ -10,7 +10,7 @@ import { Tool } from '../types';
  * @see https://react-query.tanstack.com/guides/query-keys
  */
 export const TOOLS_PREFETCH_KEY = 'tools';
-export const ALTERNATE_TOOLS_PREFETCH_KEY = 'alternate-tools';
+export const ALTERNATE_TOOLS_PREFETCH_KEY = 'alternative-tools';
 
 /**
  * Prepare and prefetch data on server-side, to be ready on client page render
@@ -62,7 +62,7 @@ export function useToolsQueryCount(search: SearchState) {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function useAlternateToolsQuery(search: SearchState) {
+export function useAlternativeToolsQuery(search: SearchState) {
     //TODO: Filter out current Tool
     // FIXME: Key should contain some SearchState data to avoid cache issues
     return useQuery(ALTERNATE_TOOLS_PREFETCH_KEY, () =>
