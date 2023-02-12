@@ -3,7 +3,7 @@ import { isScreenshotApiData } from 'utils/type-guards';
 import { Screenshot, ScreenshotApiData } from 'utils/types';
 import { getCacheManager } from './cache';
 
-async function getScreentshotData() {
+async function getScreenshotData() {
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools',
@@ -45,7 +45,7 @@ export const getAllScreenshots =
             console.log(
                 `Cache data for: ${cacheKey} does not exist - calling API`,
             );
-            const screenshots = await getScreentshotData();
+            const screenshots = await getScreenshotData();
             await cacheDataManager.set(cacheKey, screenshots);
         }
         return screenshots;

@@ -12,7 +12,7 @@ import {
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
-import { Article, SponsorData } from 'utils/types';
+import { Article, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticles } from 'utils-api/blog';
@@ -118,6 +118,7 @@ export interface ToolProps {
     sponsors: SponsorData[];
     articles: Article[];
     screenshots: { path: string; url: string }[];
+    starHistory: StarHistory;
 }
 
 const ToolPage: FC<ToolProps> = ({
@@ -126,6 +127,7 @@ const ToolPage: FC<ToolProps> = ({
     sponsors,
     articles,
     screenshots,
+    starHistory,
 }) => {
     const title = `${tool.name} - Analysis Tools`;
     const description =

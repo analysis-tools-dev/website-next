@@ -1,9 +1,10 @@
 import { type Tool } from '@components/tools';
 import { Octokit } from '@octokit/core';
-import { getRepositoryMeta } from 'utils/github';
-import { isToolsApiData } from 'utils/type-guards';
+import { getRepoStarRecords } from './stars';
 import { getCacheManager } from './cache';
 import { getGithubStats } from './github';
+import { getRepositoryMeta } from 'utils/github';
+import { isToolsApiData } from 'utils/type-guards';
 
 const cacheDataManager = getCacheManager();
 
@@ -74,10 +75,12 @@ export const getTool = async (toolId: string) => {
             repoMeta.owner,
             repoMeta.repo,
         );
+        const stars = await getRepoStarRecords(toolId);
 
         tool = {
             ...tool,
             ...(repositoryData ? { repositoryData: repositoryData } : {}),
+            ...(stars ? { stars: stars } : {}),
         };
     }
     return tool as Tool;
