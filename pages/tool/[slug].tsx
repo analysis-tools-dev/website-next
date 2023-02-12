@@ -4,7 +4,7 @@ import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { getTool } from 'utils-api/tools';
 import {
-    AlternateToolsList,
+    AlternativeToolsList,
     Tool,
     ToolInfoCard,
     ToolInfoSidebar,
@@ -62,7 +62,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ...apiTool,
         id: slug,
     };
-
     const alternativeTools = await getTools();
     let alternatives: Tool[] = [];
     if (alternativeTools) {
@@ -143,7 +142,10 @@ const ToolPage: FC<ToolProps> = ({
                     <ToolInfoSidebar tool={tool} articles={articles} />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
-                        <AlternateToolsList tools={alternatives} />
+                        <AlternativeToolsList
+                            currentTool={tool}
+                            tools={alternatives}
+                        />
                     </Panel>
                 </Main>
             </Wrapper>
