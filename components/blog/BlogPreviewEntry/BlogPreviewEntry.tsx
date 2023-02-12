@@ -24,6 +24,7 @@ const BlogPreviewEntry: FC<BlogPreviewEntryProps> = ({
             <PanelHeader
                 level={4}
                 text={meta.title}
+                link={link}
                 headingClass="font-size-15"
                 className="m-b-8"
             />

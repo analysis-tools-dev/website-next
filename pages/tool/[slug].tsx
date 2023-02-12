@@ -4,7 +4,7 @@ import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { getTool } from 'utils-api/tools';
 import {
-    AlternateToolsList,
+    AlternativeToolsList,
     Tool,
     ToolInfoCard,
     ToolInfoSidebar,
@@ -12,7 +12,7 @@ import {
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
-import { Article, SponsorData } from 'utils/types';
+import { Article, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticles } from 'utils-api/blog';
@@ -63,7 +63,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ...apiTool,
         id: slug,
     };
-
     const alternativeTools = await getTools();
     let alternatives: Tool[] = [];
     if (alternativeTools) {
@@ -119,6 +118,7 @@ export interface ToolProps {
     sponsors: SponsorData[];
     articles: Article[];
     screenshots: { path: string; url: string }[];
+    starHistory: StarHistory;
 }
 
 const ToolPage: FC<ToolProps> = ({
@@ -143,7 +143,10 @@ const ToolPage: FC<ToolProps> = ({
                     <Panel>
                         <ToolInfoCard tool={tool} />
                         <ToolGallery tool={tool} screenshots={screenshots} />
-                        <AlternateToolsList tools={alternatives} />
+                        <AlternativeToolsList
+                            currentTool={tool}
+                            tools={alternatives}
+                        />
                     </Panel>
                 </Main>
             </Wrapper>

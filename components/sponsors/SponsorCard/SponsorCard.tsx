@@ -22,7 +22,6 @@ const SponsorCard: FC<SponsorCardProps> = ({ sponsor }) => {
                         alt={sponsor.name}
                         width={sponsor.logo.width}
                         height={sponsor.logo.height}
-                        objectFit="cover"
                     />
                 </a>
             </div>
@@ -41,7 +40,7 @@ const SponsorCard: FC<SponsorCardProps> = ({ sponsor }) => {
 
                 <div className={styles.cardFooter}>
                     <LinkButton
-                        label="Check out their tool"
+                        label="More Info"
                         href={`/tool/${sponsor.tool}`}
                         newTab={false}
                         variant={'small'}

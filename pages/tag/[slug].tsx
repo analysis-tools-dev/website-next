@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
-import { LanguageCard, AlternateToolsList, Tool } from '@components/tools';
+import { LanguageCard, AlternativeToolsList, Tool } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { Article, LanguageData, SponsorData } from 'utils/types';
 import { getArticles } from 'utils-api/blog';
@@ -86,7 +86,7 @@ const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
                     </Sidebar>
                     <Panel>
                         <LanguageCard tag={slug} tagData={tag} />
-                        <AlternateToolsList tools={tools} />
+                        <AlternativeToolsList tools={tools} />
                     </Panel>
                 </Main>
             </Wrapper>

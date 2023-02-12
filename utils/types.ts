@@ -124,3 +124,14 @@ export type RepositoryMeta = {
     owner: string;
     repo: string;
 };
+
+export type Stars = {
+    date: string;
+    count: number;
+};
+
+export type StarHistory = Stars[];
+
+export interface StarHistoryApiData {
+    [key: string]: StarHistory;
+}

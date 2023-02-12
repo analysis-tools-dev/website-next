@@ -6,6 +6,7 @@ import { Heading } from '@components/typography';
 export interface PanelHeaderProps {
     level: 1 | 2 | 3 | 4;
     text: string;
+    link?: string;
     className?: string;
     headingClass?: string;
     children?: React.ReactNode;
@@ -14,6 +15,7 @@ export interface PanelHeaderProps {
 const PanelHeader: FC<PanelHeaderProps> = ({
     level,
     text,
+    link,
     className,
     headingClass,
     children,
@@ -25,7 +27,7 @@ const PanelHeader: FC<PanelHeaderProps> = ({
         <div className={dClass}>
             <div className={styles.title}>
                 <Heading level={level} className={hClass}>
-                    {text}
+                    {link ? <a href={link}>{text}</a> : text}
                 </Heading>
             </div>
             <div className={styles.actionBtns}>{children}</div>

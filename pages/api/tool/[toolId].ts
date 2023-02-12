@@ -3,7 +3,6 @@ import { getGithubStats } from 'utils-api/github';
 import { getTool } from 'utils-api/tools';
 import { getToolVotes } from 'utils-api/votes';
 import { type Tool } from '@components/tools';
-import { getRepoStarRecords } from 'utils/stars';
 import { getRepositoryMeta } from 'utils/github';
 
 export default async function handler(
@@ -33,11 +32,6 @@ export default async function handler(
             repoMeta.owner,
             repoMeta.repo,
         );
-        const stars = await getRepoStarRecords(
-            `${repoMeta.owner}/${repoMeta.repo}`,
-            process.env.GH_TOKEN || '',
-            10,
-        );
         if (repositoryData) {
             res.status(200).json({
                 ...data,
@@ -46,7 +40,6 @@ export default async function handler(
                 upVotes,
                 downVotes,
                 repositoryData,
-                stars,
             });
             return res;
         }

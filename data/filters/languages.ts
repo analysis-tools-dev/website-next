@@ -1,5 +1,17 @@
 export const LANGUAGE_OPTIONS = [
     {
+        tag: 'c',
+        name: 'C',
+    },
+    {
+        tag: 'javascript',
+        name: 'JavaScript',
+    },
+    {
+        tag: 'kotlin',
+        name: 'Kotlin',
+    },
+    {
         tag: 'python',
         name: 'Python',
     },
@@ -8,27 +20,11 @@ export const LANGUAGE_OPTIONS = [
         name: 'Ruby',
     },
     {
-        tag: 'javascript',
-        name: 'JavaScript',
-    },
-    {
         tag: 'rust',
         name: 'Rust',
     },
     {
-        tag: 'c++',
-        name: 'C++',
-    },
-    {
         tag: 'typescript',
         name: 'TypeScript',
-    },
-    {
-        tag: 'kotlin',
-        name: 'Kotlin',
-    },
-    {
-        tag: 'c#',
-        name: 'C#',
     },
 ];
