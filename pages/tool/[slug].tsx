@@ -126,11 +126,16 @@ const ToolPage: FC<ToolProps> = ({
     sponsors,
     articles,
     screenshots,
-    starHistory,
 }) => {
     const title = `${tool.name} - Analysis Tools`;
-    const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
+
+    let description = `${
+        tool.name
+    }, a static analysis tool for ${tool.languages.concat()}`;
+
+    if (alternatives.length > 0) {
+        description += ` with ${alternatives.length} alternatives`;
+    }
 
     return (
         <SearchProvider>
