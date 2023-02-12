@@ -17,7 +17,7 @@ const Contributing = () => {
     return (
         <>
             <MainHead
-                title="Contributings"
+                title="Contributing"
                 description="Thanks to our generous sponsors for supporting the project."
             />
 
