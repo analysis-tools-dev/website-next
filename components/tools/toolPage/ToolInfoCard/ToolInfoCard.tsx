@@ -1,28 +1,22 @@
 import { FC } from 'react';
+import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
-import { type Tool } from '@components/tools';
-import styles from './ToolInfoCard.module.css';
 import { ShareBtns } from '@components/core';
 import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
-import { Video } from '@splidejs/splide-extension-video';
-import '@splidejs/splide-extension-video/dist/css/splide-extension-video.min.css';
-
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
 import { isSponsor } from 'utils/sponsor';
 
-import Image from 'next/image';
-import { Screenshot } from 'utils/types';
+import styles from './ToolInfoCard.module.css';
+
+import { type Tool } from '@components/tools';
 
 export interface ToolInfoCardProps {
     tool: Tool;
-    screenshots: Screenshot[];
 }
 
-const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
+const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
     return (
         <Card className={styles.languageCardWrapper}>
             <div className={styles.votes}>
@@ -46,63 +40,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                     <ReactMarkdown className={styles.description}>
                         {tool.description || ''}
                     </ReactMarkdown>
-                    <a
-                        className="font-light font-size-s"
-                        href={tool.homepage}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        More info
-                    </a>
                 </div>
-                <Splide
-                    extensions={{ Video }}
-                    options={{
-                        type: 'loop',
-                        rewind: true,
-                        rewindByDrag: true,
-                        video: {
-                            mute: true,
-                            playerOptions: {
-                                youtube: {
-                                    width: 200,
-                                },
-                                vimeo: {},
-                                htmlVideo: {
-                                    width: 200,
-                                },
-                            },
-                        },
-                    }}
-                    aria-label={`${tool.name} screenshot gallery`}>
-                    {screenshots &&
-                        screenshots.map((screenshot, index) =>
-                            screenshot.url.includes('youtube.com') ? (
-                                <SplideSlide
-                                    key={`${screenshot.path}-${index}`}
-                                    // add youtube link if youtube video
-                                    data-splide-youtube={screenshot.url}>
-                                    <Image
-                                        className={styles.screenshot}
-                                        width={1280}
-                                        height={720}
-                                        src={screenshot.path}
-                                        alt={`${tool.name} screenshot`}
-                                    />
-                                </SplideSlide>
-                            ) : (
-                                <SplideSlide
-                                    key={`${screenshot.path}-${index}`}>
-                                    <Image
-                                        className={styles.screenshot}
-                                        width={1280}
-                                        height={720}
-                                        src={screenshot.path}
-                                        alt={`${tool.name} screenshot`}
-                                    />
-                                </SplideSlide>
-                            ),
-                        )}
-                </Splide>
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
                 <div className={styles.cardFooter}>
                     <ShareBtns

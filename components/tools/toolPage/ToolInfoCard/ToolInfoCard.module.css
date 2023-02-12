@@ -16,7 +16,8 @@
     flex-grow: 1;
 }
 .description {
-    margin: 10px 0;
+    margin: 30px 0;
+    line-height: 20px;
 }
 
 .languageLink {
@@ -48,12 +49,17 @@
     margin-bottom: 20px;
 }
 
-.screenshot {
-    border-radius: 6px;
-}
-
 .toolHeader {
     display: inline;
     vertical-align: top;
     padding-right: 5px;
+}
+
+@media only screen and (max-width: 900px) {
+    .cardFooter {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 20px;
+    }
 }

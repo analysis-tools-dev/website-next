@@ -18,7 +18,7 @@ const BlogPreview: FC<BlogPreviewProps> = ({ articles }) => {
             </Heading>
             {articles.map((post, index) => (
                 <BlogPreviewEntry
-                    key={index}
+                    key={`article-${index}`}
                     meta={post.meta}
                     summary={post.summary}
                     link={`/blog/${post.slug}`}

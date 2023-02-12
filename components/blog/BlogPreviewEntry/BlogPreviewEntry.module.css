@@ -4,3 +4,10 @@
     overflow: hidden;
     display: -webkit-box;
 }
+
+.postDate {
+    font-size: 0.8rem;
+    color: #999;
+    text-align: right;
+    margin: 5px 0 0 0;
+}

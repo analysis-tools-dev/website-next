@@ -17,6 +17,7 @@ import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticles } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
+import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -140,7 +141,8 @@ const ToolPage: FC<ToolProps> = ({
                 <Main>
                     <ToolInfoSidebar tool={tool} articles={articles} />
                     <Panel>
-                        <ToolInfoCard tool={tool} screenshots={screenshots} />
+                        <ToolInfoCard tool={tool} />
+                        <ToolGallery tool={tool} screenshots={screenshots} />
                         <AlternateToolsList tools={alternatives} />
                     </Panel>
                 </Main>

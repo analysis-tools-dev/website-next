@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useLayoutEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Wrapper } from '@components/layout';
@@ -36,13 +36,19 @@ const Navbar: FC = () => {
             setIsMenuOpen(false);
         }
     }
+    // FIXME: useEffect causing toggle menu to not work
+    // useEffect(() => {
+    //     document.addEventListener('click', handleClickOutside, true);
 
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutside, true);
-        return () => {
-            document.removeEventListener('click', handleClickOutside, true);
-        };
-    }, [isMenuOpen]);
+    //     return () => {
+    //         document.removeEventListener('click', handleClickOutside, true);
+    //     };
+    // }, []);
+
+    const toggleMenu = () => {
+        console.log(isMenuOpen);
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     return (
         <header className={styles.header}>
@@ -62,7 +68,7 @@ const Navbar: FC = () => {
                         className={classNames(styles.hamburger, {
                             [`${styles.showMenu}`]: isMenuOpen,
                         })}
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        onClick={toggleMenu}>
                         <span className={styles.hamburgerBox}>
                             <span className={styles.hamburgerInner}></span>
                             <span className={styles.hamburgerInner}></span>

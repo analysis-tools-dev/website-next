@@ -13,12 +13,12 @@
     background: #345779;
     padding: 4px 8px;
     border-radius: 6px;
-    font-size: 12px;
 }
 
 .tag a {
     color: inherit;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .tag a:hover {
