@@ -1,5 +1,9 @@
+import { RepositoryMeta } from './types';
+
 // If the source is a github repo, return the owner and repo
-export const getRepositoryMeta = (source: string | null) => {
+export const getRepositoryMeta = (
+    source: string | null,
+): RepositoryMeta | null => {
     if (!source) {
         return null;
     }
@@ -11,4 +15,5 @@ export const getRepositoryMeta = (source: string | null) => {
             repo: match[2],
         };
     }
+    return null;
 };

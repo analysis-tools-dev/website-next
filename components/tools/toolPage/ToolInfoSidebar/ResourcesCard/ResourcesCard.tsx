@@ -27,8 +27,8 @@ const ResourcesCard: FC<ResourcesCardProps> = ({ resources }) => {
                             <a
                                 className={styles.link}
                                 href={resource.url}
-                                target={'_blank'}
-                                rel="noreferrer">
+                                target="_blank"
+                                rel="noopener noreferrer">
                                 <span className={styles.icon}>
                                     <Image
                                         height="15x"

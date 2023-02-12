@@ -4,15 +4,15 @@ import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { getTool } from 'utils-api/tools';
 import {
+    AlternativeToolsList,
     Tool,
     ToolInfoCard,
     ToolInfoSidebar,
-    ToolsList,
 } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
-import { Article, SponsorData } from 'utils/types';
+import { Article, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticles } from 'utils-api/blog';
@@ -52,11 +52,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const apiTool = await getTool(slug);
     const articles = await getArticles();
 
+    if (!apiTool) {
+        return {
+            notFound: true,
+        };
+    }
+
     const tool = {
         ...apiTool,
         id: slug,
     };
-
     const alternativeTools = await getTools();
     let alternatives: Tool[] = [];
     if (alternativeTools) {
@@ -112,6 +117,7 @@ export interface ToolProps {
     sponsors: SponsorData[];
     articles: Article[];
     screenshots: { path: string; url: string }[];
+    starHistory: StarHistory;
 }
 
 const ToolPage: FC<ToolProps> = ({
@@ -120,6 +126,7 @@ const ToolPage: FC<ToolProps> = ({
     sponsors,
     articles,
     screenshots,
+    starHistory,
 }) => {
     const title = `${tool.name} - Analysis Tools`;
     const description =
@@ -135,8 +142,10 @@ const ToolPage: FC<ToolProps> = ({
                     <ToolInfoSidebar tool={tool} articles={articles} />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
-
-                        <ToolsList tools={alternatives} />
+                        <AlternativeToolsList
+                            currentTool={tool}
+                            tools={alternatives}
+                        />
                     </Panel>
                 </Main>
             </Wrapper>

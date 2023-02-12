@@ -38,7 +38,7 @@ const Intro: FC = () => {
                     <a
                         className={styles.introImageRef}
                         target={'_blank'}
-                        rel="noreferrer">
+                        rel="noopener noreferrer">
                         Image by upklyak on Freepik
                     </a>
                 </Link>

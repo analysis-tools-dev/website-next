@@ -2,60 +2,48 @@ import { FC } from 'react';
 import type { GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
-import {
-    Intro,
-    MostViewedTools,
-    PopularToolsByLanguage,
-} from '@components/homepage';
+import { PopularToolsByLanguage } from '@components/homepage';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
-
-import homepageData from '@appdata/homepage.json';
 import { Article, SponsorData } from 'utils/types';
-import { Tool, ToolsByLanguage } from '@components/tools';
+import { ToolsByLanguage } from '@components/tools';
 import { getArticles } from 'utils-api/blog';
 import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
-import { getMostViewedTools } from 'utils-api/mostViewedTools';
 import { getSponsors } from 'utils-api/sponsors';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const articles = await getArticles();
     const popularLanguages = await getPopularLanguageStats();
-    const mostViewed = await getMostViewedTools();
 
     return {
         props: {
             sponsors,
             articles,
             popularLanguages,
-            mostViewed,
         },
     };
 };
-export interface HomePageProps {
+export interface LanguagesPageProps {
     sponsors: SponsorData[];
     articles: Article[];
     popularLanguages: ToolsByLanguage;
-    mostViewed: Tool[];
 }
 
-const HomePage: FC<HomePageProps> = ({
+const LagnuagesPage: FC<LanguagesPageProps> = ({
     sponsors,
     articles,
     popularLanguages,
-    mostViewed,
 }) => {
+    const title = 'Popular Static Analysis Tools by Language - Analysis Tools';
+    const description =
+        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
+
     return (
         <>
-            <MainHead
-                title={homepageData.meta.title}
-                description={homepageData.meta.description}
-            />
-
+            <MainHead title={title} description={description} />
             <Navbar />
 
-            <Intro />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
                     <Sidebar className="topSticky">
@@ -65,8 +53,8 @@ const HomePage: FC<HomePageProps> = ({
                     <Panel>
                         <PopularToolsByLanguage
                             toolsByLanguage={popularLanguages}
+                            limit={999}
                         />
-                        <MostViewedTools tools={mostViewed} />
                     </Panel>
                 </Main>
             </Wrapper>
@@ -77,4 +65,4 @@ const HomePage: FC<HomePageProps> = ({
     );
 };
 
-export default HomePage;
+export default LagnuagesPage;

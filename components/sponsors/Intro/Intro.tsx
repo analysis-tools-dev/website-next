@@ -4,7 +4,6 @@ import styles from './Intro.module.css';
 import { Heading, Text } from '@components/typography';
 import { LinkButton } from '@components/elements';
 import { Wrapper } from '@components/layout';
-import Link from 'next/link';
 
 const Intro: FC = () => {
     return (
@@ -34,14 +33,13 @@ const Intro: FC = () => {
                     width="800"
                     height="600"
                 />
-                <Link href="https://www.freepik.com/free-vector/holiday-gift-wrapping-packing-service-isometric-web-banner-landing-page_4758639.htm">
-                    <a
-                        className={styles.introImageRef}
-                        target={'_blank'}
-                        rel="noreferrer">
-                        Sponsor image by vectorpuch on Freepik
-                    </a>
-                </Link>
+                <a
+                    className={styles.introImageRef}
+                    href="https://www.freepik.com/free-vector/holiday-gift-wrapping-packing-service-isometric-web-banner-landing-page_4758639.htm"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Sponsor image by vectorpuch on Freepik
+                </a>
             </div>
         </Wrapper>
     );
