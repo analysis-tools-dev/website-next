@@ -6,6 +6,7 @@ import { FilterCard, LanguageFilterCard } from './FilterCard';
 import styles from './ToolsSidebar.module.css';
 
 import {
+    LANGUAGE_OPTIONS,
     CATEGORY_OPTIONS,
     TYPE_OPTIONS,
     LICENSE_OPTIONS,
@@ -32,7 +33,13 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <LanguageFilterCard
-                heading="Languages"
+                heading="Popular Languages"
+                showAllCheckbox={false}
+                filter="languages"
+                options={LANGUAGE_OPTIONS}
+            />
+            <LanguageFilterCard
+                heading="All Languages"
                 filter="languages"
                 options={languageResult.data}
             />
