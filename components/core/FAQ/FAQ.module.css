@@ -1,14 +1,3 @@
-/* FAQ styles */
-
-/* Use the full width of the page for the FAQ */
-
-/* Each FAQ item should have ample space to breathe */
-/* and a thin, rounded border to separate it from the next item */
-/* FAQ item background color should alternate slightly to make it easier to read */
-/* FAQ item title should be bold and larger than the body text */
-/* The cursor should change to a pointer when hovering over the title */
-/* FAQ item title should have a hover state that changes the background color */
-
 .faq {
     width: 100%;
 }
