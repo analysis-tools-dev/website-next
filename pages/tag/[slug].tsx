@@ -69,7 +69,7 @@ export interface TagProps {
 }
 
 const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
-    const title = `${tag.name} Static Analysis Tools - Analysis Tools`;
+    const title = `${tag.name} Static Analysis Tools | Analysis Tools`;
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 

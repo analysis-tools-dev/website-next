@@ -127,7 +127,7 @@ const ToolPage: FC<ToolProps> = ({
     articles,
     screenshots,
 }) => {
-    const title = `${tool.name} - Analysis Tools`;
+    const title = `${tool.name} | Analysis Tools`;
 
     let description = `${
         tool.name

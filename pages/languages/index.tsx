@@ -30,14 +30,14 @@ export interface LanguagesPageProps {
     popularLanguages: ToolsByLanguage;
 }
 
-const LagnuagesPage: FC<LanguagesPageProps> = ({
+const LanguagesPage: FC<LanguagesPageProps> = ({
     sponsors,
     articles,
     popularLanguages,
 }) => {
-    const title = 'Popular Static Analysis Tools by Language - Analysis Tools';
-    const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
+    const title = 'Popular Static Analysis Tools by Language | Analysis Tools';
+
+    const description = `Find the most popular static analysis tools for your favorite programming language.`;
 
     return (
         <>
@@ -65,4 +65,4 @@ const LagnuagesPage: FC<LanguagesPageProps> = ({
     );
 };
 
-export default LagnuagesPage;
+export default LanguagesPage;
