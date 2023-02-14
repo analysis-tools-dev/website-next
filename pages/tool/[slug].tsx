@@ -64,8 +64,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
     const alternativeTools = await getTools();
     let alternatives: Tool[] = [];
+    let allAlternatives: Tool[] = [];
     if (alternativeTools) {
-        alternatives = Object.entries(alternativeTools).reduce(
+        allAlternatives = Object.entries(alternativeTools).reduce(
             (acc, [id, tool]) => {
                 // if key is not equal to slug
                 if (id !== slug) {
@@ -90,13 +91,40 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
         // if in currentTool view, show only tools with the same type
         if (tool) {
-            alternatives = alternatives.filter((alt) => {
+            alternatives = allAlternatives.filter((alt) => {
                 return (
                     containsArray(alt.types, tool.types || []) &&
                     containsArray(alt.languages, tool.languages || []) &&
                     containsArray(alt.categories, tool.categories || [])
                 );
             });
+
+            // if the list is empty, show the tools with the same type and the most
+            // matched languages
+            if (alternatives.length === 0) {
+                alternatives = allAlternatives;
+
+                // sort the list by the number of matched languages
+                alternatives.sort((a, b) => {
+                    return (
+                        b.languages?.filter((lang) =>
+                            tool.languages?.includes(lang),
+                        ).length -
+                        a.languages?.filter((lang) =>
+                            tool.languages?.includes(lang),
+                        ).length
+                    );
+                });
+
+                // take the tools with at least 5 matched languages
+                alternatives = alternatives.filter((alt) => {
+                    return (
+                        alt.languages?.filter((lang) =>
+                            tool.languages?.includes(lang),
+                        ).length >= 5
+                    );
+                });
+            }
         }
     }
 
