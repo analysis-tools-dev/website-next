@@ -164,6 +164,7 @@ const ToolPage: FC<ToolProps> = ({
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
                         <AlternativeToolsList
+                            listTitle={`Alternatives for ${tool.name}`}
                             currentTool={tool}
                             tools={alternatives}
                         />

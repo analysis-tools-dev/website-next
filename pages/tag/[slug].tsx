@@ -92,7 +92,10 @@ const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
                     </Sidebar>
                     <Panel>
                         <LanguageCard tag={slug} tagData={tag} />
-                        <AlternativeToolsList tools={tools} />
+                        <AlternativeToolsList
+                            listTitle={`${tag.name} Tools`}
+                            tools={tools}
+                        />
                     </Panel>
                 </Main>
             </Wrapper>
