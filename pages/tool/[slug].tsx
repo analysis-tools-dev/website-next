@@ -127,15 +127,31 @@ const ToolPage: FC<ToolProps> = ({
     articles,
     screenshots,
 }) => {
-    const title = `${tool.name} | Analysis Tools`;
-
-    let description = `${
-        tool.name
-    }, a static analysis tool for ${tool.languages.concat()}`;
-
-    if (alternatives.length > 0) {
-        description += ` with ${alternatives.length} alternatives`;
+    const languages = tool.languages || [];
+    const capitalizedLanguages = languages.map((lang) => {
+        return lang
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    });
+    // If the list of languages is longer than 3, just show the first 3
+    if (capitalizedLanguages.length > 3) {
+        capitalizedLanguages.splice(3, capitalizedLanguages.length - 3);
     }
+
+    let description = `${tool.name}, a ${tool.categories.join(
+        '/',
+    )} for ${capitalizedLanguages.join('/')} - `;
+
+    if (alternatives.length === 0) {
+        description += ` Rating And Alternatives`;
+    } else if (alternatives.length === 2) {
+        description += ` And Two Alternatives`;
+    } else {
+        description += ` Rating And ${alternatives.length} Alternatives`;
+    }
+
+    const title = `${description} | Analysis Tools`;
 
     return (
         <SearchProvider>
