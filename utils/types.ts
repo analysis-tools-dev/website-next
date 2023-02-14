@@ -135,3 +135,8 @@ export type StarHistory = Stars[];
 export interface StarHistoryApiData {
     [key: string]: StarHistory;
 }
+
+export interface Faq {
+    question: string;
+    answer: string;
+}
