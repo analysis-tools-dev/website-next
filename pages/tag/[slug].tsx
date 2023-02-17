@@ -69,7 +69,13 @@ export interface TagProps {
 }
 
 const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
-    const title = `${tag.name} Static Analysis Tools - Analysis Tools`;
+    let title = `${tag.name} Static Analysis Tools And Code Formatters | Analysis Tools`;
+
+    if (tools.length > 2) {
+        // Prefix the title with the number of tools
+        title = `${tools.length} ${title}`;
+    }
+
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 
@@ -86,7 +92,10 @@ const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
                     </Sidebar>
                     <Panel>
                         <LanguageCard tag={slug} tagData={tag} />
-                        <AlternativeToolsList tools={tools} />
+                        <AlternativeToolsList
+                            listTitle={`${tag.name} Tools`}
+                            tools={tools}
+                        />
                     </Panel>
                 </Main>
             </Wrapper>

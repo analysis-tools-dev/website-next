@@ -65,9 +65,9 @@ const BlogPostPage: FC<BlogPostPageProps> = ({
     frontMatter,
     html,
 }) => {
-    const title = 'Analysis Tools';
+    const title = `${frontMatter.title} | Analysis Tools`;
     const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
+        'Our blog is a place where we share our thoughts on the latest trends in the static analysis tools industry.';
 
     return (
         <>

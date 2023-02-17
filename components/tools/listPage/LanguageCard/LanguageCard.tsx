@@ -1,30 +1,37 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Card } from '@components/layout';
 import { Heading, Text } from '@components/typography';
 
 import styles from './LanguageCard.module.css';
 import { ShareBtns } from '@components/core';
 import { LanguageData } from 'utils/types';
+import { ImageWithFallback } from '@components/elements/ImageWithFallback';
 
 export interface LanguageCardProps {
     tag: string;
     tagData: LanguageData;
 }
 const LanguageCard: FC<LanguageCardProps> = ({ tag, tagData }) => {
+    const tagName = tagData.name;
+    // use the tag name if it's available, otherwise use the tag itself (capitalized)
+    const languageName = tagName
+        ? tagName
+        : tag.charAt(0).toUpperCase() + tag.slice(1);
+
     return (
         <Card className={styles.languageCardWrapper}>
             <Link href={`/tag/${tag}`}>
                 <a className={styles.languageLink}>
-                    <Image
+                    <ImageWithFallback
                         height="50px"
                         width="50px"
-                        src={'/assets/icons/languages/multi-language.svg'}
+                        src={`/assets/icons/languages/${tag}.svg`}
+                        fallbackSrc="/assets/icons/languages/multi-language.svg"
                         alt={tagData.name}
                     />
                     <Heading level={2} className={styles.languageName}>
-                        {tagData.name} Static Analysis Tools
+                        {languageName} Static Analysis Tools
                     </Heading>
                 </a>
             </Link>

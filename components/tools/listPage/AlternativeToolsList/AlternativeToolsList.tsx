@@ -17,6 +17,7 @@ const pickSort = (sort: string) => {
 };
 
 interface AlternativeToolsListProps {
+    listTitle: string;
     currentTool?: Tool;
     tools: Tool[];
 }
@@ -98,6 +99,7 @@ const sameLanguages = (tool: Tool, alternative: Tool) => {
 };
 
 export const AlternativeToolsList: FC<AlternativeToolsListProps> = ({
+    listTitle,
     currentTool,
     tools,
 }) => {
@@ -122,8 +124,8 @@ export const AlternativeToolsList: FC<AlternativeToolsListProps> = ({
     );
 
     const alternativeToolsHeading = singleTagTools.length
-        ? `${singleTagTools.length} Alternative Tools`
-        : 'Alternative Tools';
+        ? `${singleTagTools.length} ${listTitle}`
+        : listTitle;
 
     const changeSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSorting(e.target.value);
