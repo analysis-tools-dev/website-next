@@ -73,7 +73,7 @@ export const SearchProvider: FC<SearchProviderProps> = ({ children }) => {
 
     return (
         <>
-            <MainHead title={title} description={description} />;
+            <MainHead title={title} description={description} />
             <SearchContext.Provider
                 value={{
                     search,
