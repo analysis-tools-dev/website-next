@@ -8,9 +8,6 @@ export interface FaqProps {
 }
 
 const FAQ: FC<FaqProps> = ({ faq }) => {
-    // Show a couple of questions and answers
-    // Each question should be a detail element with a summary element as the question
-
     return (
         <section className={styles.faq}>
             <Wrapper className={styles.wrapper}>
