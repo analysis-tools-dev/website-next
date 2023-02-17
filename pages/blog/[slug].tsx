@@ -59,7 +59,7 @@ export interface BlogPostPageProps extends MarkdownRenderingResult {
 }
 
 // TODO: Add BreadCrumbs
-// TOOD: Add next/prev article links
+// TODO: Add next/prev article links
 const BlogPostPage: FC<BlogPostPageProps> = ({
     sponsors,
     frontMatter,
