@@ -5,10 +5,9 @@ import MetaTags from '../MetaTags/MetaTags';
 export interface MainHeadProps {
     title: string;
     description: string;
-    image?: string;
 }
 
-const MainHead: FC<MainHeadProps> = ({ title, description, image }) => {
+const MainHead: FC<MainHeadProps> = ({ title, description }) => {
     return (
         <Head>
             <meta charSet="utf-8" />
@@ -18,7 +17,7 @@ const MainHead: FC<MainHeadProps> = ({ title, description, image }) => {
             <title>{title}</title>
             <meta name="title" content={title} />
             <meta name="description" content={description} />
-            <MetaTags title={title} description={description} image={image} />
+            <MetaTags title={title} description={description} />
         </Head>
     );
 };

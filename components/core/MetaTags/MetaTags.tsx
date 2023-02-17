@@ -4,10 +4,9 @@ import { FC } from 'react';
 export interface MetaTagsProps {
     title: string;
     description: string;
-    image?: string;
 }
 
-const MetaTags: FC<MetaTagsProps> = ({ title, description, image }) => {
+const MetaTags: FC<MetaTagsProps> = ({ title, description }) => {
     const canonicalURL = '/';
 
     return (
@@ -21,10 +20,7 @@ const MetaTags: FC<MetaTagsProps> = ({ title, description, image }) => {
             <meta property="og:url" content={canonicalURL} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta
-                property="og:image"
-                content={image ? image : 'https://astro.build/social.jpg?v=1'}
-            />
+            <meta property="og:image" content={'/assets/images/social.png'} />
 
             {/* Twitter */}
             <meta property="twitter:card" content="summary_large_image" />
@@ -33,7 +29,7 @@ const MetaTags: FC<MetaTagsProps> = ({ title, description, image }) => {
             <meta property="twitter:description" content={description} />
             <meta
                 property="twitter:image"
-                content={image ? image : 'https://astro.build/social.jpg?v=1'}
+                content={'/assets/images/social.png'}
             />
         </Head>
     );
