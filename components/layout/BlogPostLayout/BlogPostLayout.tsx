@@ -6,7 +6,7 @@ import { Heading } from '@components/typography';
 
 export interface BlogPostLayoutProps {
     meta: FrontMatter;
-    html: any;
+    html: string;
 }
 
 const BlogPostLayout: FC<BlogPostLayoutProps> = ({ meta, html }) => {
