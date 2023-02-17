@@ -53,8 +53,9 @@ He built the initial design for the new site and wrote most of the new frontend 
 
 -   Many search filters to find the right tool for you (e.g. language, license, etc.).
 -   Tool rankings based on votes and page visits within the last 7 days.
--   A new [pipeline for assets](https://github.com/analysis-tools-dev/assets/actions) (screenshots, videos, etc.)
-    that works completely asynchronously.
+-   A new [pipeline for
+    assets](https://github.com/analysis-tools-dev/assets/actions) (screenshots,
+    videos, etc.) that works completely asynchronously.
 -   A little Github Star History next to every tool.
 -   Special icons for sponsors.
 
