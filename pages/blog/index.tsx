@@ -26,7 +26,7 @@ export interface BlogPageProps {
 }
 
 const BlogPage: FC<BlogPageProps> = ({ sponsors, articles }) => {
-    const title = 'Analysis Tools';
+    const title = 'Blog | Analysis Tools';
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 
