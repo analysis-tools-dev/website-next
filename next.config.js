@@ -1,5 +1,19 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
+    async redirects() {
+        return [
+            {
+                source: '/compare',
+                destination: '/tools',
+                permanent: true,
+            },
+            {
+                source: '/sponsor',
+                destination: '/sponsors',
+                permanent: true,
+            },
+        ];
+    },
     reactStrictMode: true,
     publicRuntimeConfig: {
         // Will be available on both server and client
@@ -9,5 +23,3 @@ const nextConfig = {
         domains: ['raw.githubusercontent.com'],
     },
 };
-
-module.exports = nextConfig;
