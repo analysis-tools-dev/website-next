@@ -48,3 +48,22 @@
     height: auto;
     border-radius: 6px;
 }
+
+.prev {
+    margin-top: 20px;
+    padding: 20px;
+    background: #26415b;
+    border-radius: 6px;
+    /* wide SVG arrow, aligned to the right */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-arrow-right'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1.5em;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #486a8b;
+}
+
+.prev a {
+    font-size: 18px;
+}
