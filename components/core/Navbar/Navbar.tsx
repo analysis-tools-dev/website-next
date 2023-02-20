@@ -23,6 +23,10 @@ const Navbar: FC = () => {
             label: 'Contributing',
             href: '/contributing',
         },
+        {
+            label: 'FAQ',
+            href: '/faq',
+        },
     ];
 
     return (
