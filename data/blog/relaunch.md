@@ -57,7 +57,7 @@ long time, but were blocked by the limitations of the old codebase.
 
 -   Many search filters to find the right tool by language, license, etc.
 -   Tool rankings based on votes and page visits within the last 7 days.
--   The addition of [dynamic analysis tools](https://github.com/analysis-tools-dev/dynamic-analysis)
+-   The addition of [dynamic analysis tools](https://github.com/analysis-tools-dev/dynamic-analysis).
 -   A new [pipeline for
     assets](https://github.com/analysis-tools-dev/assets/actions) (screenshots,
     videos, etc.) that works completely asynchronously.
