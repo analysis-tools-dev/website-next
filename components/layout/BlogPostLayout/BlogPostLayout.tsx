@@ -1,29 +1,41 @@
 import { FC } from 'react';
 import styles from './BlogPostLayout.module.css';
-import { type FrontMatter } from 'utils/types';
+import { BlogPostLink, type FrontMatter } from 'utils/types';
 import { Card } from '../Card';
 import { Heading } from '@components/typography';
 
 export interface BlogPostLayoutProps {
-    meta: FrontMatter;
-    html: any;
+    frontMatter: FrontMatter;
+    html: string;
+    prev?: BlogPostLink;
 }
 
-const BlogPostLayout: FC<BlogPostLayoutProps> = ({ meta, html }) => {
+const BlogPostLayout: FC<BlogPostLayoutProps> = ({
+    frontMatter: meta,
+    html,
+    prev,
+}) => {
     const articleDate = new Date(meta.date);
     return (
-        <Card>
-            <div className={styles.wrapper}>
-                <Heading level={1}>{meta.title}</Heading>
-
-                <span className={styles.date}>
-                    {articleDate.toLocaleDateString()}
-                </span>
-                <div
-                    className={styles.content}
-                    dangerouslySetInnerHTML={{ __html: html }}></div>
-            </div>
-        </Card>
+        <>
+            <Card>
+                <div className={styles.wrapper}>
+                    <Heading level={1}>{meta.title}</Heading>
+                    <span className={styles.date}>
+                        {articleDate.toLocaleDateString()}
+                    </span>
+                    <div
+                        className={styles.content}
+                        dangerouslySetInnerHTML={{ __html: html }}></div>
+                </div>
+            </Card>
+            {prev && (
+                <div className={styles.prev}>
+                    <Heading level={3}>Previous Article:</Heading>
+                    <a href={prev.slug}>{prev.title}</a>
+                </div>
+            )}
+        </>
     );
 };
 
