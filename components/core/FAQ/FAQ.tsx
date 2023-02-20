@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styles from './FAQ.module.css';
 import { Wrapper } from '@components/layout';
 import { Faq } from 'utils/types';
+import Link from 'next/link';
 
 export interface FaqProps {
     faq: Faq[];
@@ -32,12 +33,12 @@ const FAQ: FC<FaqProps> = ({ faq }) => {
                 {/* Show link to full FAQ only if there are more than 3 questions */}
                 {faq.length > 3 ? (
                     <div className={styles.more}>
-                        <a
+                        <Link
                             href="/faq"
                             className={styles.moreLink}
                             aria-label="See all questions">
                             See all questions
-                        </a>
+                        </Link>
                     </div>
                 ) : null}
             </Wrapper>
