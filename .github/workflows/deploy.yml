@@ -1,74 +1,74 @@
 name: deploy
 on:
-  repository_dispatch:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-  pull_request:
+    repository_dispatch:
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+    pull_request:
 
 env:
-  IMAGE_NAME: us-central1-docker.pkg.dev/analysis-tools-dev/analysis-tools/website:${{ github.sha }}
+    IMAGE_NAME: us-central1-docker.pkg.dev/analysis-tools-dev/analysis-tools/website:${{ github.sha }}
 
 permissions:
-  contents: "read"
-  id-token: "write"
+    contents: 'read'
+    id-token: 'write'
 
 # Restart the current execution to favor a new one.
 concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
+    group: ${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
 
-      - id: "auth"
-        name: "Authenticate to Google Cloud"
-        uses: "google-github-actions/auth@v1"
-        with:
-          workload_identity_provider: "projects/84699750544/locations/global/workloadIdentityPools/github/providers/github"
-          service_account: "github-actions@analysis-tools-dev.iam.gserviceaccount.com"
+            - id: 'auth'
+              name: 'Authenticate to Google Cloud'
+              uses: 'google-github-actions/auth@v1'
+              with:
+                  workload_identity_provider: 'projects/84699750544/locations/global/workloadIdentityPools/github/providers/github'
+                  service_account: 'github-actions@analysis-tools-dev.iam.gserviceaccount.com'
 
-      - name: "Set up Cloud SDK"
-        uses: "google-github-actions/setup-gcloud@v0"
+            - name: 'Set up Cloud SDK'
+              uses: 'google-github-actions/setup-gcloud@v0'
 
-      - name: Configure docker
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+            - name: Configure docker
+              run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-      - name: Generate GitHub token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.GH_APP_ID }}
-          private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+            - name: Generate GitHub token
+              id: generate_token
+              uses: tibdex/github-app-token@v1
+              with:
+                  app_id: ${{ secrets.GH_APP_ID }}
+                  private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
-      - name: "Build docker image"
-        env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          echo "${{ secrets.FIREBASE_TOKEN }}" >> ./credentials.json
-          docker build --build-arg GH_TOKEN=${{ env.GH_TOKEN }} \
-            --build-arg PROJECT_ID=analysis-tools-dev \
-            -t ${IMAGE_NAME} .
-          rm ./credentials.json
+            - name: 'Build docker image'
+              env:
+                  GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+              run: |
+                  echo ${{ secrets.FIREBASE_TOKEN }} | base64 -d > ./credentials.json
+                  docker build --build-arg GH_TOKEN=${{ env.GH_TOKEN }} \
+                    --build-arg PROJECT_ID=analysis-tools-dev \
+                    -t ${IMAGE_NAME} .
+                  rm ./credentials.json
 
-      - name: "Push docker image"
-        run: |
-          docker push ${IMAGE_NAME}
+            - name: 'Push docker image'
+              run: |
+                  docker push ${IMAGE_NAME}
 
-      - name: deploy
-        uses: pulumi/actions@v3
-        id: pulumi
-        env:
-          # TODO: Create a password for pulum stack during project bootstrap
-          PULUMI_CONFIG_PASSPHRASE: "${{ secrets.PULUMI_SECRET }}"
-        with:
-          command: up
-          work-dir: ./pulumi
-          cloud-url: gs://analysis-tools-dev-pulumi
-          # TODO: Fix the branch name
-          stack-name: stage
-          refresh: true
+            - name: deploy
+              uses: pulumi/actions@v3
+              id: pulumi
+              env:
+                  # TODO: Create a password for pulum stack during project bootstrap
+                  PULUMI_CONFIG_PASSPHRASE: '${{ secrets.PULUMI_SECRET }}'
+              with:
+                  command: up
+                  work-dir: ./pulumi
+                  cloud-url: gs://analysis-tools-dev-pulumi
+                  # TODO: Fix the branch name
+                  stack-name: stage
+                  refresh: true
