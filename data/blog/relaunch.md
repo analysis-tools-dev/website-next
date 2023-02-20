@@ -55,17 +55,18 @@ He built the initial design for the new site and wrote most of the new frontend 
 The rewrite enabled a lot of new features, which we wanted to introduce for a
 long time, but were blocked by the limitations of the old codebase.
 
--   Many search filters to find the right tool for you (e.g. language, license, etc.).
+-   Many search filters to find the right tool by language, license, etc.
 -   Tool rankings based on votes and page visits within the last 7 days.
+-   The addition of [dynamic analysis tools](https://github.com/analysis-tools-dev/dynamic-analysis)
 -   A new [pipeline for
     assets](https://github.com/analysis-tools-dev/assets/actions) (screenshots,
     videos, etc.) that works completely asynchronously.
--   A little Github Star History next to every tool.
+-   A little Github star history panel next to every tool.
 -   Special icons for our sponsors.
 
 # Thanks
 
-We would like to thank our sponsors for making this possible:
+Speaking of which, we would like to thank our sponsors for making this possible:
 
 -   [DeepCode](https://www.deepcode.ai/)
 -   [CodeScene](https://codescene.io/)
