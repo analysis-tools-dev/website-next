@@ -56,9 +56,15 @@ export interface MarkdownDocument {
     content: string;
 }
 
+export interface BlogPostLink {
+    title: string;
+    slug: string;
+}
+
 export interface MarkdownRenderingResult {
     frontMatter: FrontMatter;
     html: string;
+    prev?: BlogPostLink;
 }
 
 export interface ArticleMeta {

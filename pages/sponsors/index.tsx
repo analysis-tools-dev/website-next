@@ -28,7 +28,7 @@ const Sponsor: FC<SponsorPageProps> = ({ sponsors, articles }) => {
     return (
         <>
             <MainHead
-                title="Sponsors"
+                title="Sponsors | Analysis Tools"
                 description="Thanks to our generous sponsors for supporting the project."
             />
 

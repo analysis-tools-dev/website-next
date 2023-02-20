@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { SearchProvider } from 'context/SearchProvider';
 
-import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
+import { Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Wrapper } from '@components/layout';
 import { prefetchLanguages } from '@components/tools/queries/languages';
 import { fetchArticles } from '@components/blog/queries/articles';
@@ -38,15 +38,8 @@ export interface ToolsProps {
 }
 
 const ToolsPage: FC<ToolsProps> = ({ sponsors, articles }) => {
-    // TODO: Update title and description to include language or filters
-    const title = 'Analysis Tools';
-    const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
-
     return (
         <SearchProvider>
-            <MainHead title={title} description={description} />
-
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>

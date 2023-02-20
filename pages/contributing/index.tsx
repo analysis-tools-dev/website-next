@@ -17,7 +17,7 @@ const Contributing = () => {
     return (
         <>
             <MainHead
-                title="Contributing"
+                title="Contributing | Analysis Tools"
                 description="Learn how to contribute to the Analysis Tools project by sending a pull request on Github."
             />
 

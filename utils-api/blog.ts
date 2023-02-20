@@ -69,7 +69,6 @@ export const getArticleFromFilename = (filename: string): Article => {
 export const getParsedFileContentBySlug = (slug: string): MarkdownDocument => {
     const postFilePath = join(POSTS_PATH, `${slug}.md`);
     const fileContents = readFileSync(postFilePath);
-
     const { data, content } = matter(fileContents);
 
     return {

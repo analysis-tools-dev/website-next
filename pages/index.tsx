@@ -51,10 +51,12 @@ const HomePage: FC<HomePageProps> = ({
     popularLanguages,
     mostViewed,
 }) => {
+    const title =
+        'Static Analysis Tools And Linters To Avoid Bugs And Improve Code Quality';
     return (
         <>
             <MainHead
-                title={homepageData.meta.title}
+                title={title}
                 description={homepageData.meta.description}
             />
 
