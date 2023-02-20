@@ -21,6 +21,5 @@ module.exports = {
     },
     images: {
         domains: ['raw.githubusercontent.com'],
-        unoptimized: true,
     },
 };
