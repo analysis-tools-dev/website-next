@@ -42,3 +42,10 @@
     vertical-align: top;
     padding-right: 5px;
 }
+
+.languageLink {
+    padding: 0 0 0 5px;
+    vertical-align: top;
+    font-size: 13px !important;
+    color: #ffffff;
+}

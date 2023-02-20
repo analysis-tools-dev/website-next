@@ -37,19 +37,27 @@ export const getStaticPaths: GetStaticPaths<ArticleProps> = () => {
 export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = ({
     params,
 }) => {
-    const articleMarkdownContent = getParsedFileContentBySlug(
+    const { frontMatter, content } = getParsedFileContentBySlug(
         params?.slug?.toString() || '',
     );
+    const renderedHTML = markdownToHtml(content);
 
-    const renderedHTML = markdownToHtml(articleMarkdownContent.content);
+    // Get date from frontmatter
+    const articleDate = new Date(frontMatter.date);
+
+    const prev = getPreviousArticle(
+        params?.slug?.toString() || '',
+        articleDate,
+    );
 
     const sponsors = getSponsors();
 
     return {
         props: {
             sponsors,
-            frontMatter: articleMarkdownContent.frontMatter,
+            frontMatter: frontMatter,
             html: renderedHTML,
+            prev: prev || null,
         },
     };
 };
@@ -59,15 +67,15 @@ export interface BlogPostPageProps extends MarkdownRenderingResult {
 }
 
 // TODO: Add BreadCrumbs
-// TOOD: Add next/prev article links
 const BlogPostPage: FC<BlogPostPageProps> = ({
     sponsors,
     frontMatter,
     html,
+    prev,
 }) => {
-    const title = 'Analysis Tools';
+    const title = `${frontMatter.title} | Analysis Tools`;
     const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
+        'Our blog is a place where we share our thoughts on the latest trends in the static analysis tools industry.';
 
     return (
         <>
@@ -78,7 +86,11 @@ const BlogPostPage: FC<BlogPostPageProps> = ({
                 <Main>
                     <BlogSidebar sponsors={sponsors} />
                     <Panel>
-                        <BlogPostLayout meta={frontMatter} html={html} />
+                        <BlogPostLayout
+                            frontMatter={frontMatter}
+                            html={html}
+                            prev={prev}
+                        />
                     </Panel>
                 </Main>
             </Wrapper>
@@ -88,5 +100,34 @@ const BlogPostPage: FC<BlogPostPageProps> = ({
         </>
     );
 };
+
+// Get the slug for the previous article (by date from frontmatter) in the same
+// directory (if it exists)
+function getPreviousArticle(slug: string, articleDate: Date) {
+    return readdirSync(POSTS_PATH)
+        .filter((file) => file.indexOf('.md') > -1)
+        .map((path) => path.replace(/\.md?$/, ''))
+        .map((slug) => {
+            const { frontMatter } = getParsedFileContentBySlug(slug);
+
+            // Convert frontmatter date in format "2020-07-16T22:12:03.284Z"
+            // to a date object
+            const date = new Date(frontMatter.date);
+
+            return {
+                slug,
+                title: frontMatter.title,
+                date,
+            };
+        })
+        .filter((post) => post.date < articleDate)
+        .sort((a, b) => b.date.getTime() - a.date.getTime())
+        .map((post) => {
+            return {
+                slug: post.slug,
+                title: post.title,
+            };
+        })[0];
+}
 
 export default BlogPostPage;

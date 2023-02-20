@@ -111,6 +111,38 @@ export const filterResults = (
     return result;
 };
 
+export const filterByTags = (
+    tools: ToolsApiData | null,
+    tags: string | string[],
+): Tool[] => {
+    if (!tools) {
+        return [];
+    }
+
+    const keys = Object.keys(tools);
+    const result = [];
+
+    for (const key of keys) {
+        const tool = tools[key];
+
+        if (Array.isArray(tags)) {
+            const toolLanguagesMatch = containsArray(tool.languages, tags);
+            const toolOthersMatch = containsArray(tool.other, tags);
+            if (toolLanguagesMatch || toolOthersMatch) {
+                result.push({ id: key, ...tool });
+                continue;
+            }
+        } else {
+            if (tool.languages.includes(tags) || tool.other.includes(tags)) {
+                result.push({ id: key, ...tool });
+                continue;
+            }
+        }
+    }
+
+    return result;
+};
+
 export const isToolLanguageSpecific = (
     tool: Tool | ApiTool,
     languages: string,

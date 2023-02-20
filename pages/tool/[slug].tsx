@@ -4,15 +4,15 @@ import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { getTool } from 'utils-api/tools';
 import {
+    AlternativeToolsList,
     Tool,
     ToolInfoCard,
     ToolInfoSidebar,
-    ToolsList,
 } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getTools } from 'utils-api/tools';
-import { Article, SponsorData } from 'utils/types';
+import { Article, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticles } from 'utils-api/blog';
@@ -52,15 +52,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const apiTool = await getTool(slug);
     const articles = await getArticles();
 
+    if (!apiTool) {
+        return {
+            notFound: true,
+        };
+    }
+
     const tool = {
         ...apiTool,
         id: slug,
     };
-
     const alternativeTools = await getTools();
     let alternatives: Tool[] = [];
+    let allAlternatives: Tool[] = [];
     if (alternativeTools) {
-        alternatives = Object.entries(alternativeTools).reduce(
+        allAlternatives = Object.entries(alternativeTools).reduce(
             (acc, [id, tool]) => {
                 // if key is not equal to slug
                 if (id !== slug) {
@@ -85,13 +91,40 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
         // if in currentTool view, show only tools with the same type
         if (tool) {
-            alternatives = alternatives.filter((alt) => {
+            alternatives = allAlternatives.filter((alt) => {
                 return (
                     containsArray(alt.types, tool.types || []) &&
                     containsArray(alt.languages, tool.languages || []) &&
                     containsArray(alt.categories, tool.categories || [])
                 );
             });
+
+            // if the list is empty, show the tools with the same type and the most
+            // matched languages
+            if (alternatives.length === 0) {
+                alternatives = allAlternatives;
+
+                // sort the list by the number of matched languages
+                alternatives.sort((a, b) => {
+                    return (
+                        b.languages?.filter((lang) =>
+                            tool.languages?.includes(lang),
+                        ).length -
+                        a.languages?.filter((lang) =>
+                            tool.languages?.includes(lang),
+                        ).length
+                    );
+                });
+
+                // take the tools with at least 5 matched languages
+                alternatives = alternatives.filter((alt) => {
+                    return (
+                        alt.languages?.filter((lang) =>
+                            tool.languages?.includes(lang),
+                        ).length >= 5
+                    );
+                });
+            }
         }
     }
 
@@ -112,6 +145,7 @@ export interface ToolProps {
     sponsors: SponsorData[];
     articles: Article[];
     screenshots: { path: string; url: string }[];
+    starHistory: StarHistory;
 }
 
 const ToolPage: FC<ToolProps> = ({
@@ -121,9 +155,31 @@ const ToolPage: FC<ToolProps> = ({
     articles,
     screenshots,
 }) => {
-    const title = `${tool.name} - Analysis Tools`;
-    const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
+    const languages = tool.languages || [];
+    const capitalizedLanguages = languages.map((lang) => {
+        return lang
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    });
+    // If the list of languages is longer than 3, just show the first 3
+    if (capitalizedLanguages.length > 3) {
+        capitalizedLanguages.splice(3, capitalizedLanguages.length - 3);
+    }
+
+    let description = `${tool.name}, a ${tool.categories.join(
+        '/',
+    )} for ${capitalizedLanguages.join('/')} - `;
+
+    if (alternatives.length === 0) {
+        description += ` Rating And Alternatives`;
+    } else if (alternatives.length === 2) {
+        description += ` And Two Alternatives`;
+    } else {
+        description += ` Rating And ${alternatives.length} Alternatives`;
+    }
+
+    const title = `${description} | Analysis Tools`;
 
     return (
         <SearchProvider>
@@ -135,8 +191,11 @@ const ToolPage: FC<ToolProps> = ({
                     <ToolInfoSidebar tool={tool} articles={articles} />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
-
-                        <ToolsList tools={alternatives} />
+                        <AlternativeToolsList
+                            listTitle={`Alternatives for ${tool.name}`}
+                            currentTool={tool}
+                            tools={alternatives}
+                        />
                     </Panel>
                 </Main>
             </Wrapper>

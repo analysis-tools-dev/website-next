@@ -19,7 +19,7 @@ const ToolInfoSidebar: FC<ToolInfoSidebarProps> = ({ tool, articles }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <InformationCard tool={tool} />
-            {tool.stars && <GithubStarsCard tool={tool} />}
+            <GithubStarsCard tool={tool} />
             {tool.repositoryData && (
                 <RepositoryCard data={tool.repositoryData} />
             )}

@@ -34,8 +34,8 @@ const LicenseCard: FC<LicenseCardProps> = ({ name, licenses, pricing }) => {
                         <a
                             className={styles.licenseUrl}
                             href={pricing}
-                            target={'_blank'}
-                            rel="noreferrer">
+                            target="_blank"
+                            rel="noopener noreferrer">
                             <span className={styles.urlIcon}>
                                 <Image
                                     height="12x"

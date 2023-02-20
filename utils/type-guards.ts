@@ -2,9 +2,14 @@ import { Tool } from '@components/tools';
 import {
     ApiTag,
     Article,
+    Faq,
+    LanguageData,
+    ScreenshotApiData,
     SponsorData,
+    StarHistoryApiData,
     StatsApiData,
     TagsApiData,
+    TagsType,
     ToolsApiData,
     VotesApiData,
 } from './types';
@@ -139,6 +144,77 @@ export const isSponsorData = (data: unknown): data is SponsorData[] => {
             (entry as SponsorData).tool !== undefined &&
             (entry as SponsorData).url !== undefined &&
             (entry as SponsorData).logo !== undefined;
+
+        if (!res) {
+            return false;
+        }
+    }
+    return true;
+};
+
+export const isTagsType = (data: unknown): data is TagsType => {
+    return data === 'languages' || data === 'other' || data === 'all';
+};
+
+export const isLanguageData = (data: unknown): data is LanguageData => {
+    return (
+        (data as LanguageData).name !== undefined &&
+        (data as LanguageData).website !== undefined &&
+        (data as LanguageData).description !== undefined
+    );
+};
+
+export const isScreenshotApiData = (
+    data: unknown,
+): data is ScreenshotApiData => {
+    if (!data || typeof data !== 'object') {
+        return false;
+    }
+
+    for (const key of Object.keys(data)) {
+        if ((data as ScreenshotApiData)[key].length !== 0) {
+            const res =
+                (data as ScreenshotApiData)[key][0]?.path !== undefined &&
+                (data as ScreenshotApiData)[key][0]?.url !== undefined;
+
+            if (!res) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
+
+export const isAllStarHistoryData = (
+    data: unknown,
+): data is StarHistoryApiData => {
+    if (!data || typeof data !== 'object') {
+        return false;
+    }
+
+    for (const key of Object.keys(data)) {
+        if ((data as StarHistoryApiData)[key].length !== 0) {
+            const res =
+                (data as StarHistoryApiData)[key][0]?.date !== undefined &&
+                (data as StarHistoryApiData)[key][0]?.count !== undefined;
+
+            if (!res) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
+
+export const isFaqData = (data: unknown): data is Faq[] => {
+    if (!data || !Array.isArray(data)) {
+        return false;
+    }
+
+    for (const entry of data) {
+        const res =
+            (entry as Faq).question !== undefined &&
+            (entry as Faq).answer !== undefined;
 
         if (!res) {
             return false;

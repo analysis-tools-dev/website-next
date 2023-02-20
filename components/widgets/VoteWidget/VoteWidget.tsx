@@ -4,7 +4,6 @@ import cn from 'classnames';
 import styles from './VoteWidget.module.css';
 import { LoadingDots } from '@components/elements';
 import { useToolVotesQuery } from './query';
-import { isApiTag } from 'utils/type-guards';
 import classNames from 'classnames';
 export interface VoteWidgetProps {
     toolId: string;
@@ -16,7 +15,7 @@ const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
     const [votes, setVotes] = useState(0);
     const [voteAction, setVoteAction] = useState('');
 
-    const { data, isLoading, isFetching, isRefetching, error, refetch } =
+    const { data, isLoading, isFetching, isRefetching, error } =
         useToolVotesQuery(toolId);
 
     useEffect(() => {

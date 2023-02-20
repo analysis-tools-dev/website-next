@@ -13,6 +13,11 @@ const Footer: FC = () => {
             external: false,
         },
         {
+            label: 'Languages',
+            href: '/languages',
+            external: false,
+        },
+        {
             label: 'Blog',
             href: '/blog',
             external: false,
@@ -23,7 +28,7 @@ const Footer: FC = () => {
             external: false,
         },
         {
-            label: 'OpenCollective',
+            label: 'Open Collective',
             href: 'https://opencollective.com/analysis-tools',
             external: true,
         },
@@ -59,8 +64,8 @@ const Footer: FC = () => {
                                     <a
                                         className={`font-color-light ${styles.navLink}`}
                                         href={link.href}
-                                        target={'_blank'}
-                                        rel="noreferrer">
+                                        target="_blank"
+                                        rel="noopener noreferrer">
                                         {link.label}
                                     </a>
                                 ) : (

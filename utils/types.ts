@@ -1,4 +1,6 @@
 export type Nullable<D> = D | null | undefined;
+
+export type TagsType = 'languages' | 'other' | 'all';
 export interface ToolsApiData {
     [key: string]: ApiTool;
 }
@@ -54,9 +56,15 @@ export interface MarkdownDocument {
     content: string;
 }
 
+export interface BlogPostLink {
+    title: string;
+    slug: string;
+}
+
 export interface MarkdownRenderingResult {
     frontMatter: FrontMatter;
     html: string;
+    prev?: BlogPostLink;
 }
 
 export interface ArticleMeta {
@@ -101,4 +109,40 @@ export interface SponsorData {
         width: string;
         height: string;
     };
+}
+
+export interface LanguageData {
+    name: string;
+    website: string;
+    description: string;
+}
+
+export interface ScreenshotApiData {
+    [key: string]: Screenshot[];
+}
+
+export type Screenshot = {
+    path: string;
+    url: string;
+};
+
+export type RepositoryMeta = {
+    owner: string;
+    repo: string;
+};
+
+export type Stars = {
+    date: string;
+    count: number;
+};
+
+export type StarHistory = Stars[];
+
+export interface StarHistoryApiData {
+    [key: string]: StarHistory;
+}
+
+export interface Faq {
+    question: string;
+    answer: string;
 }
