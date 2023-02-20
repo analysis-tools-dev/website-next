@@ -30,10 +30,12 @@
 @media only screen and (max-width: 900px) {
     .sponsorList{
         display: block;
+        margin: 0;
     }
 
     .listItem {
         display: block;
         margin: 0;
+        text-align: center;
     }
 }
