@@ -1,6 +1,6 @@
 import { isToolsApiData } from 'utils/type-guards';
 import { getCacheManager } from './cache';
-import { getTools } from './tools';
+import { getAllTools } from './tools';
 import { getVotes } from './votes';
 
 const cacheDataManager = getCacheManager();
@@ -16,7 +16,7 @@ export const getToolsWithVotes = async () => {
                 `Cache data for: ${cacheKey} does not exist - calling API`,
             );
             // Call API and refresh cache
-            const data = await getTools();
+            const data = await getAllTools();
             const votes = await getVotes();
 
             if (!data || !votes) {

@@ -4,7 +4,9 @@
 
 import { SearchState, SetSearchStateAction } from 'context/SearchProvider';
 
-export const objectToQueryString = (query: Record<string, any>) => {
+export const objectToQueryString = (
+    query: Record<string, string | number | boolean | Array>,
+) => {
     const paramStrings: string[] = [];
     Object.entries(query).forEach(([key, value]) => {
         if (value) {
