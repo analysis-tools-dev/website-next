@@ -1,5 +1,6 @@
 import { objectToQueryString } from 'utils/query';
 import getConfig from 'next/config';
+import { ParsedUrlQuery } from 'querystring';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -25,9 +26,7 @@ export const getApiURL = (pathName?: string) => {
     return baseApiUrl;
 };
 
-export const getToolsApiURL = (
-    query?: Record<string, string | number | boolean | Array<string>>,
-) => {
+export const getToolsApiURL = (query?: ParsedUrlQuery) => {
     let apiUrl = getApiURL(APIPaths.TOOLS);
 
     if (query) {

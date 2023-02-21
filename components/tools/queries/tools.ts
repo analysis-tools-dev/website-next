@@ -1,5 +1,4 @@
 import { QueryClient, useQuery } from 'react-query';
-import { type SearchState } from 'context/SearchProvider';
 import { type ParsedUrlQuery } from 'querystring';
 import { getToolsApiURL } from 'utils/urls';
 import { Tool } from '../types';
@@ -31,13 +30,13 @@ export async function prefetchTools(
 
 /**
  * Fetches data from API using `useQuery` (react-query) or cache/prefetch data if it exists
- * @param {SearchState} search - Search terms and keywords to filter results
+ * @param {SearchState} query - Search terms and keywords to filter results
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function useToolsQuery(search: SearchState) {
+export function useToolsQuery(query: ParsedUrlQuery) {
     // FIXME: Key should contain some SearchState data to avoid cache issues
-    return useQuery(TOOLS_PREFETCH_KEY, () => fetchToolsDataFromSearch(search));
+    return useQuery(TOOLS_PREFETCH_KEY, () => fetchToolsDataFromSearch(query));
 }
 
 /**
@@ -46,27 +45,23 @@ export function useToolsQuery(search: SearchState) {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function useToolsQueryCount(search: SearchState) {
-    return useQuery(
-        TOOLS_PREFETCH_KEY,
-        () => fetchToolsDataFromSearch(search),
-        {
-            select: (tools) => tools.length,
-        },
-    );
+export function useToolsQueryCount(query: ParsedUrlQuery) {
+    return useQuery(TOOLS_PREFETCH_KEY, () => fetchToolsDataFromSearch(query), {
+        select: (tools) => tools.length,
+    });
 }
 
 /**
  * Fetches data from API using `useQuery` (react-query) or cache/prefetch data if it exists
- * @param {SearchState} search - Search terms and keywords to filter results
+ * @param {SearchState} query - Search terms and keywords to filter results
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function useAlternativeToolsQuery(search: SearchState) {
+export function useAlternativeToolsQuery(query: ParsedUrlQuery) {
     //TODO: Filter out current Tool
     // FIXME: Key should contain some SearchState data to avoid cache issues
     return useQuery(ALTERNATE_TOOLS_PREFETCH_KEY, () =>
-        fetchToolsDataFromSearch(search),
+        fetchToolsDataFromSearch(query),
     );
 }
 
@@ -77,8 +72,10 @@ export function useAlternativeToolsQuery(search: SearchState) {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchToolsDataFromSearch(search: SearchState): Promise<Tool[]> {
-    const toolsApiURL = getToolsApiURL(search);
+export function fetchToolsDataFromSearch(
+    query: ParsedUrlQuery,
+): Promise<Tool[]> {
+    const toolsApiURL = getToolsApiURL(query);
     return fetch(toolsApiURL).then((response) => response.json());
 }
 
