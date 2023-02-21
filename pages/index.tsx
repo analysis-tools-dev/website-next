@@ -52,7 +52,7 @@ const HomePage: FC<HomePageProps> = ({
     mostViewed,
 }) => {
     const title =
-        'Static Analysis Tools And Linters To Avoid Bugs And Improve Code Quality';
+        'Linters, Static And Dynamic Analysis Tools To Avoid Bugs And Improve Code Quality';
     return (
         <>
             <MainHead

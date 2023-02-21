@@ -19,7 +19,7 @@ const PopularToolsByLanguage: FC<PopularToolsByLanguageProps> = ({
         <>
             <PanelHeader
                 level={2}
-                text="Popular Static Analysis Tools by Language">
+                text="Popular Static/Dynamic Analysis Tools by Language">
                 {languages.length > limit ? (
                     <Link href="/languages">
                         {`Show all (${languages.length})`}

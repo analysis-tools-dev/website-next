@@ -5,17 +5,28 @@ import { getCacheManager } from './cache';
 import { getGithubStats } from './github';
 import { getRepositoryMeta } from 'utils/github';
 import { isToolsApiData } from 'utils/type-guards';
+import { ToolsApiData } from 'utils/types';
 
 const cacheDataManager = getCacheManager();
 
-export const getTools = async () => {
+export const getAllTools = async (): Promise<ToolsApiData> => {
+    const staticAnalysisTools = await getTools('static-analysis');
+    const dynamicAnalysisTools = await getTools('dynamic-analysis');
+
+    return {
+        ...staticAnalysisTools,
+        ...dynamicAnalysisTools,
+    };
+};
+
+export const getTools = async (repo: string): Promise<ToolsApiData | null> => {
     const octokit = new Octokit({
         auth: process.env.GH_TOKEN,
         userAgent: 'analysis-tools (https://github.com/analysis-tools-dev)',
     });
 
     // TODO: Improve cache by adding entire request with filters in key
-    const cacheKey = 'tools_data';
+    const cacheKey = `${repo}_data`;
 
     try {
         // Get data from cache
@@ -29,14 +40,15 @@ export const getTools = async () => {
                 'GET /repos/{owner}/{repo}/contents/{path}',
                 {
                     owner: 'analysis-tools-dev',
-                    repo: 'static-analysis',
+                    repo: repo,
                     path: 'data/api/tools.json',
                     headers: {
                         accept: 'application/vnd.github.VERSION.raw',
                     },
                 },
             );
-            data = JSON.parse(response.data.toString());
+            data = JSON.parse(response.data.toString()) as ToolsApiData;
+
             if (data) {
                 const hours = Number(process.env.API_CACHE_TTL) || 24;
                 await cacheDataManager.set(cacheKey, data, hours * 60 * 60);
@@ -55,9 +67,8 @@ export const getTools = async () => {
     }
 };
 
-export const getTool = async (toolId: string) => {
-    const tools = await getTools();
-
+export const getTool = async (toolId: string): Promise<Tool | null> => {
+    const tools = await getAllTools();
     if (!tools) {
         return null;
     }
