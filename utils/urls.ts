@@ -25,9 +25,7 @@ export const getApiURL = (pathName?: string) => {
     return baseApiUrl;
 };
 
-export const getToolsApiURL = (
-    query?: Record<string, string | number | boolean | Array<string>>,
-) => {
+export const getToolsApiURL = (query?: any) => {
     let apiUrl = getApiURL(APIPaths.TOOLS);
 
     if (query) {
