@@ -16,6 +16,7 @@ import { isSponsor } from 'utils/sponsor';
 
 import Image from 'next/image';
 import { Screenshot } from 'utils/types';
+import Comments from '@components/comments';
 
 export interface ToolInfoCardProps {
     tool: Tool;
@@ -117,6 +118,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         Visit website
                     </a>
                 </div>
+                <Comments />
             </div>
         </Card>
     );
