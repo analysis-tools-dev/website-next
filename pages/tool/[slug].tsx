@@ -11,7 +11,7 @@ import {
 } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
-import { getTools } from 'utils-api/tools';
+import { getAllTools } from 'utils-api/tools';
 import { ArticlePreview, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
@@ -21,7 +21,7 @@ import { getSponsors } from 'utils-api/sponsors';
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
     // Call an external API endpoint to get tools
-    const data = await getTools();
+    const data = await getAllTools();
 
     if (!data) {
         return { paths: [], fallback: false };
@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ...apiTool,
         id: slug,
     };
-    const alternativeTools = await getTools();
+    const alternativeTools = await getAllTools();
     let alternatives: Tool[] = [];
     let allAlternatives: Tool[] = [];
     if (alternativeTools) {

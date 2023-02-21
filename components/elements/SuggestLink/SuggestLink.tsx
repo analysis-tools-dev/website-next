@@ -7,7 +7,7 @@ const SuggestLink: FC = () => {
     return (
         <Text className={styles.suggestLink}>
             Help make this list better.
-            <Link href="/contributing"> Suggest Tools</Link>
+            <Link href="/contributing">Suggest Tools</Link>
         </Text>
     );
 };

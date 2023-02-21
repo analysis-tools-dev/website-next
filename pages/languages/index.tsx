@@ -35,9 +35,10 @@ const LanguagesPage: FC<LanguagesPageProps> = ({
     previews,
     popularLanguages,
 }) => {
-    const title = 'Popular Static Analysis Tools by Language | Analysis Tools';
+    const title =
+        'Popular Static/Dynamic Analysis Tools by Language | Analysis Tools';
 
-    const description = `Find the most popular static analysis tools for your favorite programming language.`;
+    const description = `Find the most popular static and dynamic analysis tools for your favorite programming language.`;
 
     return (
         <>

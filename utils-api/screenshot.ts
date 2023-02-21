@@ -58,9 +58,9 @@ export const getScreenshots = async (tool: string): Promise<Screenshot[]> => {
         return [];
     }
     const r = screenshots[tool];
-    console.log('Found ' + r.length + ' screenshot(s) for ' + tool);
     if (!r) {
         return [];
     }
+    console.log('Found ' + r.length + ' screenshot(s) for ' + tool);
     return r;
 };

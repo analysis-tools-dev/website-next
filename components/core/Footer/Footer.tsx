@@ -28,6 +28,11 @@ const Footer: FC = () => {
             external: false,
         },
         {
+            label: 'FAQ',
+            href: '/faq',
+            external: false,
+        },
+        {
             label: 'Open Collective',
             href: 'https://opencollective.com/analysis-tools',
             external: true,

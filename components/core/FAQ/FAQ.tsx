@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styles from './FAQ.module.css';
 import { Wrapper } from '@components/layout';
 import { Faq } from 'utils/types';
+import Link from 'next/link';
 
 export interface FaqProps {
     faq: Faq[];
@@ -13,7 +14,7 @@ const FAQ: FC<FaqProps> = ({ faq }) => {
             <Wrapper className={styles.wrapper}>
                 <h2 className={styles.heading}>Frequently Asked Questions</h2>
 
-                {faq.map((f, index) => (
+                {faq.slice(0, 3).map((f, index) => (
                     <details key={index} className={styles.question}>
                         <summary className={styles.questionSummary}>
                             {f.question}
@@ -28,6 +29,18 @@ const FAQ: FC<FaqProps> = ({ faq }) => {
                         })}
                     </details>
                 ))}
+
+                {/* Show link to full FAQ only if there are more than 3 questions */}
+                {faq.length > 3 ? (
+                    <div className={styles.more}>
+                        <Link
+                            href="/faq"
+                            className={styles.moreLink}
+                            aria-label="See all questions">
+                            See all questions
+                        </Link>
+                    </div>
+                ) : null}
             </Wrapper>
         </section>
     );
