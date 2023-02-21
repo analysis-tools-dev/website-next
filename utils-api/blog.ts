@@ -119,3 +119,16 @@ export const getArticles = async () => {
         return null;
     }
 };
+
+export const getArticlesPreviews = async () => {
+    const articles = await getArticles();
+    if (!articles) {
+        return null;
+    }
+
+    return articles.map((article) => ({
+        slug: article.slug,
+        meta: article.meta,
+        summary: article.summary,
+    }));
+};

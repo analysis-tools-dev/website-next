@@ -67,7 +67,7 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles }) => {
             />
 
             <ContributionCard />
-            <BlogPreview articles={articles} />
+            <BlogPreview previews={articles} />
             <Newsletter />
         </Sidebar>
     );

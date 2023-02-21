@@ -4,8 +4,8 @@ import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
 import { LanguageCard, AlternativeToolsList, Tool } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
-import { Article, LanguageData, SponsorData } from 'utils/types';
-import { getArticles } from 'utils-api/blog';
+import { ArticlePreview, LanguageData, SponsorData } from 'utils/types';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { getLanguageData, getTags } from 'utils-api/tags';
 import { filterByTags } from 'utils-api/filters';
 import { BlogPreview } from '@components/blog';
@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const tagData = await getLanguageData(slug);
     const tools = await getToolsWithVotes();
-    const articles = await getArticles();
+    const previews = await getArticlesPreviews();
     const sponsors = getSponsors();
 
     const filteredTools = filterByTags(tools, slug);
@@ -54,7 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             slug,
             tag: tagData,
             tools: filteredTools,
-            articles,
+            previews,
             sponsors,
         },
     };
@@ -64,11 +64,11 @@ export interface TagProps {
     slug: string;
     tag: LanguageData;
     tools: Tool[];
-    articles: Article[];
+    previews: ArticlePreview[];
     sponsors: SponsorData[];
 }
 
-const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
+const TagPage: FC<TagProps> = ({ slug, tag, tools, previews, sponsors }) => {
     let title = `${tag.name} Static Analysis Tools And Code Formatters | Analysis Tools`;
 
     if (tools.length > 2) {
@@ -87,7 +87,7 @@ const TagPage: FC<TagProps> = ({ slug, tag, tools, articles, sponsors }) => {
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
                     <Sidebar className="topSticky">
-                        <BlogPreview articles={articles} />
+                        <BlogPreview previews={previews} />
                         <Newsletter />
                     </Sidebar>
                     <Panel>

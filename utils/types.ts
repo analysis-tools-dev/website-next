@@ -80,6 +80,12 @@ export interface Article {
     summary: string;
 }
 
+export interface ArticlePreview {
+    slug: string;
+    meta: ArticleMeta;
+    summary: string;
+}
+
 export interface LanguageTag {
     name: string;
     tag: string;
