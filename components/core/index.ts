@@ -6,3 +6,4 @@ export * from './SponsorBanner';
 export * from './SponsorMessage';
 export * from './ShareBtns';
 export * from './FAQ';
+export * from './SingleFAQ';
