@@ -9,6 +9,7 @@ import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 import { Video } from '@splidejs/splide-extension-video';
 import '@splidejs/splide-extension-video/dist/css/splide-extension-video.min.css';
+import Giscus from '@giscus/react';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
@@ -16,7 +17,6 @@ import { isSponsor } from 'utils/sponsor';
 
 import Image from 'next/image';
 import { Screenshot } from 'utils/types';
-import Comments from '@components/comments';
 
 export interface ToolInfoCardProps {
     tool: Tool;
@@ -118,7 +118,23 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         Visit website
                     </a>
                 </div>
-                <Comments />
+
+                {/* TODO: Switch to theme="https://analysis-tools.dev/assets/styles/giscus.css" once it's deployed */}
+                <Giscus
+                    id="comments"
+                    repo="analysis-tools-dev/website-comments"
+                    repoId="MDEwOlJlcG9zaXRvcnkyNzI2MjQzNjI="
+                    category="General"
+                    categoryId="MDE4OkRpc2N1c3Npb25DYXRlZ29yeTg2MzkzMTg="
+                    mapping="pathname"
+                    term="Welcome to @giscus/react component!"
+                    reactionsEnabled="1"
+                    emitMetadata="0"
+                    inputPosition="bottom"
+                    theme="https://giscus.app/themes/custom_example.css"
+                    lang="en"
+                    loading="lazy"
+                />
             </div>
         </Card>
     );
