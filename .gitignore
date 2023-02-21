@@ -44,3 +44,5 @@ firebase-key.json
 # project
 diskcache
 .cache
+
+credentials.json
