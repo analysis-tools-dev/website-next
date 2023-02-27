@@ -7,32 +7,32 @@ import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
 import { Article, SponsorData } from 'utils/types';
 import { ToolsByLanguage } from '@components/tools';
-import { getArticles } from 'utils-api/blog';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
 import { getSponsors } from 'utils-api/sponsors';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
-    const articles = await getArticles();
+    const previews = await getArticlesPreviews();
     const popularLanguages = await getPopularLanguageStats();
 
     return {
         props: {
             sponsors,
-            articles,
+            previews: previews,
             popularLanguages,
         },
     };
 };
 export interface LanguagesPageProps {
     sponsors: SponsorData[];
-    articles: Article[];
+    previews: Article[];
     popularLanguages: ToolsByLanguage;
 }
 
 const LanguagesPage: FC<LanguagesPageProps> = ({
     sponsors,
-    articles,
+    previews,
     popularLanguages,
 }) => {
     const title =
@@ -48,7 +48,7 @@ const LanguagesPage: FC<LanguagesPageProps> = ({
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
                     <Sidebar className="topSticky">
-                        <BlogPreview articles={articles} />
+                        <BlogPreview previews={previews} />
                         <Newsletter />
                     </Sidebar>
                     <Panel>

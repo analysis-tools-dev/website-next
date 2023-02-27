@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import { Newsletter } from '@components/elements';
 import { Sidebar } from '@components/layout';
-import { Article } from 'utils/types';
+import { ArticlePreview } from 'utils/types';
 import { BlogPreview } from '@components/blog';
 
 export interface SponsorSidebarProps {
-    articles: Article[];
+    previews: ArticlePreview[];
 }
 
-const SponsorSidebar: FC<SponsorSidebarProps> = ({ articles }) => {
+const SponsorSidebar: FC<SponsorSidebarProps> = ({ previews }) => {
     return (
         <Sidebar className="topSticky">
-            <BlogPreview articles={articles} />
+            <BlogPreview previews={previews} />
             <Newsletter />
         </Sidebar>
     );

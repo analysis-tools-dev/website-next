@@ -4,19 +4,19 @@ import Link from 'next/link';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import BlogPreviewEntry from '../BlogPreviewEntry/BlogPreviewEntry';
-import { Article } from 'utils/types';
+import { ArticlePreview } from 'utils/types';
 
 export interface BlogPreviewProps {
-    articles: Article[];
+    previews: ArticlePreview[];
 }
 
-const BlogPreview: FC<BlogPreviewProps> = ({ articles }) => {
+const BlogPreview: FC<BlogPreviewProps> = ({ previews }) => {
     return (
         <Card>
             <Heading level={3} className="m-b-16 font-bold">
                 Latest from our Blog
             </Heading>
-            {articles.map((post, index) => (
+            {previews.map((post, index) => (
                 <BlogPreviewEntry
                     key={index}
                     meta={post.meta}

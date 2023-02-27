@@ -12,10 +12,10 @@ import {
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
 import { getAllTools } from 'utils-api/tools';
-import { Article, SponsorData, StarHistory } from 'utils/types';
+import { ArticlePreview, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
-import { getArticles } from 'utils-api/blog';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 
 // This function gets called at build time
@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const sponsors = getSponsors();
     const votes = await getVotes();
     const apiTool = await getTool(slug);
-    const articles = await getArticles();
+    const previews = await getArticlesPreviews();
 
     if (!apiTool) {
         return {
@@ -133,7 +133,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             tool,
             alternatives,
             sponsors,
-            articles,
+            previews,
             screenshots: (await getScreenshots(slug)) || null,
         },
     };
@@ -143,7 +143,7 @@ export interface ToolProps {
     tool: Tool;
     alternatives: Tool[];
     sponsors: SponsorData[];
-    articles: Article[];
+    previews: ArticlePreview[];
     screenshots: { path: string; url: string }[];
     starHistory: StarHistory;
 }
@@ -152,9 +152,15 @@ const ToolPage: FC<ToolProps> = ({
     tool,
     alternatives,
     sponsors,
-    articles,
+    previews,
     screenshots,
 }) => {
+    console.log(tool);
+    console.log(alternatives);
+    console.log(sponsors);
+    console.log(previews);
+    console.log(screenshots);
+
     const languages = tool.languages || [];
     const capitalizedLanguages = languages.map((lang) => {
         return lang
@@ -188,7 +194,7 @@ const ToolPage: FC<ToolProps> = ({
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolInfoSidebar tool={tool} articles={articles} />
+                    <ToolInfoSidebar tool={tool} previews={previews} />
                     <Panel>
                         <ToolInfoCard tool={tool} screenshots={screenshots} />
                         <AlternativeToolsList

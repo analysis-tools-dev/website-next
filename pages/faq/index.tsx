@@ -2,31 +2,30 @@ import { FC } from 'react';
 import type { GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SingleFAQ } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { Intro, SponsorSidebar } from '@components/sponsors';
-import { Article, Faq } from 'utils/types';
-import { getArticles } from 'utils-api/blog';
+import { SponsorSidebar } from '@components/sponsors';
+import { ArticlePreview, Faq } from 'utils/types';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { getFaq } from 'utils-api/faq';
-import { Heading } from '@components/typography';
 import { PanelHeader } from '@components/elements';
 
 export const getStaticProps: GetStaticProps = async () => {
     const faq = getFaq();
-    const articles = await getArticles();
+    const previews = await getArticlesPreviews();
 
     return {
         props: {
             faq,
-            articles,
+            previews,
         },
     };
 };
 
 export interface FaqPageProps {
     faq: Faq[];
-    articles: Article[];
+    previews: ArticlePreview[];
 }
 
-const Faq: FC<FaqPageProps> = ({ faq, articles }) => {
+const Faq: FC<FaqPageProps> = ({ faq, previews }) => {
     return (
         <>
             <MainHead
@@ -39,7 +38,7 @@ const Faq: FC<FaqPageProps> = ({ faq, articles }) => {
 
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <SponsorSidebar articles={articles} />
+                    <SponsorSidebar previews={previews} />
                     <Panel>
                         <PanelHeader
                             level={1}

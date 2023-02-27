@@ -11,9 +11,9 @@ import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
 
 import homepageData from '@appdata/homepage.json';
-import { Article, Faq, SponsorData } from 'utils/types';
+import { ArticlePreview, Faq, SponsorData } from 'utils/types';
 import { Tool, ToolsByLanguage } from '@components/tools';
-import { getArticles } from 'utils-api/blog';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
 import { getMostViewedTools } from 'utils-api/mostViewedTools';
 import { getSponsors } from 'utils-api/sponsors';
@@ -22,7 +22,7 @@ import { getFaq } from 'utils-api/faq';
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const faq = getFaq();
-    const articles = await getArticles();
+    const previews = await getArticlesPreviews();
     const popularLanguages = await getPopularLanguageStats();
     const mostViewed = await getMostViewedTools();
 
@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async () => {
         props: {
             sponsors,
             faq,
-            articles,
+            previews,
             popularLanguages,
             mostViewed,
         },
@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps = async () => {
 export interface HomePageProps {
     sponsors: SponsorData[];
     faq: Faq[];
-    articles: Article[];
+    previews: ArticlePreview[];
     popularLanguages: ToolsByLanguage;
     mostViewed: Tool[];
 }
@@ -47,7 +47,7 @@ export interface HomePageProps {
 const HomePage: FC<HomePageProps> = ({
     sponsors,
     faq,
-    articles,
+    previews,
     popularLanguages,
     mostViewed,
 }) => {
@@ -66,7 +66,7 @@ const HomePage: FC<HomePageProps> = ({
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
                     <Sidebar className="topSticky">
-                        <BlogPreview articles={articles} />
+                        <BlogPreview previews={previews} />
                         <Newsletter />
                     </Sidebar>
                     <Panel>

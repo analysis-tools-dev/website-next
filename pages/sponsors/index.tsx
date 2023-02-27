@@ -3,28 +3,28 @@ import type { GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorMessage } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { Intro, SponsorSidebar, SponsorsList } from '@components/sponsors';
-import { Article, SponsorData } from 'utils/types';
-import { getArticles } from 'utils-api/blog';
+import { ArticlePreview, SponsorData } from 'utils/types';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
-    const articles = await getArticles();
+    const previews = await getArticlesPreviews();
 
     return {
         props: {
             sponsors: sponsors,
-            articles: articles,
+            previews: previews,
         },
     };
 };
 
 export interface SponsorPageProps {
     sponsors: SponsorData[];
-    articles: Article[];
+    previews: ArticlePreview[];
 }
 
-const Sponsor: FC<SponsorPageProps> = ({ sponsors, articles }) => {
+const Sponsor: FC<SponsorPageProps> = ({ sponsors, previews: previews }) => {
     return (
         <>
             <MainHead
@@ -37,7 +37,7 @@ const Sponsor: FC<SponsorPageProps> = ({ sponsors, articles }) => {
             <Intro />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <SponsorSidebar articles={articles} />
+                    <SponsorSidebar previews={previews} />
                     <Panel>
                         <SponsorsList sponsors={sponsors} />
                     </Panel>
