@@ -9,6 +9,7 @@
         "pretty-quick": "pretty-quick"
     },
     "dependencies": {
+        "@giscus/react": "^2.2.6",
         "@octokit/core": "^3.5.1",
         "@splidejs/react-splide": "^0.7.10",
         "@splidejs/splide-extension-video": "^0.8.0",
