@@ -15,6 +15,7 @@
     padding: 15px 15px 100px 15px;
     flex-grow: 1;
 }
+
 .description {
     margin: 10px 0;
 }
@@ -56,4 +57,10 @@
     display: inline;
     vertical-align: top;
     padding-right: 5px;
+}
+
+.toolLogo {
+    display: inline-block;
+    margin: 0 auto;
+    margin-right: 8px;
 }
