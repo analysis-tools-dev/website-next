@@ -15,6 +15,13 @@
     padding: 15px 15px 100px 15px;
     flex-grow: 1;
 }
+
+.moreInfo {
+    background-image: url('/assets/icons/general/external.svg');
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
 .description {
     margin: 10px 0;
 }
