@@ -17,6 +17,7 @@ import { isSponsor } from 'utils/sponsor';
 
 import Image from 'next/image';
 import { Screenshot } from 'utils/types';
+import classNames from 'classnames';
 
 export interface ToolInfoCardProps {
     tool: Tool;
@@ -61,7 +62,10 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                         {tool.description || ''}
                     </ReactMarkdown>
                     <a
-                        className="font-light font-size-s"
+                        className={classNames(
+                            styles['moreInfo'],
+                            'font-light font-size-s',
+                        )}
                         href={tool.homepage}
                         target="_blank"
                         rel="noopener noreferrer">
