@@ -31,6 +31,19 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool, screenshots }) => {
                 <VoteWidget toolId={tool.id} />
             </div>
             <div className={styles.info}>
+                <div className={styles.toolLogo}>
+                    <Image
+                        width={35}
+                        height={35}
+                        src={
+                            tool.icon
+                                ? tool.icon
+                                : `/assets/icons/general/tool.svg`
+                        }
+                        alt={`${tool.name} logo`}
+                    />
+                </div>
+
                 <Heading level={1} className={styles.toolHeader}>
                     {tool.name}
                 </Heading>

@@ -50,6 +50,7 @@ export interface Tool {
     documentation?: string;
     repositoryData?: RepositoryData;
     stars?: RepoStarsData[];
+    icon?: string;
 }
 
 export interface ToolsByLanguage {

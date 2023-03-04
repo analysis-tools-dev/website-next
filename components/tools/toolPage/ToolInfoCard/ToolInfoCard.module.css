@@ -64,3 +64,9 @@
     vertical-align: top;
     padding-right: 5px;
 }
+
+.toolLogo {
+    display: inline-block;
+    margin: 0 auto;
+    margin-right: 8px;
+}

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { getTool } from 'utils-api/tools';
+import { getTool, getToolIcon } from 'utils-api/tools';
 import {
     AlternativeToolsList,
     Tool,
@@ -51,6 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const votes = await getVotes();
     const apiTool = await getTool(slug);
     const previews = await getArticlesPreviews();
+    const icon = await getToolIcon(slug);
 
     if (!apiTool) {
         return {
@@ -61,6 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const tool = {
         ...apiTool,
         id: slug,
+        icon: icon,
     };
     const alternativeTools = await getAllTools();
     let alternatives: Tool[] = [];
