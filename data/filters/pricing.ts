@@ -1,14 +1,14 @@
 export const PRICING_OPTIONS = [
     {
-        tag: 'oss',
+        value: 'oss',
         name: 'Open Source',
     },
     {
-        tag: 'free',
+        value: 'free',
         name: 'Free',
     },
     {
-        tag: 'plans',
+        value: 'plans',
         name: 'Plans Available',
     },
 ];

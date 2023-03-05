@@ -10,4 +10,8 @@
         align-self: unset;
         bottom: unset;
     }
+
+    .filter {
+        display: none;
+    }
 }

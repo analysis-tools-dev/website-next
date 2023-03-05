@@ -1,14 +1,14 @@
 export const LICENSE_OPTIONS = [
     {
-        tag: 'mit',
+        value: 'mit',
         name: 'MIT License',
     },
     {
-        tag: 'gnu',
+        value: 'gnu',
         name: 'GNU License',
     },
     {
-        tag: 'proprietary',
+        value: 'proprietary',
         name: 'Proprietary (Non-Free)',
     },
 ];

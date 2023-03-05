@@ -50,7 +50,6 @@ const ToolsPage: FC<ToolsProps> = ({ sponsors, articles }) => {
 
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
-                <MobileFilters />
                 <Main>
                     <ListPageComponent articles={articles} />
                 </Main>
