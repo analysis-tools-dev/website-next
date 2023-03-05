@@ -24,20 +24,9 @@ const MobileFilters: FC = () => {
     const otherResult = useOthersQuery();
     const languageResult = useLanguagesQuery();
 
-    const others = otherResult.data?.map((tag) => ({
-        value: tag.tag,
-        name: tag.name,
-    }));
+    const others = otherResult.data || [];
     // Fitler duplicates on tag
-    const languages = languageResult.data
-        ?.map((language) => ({
-            value: language.tag,
-            name: language.name,
-        }))
-        .filter(
-            (language, index, self) =>
-                index === self.findIndex((t) => t.value === language.value),
-        );
+    const languages = languageResult.data || [];
 
     const submit = () => {
         setSearch(state);

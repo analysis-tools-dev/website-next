@@ -57,7 +57,7 @@ export const isToolData = (data: unknown): data is Tool => {
 export const isApiTag = (data: unknown): data is ApiTag => {
     return (
         (data as ApiTag).name !== undefined &&
-        (data as ApiTag).tag !== undefined &&
+        (data as ApiTag).value !== undefined &&
         (data as ApiTag).tag_type !== undefined
     );
 };

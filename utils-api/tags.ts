@@ -98,7 +98,7 @@ export const getTag = async (type: TagsType, tagId: string) => {
         }
 
         const tag = tags.find(
-            (t) => t.tag.toLowerCase() === tagId.toLowerCase(),
+            (t) => t.value.toLowerCase() === tagId.toLowerCase(),
         );
         if (!tag) {
             console.error(`Could not load ${type} tag: ${tagId}`);

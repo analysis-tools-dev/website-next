@@ -24,15 +24,9 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles }) => {
     const otherResult = useOthersQuery();
     const languageResult = useLanguagesQuery();
 
-    const others = otherResult.data?.map((tag) => ({
-        value: tag.tag,
-        name: tag.name,
-    }));
+    const others = otherResult.data || [];
 
-    const languages = languageResult.data?.map((language) => ({
-        value: language.tag,
-        name: language.name,
-    }));
+    const languages = languageResult.data || [];
 
     if (otherResult.error || !otherResult.data) {
         return null;

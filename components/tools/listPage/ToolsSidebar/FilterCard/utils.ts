@@ -23,8 +23,8 @@ export const resetQuery = (search: SearchState, setSearch: any) => (e: any) => {
 
 export const sortByChecked = (filter: string, search: SearchState) => {
     return (a: FilterOption, b: FilterOption) => {
-        const isAChecked = isChecked(filter, a.tag, search);
-        const isBChecked = isChecked(filter, b.tag, search);
+        const isAChecked = isChecked(filter, a.value, search);
+        const isBChecked = isChecked(filter, b.value, search);
         return isAChecked === isBChecked ? 0 : isAChecked ? -1 : 1;
     };
 };
