@@ -1,0 +1,48 @@
+.faq {
+    width: 100%;
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.questionSummary {
+    padding: 20px;
+    cursor: pointer;
+}
+
+.question:hover {
+    background-color: #0a1a29;
+}
+
+.question {
+    background-color: #26415b;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    margin-bottom: 20px;
+}
+
+.answer {
+    margin-bottom: 20px;
+    padding: 2px 20px;
+}
+
+/* div around more link */
+.more {
+    margin: 20px;
+
+}
+
+/* More link should be blue and have some padding and should be right-aligned */
+.moreLink {
+    text-align: right;
+    margin-bottom: 10px;
+}

@@ -21,8 +21,6 @@
 
 # debug
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # local env files
 .env
@@ -44,3 +42,5 @@ firebase-key.json
 # project
 diskcache
 .cache
+
+credentials.json

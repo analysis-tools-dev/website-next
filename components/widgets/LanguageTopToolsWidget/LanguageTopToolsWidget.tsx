@@ -6,6 +6,7 @@ import { Heading } from '@components/typography';
 import { ToolsListWidget } from '@components/widgets';
 import { type Tool } from '@components/tools/types';
 import styles from './LanguageTopToolsWidget.module.css';
+import { ImageWithFallback } from '@components/elements/ImageWithFallback';
 
 export interface LanguageTopToolsWidgetProps {
     language: string;
@@ -24,10 +25,11 @@ const LanguageTopToolsWidget: FC<LanguageTopToolsWidgetProps> = ({
         <Card className={styles.languageCardWrapper}>
             <Link href={href}>
                 <a className={styles.languageLink}>
-                    <Image
+                    <ImageWithFallback
                         height="50px"
                         width="50px"
                         src={logo}
+                        fallbackSrc="/assets/icons/languages/multi-language.svg"
                         alt={language}
                     />
                     <Heading level={2} className={styles.languageName}>

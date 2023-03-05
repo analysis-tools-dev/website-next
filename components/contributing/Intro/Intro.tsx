@@ -15,8 +15,8 @@ const Intro: FC = () => {
                 </Heading>
                 <Text className={styles.textDescription}>
                     Analysis Tools is a community project. You can help to
-                    improve this list by voting for your favorite tools or
-                    adding new ones. Your help is very much appreciated!
+                    improve this website by voting for your favorite tools or
+                    suggesting missing ones. Your help is very much appreciated!
                 </Text>
 
                 <LinkButton

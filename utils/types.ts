@@ -56,9 +56,15 @@ export interface MarkdownDocument {
     content: string;
 }
 
+export interface BlogPostLink {
+    title: string;
+    slug: string;
+}
+
 export interface MarkdownRenderingResult {
     frontMatter: FrontMatter;
     html: string;
+    prev?: BlogPostLink;
 }
 
 export interface ArticleMeta {
@@ -71,6 +77,12 @@ export interface Article {
     meta: ArticleMeta;
     source: string;
     html: string;
+    summary: string;
+}
+
+export interface ArticlePreview {
+    slug: string;
+    meta: ArticleMeta;
     summary: string;
 }
 
@@ -134,4 +146,9 @@ export type StarHistory = Stars[];
 
 export interface StarHistoryApiData {
     [key: string]: StarHistory;
+}
+
+export interface Faq {
+    question: string;
+    answer: string;
 }

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import type { GetStaticProps } from 'next';
-import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
+import { MainHead, Footer, Navbar, SponsorBanner, FAQ } from '@components/core';
 import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
 import {
     Intro,
@@ -11,23 +11,26 @@ import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
 
 import homepageData from '@appdata/homepage.json';
-import { Article, SponsorData } from 'utils/types';
+import { ArticlePreview, Faq, SponsorData } from 'utils/types';
 import { Tool, ToolsByLanguage } from '@components/tools';
-import { getArticles } from 'utils-api/blog';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
 import { getMostViewedTools } from 'utils-api/mostViewedTools';
 import { getSponsors } from 'utils-api/sponsors';
+import { getFaq } from 'utils-api/faq';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
-    const articles = await getArticles();
+    const faq = getFaq();
+    const previews = await getArticlesPreviews();
     const popularLanguages = await getPopularLanguageStats();
     const mostViewed = await getMostViewedTools();
 
     return {
         props: {
             sponsors,
-            articles,
+            faq,
+            previews,
             popularLanguages,
             mostViewed,
         },
@@ -35,21 +38,25 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 export interface HomePageProps {
     sponsors: SponsorData[];
-    articles: Article[];
+    faq: Faq[];
+    previews: ArticlePreview[];
     popularLanguages: ToolsByLanguage;
     mostViewed: Tool[];
 }
 
 const HomePage: FC<HomePageProps> = ({
     sponsors,
-    articles,
+    faq,
+    previews,
     popularLanguages,
     mostViewed,
 }) => {
+    const title =
+        'Linters, Static And Dynamic Analysis Tools To Avoid Bugs And Improve Code Quality';
     return (
         <>
             <MainHead
-                title={homepageData.meta.title}
+                title={title}
                 description={homepageData.meta.description}
             />
 
@@ -59,7 +66,7 @@ const HomePage: FC<HomePageProps> = ({
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
                     <Sidebar className="topSticky">
-                        <BlogPreview articles={articles} />
+                        <BlogPreview previews={previews} />
                         <Newsletter />
                     </Sidebar>
                     <Panel>
@@ -70,6 +77,8 @@ const HomePage: FC<HomePageProps> = ({
                     </Panel>
                 </Main>
             </Wrapper>
+
+            <FAQ faq={faq} />
 
             <SponsorBanner sponsors={sponsors} />
             <Footer />

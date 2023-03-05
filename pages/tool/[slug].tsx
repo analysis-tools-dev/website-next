@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { getTool } from 'utils-api/tools';
+import { getTool, getToolIcon } from 'utils-api/tools';
 import {
     AlternativeToolsList,
     Tool,
@@ -11,18 +11,18 @@ import {
 } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
-import { getTools } from 'utils-api/tools';
-import { Article, SponsorData, StarHistory } from 'utils/types';
+import { getAllTools } from 'utils-api/tools';
+import { ArticlePreview, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
-import { getArticles } from 'utils-api/blog';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
     // Call an external API endpoint to get tools
-    const data = await getTools();
+    const data = await getAllTools();
 
     if (!data) {
         return { paths: [], fallback: false };
@@ -51,7 +51,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const sponsors = getSponsors();
     const votes = await getVotes();
     const apiTool = await getTool(slug);
-    const articles = await getArticles();
+    const previews = await getArticlesPreviews();
+    const icon = await getToolIcon(slug);
 
     if (!apiTool) {
         return {
@@ -62,11 +63,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const tool = {
         ...apiTool,
         id: slug,
+        icon: icon,
     };
-    const alternativeTools = await getTools();
+    const alternativeTools = await getAllTools();
     let alternatives: Tool[] = [];
+    let allAlternatives: Tool[] = [];
     if (alternativeTools) {
-        alternatives = Object.entries(alternativeTools).reduce(
+        allAlternatives = Object.entries(alternativeTools).reduce(
             (acc, [id, tool]) => {
                 // if key is not equal to slug
                 if (id !== slug) {
@@ -91,13 +94,40 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
         // if in currentTool view, show only tools with the same type
         if (tool) {
-            alternatives = alternatives.filter((alt) => {
+            alternatives = allAlternatives.filter((alt) => {
                 return (
                     containsArray(alt.types, tool.types || []) &&
                     containsArray(alt.languages, tool.languages || []) &&
                     containsArray(alt.categories, tool.categories || [])
                 );
             });
+
+            // if the list is empty, show the tools with the same type and the most
+            // matched languages
+            if (alternatives.length === 0) {
+                alternatives = allAlternatives;
+
+                // sort the list by the number of matched languages
+                alternatives.sort((a, b) => {
+                    return (
+                        b.languages?.filter((lang) =>
+                            tool.languages?.includes(lang),
+                        ).length -
+                        a.languages?.filter((lang) =>
+                            tool.languages?.includes(lang),
+                        ).length
+                    );
+                });
+
+                // take the tools with at least 5 matched languages
+                alternatives = alternatives.filter((alt) => {
+                    return (
+                        alt.languages?.filter((lang) =>
+                            tool.languages?.includes(lang),
+                        ).length >= 5
+                    );
+                });
+            }
         }
     }
 
@@ -106,7 +136,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             tool,
             alternatives,
             sponsors,
-            articles,
+            previews,
             screenshots: (await getScreenshots(slug)) || null,
         },
     };
@@ -116,7 +146,7 @@ export interface ToolProps {
     tool: Tool;
     alternatives: Tool[];
     sponsors: SponsorData[];
-    articles: Article[];
+    previews: ArticlePreview[];
     screenshots: { path: string; url: string }[];
     starHistory: StarHistory;
 }
@@ -125,12 +155,40 @@ const ToolPage: FC<ToolProps> = ({
     tool,
     alternatives,
     sponsors,
-    articles,
+    previews,
     screenshots,
 }) => {
-    const title = `${tool.name} - Analysis Tools`;
-    const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
+    console.log(tool);
+    console.log(alternatives);
+    console.log(sponsors);
+    console.log(previews);
+    console.log(screenshots);
+
+    const languages = tool.languages || [];
+    const capitalizedLanguages = languages.map((lang) => {
+        return lang
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    });
+    // If the list of languages is longer than 3, just show the first 3
+    if (capitalizedLanguages.length > 3) {
+        capitalizedLanguages.splice(3, capitalizedLanguages.length - 3);
+    }
+
+    let description = `${tool.name}, a ${tool.categories.join(
+        '/',
+    )} for ${capitalizedLanguages.join('/')} - `;
+
+    if (alternatives.length === 0) {
+        description += ` Rating And Alternatives`;
+    } else if (alternatives.length === 2) {
+        description += ` And Two Alternatives`;
+    } else {
+        description += ` Rating And ${alternatives.length} Alternatives`;
+    }
+
+    const title = `${description} | Analysis Tools`;
 
     return (
         <SearchProvider>
@@ -139,11 +197,12 @@ const ToolPage: FC<ToolProps> = ({
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <ToolInfoSidebar tool={tool} articles={articles} />
+                    <ToolInfoSidebar tool={tool} previews={previews} />
                     <Panel>
                         <ToolInfoCard tool={tool} />
                         <ToolGallery tool={tool} screenshots={screenshots} />
                         <AlternativeToolsList
+                            listTitle={`Alternatives for ${tool.name}`}
                             currentTool={tool}
                             tools={alternatives}
                         />

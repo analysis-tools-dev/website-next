@@ -7,37 +7,38 @@ import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
 import { Article, SponsorData } from 'utils/types';
 import { ToolsByLanguage } from '@components/tools';
-import { getArticles } from 'utils-api/blog';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
 import { getSponsors } from 'utils-api/sponsors';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
-    const articles = await getArticles();
+    const previews = await getArticlesPreviews();
     const popularLanguages = await getPopularLanguageStats();
 
     return {
         props: {
             sponsors,
-            articles,
+            previews: previews,
             popularLanguages,
         },
     };
 };
 export interface LanguagesPageProps {
     sponsors: SponsorData[];
-    articles: Article[];
+    previews: Article[];
     popularLanguages: ToolsByLanguage;
 }
 
-const LagnuagesPage: FC<LanguagesPageProps> = ({
+const LanguagesPage: FC<LanguagesPageProps> = ({
     sponsors,
-    articles,
+    previews,
     popularLanguages,
 }) => {
-    const title = 'Popular Static Analysis Tools by Language - Analysis Tools';
-    const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
+    const title =
+        'Popular Static/Dynamic Analysis Tools by Language | Analysis Tools';
+
+    const description = `Find the most popular static and dynamic analysis tools for your favorite programming language.`;
 
     return (
         <>
@@ -47,7 +48,7 @@ const LagnuagesPage: FC<LanguagesPageProps> = ({
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
                     <Sidebar className="topSticky">
-                        <BlogPreview articles={articles} />
+                        <BlogPreview previews={previews} />
                         <Newsletter />
                     </Sidebar>
                     <Panel>
@@ -65,4 +66,4 @@ const LagnuagesPage: FC<LanguagesPageProps> = ({
     );
 };
 
-export default LagnuagesPage;
+export default LanguagesPage;

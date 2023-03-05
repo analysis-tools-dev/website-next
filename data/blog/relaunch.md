@@ -3,7 +3,7 @@ title: Rebuilding Analysis Tools with Next.js
 date: '2022-10-28T00:00:00.000Z'
 ---
 
-We are happy to announce that we have rebuilt analysis-tools.org with Next.js!
+We are happy to announce that we have rebuilt analysis-tools.dev with Next.js!
 
 This is a major milestone for us, as it marks the first time we have rebuilt the
 site from scratch. The old site was built with Gatsby, which was a great choice
@@ -21,7 +21,8 @@ This growth has been great, but it has also come with some challenges.
 -   Finding tools was tedious because there were no search filters.
 -   The tool recommendations were not very good. For example, we would recommend a
     formatter if you were on a page for a linter.
--   The website layout looked dated and clearly done by a non-designer.
+-   The website layout looked dated and clearly done by non-designers (Jakub and
+    me are backend engineers).
 -   The old site took a long time to build because we rendered all screenshots
     during bootup.
 
@@ -51,16 +52,21 @@ He built the initial design for the new site and wrote most of the new frontend 
 
 # New Features!
 
--   Many search filters to find the right tool for you (e.g. language, license, etc.).
+The rewrite enabled a lot of new features, which we wanted to introduce for a
+long time, but were blocked by the limitations of the old codebase.
+
+-   Many search filters to find the right tool by language, license, etc.
 -   Tool rankings based on votes and page visits within the last 7 days.
--   A new [pipeline for assets](https://github.com/analysis-tools-dev/assets/actions) (screenshots, videos, etc.)
-    that works completely asynchronously.
--   A little Github Star History next to every tool.
--   Special icons for sponsors.
+-   The addition of [dynamic analysis tools](https://github.com/analysis-tools-dev/dynamic-analysis).
+-   A new [pipeline for
+    assets](https://github.com/analysis-tools-dev/assets/actions) (screenshots,
+    videos, etc.) that works completely asynchronously.
+-   A little Github star history panel next to every tool.
+-   Special icons for our sponsors.
 
 # Thanks
 
-We would like to thank our sponsors for making this possible:
+Speaking of which, we would like to thank our sponsors for making this possible:
 
 -   [DeepCode](https://www.deepcode.ai/)
 -   [CodeScene](https://codescene.io/)

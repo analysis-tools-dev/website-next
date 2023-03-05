@@ -2,6 +2,7 @@ import { Tool } from '@components/tools';
 import {
     ApiTag,
     Article,
+    Faq,
     LanguageData,
     ScreenshotApiData,
     SponsorData,
@@ -200,6 +201,23 @@ export const isAllStarHistoryData = (
             if (!res) {
                 return false;
             }
+        }
+    }
+    return true;
+};
+
+export const isFaqData = (data: unknown): data is Faq[] => {
+    if (!data || !Array.isArray(data)) {
+        return false;
+    }
+
+    for (const entry of data) {
+        const res =
+            (entry as Faq).question !== undefined &&
+            (entry as Faq).answer !== undefined;
+
+        if (!res) {
+            return false;
         }
     }
     return true;
