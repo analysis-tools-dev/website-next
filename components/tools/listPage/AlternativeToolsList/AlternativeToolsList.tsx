@@ -133,11 +133,20 @@ export const AlternativeToolsList: FC<AlternativeToolsListProps> = ({
 
     return (
         <>
-            <PanelHeader level={3} text={alternativeToolsHeading}>
-                <Dropdown changeSort={changeSort} />
-            </PanelHeader>
-            <SingleLanguageTools singleTagTools={singleTagTools} />
-            <MultiLanguageTools multiTagTools={multiTagTools} />
+            {singleTagTools.length === 0 ? (
+                <SuggestLink />
+            ) : (
+                <>
+                    <PanelHeader level={3} text={alternativeToolsHeading}>
+                        <Dropdown changeSort={changeSort} />
+                    </PanelHeader>
+                    <SingleLanguageTools singleTagTools={singleTagTools} />
+                </>
+            )}
+
+            {multiTagTools && (
+                <MultiLanguageTools multiTagTools={multiTagTools} />
+            )}
         </>
     );
 };

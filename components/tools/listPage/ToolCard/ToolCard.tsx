@@ -45,8 +45,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                 {isSponsor(tool.id) && (
                     <Image
                         className={styles.sponsorLogo}
-                        height="20px"
-                        width="20px"
+                        height="18px"
+                        width="18px"
                         src="/assets/icons/general/sponsor.svg"
                         alt="Sponsor"
                     />
