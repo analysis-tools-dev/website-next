@@ -47,3 +47,24 @@
     max-width: 100%;
     height: auto;
 }
+
+@media only screen and (max-width: 900px) {
+    .wrapper {
+        padding: 0;
+    }
+
+    .wrapper h1 {
+        font-size: 24px;
+    }
+
+    .wrapper h2,
+    .wrapper h3,
+    .wrapper h4 {
+        font-size: 1.2em;
+    }
+
+    .wrapper ul,
+    .wrapper ol {
+        margin-left: unset;
+    }
+}

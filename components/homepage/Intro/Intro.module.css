@@ -40,7 +40,7 @@
 
 @media only screen and (max-width: 900px) {
     .introContainer {
-        padding: 80px 0;
+        padding: 60px 0;
         align-content: center;
         justify-content: center;
     }
@@ -55,11 +55,26 @@
     }
 
     .textHeading {
-        font-size: 50px;
+        font-size: 38px;
     }
 
     .textDescription {
         font-size: 18px;
-        margin: 50px 0 80px 0;
+        margin: 40px 0;
+        line-height: 24px;
+    }
+
+    .actionBtns {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .actionBtns a {
+        margin: 0 !important;
     }
 }
