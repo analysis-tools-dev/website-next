@@ -25,7 +25,7 @@ const MobileFilters: FC = () => {
     const languageResult = useLanguagesQuery();
 
     const others = otherResult.data || [];
-    // Fitler duplicates on tag
+    // Filter duplicates on tag
     const languages = languageResult.data || [];
 
     const submit = () => {
