@@ -1,13 +1,15 @@
 import { Card } from '@components/layout';
+import classNames from 'classnames';
 import { useSearchState } from 'context/SearchProvider';
 import { FC, useEffect, useState } from 'react';
 import styles from './Dropdown.module.css';
 
 interface DropdownProps {
     changeSort: (searchState: any) => void;
+    className?: string;
 }
 
-const Dropdown: FC<DropdownProps> = ({ changeSort }) => {
+const Dropdown: FC<DropdownProps> = ({ changeSort, className }) => {
     const [state, setState] = useState('initial');
     const { search } = useSearchState();
 
@@ -19,7 +21,7 @@ const Dropdown: FC<DropdownProps> = ({ changeSort }) => {
     }, [search.sorting]);
 
     return (
-        <Card className={styles.selectWrapper}>
+        <Card className={classNames(styles.selectWrapper, className)}>
             <label className={styles.label} htmlFor="sort-select">
                 Sort by:{' '}
             </label>

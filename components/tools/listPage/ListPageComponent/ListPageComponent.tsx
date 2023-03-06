@@ -95,7 +95,10 @@ const ListComponent: FC<ListComponentProps> = ({ articles }) => {
             <ToolsSidebar articles={articles} />
             <Panel>
                 <PanelHeader level={3} text={heading}>
-                    {/* <Dropdown changeSort={changeSort} /> */}
+                    <Dropdown
+                        className="mobileHidden"
+                        changeSort={changeSort}
+                    />
                     <MobileFilters />
                 </PanelHeader>
                 {data?.pages?.map((page, i) => {

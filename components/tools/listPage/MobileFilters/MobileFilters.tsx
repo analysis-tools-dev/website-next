@@ -8,6 +8,7 @@ import { useSearchState } from 'context/SearchProvider';
 import MobileFilter from './MobileFilter/MobileFilter';
 
 import {
+    SORTING_OPTIONS,
     CATEGORY_OPTIONS,
     TYPE_OPTIONS,
     LICENSE_OPTIONS,
@@ -49,6 +50,14 @@ const MobileFilters: FC = () => {
         setModelOpen(false);
     };
 
+    const changeSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const sorting = e.target.value;
+        setState({
+            ...state,
+            sorting,
+        });
+    };
+
     return (
         <>
             <div className={styles.mobileFilterForm}>
@@ -73,6 +82,15 @@ const MobileFilters: FC = () => {
                             level={2}
                             text="Filter Tools"
                             className="m-b-40"
+                        />
+
+                        <MobileFilter
+                            id="sorting"
+                            label="Sort By"
+                            options={SORTING_OPTIONS}
+                            placeholder="Sort By"
+                            state={state}
+                            setState={setState}
                         />
 
                         <MobileFilter
