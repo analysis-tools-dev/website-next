@@ -5,7 +5,7 @@ export const PRICING_OPTIONS = [
     },
     {
         value: 'free',
-        name: 'Free',
+        name: 'Free Plan',
     },
     {
         value: 'plans',
