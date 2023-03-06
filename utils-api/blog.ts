@@ -109,12 +109,12 @@ export const getArticles = async () => {
         }
         if (!isArticlesApiData(data)) {
             await cacheDataManager.del(cacheKey);
-            console.log('Articles TypeError');
+            console.error('Articles TypeError');
             return null;
         }
         return data.sort((a, b) => (a.meta.date > b.meta.date ? -1 : 1));
     } catch (e) {
-        console.log('Error occurred: ', JSON.stringify(e));
+        console.error('Error occurred: ', JSON.stringify(e));
         await cacheDataManager.del(cacheKey);
         return null;
     }

@@ -80,7 +80,5 @@ export const getRepoStarRecords = async (toolId: string) => {
         console.error(`Could not find ${toolId} star history`);
         return null;
     }
-
-    console.log(`Found ${stars.length} star records for ${toolId}!`);
     return stars as StarHistory;
 };

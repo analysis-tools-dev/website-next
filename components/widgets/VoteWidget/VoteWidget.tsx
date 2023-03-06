@@ -42,11 +42,8 @@ const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
     }
 
     const upVoteButtonClick = async () => {
-        console.log('upVoteButtonClick');
         // Check local storage for vote
         const localVote = localStorage.getItem(`vote-${toolId}`);
-
-        console.log('localVote', localVote);
 
         if (localVote) {
             // check if it was a downvote
@@ -64,7 +61,6 @@ const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
             localStorage.setItem(`vote-${toolId}`, 'upvote');
             setVoteAction('upvote');
         }
-        console.log('upVoteButtonClick', votes);
     };
 
     const downVoteButtonClick = async () => {
@@ -87,7 +83,6 @@ const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
             localStorage.setItem(`vote-${toolId}`, 'downvote');
             setVoteAction('downvote');
         }
-        console.log('downVoteButtonClick', votes);
     };
 
     return (

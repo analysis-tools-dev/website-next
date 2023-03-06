@@ -31,7 +31,6 @@ const ShareBtns: FC<ShareBtnsProps> = ({ url, className }) => {
     return (
         <>
             <ul className={classNames(styles.btnList, className)}>
-                {/* <li>Share:</li> */}
                 <li>
                     <EmailShareButton url={url}>
                         <EmailIcon size={25} round />

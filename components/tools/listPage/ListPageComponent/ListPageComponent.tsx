@@ -27,7 +27,6 @@ const ListComponent: FC<ListComponentProps> = ({ articles }) => {
             DEAULT_LIST_LIMIT +
             '&offset=' +
             pageParam;
-        console.log('fetchTools', apiURL);
         const res = await fetch(apiURL);
         return res.json();
     };

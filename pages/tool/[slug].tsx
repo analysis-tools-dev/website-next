@@ -159,12 +159,6 @@ const ToolPage: FC<ToolProps> = ({
     previews,
     screenshots,
 }) => {
-    console.log(tool);
-    console.log(alternatives);
-    console.log(sponsors);
-    console.log(previews);
-    console.log(screenshots);
-
     const languages = tool.languages || [];
     const capitalizedLanguages = languages.map((lang) => {
         return lang
