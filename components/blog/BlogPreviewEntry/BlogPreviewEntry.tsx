@@ -4,6 +4,7 @@ import { PanelHeader } from '@components/elements';
 import styles from './BlogPreviewEntry.module.css';
 import classNames from 'classnames';
 import { FrontMatter } from 'utils/types';
+import { IsomorphicDate } from '../IsomorphicDate';
 
 export interface BlogPreviewEntryProps {
     meta: FrontMatter;
@@ -28,7 +29,7 @@ const BlogPreviewEntry: FC<BlogPreviewEntryProps> = ({
                 headingClass="font-size-15"
                 className="m-b-8"
             />
-            <p className={styles.postDate}>{postDate.toLocaleDateString()}</p>
+            <p className={styles.postDate}>{IsomorphicDate(postDate)}</p>
             <div
                 className={classNames(
                     styles['text-preview'],

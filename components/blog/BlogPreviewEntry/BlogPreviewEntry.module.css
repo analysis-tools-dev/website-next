@@ -3,6 +3,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     display: -webkit-box;
+    line-height: 20px;
 }
 
 .postDate {
