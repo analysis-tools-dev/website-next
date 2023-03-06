@@ -1,7 +1,7 @@
 export const PRICING_OPTIONS = [
     {
         value: 'oss',
-        name: 'Open Source',
+        name: 'Free for Open Source',
     },
     {
         value: 'free',
