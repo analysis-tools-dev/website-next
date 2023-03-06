@@ -6,7 +6,6 @@
 
 .logoWrapper {
     display: flex;
-    width: 100%;
     justify-content: space-between;
 }
 
@@ -27,9 +26,15 @@
 .showMenu {
     display: unset !important;
 }
+
 .nav {
-    flex: 2 calc(100% - 490px);
-    display: inline-block;
+    flex-grow: 2;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .linkList {
@@ -50,6 +55,7 @@
 
 .searchField {
     flex: 1 400px;
+    max-width: 400px;
 }
 
 .hamburger {
@@ -101,6 +107,10 @@
         flex-direction: column;
         align-items: flex-start;
         height: auto;
+    }
+
+    .logoWrapper {
+        width: 100%;
     }
 
     /* Menu classes */

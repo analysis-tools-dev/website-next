@@ -1,4 +1,4 @@
-import { FC, useEffect, useLayoutEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Wrapper } from '@components/layout';
@@ -8,6 +8,21 @@ import { AutocompleteSearch } from '@components/elements';
 
 const Navbar: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const dropdown = useRef<HTMLInputElement>(null);
+
+    // Handle click outside of dropdown
+    useEffect(() => {
+        // only add the event listener when the dropdown is opened
+        if (!isMenuOpen) return;
+        function handleClick(event: any) {
+            if (dropdown.current && !dropdown.current.contains(event.target)) {
+                setIsMenuOpen(false);
+            }
+        }
+        window.addEventListener('click', handleClick);
+        // clean up
+        return () => window.removeEventListener('click', handleClick);
+    }, [isMenuOpen]);
 
     const links = [
         {
@@ -32,25 +47,7 @@ const Navbar: FC = () => {
         },
     ];
 
-    function handleClickOutside(event: any) {
-        if (
-            !event.target.closest('.menu') &&
-            !event.target.closest('.search')
-        ) {
-            setIsMenuOpen(false);
-        }
-    }
-    // FIXME: useEffect causing toggle menu to not work
-    // useEffect(() => {
-    //     document.addEventListener('click', handleClickOutside, true);
-
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside, true);
-    //     };
-    // }, []);
-
     const toggleMenu = () => {
-        console.log(isMenuOpen);
         setIsMenuOpen(!isMenuOpen);
     };
 
@@ -84,7 +81,8 @@ const Navbar: FC = () => {
                 <nav
                     className={classNames('menu', styles.nav, {
                         [`${styles.showMenu}`]: isMenuOpen,
-                    })}>
+                    })}
+                    ref={dropdown}>
                     <ul className={styles.linkList}>
                         {links.map((link, index) => (
                             <li key={index} className={styles.listItem}>
@@ -97,14 +95,13 @@ const Navbar: FC = () => {
                             </li>
                         ))}
                     </ul>
+                    <div
+                        className={classNames('search', styles.searchField, {
+                            [`${styles.showMenu}`]: isMenuOpen,
+                        })}>
+                        <AutocompleteSearch />
+                    </div>
                 </nav>
-
-                <div
-                    className={classNames('search', styles.searchField, {
-                        [`${styles.showMenu}`]: isMenuOpen,
-                    })}>
-                    <AutocompleteSearch />
-                </div>
             </Wrapper>
         </header>
     );
