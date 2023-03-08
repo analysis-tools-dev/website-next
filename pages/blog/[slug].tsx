@@ -14,6 +14,7 @@ import {
 import { SponsorData, type MarkdownRenderingResult } from 'utils/types';
 import { BlogSidebar } from '@components/blog';
 import { getSponsors } from 'utils-api/sponsors';
+import { Button } from '@components/elements';
 
 interface ArticleProps extends ParsedUrlQuery {
     slug: string;
@@ -77,6 +78,10 @@ const BlogPostPage: FC<BlogPostPageProps> = ({
     const description =
         'Our blog is a place where we share our thoughts on the latest trends in the static analysis tools industry.';
 
+    const navigateBack = () => {
+        window.history.back();
+    };
+
     return (
         <>
             <MainHead title={title} description={description} />
@@ -86,6 +91,9 @@ const BlogPostPage: FC<BlogPostPageProps> = ({
                 <Main>
                     <BlogSidebar sponsors={sponsors} />
                     <Panel>
+                        <Button onClick={navigateBack} theme="link">
+                            Back
+                        </Button>
                         <BlogPostLayout
                             frontMatter={frontMatter}
                             html={html}

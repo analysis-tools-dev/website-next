@@ -4,6 +4,16 @@
     border-bottom: 1px solid #486a8b;
 }
 
+.logoWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 35px;
+    width: 175px;
+}
+
 .wrapper {
     height: 64px;
     display: flex;
@@ -12,9 +22,19 @@
     align-items: center;
 }
 
+/* Menu classes */
+.showMenu {
+    display: unset !important;
+}
+
 .nav {
-    flex: 2 calc(100% - 490px);
-    display: inline-block;
+    flex-grow: 2;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .linkList {
@@ -35,11 +55,86 @@
 
 .searchField {
     flex: 1 400px;
+    max-width: 400px;
 }
 
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+}
+
+.hamburgerBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 22px;
+    width: 22px;
+    cursor: pointer;
+}
+
+.hamburgerInner {
+    height: 3px;
+    width: 100%;
+    background: #fff;
+    transition: all 100ms ease-in-out;
+}
+
+/* rotate first and last instance of hamburgerInner and hide the middle one, to form X  */
+.showMenu .hamburgerInner:nth-child(1) {
+    transition: all 100ms ease-in-out;
+    transform: rotate(45deg);
+    transform-origin: top left;
+    width: 28px;
+}
+.showMenu .hamburgerInner:nth-child(2) {
+    transition: all 100ms ease-in-out;
+    transform-origin: center;
+    width: 0;
+}
+.showMenu .hamburgerInner:nth-child(3) {
+    transition: all 100ms ease-in-out;
+    transform: rotate(-45deg);
+    transform-origin: bottom left;
+    width: 28px;
+}
+
+/* End Menu classes */
+
 @media only screen and (max-width: 900px) {
-    .nav,
+    .wrapper {
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+
+    .logoWrapper {
+        width: 100%;
+    }
+
+    /* Menu classes */
+    .hamburger {
+        display: block;
+        margin: 0 0 0 20px;
+    }
+
+    .nav {
+        display: none;
+        width: 100%;
+    }
+
+    .linkList {
+        flex-direction: column;
+        gap: 30px;
+        margin: 40px 0;
+    }
+
     .searchField {
         display: none;
+        width: 100%;
+        flex: auto;
+        margin: 20px 0;
     }
+    /* End Menu classes */
 }

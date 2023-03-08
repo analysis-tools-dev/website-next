@@ -24,4 +24,7 @@
     .toolListWrapper {
         flex-direction: column;
     }
+    .languageName {
+        font-size: 18px;
+    }
 }

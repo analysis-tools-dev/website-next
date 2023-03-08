@@ -12,18 +12,23 @@
 
 .info {
     position: relative;
-    padding: 15px 15px 100px 15px;
+    padding: 30px;
     flex-grow: 1;
 }
 
-.moreInfo {
-    background-image: url('/assets/icons/general/external.svg');
-    background-repeat: no-repeat;
-    padding-left: 20px;
+.cardHeader {
+    display: flex;
+    gap: 15px;
+}
+
+.toolName {
+    display: flex;
+    align-items: center;
 }
 
 .description {
-    margin: 10px 0;
+    margin: 30px 0;
+    line-height: 20px;
 }
 
 .languageLink {
@@ -37,9 +42,6 @@
 }
 
 .cardFooter {
-    position: absolute;
-    bottom: 20px;
-    width: calc(100% - 30px);
     display: flex;
 }
 
@@ -55,18 +57,34 @@
     margin-bottom: 20px;
 }
 
-.screenshot {
-    border-radius: 6px;
-}
-
 .toolHeader {
     display: inline;
     vertical-align: top;
     padding-right: 5px;
 }
 
+.maintained {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    font-size: 14px;
+}
+
 .toolLogo {
-    display: inline-block;
-    margin: 0 auto;
-    margin-right: 8px;
+    width: 50px;
+    height: 50px;
+}
+
+@media only screen and (max-width: 900px) {
+    .cardFooter {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 20px;
+    }
+
+    .info {
+        padding: 15px;
+    }
 }

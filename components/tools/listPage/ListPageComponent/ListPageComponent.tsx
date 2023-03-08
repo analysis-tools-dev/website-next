@@ -1,6 +1,6 @@
 import { Dropdown, LoadingDots, PanelHeader } from '@components/elements';
 import { Panel } from '@components/layout';
-import { Tool, ToolCard, ToolsSidebar } from '@components/tools';
+import { MobileFilters, Tool, ToolCard, ToolsSidebar } from '@components/tools';
 import { useSearchState } from 'context/SearchProvider';
 import { useRouterPush } from 'hooks';
 import { FC, useCallback, useEffect, useRef } from 'react';
@@ -27,7 +27,6 @@ const ListComponent: FC<ListComponentProps> = ({ articles }) => {
             DEAULT_LIST_LIMIT +
             '&offset=' +
             pageParam;
-        console.log('fetchTools', apiURL);
         const res = await fetch(apiURL);
         return res.json();
     };
@@ -96,12 +95,19 @@ const ListComponent: FC<ListComponentProps> = ({ articles }) => {
             <ToolsSidebar articles={articles} />
             <Panel>
                 <PanelHeader level={3} text={heading}>
-                    <Dropdown changeSort={changeSort} />
+                    <Dropdown
+                        className="mobileHidden"
+                        changeSort={changeSort}
+                    />
+                    <MobileFilters />
                 </PanelHeader>
                 {data?.pages?.map((page, i) => {
                     return page.data
                         ? page.data.map((tool: Tool, index: number) => (
-                              <ToolCard key={`tool-${index}`} tool={tool} />
+                              <ToolCard
+                                  key={`tool-${i}-${index}`}
+                                  tool={tool}
+                              />
                           ))
                         : null;
                 })}

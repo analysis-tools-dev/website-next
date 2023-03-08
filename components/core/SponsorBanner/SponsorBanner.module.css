@@ -27,15 +27,13 @@
     font-family: Roboto-Bold;
     font-size: 14px;
 }
+
 @media only screen and (max-width: 900px) {
-    .sponsorList{
-        display: block;
+    .sponsorList {
+        flex-direction: column;
         margin: 0;
     }
-
     .listItem {
-        display: block;
-        margin: 0;
-        text-align: center;
+        margin: 0 0 20px 0;
     }
 }

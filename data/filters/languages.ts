@@ -1,30 +1,30 @@
 export const LANGUAGE_OPTIONS = [
     {
-        tag: 'c',
+        value: 'c',
         name: 'C',
     },
     {
-        tag: 'javascript',
+        value: 'javascript',
         name: 'JavaScript',
     },
     {
-        tag: 'kotlin',
+        value: 'kotlin',
         name: 'Kotlin',
     },
     {
-        tag: 'python',
+        value: 'python',
         name: 'Python',
     },
     {
-        tag: 'ruby',
+        value: 'ruby',
         name: 'Ruby',
     },
     {
-        tag: 'rust',
+        value: 'rust',
         name: 'Rust',
     },
     {
-        tag: 'typescript',
+        value: 'typescript',
         name: 'TypeScript',
     },
 ];

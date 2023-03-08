@@ -42,7 +42,7 @@ export interface TagsApiData {
 
 export interface ApiTag {
     name: string;
-    tag: string;
+    value: string;
     tag_type: string;
 }
 

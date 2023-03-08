@@ -12,6 +12,7 @@ import { Article, SponsorData } from 'utils/types';
 import { prefetchTools } from '@components/tools/queries';
 import { ListPageComponent } from '@components/tools';
 import { getSponsors } from 'utils-api/sponsors';
+import { MobileFilters } from '@components/tools/listPage';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const sponsors = getSponsors();

@@ -25,7 +25,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // Get the paths we want to pre-render based on the tags API response
     const paths = data.map((tag) => {
         return {
-            params: { slug: tag.tag },
+            params: { slug: tag.value },
         };
     });
 

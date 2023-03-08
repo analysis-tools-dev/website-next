@@ -24,6 +24,10 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles }) => {
     const otherResult = useOthersQuery();
     const languageResult = useLanguagesQuery();
 
+    const others = otherResult.data || [];
+
+    const languages = languageResult.data || [];
+
     if (otherResult.error || !otherResult.data) {
         return null;
     }
@@ -33,36 +37,47 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <LanguageFilterCard
+                className={styles.filter}
                 heading="Popular Languages"
                 showAllCheckbox={false}
                 filter="languages"
                 options={LANGUAGE_OPTIONS}
             />
             <LanguageFilterCard
+                className={styles.filter}
                 heading="All Languages"
                 filter="languages"
-                options={languageResult.data}
+                options={languages || []}
             />
             <FilterCard
+                className={styles.filter}
                 heading="Categories"
                 filter="categories"
                 options={CATEGORY_OPTIONS}
             />
-            <FilterCard heading="Types" filter="types" options={TYPE_OPTIONS} />
             <FilterCard
+                className={styles.filter}
+                heading="Types"
+                filter="types"
+                options={TYPE_OPTIONS}
+            />
+            <FilterCard
+                className={styles.filter}
                 heading="License"
                 filter="licenses"
                 options={LICENSE_OPTIONS}
             />
             <FilterCard
+                className={styles.filter}
                 heading="Pricing"
                 filter="pricing"
                 options={PRICING_OPTIONS}
             />
             <FilterCard
+                className={styles.filter}
                 heading="Other Tags"
                 filter="others"
-                options={otherResult.data}
+                options={others || []}
                 limit={4}
             />
 

@@ -21,8 +21,9 @@
 }
 
 .description {
-    margin: 5px 0;
+    margin: 10px 0;
     font-size: 14px;
+    line-height: 20px;
 }
 
 .cardFooter {
@@ -43,4 +44,34 @@
     display: inline;
     vertical-align: top;
     padding-right: 5px;
+}
+
+@media only screen and (max-width: 900px) {
+    .sponsorCardWrapper {
+        flex-direction: column;
+        width: 100%;
+        margin: 0 0 30px 0;
+    }
+
+    .logo {
+        width: 100%;
+        border-radius: 6px 6px 0 0;
+    }
+
+    .info {
+        width: 100%;
+        padding: 15px;
+        border-radius: 0 0 6px 6px;
+        padding-bottom: 30px;
+    }
+
+    .description {
+        margin: 16px 0;
+    }
+
+    .cardFooter {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
 }

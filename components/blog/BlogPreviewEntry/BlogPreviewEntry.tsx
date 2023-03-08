@@ -4,6 +4,7 @@ import { PanelHeader } from '@components/elements';
 import styles from './BlogPreviewEntry.module.css';
 import classNames from 'classnames';
 import { FrontMatter } from 'utils/types';
+import { IsomorphicDate } from '../IsomorphicDate';
 
 export interface BlogPreviewEntryProps {
     meta: FrontMatter;
@@ -26,20 +27,18 @@ const BlogPreviewEntry: FC<BlogPreviewEntryProps> = ({
                 text={meta.title}
                 link={link}
                 headingClass="font-size-15"
-                className="m-b-8">
-                {postDate.toLocaleDateString()}
-            </PanelHeader>
+                className="m-b-8"
+            />
+            <p className={styles.postDate}>{IsomorphicDate(postDate)}</p>
             <div
                 className={classNames(
                     styles['text-preview'],
-                    'font-light font-size-s m-t-16',
+                    'font-light font-size-s m-b-8 m-t-8',
                 )}
                 dangerouslySetInnerHTML={{ __html: summary }}
             />
             <Link href={link}>
-                <a className="font-light font-size-s m-t-16 inline">
-                    Read more
-                </a>
+                <a className="font-light font-size-s m-t-8 inline">Read more</a>
             </Link>
         </div>
     );

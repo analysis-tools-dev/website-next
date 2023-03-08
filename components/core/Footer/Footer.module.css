@@ -47,8 +47,16 @@
 }
 
 @media only screen and (max-width: 900px) {
-    .linkList {
+    .wrapper {
+        padding: 40px 20px;
+        gap: 40px;
         flex-wrap: wrap;
-        flex-direction: row;
+        justify-content: center;
+        height: auto;
+    }
+
+    .linkList {
+        gap: 20px;
+        flex-wrap: wrap;
     }
 }

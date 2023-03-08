@@ -1,0 +1,14 @@
+.formEntry {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+    gap: 8px;
+    width: 100%;
+}
+
+.label {
+    font-size: 14px;
+    line-height: 16px;
+    color: #ffffff;
+    margin-bottom: 8px;
+}

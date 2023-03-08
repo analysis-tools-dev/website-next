@@ -4,3 +4,4 @@ export * from './ToolsList';
 export * from './AlternativeToolsList';
 export * from './ToolsSidebar';
 export * from './ListPageComponent';
+export * from './MobileFilters';

@@ -1,14 +1,14 @@
 export const TYPE_OPTIONS = [
     {
-        tag: 'cli',
+        value: 'cli',
         name: 'CLI',
     },
     {
-        tag: 'service',
+        value: 'service',
         name: 'Service',
     },
     {
-        tag: 'ide-plugin',
+        value: 'ide-plugin',
         name: 'IDE-Plugin',
     },
 ];

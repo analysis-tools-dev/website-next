@@ -3,4 +3,12 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     display: -webkit-box;
+    line-height: 20px;
+}
+
+.postDate {
+    font-size: 0.8rem;
+    color: #999;
+    text-align: right;
+    margin: 5px 0 0 0;
 }

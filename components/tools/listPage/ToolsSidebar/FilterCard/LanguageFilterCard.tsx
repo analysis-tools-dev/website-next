@@ -12,7 +12,7 @@ import { useToolsQuery } from '@components/tools/queries';
 import classNames from 'classnames';
 
 export interface LanguageFilterOption {
-    tag: string;
+    value: string;
     name: string;
     tag_type?: string;
     results?: number;
@@ -25,6 +25,7 @@ export interface LanguageFilterCardProps {
     options: LanguageFilterOption[];
     limit?: number;
     router: Router;
+    className?: string;
 }
 
 // TODO: Add Toggle Deprecated (default off)
@@ -35,6 +36,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     filter,
     options,
     limit = 10,
+    className,
 }) => {
     const { search, setSearch } = useSearchState();
 
@@ -77,7 +79,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     }
 
     return (
-        <Card>
+        <Card className={classNames(className)}>
             <Heading level={3} className="m-b-16 font-bold">
                 {heading}
             </Heading>
@@ -104,7 +106,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                     .filter((option) => {
                         // check if any tool has this language
                         return toolsResult.data?.some((tool) => {
-                            return tool.languages.includes(option.tag);
+                            return tool.languages.includes(option.value);
                         });
                     })
                     .slice(0, listLimit)
@@ -112,26 +114,30 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                         <li key={index}>
                             <Input
                                 type="checkbox"
-                                id={`checkbox_${option.tag}`}
-                                value={option.tag}
+                                id={`checkbox_${option.value}`}
+                                value={option.value}
                                 data-filter={filter}
-                                checked={isChecked(filter, option.tag, search)}
+                                checked={isChecked(
+                                    filter,
+                                    option.value,
+                                    search,
+                                )}
                                 onChange={changeQuery(
-                                    option.tag,
+                                    option.value,
                                     search,
                                     setSearch,
                                 )}
                             />
                             <label
                                 className={styles.checkboxLabel}
-                                htmlFor={`checkbox_${option.tag}`}>
+                                htmlFor={`checkbox_${option.value}`}>
                                 {option.name}{' '}
                                 <span className={styles.toolsCount}>
                                     (
                                     {
                                         toolsResult.data.filter((tool) => {
                                             return tool.languages.includes(
-                                                option.tag,
+                                                option.value,
                                             );
                                         }).length
                                     }

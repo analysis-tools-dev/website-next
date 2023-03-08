@@ -7,9 +7,10 @@ import styles from './FilterCard.module.css';
 import { SearchFilter, useSearchState } from 'context/SearchProvider';
 import { isChecked, isSelectedFilter, sortByChecked } from './utils';
 import { changeQuery } from 'utils/query';
+import classNames from 'classnames';
 
 export interface FilterOption {
-    tag: string;
+    value: string;
     name: string;
     tag_type?: string;
     results?: number;
@@ -20,6 +21,7 @@ export interface FilterCardProps {
     filter: string;
     options: FilterOption[];
     limit?: number;
+    className?: string;
 }
 
 // TODO: Add Toggle Deprecated (default off)
@@ -29,6 +31,7 @@ const FilterCard: FC<FilterCardProps> = ({
     filter,
     options,
     limit = 10,
+    className,
 }) => {
     const { search, setSearch } = useSearchState();
 
@@ -55,7 +58,7 @@ const FilterCard: FC<FilterCardProps> = ({
     }
 
     return (
-        <Card>
+        <Card className={classNames(className)}>
             <Heading level={3} className="m-b-16 font-bold">
                 {heading}
             </Heading>
@@ -80,19 +83,19 @@ const FilterCard: FC<FilterCardProps> = ({
                     <li key={index}>
                         <Input
                             type="checkbox"
-                            id={`checkbox_${option.tag}`}
-                            value={option.tag}
+                            id={`checkbox_${option.value}`}
+                            value={option.value}
                             data-filter={filter}
-                            checked={isChecked(filter, option.tag, search)}
+                            checked={isChecked(filter, option.value, search)}
                             onChange={changeQuery(
-                                option.tag,
+                                option.value,
                                 search,
                                 setSearch,
                             )}
                         />
                         <label
                             className={styles.checkboxLabel}
-                            htmlFor={`checkbox_${option.tag}`}>
+                            htmlFor={`checkbox_${option.value}`}>
                             {option.name}
                         </label>
 

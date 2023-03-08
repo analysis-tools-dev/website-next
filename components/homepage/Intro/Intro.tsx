@@ -21,17 +21,19 @@ const Intro: FC = () => {
                         __html: homepageIntro.description,
                     }}></Text>
 
-                <LinkButton
-                    label="Find the right tool"
-                    href="/tools"
-                    className="m-r-16"
-                />
-                <LinkButton
-                    label="Source Code"
-                    href={homepageIntro.githubLink}
-                    type="github"
-                    newTab
-                />
+                <div className={styles.actionBtns}>
+                    <LinkButton
+                        label="Find the right tool"
+                        href="/tools"
+                        className="m-r-16"
+                    />
+                    <LinkButton
+                        label="Source Code"
+                        href={homepageIntro.githubLink}
+                        type="github"
+                        newTab
+                    />
+                </div>
             </div>
 
             <div className={styles.introImage}>

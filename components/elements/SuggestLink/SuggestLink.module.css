@@ -1,4 +1,12 @@
 .suggestLink {
     margin: 20px auto;
     width: fit-content;
+    text-align: center;
+}
+
+@media only screen and (max-width: 900px) {
+    .suggestLink,
+    .suggestLink a {
+        font-size: 14px;
+    }
 }

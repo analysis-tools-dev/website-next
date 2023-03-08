@@ -76,6 +76,7 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
         });
     };
 
+    // TODO: Show hide tags if over 10
     return (languageTags && languageTags.length) ||
         (otherTags && otherTags.length) ? (
         <ul className={cn(styles.tagList, className)}>

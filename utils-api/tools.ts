@@ -102,7 +102,6 @@ export const getTool = async (toolId: string): Promise<Tool | null> => {
 export const getToolIcon = (toolId: string) => {
     // get the absolute path to the icon from project root
     const path = `${process.cwd()}/public/assets/images/tools/${toolId}.png`;
-    console.log(`Checking for icon at ${path}...`);
     if (fs.existsSync(path)) {
         // Return web-accessible path
         return `/assets/images/tools/${toolId}.png`;

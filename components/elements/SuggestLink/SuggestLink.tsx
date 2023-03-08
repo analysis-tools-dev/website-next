@@ -6,7 +6,8 @@ import styles from './SuggestLink.module.css';
 const SuggestLink: FC = () => {
     return (
         <Text className={styles.suggestLink}>
-            Help make this list better.
+            Help make this list better
+            <br />
             <Link href="/contributing">Suggest Tools</Link>
         </Text>
     );

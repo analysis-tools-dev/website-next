@@ -9,7 +9,7 @@ interface MostViewedToolsProps {
 
 const MostViewedTools: FC<MostViewedToolsProps> = ({ tools }) => {
     return (
-        <>
+        <div className="m-t-40">
             <PanelHeader level={2} text="Most Viewed Tools">
                 {/* {mostViewedTools.length > limit ? (
                     <Link href="/tools">{`Show all (${mostViewedTools.length})`}</Link>
@@ -17,7 +17,7 @@ const MostViewedTools: FC<MostViewedToolsProps> = ({ tools }) => {
             </PanelHeader>
 
             <TopToolsListWidget tools={tools} />
-        </>
+        </div>
     );
 };
 

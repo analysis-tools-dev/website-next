@@ -17,6 +17,8 @@ import { containsArray } from 'utils/arrays';
 import { getVotes } from 'utils-api/votes';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
+import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
+import { Comments } from '@components/core/Comments';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -157,12 +159,6 @@ const ToolPage: FC<ToolProps> = ({
     previews,
     screenshots,
 }) => {
-    console.log(tool);
-    console.log(alternatives);
-    console.log(sponsors);
-    console.log(previews);
-    console.log(screenshots);
-
     const languages = tool.languages || [];
     const capitalizedLanguages = languages.map((lang) => {
         return lang
@@ -198,7 +194,10 @@ const ToolPage: FC<ToolProps> = ({
                 <Main>
                     <ToolInfoSidebar tool={tool} previews={previews} />
                     <Panel>
-                        <ToolInfoCard tool={tool} screenshots={screenshots} />
+                        <ToolInfoCard tool={tool} />
+                        <ToolGallery tool={tool} screenshots={screenshots} />
+
+                        <Comments />
                         <AlternativeToolsList
                             listTitle={`Alternatives for ${tool.name}`}
                             currentTool={tool}
