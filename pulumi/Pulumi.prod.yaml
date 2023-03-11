@@ -1,5 +1,5 @@
-encryptionsalt: v1:NIoExvAd50I=:v1:QBh14IZM2Iuw5KgY:jrtq+p9X80cCCl45dffwt2XnHPElRQ==
+encryptionsalt: v1:8tbKAIa+TkI=:v1:Ae7Kqio00CpumHZl:4ez4dIuIHQlne7VWtwI1spcFVSxjeg==
 config:
-    gcp:project: analysis-tools-dev
-    service:name: website-prod
-    service:public_url: https://website-prod-2ddf80d-mcppc6wqoq-uc.a.run.app
+  gcp:project: analysis-tools-dev
+  service:name: website-prod
+  service:public_url: https://website-prod-2ddf80d-mcppc6wqoq-uc.a.run.app

@@ -75,11 +75,10 @@ jobs:
               uses: pulumi/actions@v3
               env:
                   # TODO: Create a password for Pulumi stack during project bootstrap
-                  PULUMI_CONFIG_PASSPHRASE: '${{ secrets.PULUMI_SECRET }}'
+                  PULUMI_CONFIG_PASSPHRASE: '${{ secrets.PULUMI_SECRET_PROD }}'
               with:
                   command: up
                   work-dir: ./pulumi
                   cloud-url: gs://analysis-tools-dev-pulumi
-                  # TODO: Fix the branch name
                   stack-name: prod
                   refresh: true
