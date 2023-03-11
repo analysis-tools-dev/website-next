@@ -15,7 +15,7 @@ export enum APIPaths {
     POPULAR_LANGUAGES = 'popularLanguages',
 }
 
-export const getApiURL = (pathName?: string) => {)
+export const getApiURL = (pathName?: string) => {
     const baseApiUrl = `${publicRuntimeConfig.publicHost ?? ''}/api`;
 
     if (pathName && pathName !== '') {
