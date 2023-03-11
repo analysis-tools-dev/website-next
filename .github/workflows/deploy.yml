@@ -38,6 +38,7 @@ jobs:
               run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
             - name: 'Generate GitHub Token'
+              id: generate_token
               uses: tibdex/github-app-token@v1
               with:
                   app_id: ${{ secrets.GH_APP_ID }}
