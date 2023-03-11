@@ -63,7 +63,7 @@ jobs:
               env:
                   # TODO: Create a password for Pulumi stack during project bootstrap
                   PULUMI_CONFIG_PASSPHRASE: '${{ secrets.PULUMI_SECRET }}'
-                  ALGOLIA_KEY: '${{ secrets.ALGOLIA_KEY }}'
+                  ALGOLIA_API_KEY: '${{ secrets.ALGOLIA_API_KEY }}'
               with:
                   command: up
                   work-dir: ./pulumi
@@ -77,7 +77,7 @@ jobs:
               env:
                   # TODO: Create a password for Pulumi stack during project bootstrap
                   PULUMI_CONFIG_PASSPHRASE: '${{ secrets.PULUMI_SECRET_PROD }}'
-                  ALGOLIA_KEY: '${{ secrets.ALGOLIA_KEY }}'
+                  ALGOLIA_API_KEY: '${{ secrets.ALGOLIA_API_KEY }}'
               with:
                   command: up
                   work-dir: ./pulumi
