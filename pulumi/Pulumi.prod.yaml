@@ -3,3 +3,4 @@ config:
     gcp:project: analysis-tools-dev
     service:name: website-prod
     service:public_url: https://website-prod-b15d725-mcppc6wqoq-uc.a.run.app
+    service:algolia_app_id: V0X7Z4KE9D

@@ -26,8 +26,13 @@ func main() {
 							},
 							Envs: cloudrun.ServiceTemplateSpecContainerEnvArray{
 								&cloudrun.ServiceTemplateSpecContainerEnvArgs{
-									Name:  pulumi.String("NEXT_PUBLIC_HOST"),
+									Name:  pulumi.String("PUBLIC_HOST"),
 									Value: pulumi.String(conf.Require("public_url")),
+								},
+
+								&cloudrun.ServiceTemplateSpecContainerEnvArgs{
+									Name:  pulumi.String("ALGOLIA_APP_ID"),
+									Value: pulumi.String(conf.Require("algolia_app_id")),
 								},
 							},
 						},

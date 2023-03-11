@@ -14,13 +14,16 @@ import classNames from 'classnames';
 import { AlgoliaSearchHelper } from 'algoliasearch-helper';
 import { useDocumentEvent } from 'hooks';
 
+// get public runtime config
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+
 const configLoaded =
-    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID &&
-    process.env.NEXT_PUBLIC_ALGOLIA_API_KEY;
+    publicRuntimeConfig.algoliaAppId && publicRuntimeConfig.algoliaApiKey;
 
 const searchClient = algoliasearch(
-    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || '',
-    process.env.NEXT_PUBLIC_ALGOLIA_API_KEY || '',
+    publicRuntimeConfig.algoliaAppId,
+    publicRuntimeConfig.algoliaApiKey,
 );
 
 interface SearchResult {

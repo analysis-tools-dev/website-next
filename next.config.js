@@ -17,7 +17,9 @@ module.exports = {
     reactStrictMode: true,
     publicRuntimeConfig: {
         // Will be available on both server and client
-        publicHost: process.env.NEXT_PUBLIC_HOST,
+        publicHost: process.env.PUBLIC_HOST,
+        algoliaAppId: process.env.ALGOLIA_APP_ID,
+        algoliaApiKey: process.env.ALGOLIA_API_KEY,
     },
     images: {
         domains: ['raw.githubusercontent.com'],
