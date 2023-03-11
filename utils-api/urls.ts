@@ -49,7 +49,7 @@ export const getApiURLFromContext = (
 };
 
 export const getApiURL = (pathName?: string) => {
-    const baseApiUrl = `${publicRuntimeConfig.publicHost}/api`;
+    const baseApiUrl = `/api`;
 
     if (pathName && pathName !== '') {
         return `${baseApiUrl}/${pathName}`;

@@ -24,12 +24,6 @@ func main() {
 									ContainerPort: pulumi.Int(3000),
 								},
 							},
-							Envs: cloudrun.ServiceTemplateSpecContainerEnvArray{
-								&cloudrun.ServiceTemplateSpecContainerEnvArgs{
-									Name:  pulumi.String("NEXT_PUBLIC_HOST"),
-									Value: pulumi.String(conf.Require("public_url")),
-								},
-							},
 						},
 					},
 				},

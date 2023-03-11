@@ -2,4 +2,3 @@ encryptionsalt: v1:8tbKAIa+TkI=:v1:Ae7Kqio00CpumHZl:4ez4dIuIHQlne7VWtwI1spcFVSxj
 config:
     gcp:project: analysis-tools-dev
     service:name: website-prod
-    service:public_url: https://website-prod-b15d725-mcppc6wqoq-uc.a.run.app
