@@ -25,8 +25,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - id: 'auth'
-              name: 'Authenticate to Google Cloud'
+            - name: 'Authenticate to Google Cloud'
               uses: 'google-github-actions/auth@v1'
               with:
                   workload_identity_provider: 'projects/84699750544/locations/global/workloadIdentityPools/github/providers/github'
@@ -35,17 +34,16 @@ jobs:
             - name: 'Set up Cloud SDK'
               uses: 'google-github-actions/setup-gcloud@v0'
 
-            - name: Configure docker
+            - name: 'Configure Docker'
               run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-            - name: Generate GitHub token
-              id: generate_token
+            - name: 'Generate GitHub Token'
               uses: tibdex/github-app-token@v1
               with:
                   app_id: ${{ secrets.GH_APP_ID }}
                   private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
-            - name: 'Build docker image'
+            - name: 'Build Docker Image'
               env:
                   GH_TOKEN: ${{ steps.generate_token.outputs.token }}
               run: |
@@ -55,15 +53,14 @@ jobs:
                     -t ${IMAGE_NAME} .
                   rm ./credentials.json
 
-            - name: 'Push docker image'
+            - name: 'Push Docker Image'
               run: |
                   docker push ${IMAGE_NAME}
 
-            - name: deploy
+            - name: "Deploy"
               uses: pulumi/actions@v3
-              id: pulumi
               env:
-                  # TODO: Create a password for pulum stack during project bootstrap
+                  # TODO: Create a password for Pulumi stack during project bootstrap
                   PULUMI_CONFIG_PASSPHRASE: '${{ secrets.PULUMI_SECRET }}'
               with:
                   command: up
