@@ -16,7 +16,7 @@ export enum APIPaths {
 }
 
 export const getApiURL = (pathName?: string) => {
-    const baseApiUrl = `/api`;
+    const baseApiUrl = `${publicRuntimeConfig.publicHost}/api`;
 
     if (pathName && pathName !== '') {
         return `${baseApiUrl}/${pathName}`;
