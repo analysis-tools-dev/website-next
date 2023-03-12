@@ -22,6 +22,6 @@ module.exports = {
         algoliaApiKey: process.env.ALGOLIA_API_KEY,
     },
     images: {
-        domains: ['raw.githubusercontent.com'],
+        domains: ['ik.imagekit.io'],
     },
 };
