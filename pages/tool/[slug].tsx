@@ -195,7 +195,12 @@ const ToolPage: FC<ToolProps> = ({
                     <ToolInfoSidebar tool={tool} previews={previews} />
                     <Panel>
                         <ToolInfoCard tool={tool} />
-                        <ToolGallery tool={tool} screenshots={screenshots} />
+                        {screenshots && screenshots.length > 0 && (
+                            <ToolGallery
+                                tool={tool}
+                                screenshots={screenshots}
+                            />
+                        )}
 
                         <Comments />
                         <AlternativeToolsList
