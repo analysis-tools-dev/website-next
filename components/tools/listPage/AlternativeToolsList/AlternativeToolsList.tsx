@@ -41,7 +41,8 @@ const SingleLanguageTools = ({
 const MultiLanguageTools = ({ multiTagTools }: { multiTagTools: Tool[] }) => {
     const multiTagHeading = `${multiTagTools.length} Multi-Language Tools`;
     return (
-        (multiTagTools && (
+        <>
+            multiTagTools && (
             <>
                 <PanelHeader level={3} text={multiTagHeading}></PanelHeader>
                 <div>
@@ -50,7 +51,8 @@ const MultiLanguageTools = ({ multiTagTools }: { multiTagTools: Tool[] }) => {
                     ))}
                 </div>
             </>
-        )) || <SuggestLink />
+            <SuggestLink />
+        </>
     );
 };
 
