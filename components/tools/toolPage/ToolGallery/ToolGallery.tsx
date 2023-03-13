@@ -8,6 +8,7 @@ import styles from './ToolGallery.module.css';
 
 import { type Screenshot } from 'utils/types';
 import { type Tool } from '@components/tools';
+import { PanelHeader } from '@components/elements';
 
 export interface ToolGalleryProps {
     tool: Tool;
@@ -16,56 +17,60 @@ export interface ToolGalleryProps {
 
 const ToolGallery: FC<ToolGalleryProps> = ({ tool, screenshots }) => {
     return (
-        <div className={styles.galleryWrapper}>
-            <Splide
-                extensions={{ Video }}
-                options={{
-                    type: 'loop',
-                    rewind: true,
-                    rewindByDrag: true,
-                    video: {
-                        mute: true,
-                        playerOptions: {
-                            youtube: {
-                                width: 200,
-                            },
-                            vimeo: {},
-                            htmlVideo: {
-                                width: 200,
+        <>
+            <PanelHeader level={3} text="Tutorials / Guides"></PanelHeader>
+            <div className={styles.galleryWrapper}>
+                <Splide
+                    extensions={{ Video }}
+                    options={{
+                        type: 'loop',
+                        rewind: true,
+                        rewindByDrag: true,
+                        video: {
+                            mute: true,
+                            playerOptions: {
+                                youtube: {
+                                    width: 200,
+                                },
+                                vimeo: {},
+                                htmlVideo: {
+                                    width: 200,
+                                },
                             },
                         },
-                    },
-                }}
-                aria-label={`${tool.name} screenshot gallery`}>
-                {screenshots &&
-                    screenshots.map((screenshot, index) =>
-                        screenshot.url.includes('youtube.com') ? (
-                            <SplideSlide
-                                key={`${screenshot.path}-${index}`}
-                                // add youtube link if youtube video
-                                data-splide-youtube={screenshot.url}>
-                                <Image
-                                    className={styles.screenshot}
-                                    width={1280}
-                                    height={720}
-                                    src={screenshot.path}
-                                    alt={`${tool.name} screenshot`}
-                                />
-                            </SplideSlide>
-                        ) : (
-                            <SplideSlide key={`${screenshot.path}-${index}`}>
-                                <Image
-                                    className={styles.screenshot}
-                                    width={1280}
-                                    height={720}
-                                    src={screenshot.path}
-                                    alt={`${tool.name} screenshot`}
-                                />
-                            </SplideSlide>
-                        ),
-                    )}
-            </Splide>
-        </div>
+                    }}
+                    aria-label={`${tool.name} screenshot gallery`}>
+                    {screenshots &&
+                        screenshots.map((screenshot, index) =>
+                            screenshot.url.includes('youtube.com') ? (
+                                <SplideSlide
+                                    key={`${screenshot.path}-${index}`}
+                                    // add youtube link if youtube video
+                                    data-splide-youtube={screenshot.url}>
+                                    <Image
+                                        className={styles.screenshot}
+                                        width={1280}
+                                        height={720}
+                                        src={screenshot.path}
+                                        alt={`${tool.name} screenshot`}
+                                    />
+                                </SplideSlide>
+                            ) : (
+                                <SplideSlide
+                                    key={`${screenshot.path}-${index}`}>
+                                    <Image
+                                        className={styles.screenshot}
+                                        width={1280}
+                                        height={720}
+                                        src={screenshot.path}
+                                        alt={`${tool.name} screenshot`}
+                                    />
+                                </SplideSlide>
+                            ),
+                        )}
+                </Splide>
+            </div>
+        </>
     );
 };
 
