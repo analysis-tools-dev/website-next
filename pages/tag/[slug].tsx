@@ -70,7 +70,10 @@ export interface TagProps {
 
 const TagPage: FC<TagProps> = ({ slug, tag, tools, previews, sponsors }) => {
     // TODO: We should use the `tag.name` here, but it is undefined for some reason
-    let title = `${slug} Static Analysis Tools And Code Formatters | Analysis Tools`;
+    // Capitalize the first letter of the tag
+    const tagName = slug.charAt(0).toUpperCase() + slug.slice(1);
+
+    let title = `${tagName} Static Analysis Tools And Code Formatters | Analysis Tools`;
 
     if (tools.length > 2) {
         // Prefix the title with the number of tools
@@ -93,10 +96,10 @@ const TagPage: FC<TagProps> = ({ slug, tag, tools, previews, sponsors }) => {
                     </Sidebar>
                     <Panel>
                         <LanguageCard tag={slug} tagData={tag} />
-                        {/* We should use the tag.name instead of the slug here,
+                        {/* We should use the tag.name instead,
                         but it is undefined */}
                         <AlternativeToolsList
-                            listTitle={`${slug} Tools`}
+                            listTitle={`${tagName} Tools`}
                             tools={tools}
                         />
                     </Panel>
