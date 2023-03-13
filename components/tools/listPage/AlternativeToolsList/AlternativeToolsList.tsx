@@ -42,15 +42,16 @@ const MultiLanguageTools = ({ multiTagTools }: { multiTagTools: Tool[] }) => {
     const multiTagHeading = `${multiTagTools.length} Multi-Language Tools`;
     return (
         <>
-            multiTagTools && (
-            <>
-                <PanelHeader level={3} text={multiTagHeading}></PanelHeader>
-                <div>
-                    {multiTagTools.map((tool, index) => (
-                        <ToolCard key={index} tool={tool} />
-                    ))}
-                </div>
-            </>
+            {multiTagTools.length === 0 && (
+                <>
+                    <PanelHeader level={3} text={multiTagHeading}></PanelHeader>
+                    <div>
+                        {multiTagTools.map((tool, index) => (
+                            <ToolCard key={index} tool={tool} />
+                        ))}
+                    </div>
+                </>
+            )}
             <SuggestLink />
         </>
     );
