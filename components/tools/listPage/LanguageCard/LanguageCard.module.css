@@ -1,7 +1,7 @@
 .languageCardWrapper {
     margin: 0 0 30px 0;
     padding: 20px;
-    border: none;
+    border: 1px solid #486a8b;
 }
 
 .languageLink {
