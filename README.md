@@ -1,5 +1,5 @@
   <a href="http://analysis-tools.dev/">
-    <img width="300px" alt="Analysis Tools" src="public/assets/images/logo.svg" />
+    <img width="300px" alt="Analysis Tools" src="public/assets/images/logo2.svg" />
   </a>
 
 ![CI](https://github.com/analysis-tools-dev/website-next/workflows/deploy/badge.svg)
@@ -8,20 +8,22 @@ This is the main website code of <a href="https://analysis-tools.dev">analysis-t
 It is a community-organized project around static and dynamic analysis tools.  
 You can help make this website better!
 
-## :heart: Sponsors
+## Sponsors
 
 This project would not be possible without the generous support of our sponsors.
 
 <table>
   <tr>
-    <td><a href="https://deepcode.ai"><img width="200px" src="public/assets/images/sponsors/deepcode.svg" /></a></td>
-    <td><a href="https://codescene.io/"><img width="200px" src="public/assets/images/sponsors/codescene.svg" /></a></td>
-    <td><a href="https://semgrep.dev/"><img width="200px" src="public/assets/images/sponsors/semgrep.svg" /></a></td>
-    <td><a href="https://codiga.io/"><img width="200px" src="public/assets/images/sponsors/codiga.svg" /></a></td>
+    <td><a href="https://deepcode.ai"><img width="200px" src="https://raw.githubusercontent.com/analysis-tools-dev/website/master/static/sponsors/deepcode.png" /></a></td>
+    <td><a href="https://codescene.io/"><img width="200px" src="https://raw.githubusercontent.com/analysis-tools-dev/website/master/static/sponsors/codescene.svg" /></a></td>
+    <td><a href="https://semgrep.dev/"><img width="200px" src="https://raw.githubusercontent.com/analysis-tools-dev/website/master/static/sponsors/semgrep.svg" /></a></td>
+    <td><a href="https://codiga.io/"><img width="200px" src="https://raw.githubusercontent.com/analysis-tools-dev/website/master/static/sponsors/codiga.svg" /></a></td>
+    <td><a href="https://offensive360.com/"><img width="200px" src="https://raw.githubusercontent.com/analysis-tools-dev/website/master/static/sponsors/offensive360.png" /></a></td>
   </tr>
 </table>
 
 If you also want to support this project, head over to our [Github sponsors page](https://github.com/sponsors/analysis-tools-dev).
+
 
 ## 🚀 Contributing
 
@@ -70,7 +72,3 @@ Your site is now running at http://localhost:3000!
 
 Once you're happy with your changes, please send us a pull request and we'll review it promptly.
 Don't be afraid to make small changes or ask for feedback early. We're happy to help!
-
-## Important Links
-
--   [Figma Designs](https://www.figma.com/proto/wXX0s5RS2aNQK1waXawRAq)
