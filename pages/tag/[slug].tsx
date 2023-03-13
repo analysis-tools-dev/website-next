@@ -69,7 +69,8 @@ export interface TagProps {
 }
 
 const TagPage: FC<TagProps> = ({ slug, tag, tools, previews, sponsors }) => {
-    let title = `${tag.name} Static Analysis Tools And Code Formatters | Analysis Tools`;
+    // TODO: We should use the `tag.name` here, but it is undefined for some reason
+    let title = `${slug} Static Analysis Tools And Code Formatters | Analysis Tools`;
 
     if (tools.length > 2) {
         // Prefix the title with the number of tools
