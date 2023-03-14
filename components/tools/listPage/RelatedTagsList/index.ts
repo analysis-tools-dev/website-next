@@ -1,0 +1,1 @@
+export { RelatedTagsList } from './RelatedTagsList';
