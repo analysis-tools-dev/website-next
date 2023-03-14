@@ -14,10 +14,9 @@ permissions:
     contents: 'read'
     id-token: 'write'
 
-# Restart the current execution to favor a new one.
 concurrency:
-    group: ${{ github.ref }}
-    cancel-in-progress: true
+    # Only one execution of this workflow can run at the same time.
+    group: ${{ github.workflow }}
 
 jobs:
     deploy:
@@ -74,6 +73,7 @@ jobs:
 
             - name: 'Deploy prod'
               uses: pulumi/actions@v3
+              if: github.ref == 'refs/heads/main'
               env:
                   # TODO: Create a password for Pulumi stack during project bootstrap
                   PULUMI_CONFIG_PASSPHRASE: '${{ secrets.PULUMI_SECRET_PROD }}'
