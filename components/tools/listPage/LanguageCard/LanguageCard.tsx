@@ -20,7 +20,7 @@ const LanguageCard: FC<LanguageCardProps> = ({ tag, tagData }) => {
         : tag.charAt(0).toUpperCase() + tag.slice(1);
 
     return (
-        <Card className={styles.languageCardWrapper}>
+        <Card key={tagName} className={styles.languageCardWrapper}>
             <Link href={`/tag/${tag}`}>
                 <a className={styles.languageLink}>
                     <ImageWithFallback

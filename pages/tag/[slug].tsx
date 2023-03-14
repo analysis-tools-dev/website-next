@@ -6,12 +6,13 @@ import { LanguageCard, AlternativeToolsList, Tool } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { ArticlePreview, LanguageData, SponsorData } from 'utils/types';
 import { getArticlesPreviews } from 'utils-api/blog';
-import { getLanguageData, getTags } from 'utils-api/tags';
+import { getLanguageData, getSimilarTags, getTags } from 'utils-api/tags';
 import { filterByTags } from 'utils-api/filters';
 import { BlogPreview } from '@components/blog';
 import { Newsletter } from '@components/elements';
 import { getSponsors } from 'utils-api/sponsors';
 import { getToolsWithVotes } from 'utils-api/toolsWithVotes';
+import { RelatedTagsList } from '@components/tools/listPage/RelatedTagsList';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -47,6 +48,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const previews = await getArticlesPreviews();
     const sponsors = getSponsors();
 
+    const relatedTags = getSimilarTags(slug);
+
     const filteredTools = filterByTags(tools, slug);
 
     return {
@@ -56,6 +59,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             tools: filteredTools,
             previews,
             sponsors,
+            relatedTags,
         },
     };
 };
@@ -66,9 +70,17 @@ export interface TagProps {
     tools: Tool[];
     previews: ArticlePreview[];
     sponsors: SponsorData[];
+    relatedTags: string[];
 }
 
-const TagPage: FC<TagProps> = ({ slug, tag, tools, previews, sponsors }) => {
+const TagPage: FC<TagProps> = ({
+    slug,
+    tag,
+    tools,
+    previews,
+    sponsors,
+    relatedTags,
+}) => {
     // TODO: We should use the `tag.name` here, but it is undefined for some reason
     // Capitalize the first letter of the tag
     const tagName = slug.charAt(0).toUpperCase() + slug.slice(1);
@@ -102,6 +114,7 @@ const TagPage: FC<TagProps> = ({ slug, tag, tools, previews, sponsors }) => {
                             listTitle={`${tagName} Tools`}
                             tools={tools}
                         />
+                        <RelatedTagsList tags={relatedTags} />
                     </Panel>
                 </Main>
             </Wrapper>

@@ -30,7 +30,7 @@ const PanelHeader: FC<PanelHeaderProps> = ({
                     {link ? <a href={link}>{text}</a> : text}
                 </Heading>
             </div>
-            <div className={styles.actionBtns}>{children}</div>
+            {children && <div className={styles.actionBtns}>{children}</div>}
         </div>
     );
 };

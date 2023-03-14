@@ -137,3 +137,37 @@ export const getLanguageData = async (tagId: string) => {
         return defaultTagData;
     }
 };
+
+const SIMILAR_TAGS_FILE_PATH = `${process.cwd()}/data/relatedTags.json`;
+
+export const getSimilarTags = (tag: string): string[] => {
+    try {
+        const data = readFileSync(SIMILAR_TAGS_FILE_PATH).toString() || '';
+        const relatedTags = JSON.parse(data) || [];
+
+        // Structure of relatedTags.json
+        // [
+        // ["tag1", "tag2", "tag3"],
+        // ["tag4", "tag5", "tag6"]
+        // ]
+
+        // Find the array that contains the tag
+        const relatedTagsArray = relatedTags.find((tags: string[]) =>
+            tags.includes(tag.toLowerCase()),
+        );
+
+        if (!relatedTagsArray) {
+            return [];
+        }
+
+        // Remove the tag from the array
+        const relatedTagsWithoutCurrentTag = relatedTagsArray.filter(
+            (t: string) => t !== tag.toLowerCase(),
+        );
+
+        return relatedTagsWithoutCurrentTag;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
