@@ -6,7 +6,6 @@ import {
     Highlight,
     Hits,
     InstantSearch,
-    Pagination,
     SearchBox,
 } from 'react-instantsearch-hooks-web';
 import { Card } from '@components/layout';
@@ -98,7 +97,6 @@ const AutocompleteSearch: FC = () => {
                             hidden: !showResults,
                         })}>
                         <Hits hitComponent={Hit} />
-                        <Pagination />
                     </Card>
                 </div>
             </div>
