@@ -38,10 +38,8 @@ cd website/
 
 2. **Create a `.env.local` file**
 
-Create a `.env.local` file at the root of your application and store two
+Create an `.env.local` file at the root of your application and set the following
 environment variables in it:
-
-Create a file named
 
 ```env
 PUBLIC_HOST=http://localhost:3000
