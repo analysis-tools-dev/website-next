@@ -1,0 +1,36 @@
+.tagLinkCard {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    row-gap: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    background: #1f364d;
+    border: 1px solid #486a8b;
+    border-radius: 6px;
+}
+
+.tagCardInfo {
+    width: calc(100% - 45px);
+    padding: 0px 5px;
+}
+
+@media only screen and (max-width: 900px) {
+    .tagsList {
+        flex-direction: column;
+    }
+
+    .tagsListEntry {
+        width: 100%;
+    }
+
+    .tagIcon {
+        width: 40px;
+        height: 40px;
+    }
+}
