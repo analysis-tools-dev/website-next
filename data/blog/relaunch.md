@@ -74,6 +74,9 @@ long time, but were blocked by the limitations of the old codebase.
 -   A little Github star history panel next to every tool.
 -   Special icons for our sponsors.
 
+We're a big step closer to our goal of becoming the main platform for code
+quality.
+
 # Thanks
 
 We would like to thank our sponsors for making this possible:
