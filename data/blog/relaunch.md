@@ -78,7 +78,7 @@ long time, but were blocked by the limitations of the old codebase.
 
 We would like to thank our sponsors for making this possible:
 
--   [DeepCode](https://www.deepcode.ai/)
+-   [DeepCode by Snyk](https://www.deepcode.ai/)
 -   [CodeScene](https://codescene.io/)
 -   [Semgrep](https://semgrep.dev/)
 -   [Codiga](https://codiga.io/)
