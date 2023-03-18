@@ -21,19 +21,20 @@ const LanguageCard: FC<LanguageCardProps> = ({ tag, tagData }) => {
 
     return (
         <Card key={tagName} className={styles.languageCardWrapper}>
-            <Link href={`/tag/${tag}`}>
-                <a className={styles.languageLink}>
-                    <ImageWithFallback
-                        height="50px"
-                        width="50px"
-                        src={`/assets/icons/languages/${tag}.svg`}
-                        fallbackSrc="/assets/icons/languages/multi-language.svg"
-                        alt={tagData.name}
-                    />
-                    <Heading level={2} className={styles.languageName}>
-                        {languageName} Static Analysis Tools
-                    </Heading>
-                </a>
+            <Link
+                href={`/tag/${tag}`}
+                className={styles.languageLink}
+                passHref={true}>
+                <ImageWithFallback
+                    height="50px"
+                    width="50px"
+                    src={`/assets/icons/languages/${tag}.svg`}
+                    fallbackSrc="/assets/icons/languages/multi-language.svg"
+                    alt={tagData.name}
+                />
+                <Heading level={2} className={styles.languageName}>
+                    {languageName} Static Analysis Tools
+                </Heading>
             </Link>
             {tagData.description && tagData.description !== '' && (
                 <Text className={styles.description}>

@@ -79,10 +79,10 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                             alt={toolStatus}
                         />
                         {isSingleLanguage ? (
-                            <Link href={`/tag/${toolLanguage.toLowerCase()}`}>
-                                <a className={styles.languageLink}>
-                                    {toolLanguage}
-                                </a>
+                            <Link
+                                href={`/tag/${toolLanguage.toLowerCase()}`}
+                                className={styles.languageLink}>
+                                {toolLanguage}
                             </Link>
                         ) : (
                             <span className={styles.metaInfo}>

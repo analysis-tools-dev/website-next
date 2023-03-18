@@ -15,6 +15,7 @@ const ToolsListEntry: FC<ToolsListEntryProps> = ({ tool }) => {
         <div className={styles.listEntryWrapper}>
             <VoteWidget toolId={tool.id} type={'secondary'} />
             <Link
+                passHref={true}
                 href={`/tool/${tool.id}`}
                 className={cn(styles.toolLink, 'no-underline')}>
                 <Image

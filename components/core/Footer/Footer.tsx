@@ -47,7 +47,7 @@ const Footer: FC = () => {
     return (
         <footer className={styles.footer}>
             <Wrapper className={styles.wrapper}>
-                <Link href="/" className={styles.logoLink}>
+                <Link href="/" className={styles.logoLink} passHref={true}>
                     <Image
                         height="30"
                         width="30"
@@ -64,13 +64,13 @@ const Footer: FC = () => {
                         {links.map((link, index) => (
                             <li key={index} className={styles.listItem}>
                                 {link.external ? (
-                                    <a
+                                    <Link
                                         className={`font-color-light ${styles.navLink}`}
                                         href={link.href}
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         {link.label}
-                                    </a>
+                                    </Link>
                                 ) : (
                                     <Link
                                         href={link.href}
