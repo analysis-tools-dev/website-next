@@ -15,6 +15,16 @@
         "website": "https://en.wikipedia.org/wiki/C_(programming_language)",
         "description": "C is an imperative procedural language. It was designed to be compiled to provide low-level access to memory and language constructs that map efficiently to machine instructions, all with minimal runtime support. Despite its low-level capabilities, the language was designed to encourage cross-platform programming. A standards-compliant C program written with portability in mind can be compiled for a wide variety of computer platforms and operating systems with few changes to its source code."
     },
+    "ci": {
+        "name": "Continuous Integration",
+        "website": "https://en.wikipedia.org/wiki/Continuous_integration",
+        "description": "Continuous integration (CI) is the practice of merging all developer working copies to a shared mainline several times a day. Each integration can then be verified by an automated build (including test) to detect integration errors as quickly as possible. Many teams find that this approach leads to significantly reduced integration problems and allows a team to develop cohesive software more rapidly."
+    },
+    "configfile": {
+        "name": "Config File",
+        "website": "https://en.wikipedia.org/wiki/Configuration_file",
+        "description": "A configuration file is a file used to store configuration data for some computer software. It is used to set up the initial state of a program, or to change the state of a running program. The configuration file is usually a plain text file, but it may also be a binary file. The format of the file is determined by the program that uses it. The file is usually named with a .conf, .cfg, .ini, or .config extension."
+    },
     "container": {
         "name": "Container",
         "website": "https://en.wikipedia.org/wiki/Containerization_(computing)",
@@ -65,6 +75,12 @@
         "source": "https://en.wikipedia.org/wiki/JavaScript",
         "website": "https://en.wikipedia.org/wiki/JavaScript",
         "description": "Alongside HTML and CSS, JavaScript is one of the core technologies of the World Wide Web. JavaScript enables interactive web pages and is an essential part of web applications. The vast majority of websites use it for client-side page behavior, and all major web browsers have a dedicated JavaScript engine to execute it."
+    },
+    "json": {
+        "name": "JSON",
+        "source": "https://en.wikipedia.org/wiki/JSON",
+        "website": "https://www.json.org/",
+        "description": "JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language Standard ECMA-262 3rd Edition - December 1999. JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language."
     },
     "kotlin": {
         "name": "Kotlin",
@@ -131,6 +147,11 @@
         "source": "https://en.wikipedia.org/wiki/Rust_(programming_language)",
         "website": "https://www.rust-lang.org/",
         "description": "Rust is a multi-paradigm programming language focused on performance and safety, especially safe concurrency. Rust is syntactically similar to C++, and provides memory safety without using garbage collection. Rust was originally designed by Graydon Hoare at Mozilla Research, with contributions from Dave Herman, Brendan Eich, and others. The designers refined the language while writing the Servo layout or browser engine, and the Rust compiler. It has gained increasing use in industry, and Microsoft has been experimenting with the language for secure and safety-critical software components. Rust has been named the \"most loved programming language\" in the Stack Overflow Developer Survey every year since 2016."
+    },
+    "security": {
+        "name": "Security",
+        "website": "https://en.wikipedia.org/wiki/Security",
+        "description": "Building applications today is a complex task which involves many technologies and dependencies. Keeping dependencies updated to avoid security vulnerabilities is an ongoing task and a maintainance burden. To ease the process, there are a number of tools which check for common security vulnerabilities and suggest fixes and updates. These tools are sometimes called \"vulnerability scanners\" or \"vulnerability checkers\". Below you can find a list of the most popular tools."
     },
     "sql": {
         "name": "SQL",

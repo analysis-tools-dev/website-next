@@ -1,78 +1,86 @@
 [
     [
+        "clojure",
+        "groovy",
         "java",
         "kotlin",
-        "clojure",
-        "scala",
-        "groovy"
+        "scala"
+    ],
+    [
+        "coffeescript",
+        "javascript",
+        "jsx",
+        "less",
+        "typescript"
     ],
     [
         "javascript",
-        "typescript",
-        "jsx",
-        "coffeescript",
-        "less"
-    ],
-    [
         "python",
-        "ruby",
-        "javascript"
+        "ruby"
     ],
     [
+        "asm",
         "c",
         "cpp",
         "csharp",
         "dotnet",
-        "asm",
-        "fsharp",
-        "embedded"
+        "embedded",
+        "fsharp"
     ],
     [
         "go",
         "rust"
     ],
     [
-        "html",
-        "css"
+        "css",
+        "html"
     ],
     [
-        "sql",
-        "plsql"
+        "plsql",
+        "sql"
     ],
     [
         "vbasic",
         "vbnet"
     ],
     [
-        "dockerfile",
         "container",
+        "dockerfile",
         "kubernetes"
     ],
     [
-        "nodejs",
-        "deno"
+        "deno",
+        "nodejs"
     ],
     [
-        "erlang",
         "elixir",
+        "erlang",
         "haskell"
     ],
     [
-        "shell",
-        "powershell",
+        "buildtool",
         "git",
         "make",
+        "powershell",
+        "shell",
         "yaml"
     ],
     [
-        "swift",
-        "objectivec"
+        "objectivec",
+        "swift"
     ],
     [
-        "python",
-        "php",
-        "ruby",
         "javascript",
+        "php",
+        "python",
+        "ruby",
         "typescript"
+    ],
+    [
+        "binary",
+        "configfile",
+        "ci",
+        "json",
+        "security"
     ]
 ]

@@ -114,7 +114,9 @@ const TagPage: FC<TagProps> = ({
                             listTitle={`${tagName} Tools`}
                             tools={tools}
                         />
-                        <RelatedTagsList tags={relatedTags} />
+                        {relatedTags.length > 0 && (
+                            <RelatedTagsList tags={relatedTags} />
+                        )}
                     </Panel>
                 </Main>
             </Wrapper>
