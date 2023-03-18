@@ -55,13 +55,15 @@ const Navbar: FC = () => {
         <header className={styles.header}>
             <Wrapper className={styles.wrapper}>
                 <div className={styles.logoWrapper}>
-                    <Link href="/" passHref={true}>
-                        <Image
-                            height="35px"
-                            width="175px"
-                            src="/assets/images/logo2.svg"
-                            alt=""
-                        />
+                    <Link href="/">
+                        <a className={styles.logo}>
+                            <Image
+                                height="35px"
+                                width="175px"
+                                src="/assets/images/logo2.svg"
+                                alt=""
+                            />
+                        </a>
                     </Link>
                     <button
                         className={classNames(styles.hamburger, {
@@ -84,20 +86,11 @@ const Navbar: FC = () => {
                     <ul className={styles.linkList}>
                         {links.map((link, index) => (
                             <li key={index} className={styles.listItem}>
-                                <Link href={link.href} legacyBehavior>
-                                    {link.newTab ? (
-                                        <a
-                                            className={`font-color-light ${styles.navLink}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer">
-                                            {link.label}
-                                        </a>
-                                    ) : (
-                                        <a
-                                            className={`font-color-light ${styles.navLink}`}>
-                                            {link.label}
-                                        </a>
-                                    )}
+                                <Link href={link.href}>
+                                    <a
+                                        className={`font-color-light ${styles.navLink}`}>
+                                        {link.label}
+                                    </a>
                                 </Link>
                             </li>
                         ))}
