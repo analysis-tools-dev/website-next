@@ -25,7 +25,9 @@
         "csharp",
         "dotnet",
         "embedded",
-        "fsharp"
+        "fortran",
+        "fsharp",
+        "vbnet"
     ],
     [
         "go",
@@ -45,8 +47,12 @@
     ],
     [
         "container",
+        "cloudformation",
         "dockerfile",
-        "kubernetes"
+        "kubernetes",
+        "template",
+        "terraform",
+        "wasm"
     ],
     [
         "deno",
@@ -58,10 +64,14 @@
         "haskell"
     ],
     [
+        "archive",
         "buildtool",
+        "dotenv",
         "git",
         "make",
+        "package",
         "powershell",
+        "protobuf",
         "shell",
         "yaml"
     ],
@@ -71,6 +81,7 @@
     ],
     [
         "javascript",
+        "laravel",
         "php",
         "python",
         "ruby",
@@ -81,6 +92,23 @@
         "configfile",
         "ci",
         "json",
-        "security"
+        "security",
+        "yaml"
+    ],
+    [
+        "markdown",
+        "writing",
+        "json"
+    ],
+    [
+        "javascript",
+        "jsx",
+        "typescript",
+        "vue"
+    ],
+    [
+        "c",
+        "embedded",
+        "rust"
     ]
 ]
