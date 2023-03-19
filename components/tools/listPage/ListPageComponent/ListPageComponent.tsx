@@ -57,7 +57,7 @@ const ListComponent: FC<ListComponentProps> = ({ articles }) => {
         [fetchNextPage, hasNextPage],
     );
 
-    // Udpate the search state when the query changes and refetch
+    // Update the search state when the query changes and refetch
     useEffect(() => {
         // Update query params in router
         routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
