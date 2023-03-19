@@ -36,6 +36,11 @@
         "website": "https://en.wikipedia.org/wiki/Configuration_file",
         "description": "A configuration file is a file used to store configuration data for some computer software. It is used to set up the initial state of a program, or to change the state of a running program. The configuration file is usually a plain text file, but it may also be a binary file. The format of the file is determined by the program that uses it. The file is usually named with a .conf, .cfg, .ini, or .config extension."
     },
+    "configmanagement": {
+        "name": "Configuration Management",
+        "website": "https://en.wikipedia.org/wiki/Configuration_management",
+        "description": "Configuration management (CM) is the process of systematically handling changes to a system in a way that it maintains integrity over time. It is a core practice in systems and software engineering that enables efficient and reliable delivery of products and services. It is also a key practice in IT service management (ITSM) that enables efficient and reliable delivery of IT services."
+    },
     "container": {
         "name": "Container",
         "website": "https://en.wikipedia.org/wiki/Containerization_(computing)",
