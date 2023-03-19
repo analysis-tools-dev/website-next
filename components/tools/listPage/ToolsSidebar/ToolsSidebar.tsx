@@ -12,12 +12,12 @@ import {
     LICENSE_OPTIONS,
     PRICING_OPTIONS,
 } from '@appdata/filters';
-import { Article } from 'utils/types';
+import { ArticlePreview } from 'utils/types';
 import { LanguageFilterOption } from './FilterCard/LanguageFilterCard';
 import { FilterOption } from './FilterCard/FilterCard';
 
 export interface ToolsSidebarProps {
-    articles: Article[];
+    articles: ArticlePreview[];
     languages: LanguageFilterOption[];
     others: FilterOption[];
 }

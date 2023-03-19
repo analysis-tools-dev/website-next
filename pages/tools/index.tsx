@@ -9,20 +9,19 @@ import {
     fetchLanguages,
     prefetchLanguages,
 } from '@components/tools/queries/languages';
-import { fetchArticles } from '@components/blog/queries/articles';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
-import { Article, SponsorData } from 'utils/types';
+import { ArticlePreview, SponsorData } from 'utils/types';
 import { prefetchTools } from '@components/tools/queries';
 import { ListPageComponent } from '@components/tools';
 import { getSponsors } from 'utils-api/sponsors';
-import { MobileFilters } from '@components/tools/listPage';
 import { fetchOthers } from '@components/tools/queries/others';
 import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/LanguageFilterCard';
 import { FilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/FilterCard';
+import { getArticlesPreviews } from 'utils-api/blog';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const sponsors = getSponsors();
-    const articles = await fetchArticles();
+    const articles = await getArticlesPreviews();
     const languages = await fetchLanguages();
     const others = await fetchOthers();
 
@@ -47,7 +46,7 @@ export interface ToolsProps {
     sponsors: SponsorData[];
     languages: LanguageFilterOption[];
     others: FilterOption[];
-    articles: Article[];
+    articles: ArticlePreview[];
 }
 
 const ToolsPage: FC<ToolsProps> = ({

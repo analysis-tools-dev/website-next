@@ -6,7 +6,7 @@ import { useRouterPush } from 'hooks';
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { objectToQueryString } from 'utils/query';
-import { Article } from 'utils/types';
+import { ArticlePreview } from 'utils/types';
 import { FilterOption } from '../ToolsSidebar/FilterCard/FilterCard';
 import { LanguageFilterOption } from '../ToolsSidebar/FilterCard/LanguageFilterCard';
 
@@ -15,7 +15,7 @@ const DEAULT_LIST_LIMIT = 50;
 export interface ListComponentProps {
     languages: LanguageFilterOption[];
     others: FilterOption[];
-    articles: Article[];
+    articles: ArticlePreview[];
 }
 const ListComponent: FC<ListComponentProps> = ({
     languages,
