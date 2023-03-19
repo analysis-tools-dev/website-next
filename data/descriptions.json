@@ -64,6 +64,11 @@
         "website": "http://groovy.codehaus.org/",
         "description": "The Groovy programming language is a powerful, dynamic language that makes writing code easy and fun. It has a simple syntax that is easy to learn, and its features include closures, comprehensions, metaprogramming, and more. Groovy also integrates well with Java code, making it an ideal choice for developing Java applications."
     },
+    "html": {
+        "name": "HTML",
+        "website": "https://www.w3.org/TR/html/",
+        "description": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content. Other technologies besides HTML are generally used to describe a web page's appearance/presentation (CSS) or functionality/behavior (JavaScript)."
+    },
     "java": {
         "name": "Java",
         "source": "https://en.wikipedia.org/wiki/Java_(programming_language)",
@@ -87,10 +92,25 @@
         "website": "https://kotlinlang.org/",
         "description": "Kotlin is a statically typed programming language that runs on the Java virtual machine and also can be compiled to JavaScript. Kotlin was created by JetBrains, a company best known for creating the IntelliJ IDEA integrated development environment (IDE). Kotlin is designed to interoperate with Java code and libraries, but also can be used for standalone applications."
     },
+    "kubernetes": {
+        "name": "Kubernetes",
+        "website": "https://kubernetes.io/",
+        "description": "Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon 15 years of experience of running production workloads at Google, combined with best-of-breed ideas and practices from the community. It is said to be notoriously difficult to manage Kubernetes clusters, which is why there are many tools and services to help with this task."
+    },
     "lua": {
         "name": "Lua",
         "website": "https://www.lua.org/",
         "description": "Lua is a powerful, lightweight programming language designed for extending applications. It has been used in video games, mobile apps, and web development. Lua's simple syntax and efficient use of memory make it an ideal choice for scripting."
+    },
+    "markdown": {
+        "name": "Markdown",
+        "website": "https://daringfireball.net/projects/markdown/",
+        "description": "Markdown is a lightweight markup language with plain text formatting syntax. Its design allows it to be converted to many output formats, but the original tool by the same name only supports HTML. Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor."
+    },
+    "mobile": {
+        "name": "Mobile",
+        "website": "https://en.wikipedia.org/wiki/Mobile_app",
+        "description": "A mobile app or mobile application is a computer program or software application designed to run on a mobile device such as a phone, tablet, or watch. Mobile applications often stand in contrast to desktop applications which run on desktop computers, and with web applications which run in mobile web browsers rather than directly on the mobile device."
     },
     "nodejs": {
         "name": "Node.js",
@@ -169,10 +189,27 @@
         "website": "https://www.typescriptlang.org/",
         "description": "TypeScript is an open-source programming language developed and maintained by Microsoft. It is a strict syntactical superset of JavaScript and adds optional static typing to the language. TypeScript is designed for development of large applications and transcompiles to JavaScript. As TypeScript is a superset of JavaScript, existing JavaScript programs are also valid TypeScript programs."
     },
+    "vbnet": {
+        "name": "Visual Basic .NET",
+        "source": "https://en.wikipedia.org/wiki/Visual_Basic",
+        "website": "https://docs.microsoft.com/en-us/dotnet/visual-basic/",
+        "description": "Visual Basic .NET (VB.NET) is a multi-paradigm, object-oriented programming language, implemented on the .NET Framework. VB.NET was developed by Microsoft to combine the power of .NET Framework with the productivity of Visual Basic. It is syntactically similar to Visual Basic but has more structured programming features, such as procedures, classes, and modules. VB.NET is a component-based programming language that is designed to provide a simple programming environment for developers. It is a general-purpose, object-oriented programming language that can be used to create Windows and Web applications."
+    },
     "vue": {
         "name": "Vue.js",
         "source": "https://en.wikipedia.org/wiki/Vue.js",
         "website": "https://vuejs.org/",
         "description": "Vue.js (commonly referred to as Vue; pronounced /vjuː/, like \"view\") is an open-source model–view–viewmodel front end JavaScript framework for building user interfaces and single-page applications. It was created by Evan You, and is maintained by him and the rest of the active core team members coming from various companies such as Netlify and Netguru."
+    },
+    "writing": {
+        "name": "Writing",
+        "website": "https://en.wikipedia.org/wiki/Writing",
+        "description": "Writing is a powerful way to communicate ideas and information. It is a skill that can be learned and improved. Below you can find a list of tools to help you improve your writing skills. These are especially helpful for technical writing, such as documentation, blog posts, and articles."
+    },
+    "xml": {
+        "name": "XML",
+        "source": "https://en.wikipedia.org/wiki/XML",
+        "website": "https://www.w3.org/XML/",
+        "description": "XML is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. It is defined in the XML 1.0 Specification produced by the W3C, and several other related specifications, all of which are free open standards. The design goals of XML emphasize simplicity, generality, and usability across the Internet. It is a textual data format with strong support via Unicode for the languages of the world. Although the design of XML focuses on documents, it is widely used for the representation of arbitrary data structures, for example in web services. It is a W3C Recommendation and is maintained by the XML Activity."
     }
 }
