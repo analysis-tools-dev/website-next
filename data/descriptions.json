@@ -5,6 +5,17 @@
         "website": "https://community.sap.com/topics/abap",
         "description": "ABAP (Advanced Business Application Programming, originally Allgemeiner Berichts-Aufbereitungs-Prozessor, German for \"general report creation processor\") is a high-level programming language created by the German software company SAP SE. It is extracted from the base computing languages Java, C, C++ and Python."
     },
+    "apex": {
+        "name": "Apex",
+        "source": "https://en.wikipedia.org/wiki/Apex_(programming_language)",
+        "website": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro.htm",
+        "description": "Apex is a strongly typed, object-oriented, multitenant-aware programming language that allows developers to execute flow and transaction control statements on the Salesforce Platform. Apex code runs on the Force.com platform, a cloud computing platform as a service (PaaS) developed by Salesforce.com. Apex is used to develop triggers, batch Apex, and Visualforce pages."
+    },
+    "archive": {
+        "name": "Archive File",
+        "website": "https://en.wikipedia.org/wiki/Archive_file",
+        "description": "An archive file is a single file that contains a collection of other files."
+    },
     "binary": {
         "name": "Binary",
         "website": "https://en.wikipedia.org/wiki/Binary_file",
@@ -36,7 +47,7 @@
         "website": "https://isocpp.org/",
         "description": "C++ is a general-purpose programming language created by Bjarne Stroustrup as an extension of the C programming language, or \"C with Classes\". The language has expanded significantly over time, and modern C++ now has object-oriented, generic, and functional features in addition to facilities for low-level memory manipulation. It is almost always implemented as a compiled language, and many vendors provide C++ compilers, including the Free Software Foundation, LLVM, Microsoft, Intel, Oracle, and IBM, so it is available on many platforms."
     },
-    "c#": {
+    "csharp": {
         "name": "C#",
         "source": "https://en.wikipedia.org/wiki/C_Sharp_(programming_language)",
         "website": "https://docs.microsoft.com/en-us/dotnet/csharp/",
@@ -47,11 +58,23 @@
         "website": "https://www.w3.org/TR/CSS/#css",
         "description": "CSS (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in a markup language. A style sheet is a collection of rules that tells a web browser how to display an HTML document."
     },
+    "delphi": {
+        "name": "Delphi",
+        "source": "https://en.wikipedia.org/wiki/Delphi_(programming_language)",
+        "website": "https://www.embarcadero.com/products/delphi",
+        "description": "Delphi is a cross-platform integrated development environment (IDE) for rapid application development of desktop, mobile, web, and console software for Microsoft Windows, macOS, iOS, Android, Linux, and the Internet of Things (IoT) with support for RAD Studio, Delphi for .NET, and Delphi Prism. Delphi is a descendant of the Pascal and Object Pascal languages and adds many features intended to make programming easier and more productive."
+    },
     "dotnet": {
         "name": ".NET",
         "source": "https://en.wikipedia.org/wiki/.NET_Framework",
         "website": "https://dotnet.microsoft.com/",
         "description": ".NET Framework (pronounced as \"dot net\") is a software framework developed by Microsoft that runs primarily on Microsoft Windows. It includes a large class library called Framework Class Library (FCL) and provides language interoperability (each language can use code written in other languages) across several programming languages."
+    },
+    "elixir": {
+        "name": "Elixir",
+        "source": "https://en.wikipedia.org/wiki/Elixir_(programming_language)",
+        "website": "https://elixir-lang.org/",
+        "description": "Elixir is a dynamic, functional language designed for building scalable and maintainable applications. Elixir leverages the Erlang VM, known for running low-latency, distributed and fault-tolerant systems, while also being successfully used in web development and the embedded software domain."
     },
     "go": {
         "name": "Go",
@@ -87,6 +110,12 @@
         "website": "https://www.json.org/",
         "description": "JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language Standard ECMA-262 3rd Edition - December 1999. JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language."
     },
+    "jsx": {
+        "name": "JSX",
+        "source": "https://en.wikipedia.org/wiki/JSX",
+        "website": "https://reactjs.org/docs/introducing-jsx.html",
+        "description": "JSX is an XML-like syntax extension to ECMAScript (the acronym stands for JavaScript XML). Similar in appearance to HTML, JSX provides a way to structure component rendering using syntax familiar to many developers. React components are typically written using JSX, although they do not have to be (components may also be written in pure JavaScript)."
+    },
     "kotlin": {
         "name": "Kotlin",
         "website": "https://kotlinlang.org/",
@@ -107,6 +136,11 @@
         "website": "https://daringfireball.net/projects/markdown/",
         "description": "Markdown is a lightweight markup language with plain text formatting syntax. Its design allows it to be converted to many output formats, but the original tool by the same name only supports HTML. Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor."
     },
+    "meta": {
+        "name": "Meta",
+        "website": "https://en.wikipedia.org/wiki/Meta",
+        "description": "Meta linters are analysis tools, which support multiple programming languages. They are used to detect common issues, such as code duplication, security vulnerabilities, and coding style violations. Meta linters are often used in continuous integration (CI) pipelines to ensure that code is of high quality before it is merged into the main branch. Instead of running multiple linters, developers can use a meta linter to run all of them at once."
+    },
     "mobile": {
         "name": "Mobile",
         "website": "https://en.wikipedia.org/wiki/Mobile_app",
@@ -116,6 +150,11 @@
         "name": "Node.js",
         "website": "https://nodejs.org",
         "description": "Node.js is a runtime environment and library for running JavaScript applications outside of the browser. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices."
+    },
+    "objectivec": {
+        "name": "Objective-C",
+        "website": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
+        "description": "Objective-C is a general-purpose, object-oriented programming language that adds Smalltalk-style messaging to the C programming language. It is the main programming language used by Apple for the OS X and iOS operating systems and their respective APIs, Cocoa and Cocoa Touch. It is also used by NeXTSTEP, GNUstep, and other open-source software. It is a superset of the C programming language and therefore any valid C program is a valid Objective-C program. However, the two languages are different enough that many C programs are not valid Objective-C programs."
     },
     "perl": {
         "name": "Perl",
@@ -173,6 +212,12 @@
         "website": "https://en.wikipedia.org/wiki/Security",
         "description": "Building applications today is a complex task which involves many technologies and dependencies. Keeping dependencies updated to avoid security vulnerabilities is an ongoing task and a maintainance burden. To ease the process, there are a number of tools which check for common security vulnerabilities and suggest fixes and updates. These tools are sometimes called \"vulnerability scanners\" or \"vulnerability checkers\". Below you can find a list of the most popular tools."
     },
+    "shell": {
+        "name": "Shell",
+        "source": "https://en.wikipedia.org/wiki/Shell_script",
+        "website": "https://en.wikipedia.org/wiki/Shell_script",
+        "description": "A shell script is a computer program designed to be run by the Unix shell, a command-line interpreter. The various dialects of shell scripts are considered to be scripting languages. Typical operations performed by shell scripts include file manipulation, program execution, and printing text. The terms \"shell\" and \"shell script\" are often used interchangeably, although a shell script is a specific type of shell program and not a shell in itself."
+    },
     "sql": {
         "name": "SQL",
         "website": "https://www.w3schools.com/sql/default.asp",
@@ -182,6 +227,12 @@
         "name": "Swift",
         "website": "https://swift.org/",
         "description": "Swift is a powerful programming language that makes development on Apple products faster and easier. It has been designed to work with Cocoa and Cocoa Touch, making it the perfect choice for developing apps for iPhone, iPad, Mac, and Apple Watch. Swift is also open source, which means that developers can contribute to its improvement."
+    },
+    "tsql": {
+        "name": "T-SQL",
+        "source": "https://en.wikipedia.org/wiki/Transact-SQL",
+        "website": "https://docs.microsoft.com/en-us/sql/t-sql/language-reference?view=sql-server-ver15",
+        "description": "Transact-SQL (T-SQL) is an extension of SQL, the Structured Query Language, used by Microsoft SQL Server, Azure SQL Database, Azure SQL Data Warehouse, Parallel Data Warehouse and SQL Server Analysis Services (SSAS). T-SQL is the primary language for Microsoft SQL Server, Azure SQL Database and Azure SQL Data Warehouse. T-SQL is also used in SQL Server Integration Services (SSIS) and SQL Server Reporting Services (SSRS)."
     },
     "typescript": {
         "name": "TypeScript",
