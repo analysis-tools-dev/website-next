@@ -42,7 +42,7 @@ const MultiLanguageTools = ({ multiTagTools }: { multiTagTools: Tool[] }) => {
     const multiTagHeading = `${multiTagTools.length} Multi-Language Tools`;
     return (
         <>
-            {multiTagTools.length === 0 && (
+            {multiTagTools.length > 0 && (
                 <>
                     <PanelHeader level={3} text={multiTagHeading}></PanelHeader>
                     <div>
