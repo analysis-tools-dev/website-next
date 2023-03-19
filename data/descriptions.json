@@ -64,6 +64,12 @@
         "website": "https://www.embarcadero.com/products/delphi",
         "description": "Delphi is a cross-platform integrated development environment (IDE) for rapid application development of desktop, mobile, web, and console software for Microsoft Windows, macOS, iOS, Android, Linux, and the Internet of Things (IoT) with support for RAD Studio, Delphi for .NET, and Delphi Prism. Delphi is a descendant of the Pascal and Object Pascal languages and adds many features intended to make programming easier and more productive."
     },
+    "dotenv": {
+        "name": ".env File",
+        "source": "https://en.wikipedia.org/wiki/Environment_variable#Application_usage",
+        "website": "https://en.wikipedia.org/wiki/Environment_variable#Application_usage",
+        "description": "An .env file is a file used to store environment variables on a computer. It is used to set up the initial state of a program, or to change the state of a running program. The .env file is usually a plain text file, but it may also be a binary file. The format of the file is determined by the program that uses it. The file is usually named with a .env extension."
+    },
     "dotnet": {
         "name": ".NET",
         "source": "https://en.wikipedia.org/wiki/.NET_Framework",
