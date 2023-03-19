@@ -12,28 +12,21 @@ import {
     LICENSE_OPTIONS,
     PRICING_OPTIONS,
 } from '@appdata/filters';
-import { useLanguagesQuery } from '@components/tools/queries/languages';
-import { useOthersQuery } from '@components/tools/queries/others';
 import { Article } from 'utils/types';
+import { LanguageFilterOption } from './FilterCard/LanguageFilterCard';
+import { FilterOption } from './FilterCard/FilterCard';
 
 export interface ToolsSidebarProps {
     articles: Article[];
+    languages: LanguageFilterOption[];
+    others: FilterOption[];
 }
 
-const ToolsSidebar: FC<ToolsSidebarProps> = ({ articles }) => {
-    const otherResult = useOthersQuery();
-    const languageResult = useLanguagesQuery();
-
-    const others = otherResult.data || [];
-
-    const languages = languageResult.data || [];
-
-    if (otherResult.error || !otherResult.data) {
-        return null;
-    }
-    if (languageResult.error || !languageResult.data) {
-        return null;
-    }
+const ToolsSidebar: FC<ToolsSidebarProps> = ({
+    articles,
+    languages,
+    others,
+}) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <LanguageFilterCard
