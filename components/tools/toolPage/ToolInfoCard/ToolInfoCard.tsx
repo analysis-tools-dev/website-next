@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
-import classNames from 'classnames';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 import { ShareBtns } from '@components/core';
