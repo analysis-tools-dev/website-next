@@ -44,5 +44,15 @@ export const getPopularLanguageStats = async () => {
         }
     });
 
+    // Filter out languages with no tools
+    Object.keys(languageStats).forEach((language) => {
+        if (
+            languageStats[language].formatters.length === 0 &&
+            languageStats[language].linters.length === 0
+        ) {
+            delete languageStats[language];
+        }
+    });
+
     return languageStats;
 };
