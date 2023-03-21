@@ -19,7 +19,9 @@ const ToolInfoSidebar: FC<ToolInfoSidebarProps> = ({ tool, previews }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <InformationCard tool={tool} />
-            <GithubStarsCard tool={tool} />
+            {tool.repositoryData && tool.repositoryData.stars && (
+                <GithubStarsCard tool={tool} />
+            )}
             {tool.repositoryData && (
                 <RepositoryCard data={tool.repositoryData} />
             )}
