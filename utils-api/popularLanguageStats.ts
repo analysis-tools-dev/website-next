@@ -5,10 +5,13 @@ import { getLanguageStats } from './toolStats';
 
 export const getPopularLanguageStats = async () => {
     const data = await getToolsWithVotes();
+    if (!data) {
+        console.error('Error loading `getToolsWithVotes`');
+        return null;
+    }
     const languageStats = await getLanguageStats();
-
-    if (!data || !languageStats) {
-        console.error('Error loading popular language tools');
+    if (!languageStats) {
+        console.error('Error loading `getLanguageStats`');
         return null;
     }
 
