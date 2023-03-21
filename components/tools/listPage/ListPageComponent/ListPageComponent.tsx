@@ -49,7 +49,7 @@ const ListComponent: FC<ListComponentProps> = ({
     } = useInfiniteQuery({
         queryKey: ['paginated-tools'],
         queryFn: fetchTools,
-        getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
     });
 
     const routerPush = useRouterPush();
