@@ -77,7 +77,7 @@ export const getRepoStarRecords = async (toolId: string) => {
     const stars = allStarHistory[toolId];
 
     if (!stars) {
-        console.error(`Could not find ${toolId} star history`);
+        // No star history found for this repo
         return null;
     }
     return stars as StarHistory;

@@ -81,20 +81,23 @@ export const getTool = async (toolId: string): Promise<Tool | null> => {
     }
 
     const repoMeta = getRepositoryMeta(tool.source);
+    let repositoryData = null;
     if (repoMeta) {
-        const repositoryData = await getGithubStats(
+        repositoryData = await getGithubStats(
             toolId,
             repoMeta.owner,
             repoMeta.repo,
         );
-        const stars = await getRepoStarRecords(toolId);
-
-        tool = {
-            ...tool,
-            ...(repositoryData ? { repositoryData: repositoryData } : {}),
-            ...(stars ? { stars: stars } : {}),
-        };
     }
+
+    const stars = await getRepoStarRecords(toolId);
+
+    tool = {
+        ...tool,
+        ...(repositoryData ? { repositoryData: repositoryData } : {}),
+        ...(stars ? { stars: stars } : {}),
+    };
+
     return tool as Tool;
 };
 
