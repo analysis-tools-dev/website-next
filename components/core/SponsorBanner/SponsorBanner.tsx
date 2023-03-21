@@ -44,7 +44,7 @@ const SponsorBanner: FC<SponsorBannerProps> = ({ sponsors }) => {
 
                 <LinkButton
                     href="https://github.com/sponsors/analysis-tools-dev"
-                    label="Become a sponsor"
+                    label="Become a Sponsor"
                     className="m-t-30"
                     newTab
                 />
