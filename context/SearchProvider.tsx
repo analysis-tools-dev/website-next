@@ -55,8 +55,7 @@ export const SearchProvider: FC<SearchProviderProps> = ({ children }) => {
 
     const [search, setSearch] = useState(router.query);
 
-    const title =
-        'Analysis Tools, Linters, Formatters and Code Quality Checkers';
+    let title = 'Analysis Tools, Linters, Formatters and Code Quality Checkers';
     const description =
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 
