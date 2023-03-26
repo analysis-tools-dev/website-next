@@ -21,6 +21,7 @@ const ToolsListEntry: FC<ToolsListEntryProps> = ({ tool }) => {
                         height="18px"
                         width="18px"
                         alt="MultiLanguage"
+                        layout="fixed"
                     />
                     <span className={styles.toolName}>{tool.name}</span>
                 </a>

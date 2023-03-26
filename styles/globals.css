@@ -37,6 +37,7 @@ body {
     font-family: var(--font-body);
     color: #ffffff;
     background: #0e2439;
+    min-width: 350px;
 }
 
 h2 {
