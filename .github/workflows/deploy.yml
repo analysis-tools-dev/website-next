@@ -43,6 +43,12 @@ jobs:
                   app_id: ${{ secrets.GH_APP_ID }}
                   private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
+            - name: Cache
+              uses: actions/cache@v3
+              with:
+                  path: .cache
+                  key: ${{ runner.os }}
+
             - name: 'Build Docker Image'
               env:
                   GH_TOKEN: ${{ steps.generate_token.outputs.token }}
