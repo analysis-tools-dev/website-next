@@ -13,16 +13,9 @@ import classNames from 'classnames';
 import { AlgoliaSearchHelper } from 'algoliasearch-helper';
 import { useDocumentEvent } from 'hooks';
 
-// get public runtime config
-import getConfig from 'next/config';
-const { publicRuntimeConfig } = getConfig();
-
-const configLoaded =
-    publicRuntimeConfig.algoliaAppId && publicRuntimeConfig.algoliaApiKey;
-
 const searchClient = algoliasearch(
-    publicRuntimeConfig.algoliaAppId,
-    publicRuntimeConfig.algoliaApiKey,
+    'V0X7Z4KE9D',
+    '544bec33383dc791bcbca3e1ceaec11b',
 );
 
 interface SearchResult {
@@ -80,7 +73,7 @@ const AutocompleteSearch: FC = () => {
         { type: 'keydown', callback: handleHideDropdown },
     ]);
 
-    return configLoaded ? (
+    return (
         <InstantSearch
             searchClient={searchClient}
             indexName="tools"
@@ -101,7 +94,7 @@ const AutocompleteSearch: FC = () => {
                 </div>
             </div>
         </InstantSearch>
-    ) : null;
+    );
 };
 
 export default AutocompleteSearch;
