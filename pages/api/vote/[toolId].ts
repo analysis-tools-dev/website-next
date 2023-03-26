@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { publishVote } from 'utils-api/votes';
+import { PREFIX, publishVote } from 'utils-api/votes';
 import { validateVoteAction } from 'utils/votes';
 
 export default async function handler(
@@ -29,7 +29,7 @@ export default async function handler(
     }
 
     res.status(200).json({
-        id: `${process.env.VOTE_PREFIX}${toolId}`,
+        id: `${PREFIX}${toolId}`,
         date: new Date(),
         vote: vote,
     });

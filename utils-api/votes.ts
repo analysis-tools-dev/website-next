@@ -5,6 +5,8 @@ import { createHash } from 'crypto';
 
 import { VoteAction } from 'utils/votes';
 
+export const PREFIX = 'toolsyaml';
+
 export interface Vote {
     type: VoteType;
     date: Date;
@@ -33,7 +35,7 @@ export const getDBVotes = async () => {
 };
 
 export const getDBToolVotes = async (toolId: string) => {
-    const key = `toolsyaml${toolId}`;
+    const key = `${PREFIX}${toolId}`;
 
     // Check if firebase already initialized
     initFirebase();
@@ -95,7 +97,7 @@ export const publishVote = async (
     ip: string,
     vote: VoteAction,
 ) => {
-    const key = `${process.env.VOTE_PREFIX}${toolId}`;
+    const key = `${PREFIX}${toolId}`;
 
     // Check if firebase already initialized
     initFirebase();
@@ -114,7 +116,7 @@ export const publishVote = async (
 };
 
 export const recalculateToolVotes = async (toolId: string) => {
-    const key = `${process.env.VOTE_PREFIX}-${toolId}`;
+    const key = `${PREFIX}${toolId}`;
 
     let upVotes = 0;
     let downVotes = 0;
