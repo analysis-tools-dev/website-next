@@ -13,8 +13,8 @@ ARG GH_TOKEN
 ARG PROJECT_ID
 
 ADD . /src
-RUN --mount=type=volume,target=/src/.cache,volume-driver=local,volume-opt=type=none,volume-opt=o=bind,volume-opt=device=.cache \
-    echo "Persisting /src/.cache directory"
+RUN --mount=type=cache,target=/src/.cache \
+    echo "Persisting cache directory"
 RUN npm run build
 RUN rm /src/credentials.json
 
@@ -22,4 +22,5 @@ FROM node
 WORKDIR /src
 ENTRYPOINT ["npm", "run", "start"]
 
+COPY --from=build /src/.cache .
 COPY --from=build /src /src

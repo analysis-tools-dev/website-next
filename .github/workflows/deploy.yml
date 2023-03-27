@@ -49,15 +49,31 @@ jobs:
                   path: .cache
                   key: ${{ runner.os }}
 
-            - name: 'Build Docker Image'
-              env:
-                  GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+            - name: 'Create credentials file'
               run: |
                   echo ${{ secrets.FIREBASE_TOKEN }} | base64 -d > ./credentials.json
-                  docker build --build-arg GH_TOKEN=${{ env.GH_TOKEN }} \
-                    --build-arg PROJECT_ID=analysis-tools-dev \
-                    -t ${IMAGE_NAME} .
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v2
+
+            - name: Build and push
+              uses: docker/build-push-action@v4
+              with:
+                  context: .
+                  build-args: |
+                      "GH_TOKEN=${{ env.GH_TOKEN }},PROJECT_ID=analysis-tools-dev"
+                  outputs: |
+                      "type=local,dest=.,type=registry"
+                  tags: ${{ env.IMAGE_NAME }}
+                  cache-from: type=gha
+                  cache-to: type=gha,mode=max
+
+            - name: 'Clean up credentials file'
+              run: |
                   rm ./credentials.json
+              env:
+                  GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+                  DOCKER_BUILDKIT: 1
 
             - name: 'Push Docker Image'
               run: |
