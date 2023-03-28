@@ -1,10 +1,10 @@
 [
     {
         "name": "BuildJet",
-        "href": "https://buildjet.com/for-github-actions",
-        "headline": "BuildJet: 2x Faster CI/CD for GitHub Actions",
-        "description": "Turbocharge your GitHub Actions workflows by changing a single line of code. Use modern hardware with up to 32 cores and 64GB of RAM for quicker development and faster feedback cycles.",
-        "callToAction": "Start your free trial today",
+        "href": "https://buildjet.com/for-github-actions?utm_source=analysis-tools&utm_medium=website&utm_campaign=dev_tools_promo",
+        "headline": "BuildJet - Change 1 line, get 2x faster & cheaper GitHub Actions builds",
+        "description": "BuildJet makes GitHub Actions faster using Gaming CPUs. You still keep everything on GitHub Actions, they just replace the underlying GitHub workers.",
+        "callToAction": "Get started for free",
         "logo": "/assets/images/affiliate/buildjet.svg",
         "tags": [
             "rust",

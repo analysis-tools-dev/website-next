@@ -11,7 +11,7 @@ export const getRandomAffiliate = (tags: string[]) => {
         const affiliatesJson = JSON.parse(data) || [];
 
         if (!isAffiliateData(affiliatesJson)) {
-            return [];
+            return null;
         }
 
         const affiliates = affiliatesJson as AffiliatesData[];
@@ -19,6 +19,10 @@ export const getRandomAffiliate = (tags: string[]) => {
         const filteredAffiliates = affiliates.filter((affiliate) => {
             return tags.some((tag) => affiliate.tags.includes(tag));
         });
+
+        if (filteredAffiliates.length === 0) {
+            return null;
+        }
 
         const randomAffiliate =
             filteredAffiliates[

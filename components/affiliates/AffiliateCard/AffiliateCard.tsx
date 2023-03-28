@@ -16,12 +16,7 @@ export interface AffiliateCardProps {
 const AffiliateCard: FC<AffiliateCardProps> = ({ affiliate }) => {
     return (
         <Card className={styles.affiliateCardWrapper}>
-            <div className={styles.sponsored}>
-                Sponsored
-                <span className={`${styles['info-icon']} material-icons`}>
-                    info
-                </span>
-            </div>
+            <div className={styles.sponsored}>Sponsored</div>
             <div className={styles.info}>
                 <div className={styles.logo}>
                     <Image

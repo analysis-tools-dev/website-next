@@ -38,14 +38,15 @@ const SingleLanguageTools = ({
     singleTagTools: Tool[];
 }) => {
     return (
-        (singleTagTools && (
+        <>
             <div>
                 {affiliate && <AffiliateCard affiliate={affiliate} />}
                 {singleTagTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />
                 ))}
             </div>
-        )) || <SuggestLink />
+            {singleTagTools.length === 0 && <SuggestLink />}
+        </>
     );
 };
 
@@ -148,9 +149,7 @@ export const AlternativeToolsList: FC<AlternativeToolsListProps> = ({
 
     return (
         <>
-            {singleTagTools.length === 0 ? (
-                <SuggestLink />
-            ) : (
+            {singleTagTools.length > 0 || affiliate ? (
                 <>
                     <PanelHeader level={3} text={alternativeToolsHeading}>
                         <Dropdown changeSort={changeSort} />
@@ -160,6 +159,8 @@ export const AlternativeToolsList: FC<AlternativeToolsListProps> = ({
                         affiliate={affiliate}
                     />
                 </>
+            ) : (
+                <SuggestLink />
             )}
 
             {multiTagTools && (

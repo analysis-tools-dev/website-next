@@ -4,13 +4,14 @@
     flex-direction: column;
     padding: 0;
     position: relative;
+    background-color: #114880;
 }
 
 .sponsored {
     position: absolute;
     top: 0;
     right: 0;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
     padding: 4px 8px;
     font-size: 12px;
     font-weight: bold;
@@ -18,18 +19,19 @@
     border-radius: 6px 0 0 6px;
 }
 
-.sponsored .info-icon {
-    font-size: 10px;
-    margin-left: 4px;
-    vertical-align: middle;
-}
-
-
 .info {
     padding: 15px;
     display: flex;
-    align-items: stretch;
+    align-items: center;
     gap: 20px;
+}
+
+.affiliateLink {
+    color: #fff;
+}
+
+.affiliateLink:hover {
+    text-decoration: none;
 }
 
 .description {
@@ -40,7 +42,6 @@
 }
 
 .logo {
-    width: 300px;
     aspect-ratio: 1/1;
     object-fit: contain;
     background: #ffffff;
