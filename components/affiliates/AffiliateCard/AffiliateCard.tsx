@@ -19,8 +19,8 @@ const AffiliateCard: FC<AffiliateCardProps> = ({ affiliate }) => {
             <div className={styles.info}>
                 <div className={styles.logo}>
                     <Image
-                        width="50px"
-                        height="50px"
+                        width={150}
+                        height={150}
                         src={affiliate.logo}
                         alt={affiliate.headline}
                     />
