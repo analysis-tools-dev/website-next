@@ -1,6 +1,6 @@
 export interface Affiliate {
     name: string;
-    url: string;
+    href: string;
     headline: string;
     description: string;
     callToAction: string;

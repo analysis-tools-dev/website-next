@@ -155,3 +155,13 @@ export interface Faq {
     question: string;
     answer: string;
 }
+
+export interface AffiliatesData {
+    name: string;
+    href: string;
+    headline: string;
+    description: string;
+    callToAction: string;
+    logo: string;
+    tags: string[];
+}

@@ -1,9 +1,9 @@
 [
     {
         "name": "BuildJet",
-        "url": "https://buildjet.com/for-github-actions",
-        "headline": "2x Faster CI/CD for GitHub Actions",
-        "description": "Turbocharge your GitHub Actions workflows by changing a single line of code. Use modern hardware with up to 32 cores and 64GB of RAM for quicker development and faster feedback cycles",
+        "href": "https://buildjet.com/for-github-actions",
+        "headline": "BuildJet: 2x Faster CI/CD for GitHub Actions",
+        "description": "Turbocharge your GitHub Actions workflows by changing a single line of code. Use modern hardware with up to 32 cores and 64GB of RAM for quicker development and faster feedback cycles.",
         "callToAction": "Start your free trial today",
         "logo": "/assets/images/affiliate/buildjet.svg",
         "tags": [
