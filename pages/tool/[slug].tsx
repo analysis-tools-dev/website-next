@@ -186,35 +186,37 @@ const ToolPage: FC<ToolProps> = ({
     const title = `${description} | Analysis Tools`;
 
     return (
-        <SearchProvider>
-            <MainHead title={title} description={description} />
+        <html lang="en">
+            <SearchProvider>
+                <MainHead title={title} description={description} />
 
-            <Navbar />
-            <Wrapper className="m-t-20 m-b-30 ">
-                <Main>
-                    <ToolInfoSidebar tool={tool} previews={previews} />
-                    <Panel>
-                        <ToolInfoCard tool={tool} />
-                        {screenshots && screenshots.length > 0 && (
-                            <ToolGallery
-                                tool={tool}
-                                screenshots={screenshots}
+                <Navbar />
+                <Wrapper className="m-t-20 m-b-30 ">
+                    <Main>
+                        <ToolInfoSidebar tool={tool} previews={previews} />
+                        <Panel>
+                            <ToolInfoCard tool={tool} />
+                            {screenshots && screenshots.length > 0 && (
+                                <ToolGallery
+                                    tool={tool}
+                                    screenshots={screenshots}
+                                />
+                            )}
+
+                            <Comments />
+                            <AlternativeToolsList
+                                listTitle={`Alternatives for ${tool.name}`}
+                                currentTool={tool}
+                                tools={alternatives}
                             />
-                        )}
+                        </Panel>
+                    </Main>
+                </Wrapper>
 
-                        <Comments />
-                        <AlternativeToolsList
-                            listTitle={`Alternatives for ${tool.name}`}
-                            currentTool={tool}
-                            tools={alternatives}
-                        />
-                    </Panel>
-                </Main>
-            </Wrapper>
-
-            <SponsorBanner sponsors={sponsors} />
-            <Footer />
-        </SearchProvider>
+                <SponsorBanner sponsors={sponsors} />
+                <Footer />
+            </SearchProvider>
+        </html>
     );
 };
 
