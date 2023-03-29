@@ -46,13 +46,15 @@ const LanguageCard: FC<LanguageCardProps> = ({ tag, tagData }) => {
                     url={`https://analysis-tools.dev/tag/${tag}`}
                     className={styles.shareBtns}
                 />
-                <a
-                    className="font-light font-size-s m-l-4"
-                    href={tagData.website}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Visit website
-                </a>
+                {tagData.website && (
+                    <a
+                        className="font-light font-size-s m-l-4"
+                        href={tagData.website}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Visit website
+                    </a>
+                )}
             </div>
         </Card>
     );

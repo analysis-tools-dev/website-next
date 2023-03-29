@@ -117,7 +117,7 @@ export const getLanguageData = async (tagId: string) => {
     const defaultTagData = {
         // capitalize first letter
         tag: tagId.charAt(0).toUpperCase() + tagId.slice(1),
-        website: '',
+        website: null,
         description: '',
     };
 
