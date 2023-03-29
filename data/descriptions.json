@@ -273,5 +273,11 @@
         "source": "https://en.wikipedia.org/wiki/XML",
         "website": "https://www.w3.org/XML/",
         "description": "XML is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. It is defined in the XML 1.0 Specification produced by the W3C, and several other related specifications, all of which are free open standards. The design goals of XML emphasize simplicity, generality, and usability across the Internet. It is a textual data format with strong support via Unicode for the languages of the world. Although the design of XML focuses on documents, it is widely used for the representation of arbitrary data structures, for example in web services. It is a W3C Recommendation and is maintained by the XML Activity."
+    },
+    "yaml": {
+        "name": "YAML",
+        "source": "https://en.wikipedia.org/wiki/YAML",
+        "website": "https://yaml.org/",
+        "description": "YAML is a human-readable data serialization language. It is commonly used for configuration files and in applications where data is being stored or transmitted. YAML aims to be a superset of JSON, with the added benefit of being human-readable. YAML is a recursive acronym for \"YAML Ain't Markup Language\"."
     }
 }
