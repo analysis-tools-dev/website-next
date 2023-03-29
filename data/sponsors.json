@@ -12,6 +12,18 @@
         }
     },
     {
+        "name": "Bearer",
+        "url": "https://www.bearer.com/",
+        "description": "Bearer AppSec solution allows security and engineering teams to assess, prioritize, and remediate security risks and vulnerabilities in their code with automated business impact prioritization based on sensitive data flow analysis.",
+        "tool": "bearer",
+        "href": "/tool/bearer",
+        "logo": {
+            "src": "/assets/images/sponsors/bearer.svg",
+            "width": "165px",
+            "height": "41px"
+        }
+    },
+    {
         "name": "CodeScene",
         "url": "https://codescene.com/",
         "description": "CodeScene is a code intelligence platform that helps you understand your codebase and improve it.",
