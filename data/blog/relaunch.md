@@ -57,9 +57,11 @@ Speaking of which, we are very happy to announce that we have a new team member!
 With [Ghady Kalaany](https://github.com/Ghadyk) we found an amazing
 co-maintainer who has excellent frontend skills and is very familiar with
 Next.js. He built the initial design for the new site and wrote most of the
-frontend code.
+frontend code. Welcome to the team, Ghady!
 
 # New Features!
+
+[![New filtering functionality on tools page](/assets/images/blog/tools.gif)](/tools)
 
 The rewrite unlocked a plethora of new features, which we wanted to introduce for a
 long time, but were blocked by the limitations of the old codebase.
