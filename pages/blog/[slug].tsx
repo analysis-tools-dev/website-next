@@ -83,7 +83,7 @@ const BlogPostPage: FC<BlogPostPageProps> = ({
     };
 
     return (
-        <>
+        <html lang="en">
             <MainHead title={title} description={description} />
 
             <Navbar />
@@ -105,7 +105,7 @@ const BlogPostPage: FC<BlogPostPageProps> = ({
 
             <SponsorMessage />
             <Footer />
-        </>
+        </html>
     );
 };
 

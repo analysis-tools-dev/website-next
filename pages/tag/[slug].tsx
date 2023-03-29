@@ -96,34 +96,36 @@ const TagPage: FC<TagProps> = ({
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 
     return (
-        <SearchProvider>
-            <MainHead title={title} description={description} />
+        <html lang="en">
+            <SearchProvider>
+                <MainHead title={title} description={description} />
 
-            <Navbar />
-            <Wrapper className="m-t-20 m-b-30 ">
-                <Main>
-                    <Sidebar className="topSticky">
-                        <BlogPreview previews={previews} />
-                        <Newsletter />
-                    </Sidebar>
-                    <Panel>
-                        <LanguageCard tag={slug} tagData={tag} />
-                        {/* We should use the tag.name instead,
+                <Navbar />
+                <Wrapper className="m-t-20 m-b-30 ">
+                    <Main>
+                        <Sidebar className="topSticky">
+                            <BlogPreview previews={previews} />
+                            <Newsletter />
+                        </Sidebar>
+                        <Panel>
+                            <LanguageCard tag={slug} tagData={tag} />
+                            {/* We should use the tag.name instead,
                         but it is undefined */}
-                        <AlternativeToolsList
-                            listTitle={`${tagName} Tools`}
-                            tools={tools}
-                        />
-                        {relatedTags.length > 0 && (
-                            <RelatedTagsList tags={relatedTags} />
-                        )}
-                    </Panel>
-                </Main>
-            </Wrapper>
+                            <AlternativeToolsList
+                                listTitle={`${tagName} Tools`}
+                                tools={tools}
+                            />
+                            {relatedTags.length > 0 && (
+                                <RelatedTagsList tags={relatedTags} />
+                            )}
+                        </Panel>
+                    </Main>
+                </Wrapper>
 
-            <SponsorBanner sponsors={sponsors} />
-            <Footer />
-        </SearchProvider>
+                <SponsorBanner sponsors={sponsors} />
+                <Footer />
+            </SearchProvider>
+        </html>
     );
 };
 

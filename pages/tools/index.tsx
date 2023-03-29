@@ -56,21 +56,23 @@ const ToolsPage: FC<ToolsProps> = ({
     articles,
 }) => {
     return (
-        <SearchProvider>
-            <Navbar />
-            <Wrapper className="m-t-20 m-b-30 ">
-                <Main>
-                    <ListPageComponent
-                        languages={languages}
-                        others={others}
-                        articles={articles}
-                    />
-                </Main>
-            </Wrapper>
+        <html lang="en">
+            <SearchProvider>
+                <Navbar />
+                <Wrapper className="m-t-20 m-b-30 ">
+                    <Main>
+                        <ListPageComponent
+                            languages={languages}
+                            others={others}
+                            articles={articles}
+                        />
+                    </Main>
+                </Wrapper>
 
-            <SponsorBanner sponsors={sponsors} />
-            <Footer />
-        </SearchProvider>
+                <SponsorBanner sponsors={sponsors} />
+                <Footer />
+            </SearchProvider>
+        </html>
     );
 };
 
