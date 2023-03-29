@@ -85,7 +85,7 @@ const TagPage: FC<TagProps> = ({
     // Capitalize the first letter of the tag
     const tagName = slug.charAt(0).toUpperCase() + slug.slice(1);
 
-    let title = `${tagName} Static Analysis Tools And Code Formatters | Analysis Tools`;
+    let title = `${tagName} Static Analysis Tools, Linters, And Code Formatters | Analysis Tools`;
 
     if (tools.length > 2) {
         // Prefix the title with the number of tools
@@ -93,7 +93,7 @@ const TagPage: FC<TagProps> = ({
     }
 
     const description =
-        'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
+        'Find tools that help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 
     return (
         <SearchProvider>
