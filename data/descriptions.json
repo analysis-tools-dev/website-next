@@ -5,6 +5,18 @@
         "website": "https://community.sap.com/topics/abap",
         "description": "ABAP (Advanced Business Application Programming, originally Allgemeiner Berichts-Aufbereitungs-Prozessor, German for \"general report creation processor\") is a high-level programming language created by the German software company SAP SE. It is extracted from the base computing languages Java, C, C++ and Python."
     },
+    "actionscript": {
+        "name": "ActionScript",
+        "source": "https://en.wikipedia.org/wiki/ActionScript",
+        "website": "https://www.adobe.com/devnet/actionscript.html",
+        "description": "ActionScript is a programming language developed by Adobe Systems that is used to create animations, applications, and video games for Adobe Flash Player, Adobe AIR, and other platforms. ActionScript is based on ECMAScript, but it has additional features that are specific to the Adobe Flash Player and Adobe AIR runtimes."
+    },
+    "ada": {
+        "name": "Ada",
+        "source": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+        "website": "https://www.adaic.org/",
+        "description": "Ada is a structured, statically typed, imperative, and object-oriented high-level computer programming language, extended from Pascal and other languages. Ada is named after Augusta Ada King, Countess of Lovelace (1815–1852), the first to recognize the full potential of Charles Babbage's mechanical general-purpose computer, the Analytical Engine."
+    },
     "apex": {
         "name": "Apex",
         "source": "https://en.wikipedia.org/wiki/Apex_(programming_language)",
@@ -15,6 +27,24 @@
         "name": "Archive File",
         "website": "https://en.wikipedia.org/wiki/Archive_file",
         "description": "An archive file is a single file that contains a collection of other files."
+    },
+    "aspnet": {
+        "name": "ASP.NET",
+        "source": "https://en.wikipedia.org/wiki/ASP.NET",
+        "website": "https://dotnet.microsoft.com/apps/aspnet",
+        "description": "ASP.NET is a web application framework developed and marketed by Microsoft to allow programmers to build dynamic web sites, web applications and web services. It was first released in January 2002 with version 1.0 of the .NET Framework, and is the successor to Microsoft's Active Server Pages (ASP) technology."
+    },
+    "asm": {
+        "name": "Assembly",
+        "source": "https://en.wikipedia.org/wiki/Assembly_language",
+        "website": "https://en.wikipedia.org/wiki/Assembly_language",
+        "description": "Assembly language, often abbreviated asm, is any low-level programming language in which there is a very strong (generally one-to-one) correspondence between the language and the architecture's machine code instructions. Each assembly language is specific to a particular computer architecture. In contrast, most high-level programming languages are generally portable across multiple architectures but require interpreting or compiling."
+    },
+    "awk": {
+        "name": "AWK",
+        "source": "https://en.wikipedia.org/wiki/AWK",
+        "website": "https://en.wikipedia.org/wiki/AWK",
+        "description": "AWK is a family of computer programming languages designed for text processing and typically used as a data extraction and reporting tool. AWK is a scripting language, like Perl, Python, and Ruby, but it is typically used for text processing rather than general programming. AWK is a domain-specific language designed for text processing and typically used as a data extraction and reporting tool. It is a standard feature of most Unix-like operating systems."
     },
     "binary": {
         "name": "Binary",
@@ -30,6 +60,30 @@
         "name": "Continuous Integration",
         "website": "https://en.wikipedia.org/wiki/Continuous_integration",
         "description": "Continuous integration (CI) is the practice of merging all developer working copies to a shared mainline several times a day. Each integration can then be verified by an automated build (including test) to detect integration errors as quickly as possible. Many teams find that this approach leads to significantly reduced integration problems and allows a team to develop cohesive software more rapidly."
+    },
+    "clojure": {
+        "name": "Clojure",
+        "source": "https://en.wikipedia.org/wiki/Clojure",
+        "website": "https://clojure.org/",
+        "description": "Clojure is a general-purpose, dynamic programming language, combining the approachability and interactive development of a scripting language with an efficient and robust infrastructure for multithreaded programming. Clojure is a compiled language, yet remains completely dynamic – every feature supported by Clojure is supported at runtime. Clojure provides easy access to the Java frameworks, with optional type hints and type inference, to ensure that calls to Java can avoid reflection."
+    },
+    "cobol": {
+        "name": "COBOL",
+        "source": "https://en.wikipedia.org/wiki/COBOL",
+        "website": "https://www.ibm.com/developerworks/community/blogs/5things/entry/5_things_you_might_not_know_about_cobol?lang=en",
+        "description": "COBOL (an acronym for COmmon Business-Oriented Language) is a compiled English-like computer programming language designed for business use. COBOL is imperative, procedural and, since 2002, object-oriented. COBOL is primarily used in business, finance, and administrative systems for companies and governments. It is still in use despite the fact that many consider it an outdated programming language, due to the large amount of COBOL code written for business transactions."
+    },
+    "coffeescript": {
+        "name": "CoffeeScript",
+        "source": "https://en.wikipedia.org/wiki/CoffeeScript",
+        "website": "https://coffeescript.org/",
+        "description": "CoffeeScript is a programming language that transcompiles to JavaScript. CoffeeScript is a \"little language\" that compiles into JavaScript. Underneath that awkward Java-esque patina, JavaScript has always had a gorgeous heart. CoffeeScript is an attempt to expose the good parts of JavaScript in a simple way. It adds syntactic sugar inspired by Ruby and Python that aims to clear up the awkwardness and clumsiness of JavaScript."
+    },
+    "coldfusion": {
+        "name": "ColdFusion",
+        "source": "https://en.wikipedia.org/wiki/ColdFusion",
+        "website": "https://www.adobe.com/products/coldfusion.html",
+        "description": "ColdFusion is a discontinued proprietary rapid web application development platform created by Allaire Corporation in 1995. ColdFusion was originally designed for developing and deploying enterprise web applications, but has evolved into a general-purpose programming language. ColdFusion is a server-side scripting language that can be embedded in HTML or used standalone. It is based on the ECMAScript programming language and can be used to build dynamic web sites, web applications, and web services."
     },
     "configfile": {
         "name": "Config File",
@@ -52,6 +106,12 @@
         "website": "https://isocpp.org/",
         "description": "C++ is a general-purpose programming language created by Bjarne Stroustrup as an extension of the C programming language, or \"C with Classes\". The language has expanded significantly over time, and modern C++ now has object-oriented, generic, and functional features in addition to facilities for low-level memory manipulation. It is almost always implemented as a compiled language, and many vendors provide C++ compilers, including the Free Software Foundation, LLVM, Microsoft, Intel, Oracle, and IBM, so it is available on many platforms."
     },
+    "crystal": {
+        "name": "Crystal",
+        "source": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+        "website": "https://crystal-lang.org/",
+        "description": "Crystal is a general-purpose, object-oriented programming language with the following goals: Have a syntax similar to Ruby (but compatibility with it is not a goal). Be statically type-checked but without having to specify the type of variables or method arguments. Be able to call C code by writing bindings to it in Crystal. Have compile-time evaluation and generation of code, to avoid boilerplate code. Have compile-time metaprogramming, to perform complex tasks involving macros and AST analysis."
+    },
     "csharp": {
         "name": "C#",
         "source": "https://en.wikipedia.org/wiki/C_Sharp_(programming_language)",
@@ -62,6 +122,12 @@
         "name": "CSS",
         "website": "https://www.w3.org/TR/CSS/#css",
         "description": "CSS (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in a markup language. A style sheet is a collection of rules that tells a web browser how to display an HTML document."
+    },
+    "dart": {
+        "name": "Dart",
+        "source": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+        "website": "https://dart.dev/",
+        "description": "Dart is a client-optimized programming language for apps on multiple platforms. It is developed by Google and is used to build mobile, desktop, server, and web applications. Dart is an object-oriented, class-based, garbage-collected language with C-style syntax. Dart can compile to either native code or JavaScript. It supports interfaces, mixins, abstract classes, reified generics, and type inference."
     },
     "delphi": {
         "name": "Delphi",
@@ -87,6 +153,30 @@
         "website": "https://elixir-lang.org/",
         "description": "Elixir is a dynamic, functional language designed for building scalable and maintainable applications. Elixir leverages the Erlang VM, known for running low-latency, distributed and fault-tolerant systems, while also being successfully used in web development and the embedded software domain."
     },
+    "elm": {
+        "name": "Elm",
+        "source": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+        "website": "https://elm-lang.org/",
+        "description": "Elm is a domain-specific programming language for declaratively creating web browser-based graphical user interfaces. Elm is purely functional, and is developed with emphasis on usability, performance, and robustness. Elm is a compiled language that compiles to JavaScript. Elm is a statically typed language, but the type system is designed to make type annotations as unobtrusive as possible."
+    },
+    "erlang": {
+        "name": "Erlang",
+        "source": "https://en.wikipedia.org/wiki/Erlang_(programming_language)",
+        "website": "https://www.erlang.org/",
+        "description": "Erlang is a general-purpose, concurrent, functional programming language, as well as a garbage-collected runtime system. Erlang's runtime system has built-in support for concurrency, distribution and fault tolerance. Erlang is used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging. Erlang's runtime system has built-in support for concurrency, distribution and fault tolerance. Erlang is used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging."
+    },
+    "fsharp": {
+        "name": "F#",
+        "source": "https://en.wikipedia.org/wiki/F_Sharp_(programming_language)",
+        "website": "https://fsharp.org/",
+        "description": "F# is a general-purpose, multi-paradigm programming language, encompassing functional, imperative, object-oriented, and generic programming models. F# is a strongly typed, statically compiled language that supports type inference, type providers, and automatic currying. F# is a functional programming language that also supports object-oriented and imperative programming. F# is a strongly typed, statically compiled language that supports type inference, type providers, and automatic currying."
+    },
+    "fortran": {
+        "name": "Fortran",
+        "source": "https://en.wikipedia.org/wiki/Fortran",
+        "website": "https://gcc.gnu.org/fortran/",
+        "description": "Fortran is a general-purpose, imperative programming language that is especially suited to numeric computation and scientific computing. Originally developed by IBM in the 1950s for scientific and engineering applications, Fortran came to dominate this area of programming early on and has been in continuous use for over half a century in computationally intensive areas such as numerical weather prediction, computational fluid dynamics, computational physics, and computational finance."
+    },
     "go": {
         "name": "Go",
         "source": "https://en.wikipedia.org/wiki/Go_(programming_language)",
@@ -97,6 +187,18 @@
         "name": "Groovy",
         "website": "http://groovy.codehaus.org/",
         "description": "The Groovy programming language is a powerful, dynamic language that makes writing code easy and fun. It has a simple syntax that is easy to learn, and its features include closures, comprehensions, metaprogramming, and more. Groovy also integrates well with Java code, making it an ideal choice for developing Java applications."
+    },
+    "haskell": {
+        "name": "Haskell",
+        "source": "https://en.wikipedia.org/wiki/Haskell_(programming_language)",
+        "website": "https://www.haskell.org/",
+        "description": "Haskell is a standardized, general-purpose purely functional programming language, with non-strict semantics and strong static typing. Haskell's design is influenced by the programming language ML, which was developed in the late 1970s by Robin Milner as part of the Standard ML project. Haskell is named after logician Haskell Curry."
+    },
+    "haxe": {
+        "name": "Haxe",
+        "source": "https://en.wikipedia.org/wiki/Haxe",
+        "website": "https://haxe.org/",
+        "description": "Haxe is an open-source toolkit that allows you to quickly and easily create cross-platform applications and libraries for multiple platforms and target languages, such as C++, Java, JavaScript, PHP, Python, and C#."
     },
     "html": {
         "name": "HTML",
@@ -114,6 +216,18 @@
         "source": "https://en.wikipedia.org/wiki/JavaScript",
         "website": "https://en.wikipedia.org/wiki/JavaScript",
         "description": "Alongside HTML and CSS, JavaScript is one of the core technologies of the World Wide Web. JavaScript enables interactive web pages and is an essential part of web applications. The vast majority of websites use it for client-side page behavior, and all major web browsers have a dedicated JavaScript engine to execute it."
+    },
+    "jsp": {
+        "name": "JavaServer Pages (JSP)",
+        "source": "https://en.wikipedia.org/wiki/JavaServer_Pages",
+        "website": "https://en.wikipedia.org/wiki/JavaServer_Pages",
+        "description": "JavaServer Pages (JSP) is a Java technology that helps software developers serve dynamically generated web pages based on HTML, XML, or other document types. It is a Java technology that extends the capabilities of a server. These capabilities are used to support the creation of dynamic, data-driven web applications."
+    },
+    "julia": {
+        "name": "Julia",
+        "source": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+        "website": "https://julialang.org/",
+        "description": "Julia is a high-level, high-performance dynamic programming language for numerical computing. It provides a sophisticated compiler, distributed parallel execution, numerical accuracy, and an extensive mathematical function library. Julia's Base library, largely written in Julia itself, also integrates mature, best-of-breed open source C and Fortran libraries for linear algebra, random number generation, signal processing, and string processing."
     },
     "json": {
         "name": "JSON",
@@ -137,10 +251,20 @@
         "website": "https://kubernetes.io/",
         "description": "Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon 15 years of experience of running production workloads at Google, combined with best-of-breed ideas and practices from the community. It is said to be notoriously difficult to manage Kubernetes clusters, which is why there are many tools and services to help with this task."
     },
+    "lisp": {
+        "name": "Lisp",
+        "website": "https://en.wikipedia.org/wiki/Lisp_(programming_language)",
+        "description": "Lisp is a family of computer programming languages with a long history and a distinctive, fully parenthesized prefix notation. Originally specified in 1958, Lisp is the second-oldest high-level programming language in widespread use today. Only Fortran is older, by one year."
+    },
     "lua": {
         "name": "Lua",
         "website": "https://www.lua.org/",
         "description": "Lua is a powerful, lightweight programming language designed for extending applications. It has been used in video games, mobile apps, and web development. Lua's simple syntax and efficient use of memory make it an ideal choice for scripting."
+    },
+    "matlab": {
+        "name": "MATLAB",
+        "website": "https://www.mathworks.com/products/matlab.html",
+        "description": "MATLAB is a high-level language and interactive environment for numerical computation, visualization, and programming. It is a programming language that is especially useful in the scientific and engineering fields. It is a proprietary programming language developed by MathWorks. MATLAB allows matrix manipulations, plotting of functions and data, implementation of algorithms, creation of user interfaces, and interfacing with programs written in other languages, including C, C++, C#, Java, Fortran and Python."
     },
     "markdown": {
         "name": "Markdown",
@@ -157,6 +281,11 @@
         "website": "https://en.wikipedia.org/wiki/Mobile_app",
         "description": "A mobile app or mobile application is a computer program or software application designed to run on a mobile device such as a phone, tablet, or watch. Mobile applications often stand in contrast to desktop applications which run on desktop computers, and with web applications which run in mobile web browsers rather than directly on the mobile device."
     },
+    "nim": {
+        "name": "Nim",
+        "website": "https://nim-lang.org/",
+        "description": "Nim is a statically typed compiled systems programming language. It combines successful concepts from mature languages like Python, Ada, and Modula. Nim is designed to be efficient, expressive, and elegant. Nim is a compiled language, but it also has a JavaScript-like interpreter that can be used for rapid prototyping. Nim is a compiled language, but it also has a JavaScript-like interpreter that can be used for rapid prototyping."
+    },
     "nodejs": {
         "name": "Node.js",
         "website": "https://nodejs.org",
@@ -166,6 +295,16 @@
         "name": "Objective-C",
         "website": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
         "description": "Objective-C is a general-purpose, object-oriented programming language that adds Smalltalk-style messaging to the C programming language. It is the main programming language used by Apple for the OS X and iOS operating systems and their respective APIs, Cocoa and Cocoa Touch. It is also used by NeXTSTEP, GNUstep, and other open-source software. It is a superset of the C programming language and therefore any valid C program is a valid Objective-C program. However, the two languages are different enough that many C programs are not valid Objective-C programs."
+    },
+    "ocaml": {
+        "name": "OCaml",
+        "website": "https://ocaml.org/",
+        "description": "OCaml is an industrial-strength programming language supporting functional, imperative and object-oriented styles. It is used in a wide variety of applications, including high-performance computing, finance, bioinformatics, and many others. OCaml is a general-purpose programming language, designed with efficiency, reliability, and flexibility in mind. It is used in a wide variety of applications, including high-performance computing, finance, bioinformatics, and many others."
+    },
+    "pascal": {
+        "name": "Pascal",
+        "website": "https://en.wikipedia.org/wiki/Pascal_(programming_language)",
+        "description": "Pascal is a general-purpose, imperative and procedural programming language, specifically designed for teaching procedural programming. The language was developed in 1970 by Niklaus Wirth as a small, efficient language intended to encourage good programming practices using structured programming and data structuring. Pascal was designed to be compiled to efficient machine code for a variety of computer architectures. Pascal was designed to be compiled to efficient machine code for a variety of computer architectures."
     },
     "perl": {
         "name": "Perl",
@@ -205,6 +344,12 @@
         "name": "R",
         "website": "https://www.r-project.org/",
         "description": "There are many programming languages to choose from, but R is a unique option. It's specifically designed for data analysis, so it's perfect for scientists and statisticians. Additionally, the R community is very active and supportive, so you can always find help when you need it."
+    },
+    "raku": {
+        "name": "Raku",
+        "source": "https://en.wikipedia.org/wiki/Raku_(programming_language)",
+        "website": "https://raku.org/",
+        "description": "Raku is a general-purpose, object-oriented, imperative, multi-paradigm, functional programming language. It is a descendant of Perl 5, and is named after the Japanese word for \"language\"."
     },
     "ruby": {
         "name": "Ruby",
