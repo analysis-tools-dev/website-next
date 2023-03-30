@@ -23,8 +23,11 @@ const ToolGallery: FC<ToolGalleryProps> = ({ tool, screenshots }) => {
                 <Splide
                     extensions={{ Video }}
                     options={{
-                        type: 'loop',
+                        type: 'fade',
                         rewind: true,
+                        omitEnd: true,
+                        arrows: screenshots.length > 1,
+                        pagination: screenshots.length > 1,
                         rewindByDrag: true,
                         video: {
                             mute: true,
