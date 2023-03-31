@@ -1,4 +1,9 @@
-import { Dropdown, LoadingDots, PanelHeader } from '@components/elements';
+import {
+    Button,
+    Dropdown,
+    LoadingDots,
+    PanelHeader,
+} from '@components/elements';
 import { Panel } from '@components/layout';
 import { MobileFilters, Tool, ToolCard, ToolsSidebar } from '@components/tools';
 import { useSearchState } from 'context/SearchProvider';
@@ -9,6 +14,7 @@ import { objectToQueryString } from 'utils/query';
 import { ArticlePreview } from 'utils/types';
 import { FilterOption } from '../ToolsSidebar/FilterCard/FilterCard';
 import { LanguageFilterOption } from '../ToolsSidebar/FilterCard/LanguageFilterCard';
+import styles from './ListPageComponent.module.css';
 
 const DEAULT_LIST_LIMIT = 50;
 
@@ -98,6 +104,16 @@ const ListComponent: FC<ListComponentProps> = ({
         });
     };
 
+    const resetSearch = () => {
+        setSearch({});
+        routerPush(`/tools`, undefined, {
+            shallow: true,
+        });
+    };
+
+    // Show clear filter button if there are any filters applied
+    const shouldShowClearFilterButton = Object.keys(search).length > 0;
+
     return (
         <>
             <ToolsSidebar
@@ -107,6 +123,14 @@ const ListComponent: FC<ListComponentProps> = ({
             />
             <Panel>
                 <PanelHeader level={3} text={heading}>
+                    {shouldShowClearFilterButton ? (
+                        <Button
+                            className={styles.clearButton}
+                            onClick={resetSearch}
+                            theme="primary">
+                            Clear All Filters
+                        </Button>
+                    ) : null}
                     <Dropdown
                         className="mobileHidden"
                         changeSort={changeSort}
