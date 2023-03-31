@@ -8,9 +8,14 @@ import classNames from 'classnames';
 export interface VoteWidgetProps {
     toolId: string;
     type?: 'primary' | 'secondary';
+    showPercentage?: boolean;
 }
 
-const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
+const VoteWidget: FC<VoteWidgetProps> = ({
+    toolId,
+    type = 'primary',
+    showPercentage,
+}) => {
     const theme = type === 'primary' ? styles.primary : styles.secondary;
     const [votes, setVotes] = useState(0);
     const [voteAction, setVoteAction] = useState('');
@@ -86,19 +91,27 @@ const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
     };
 
     return (
-        <div className={cn(theme)}>
-            <button
-                className={cn(styles.voteBtn, {
-                    [styles.activeUpvote]: voteAction === 'upvote',
-                })}
-                onClick={upVoteButtonClick}></button>
-            <span className={styles.votes}>{votesFormatter(votes)}</span>
-            <button
-                className={classNames(styles.voteBtn, styles.downvoteBtn, {
-                    [styles.activeDownvote]: voteAction === 'downvote',
-                })}
-                onClick={downVoteButtonClick}></button>
-        </div>
+        <>
+            <div className={cn(theme)}>
+                <button
+                    className={cn(styles.voteBtn, {
+                        [styles.activeUpvote]: voteAction === 'upvote',
+                    })}
+                    onClick={upVoteButtonClick}></button>
+                <span className={styles.votes}>{votesFormatter(votes)}</span>
+                <button
+                    className={classNames(styles.voteBtn, styles.downvoteBtn, {
+                        [styles.activeDownvote]: voteAction === 'downvote',
+                    })}
+                    onClick={downVoteButtonClick}></button>
+            </div>
+            {showPercentage && (
+                <div className={styles.upvotePercentage}>
+                    {votes > 0 &&
+                        `${Math.round((votes / (votes + 1)) * 100)}% upvoted`}
+                </div>
+            )}
+        </>
     );
 };
 

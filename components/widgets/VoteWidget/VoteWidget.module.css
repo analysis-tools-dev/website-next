@@ -47,7 +47,7 @@
 }
 
 .votes {
-    font-size: 14px;
+    font-size: 18px;
     height: 28px;
     flex-grow: 1;
     text-align: center;
@@ -70,4 +70,9 @@
 
 .activeDownvote {
     filter: invert(0.5) sepia(1) saturate(40) hue-rotate(30deg);
+}
+
+.upvotePercentage {
+    opacity: 0.65;
+    font-size: 12px;
 }
