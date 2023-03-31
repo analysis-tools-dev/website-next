@@ -21,7 +21,10 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
     return (
         <Card className={styles.languageCardWrapper}>
             <div className={styles.votes}>
-                <VoteWidget toolId={tool.id} showPercentage={true} />
+                <VoteWidget
+                    toolId={tool.id}
+                    upvotePercentage={tool.upvotePercentage}
+                />
             </div>
             <div className={styles.info}>
                 <div className={styles.cardHeader}>

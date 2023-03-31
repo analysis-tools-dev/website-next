@@ -19,6 +19,7 @@ import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
 import { Comments } from '@components/core/Comments';
+import { calculateUpvotePercentage } from 'utils/votes';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -61,8 +62,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 
+    // calculate the upvote percentage based on the votes
+    const voteKey = `toolsyaml${slug.toString()}`;
+    const voteData = votes ? votes[voteKey] : null;
+    const upvotePercentage = calculateUpvotePercentage(
+        voteData?.upVotes,
+        voteData?.downVotes,
+    );
+
     const tool = {
         ...apiTool,
+        upvotePercentage,
         id: slug,
         icon: icon,
     };

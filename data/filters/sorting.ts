@@ -8,6 +8,14 @@ export const SORTING_OPTIONS = [
         name: 'Votes Asc',
     },
     {
+        value: 'most_popular',
+        name: 'Most Popular',
+    },
+    {
+        value: 'least_popular',
+        name: 'Least Popular',
+    },
+    {
         value: 'alphabetical_asc',
         name: 'Alphabetical Asc',
     },

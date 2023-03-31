@@ -5,16 +5,17 @@ import styles from './VoteWidget.module.css';
 import { LoadingDots } from '@components/elements';
 import { useToolVotesQuery } from './query';
 import classNames from 'classnames';
+
 export interface VoteWidgetProps {
     toolId: string;
     type?: 'primary' | 'secondary';
-    showPercentage?: boolean;
+    upvotePercentage?: number;
 }
 
 const VoteWidget: FC<VoteWidgetProps> = ({
     toolId,
     type = 'primary',
-    showPercentage,
+    upvotePercentage,
 }) => {
     const theme = type === 'primary' ? styles.primary : styles.secondary;
     const [votes, setVotes] = useState(0);
@@ -105,10 +106,9 @@ const VoteWidget: FC<VoteWidgetProps> = ({
                     })}
                     onClick={downVoteButtonClick}></button>
             </div>
-            {showPercentage && (
+            {upvotePercentage !== undefined && (
                 <div className={styles.upvotePercentage}>
-                    {votes > 0 &&
-                        `${Math.round((votes / (votes + 1)) * 100)}% upvoted`}
+                    {upvotePercentage}% upvoted
                 </div>
             )}
         </>
