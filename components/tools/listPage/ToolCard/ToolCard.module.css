@@ -8,6 +8,10 @@
     background-color: #26415b;
     border-radius: 6px 0 0 6px;
     padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .info {

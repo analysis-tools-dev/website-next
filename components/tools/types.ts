@@ -45,6 +45,7 @@ export interface Tool {
     votes: number;
     upVotes?: number;
     downVotes?: number;
+    upvotePercentage?: number;
     views?: number;
     installation?: string;
     documentation?: string;

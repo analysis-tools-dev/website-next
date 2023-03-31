@@ -1,4 +1,5 @@
 import { isToolsApiData, isVotesApiData } from 'utils/type-guards';
+import { calculateUpvotePercentage } from 'utils/votes';
 import { getAllTools } from './tools';
 import { getVotes } from './votes';
 
@@ -13,9 +14,20 @@ export const getToolsWithVotes = async () => {
 
     Object.keys(data).forEach((toolId) => {
         const key = `toolsyaml${toolId.toString()}`;
-        data[toolId].votes = votes[key]?.sum || 0;
-        data[toolId].upVotes = votes[key]?.upVotes || 0;
-        data[toolId].downVotes = votes[key]?.downVotes || 0;
+
+        const v = votes[key];
+        const sum = v?.sum || 0;
+        const upVotes = v?.upVotes || 0;
+        const downVotes = v?.downVotes || 0;
+
+        data[toolId].votes = sum;
+        data[toolId].upVotes = upVotes;
+        data[toolId].downVotes = downVotes;
+
+        data[toolId].upvotePercentage = calculateUpvotePercentage(
+            upVotes,
+            downVotes,
+        );
     });
 
     return data;

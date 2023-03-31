@@ -2,9 +2,15 @@ import { FC, useEffect, useState } from 'react';
 import { Dropdown, PanelHeader, SuggestLink } from '@components/elements';
 import { Tool, ToolCard } from '@components/tools';
 import { arrayDelete, arraysEqual } from 'utils/arrays';
+import { sortByPopularity } from 'utils/votes';
 
 const pickSort = (sort: string) => {
+    console.log(sort);
     switch (sort) {
+        case 'most_popular':
+            return (a: Tool, b: Tool) => sortByPopularity(a, b);
+        case 'least_popular':
+            return (a: Tool, b: Tool) => sortByPopularity(b, a);
         case 'votes_asc':
             return (a: Tool, b: Tool) => a.votes - b.votes;
         case 'alphabetical_asc':

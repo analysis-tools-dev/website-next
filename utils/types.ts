@@ -24,6 +24,7 @@ export interface ApiTool {
     votes: number;
     upVotes?: number;
     downVotes?: number;
+    upvotePercentage?: number;
 }
 
 export interface ToolResource {

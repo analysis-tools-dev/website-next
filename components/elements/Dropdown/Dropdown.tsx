@@ -34,6 +34,10 @@ const Dropdown: FC<DropdownProps> = ({ changeSort, className }) => {
                     <option value="votes_desc">Votes Desc</option>
                     <option value="votes_asc">Votes Asc</option>
                 </optgroup>
+                <optgroup label="Popularity">
+                    <option value="most_popular">Most Popular</option>
+                    <option value="least_popular">Least Popular</option>
+                </optgroup>
                 <optgroup label="Alphabetical">
                     <option value="alphabetical_asc">Alphabetical Asc</option>
                     <option value="alphabetical_desc">Alphabetical Desc</option>
