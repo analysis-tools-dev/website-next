@@ -15,12 +15,25 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
 
     const isMultiLanguage = tool.languages?.length > 1;
 
-    const languageIcon = isMultiLanguage
-        ? `${iconAssetsPath}/languages/multi-language.svg`
-        : `${iconAssetsPath}/languages/${tool.languages[0]}.svg`;
+    let languageIcon = undefined;
+    if (isMultiLanguage) {
+        languageIcon = `${iconAssetsPath}/languages/multi-language.svg`;
+    } else if (tool.languages?.length >= 1) {
+        languageIcon = `${iconAssetsPath}/languages/${tool.languages[0]}.svg`;
+    } else if (tool.other?.length >= 1) {
+        languageIcon = `${iconAssetsPath}/languages/${tool.other[0]}.svg`;
+    }
+
     const languageTag = isMultiLanguage
         ? 'Multi-Language'
         : deCamelString(tool.languages[0] || tool.other[0] || '');
+
+    let tagUrl = undefined;
+    if (tool.languages.length === 1) {
+        tagUrl = `/tag/${tool.languages[0]}`;
+    } else if (tool.other.length === 1) {
+        tagUrl = `/tag/${tool.other[0]}`;
+    }
 
     return (
         <Card>
@@ -54,6 +67,7 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
                 label={'Language(s)'}
                 id="language"
                 value={languageTag}
+                url={tagUrl}
                 icon={languageIcon}
             />
             <InfoEntry

@@ -6,6 +6,7 @@ import cn from 'classnames';
 
 export interface InfoEntryProps {
     label: string;
+    url?: string;
     id: string;
     value: string;
     icon?: string;
@@ -14,12 +15,16 @@ export interface InfoEntryProps {
 
 const InfoEntry: FC<InfoEntryProps> = ({
     label,
+    url = undefined,
     id,
     value,
     icon,
     className,
 }) => {
-    const isURL = isValidHttpUrl(value);
+    if (url === undefined && isValidHttpUrl(value)) {
+        url = value;
+    }
+
     return (
         <div className={cn(styles.entryWrapper, className)}>
             <label htmlFor={id} className={styles.label}>
@@ -36,10 +41,10 @@ const InfoEntry: FC<InfoEntryProps> = ({
                         />
                     </div>
                 )}
-                {isURL ? (
+                {url ? (
                     <a
                         className={styles.entryUrl}
-                        href={value}
+                        href={url}
                         target="_blank"
                         rel="noopener noreferrer">
                         {value}
