@@ -1,37 +1,21 @@
-.checklist {
+.relatedList {
+    padding: 0;
+    margin: 0;
     list-style: none;
-    padding: 0 10px;
+}
+
+.relatedList li {
     margin: 0 0 10px 0;
 }
 
-.faded {
-    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-}
-
-.checklist li {
-    margin: 0 0 10px 0;
+.relatedList li a {
+    color: #fff;
     display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
 }
 
-.checkboxLabel {
-    cursor: pointer;
-    vertical-align: middle;
-    margin: 0 0 0 10px;
-    flex-grow: 1;
-}
-.checkboxLabel:hover {
+.relatedList li a:hover {
     text-decoration: underline;
-}
-
-.optionResults {
-    vertical-align: middle;
-}
-
-.toggleAllBtn {
-    display: block;
-    margin: 10px auto 0 auto;
-}
-
-.toolsCount {
-    color: #c6c6c6;
 }

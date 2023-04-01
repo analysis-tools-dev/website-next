@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { BlogPreview } from '@components/blog';
 import { ContributionCard, Newsletter } from '@components/elements';
 import { Sidebar } from '@components/layout';
-import { FilterCard, LanguageFilterCard } from './FilterCard';
+import { FilterCard, RelatedCard } from './FilterCard';
 import styles from './TagsSidebar.module.css';
 
 import {
@@ -25,13 +25,7 @@ const TagsSidebar: FC<TagsSidebarProps> = ({
 }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
-            <LanguageFilterCard
-                className={styles.filter}
-                heading="Related Languages"
-                showAllCheckbox={false}
-                filter="languages"
-                options={languages}
-            />
+            <RelatedCard className={styles.filter} options={languages} />
             <FilterCard
                 showAllCheckbox={false}
                 className={styles.filter}
