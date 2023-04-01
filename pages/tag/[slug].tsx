@@ -1,18 +1,18 @@
 import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
-import { Main, Panel, Sidebar, Wrapper } from '@components/layout';
-import { LanguageCard, AlternativeToolsList, Tool } from '@components/tools';
+import { Main, Panel, Wrapper } from '@components/layout';
+import { LanguageCard, AlternativeToolsList } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { ArticlePreview, LanguageData, SponsorData } from 'utils/types';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getLanguageData, getSimilarTags, getTags } from 'utils-api/tags';
 import { filterByTags } from 'utils-api/filters';
-import { BlogPreview } from '@components/blog';
-import { Newsletter } from '@components/elements';
 import { getSponsors } from 'utils-api/sponsors';
 import { getToolsWithVotes } from 'utils-api/toolsWithVotes';
 import { RelatedTagsList } from '@components/tools/listPage/RelatedTagsList';
+import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/LanguageFilterCard';
+import { Tool, TagsSidebar } from '@components/tools';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -47,9 +47,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const tools = await getToolsWithVotes();
     const previews = await getArticlesPreviews();
     const sponsors = getSponsors();
-
+    const languages = await getTags('languages');
     const relatedTags = getSimilarTags(slug);
-
     const filteredTools = filterByTags(tools, slug);
 
     return {
@@ -57,6 +56,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             slug,
             tag: tagData,
             tools: filteredTools,
+            languages,
             previews,
             sponsors,
             relatedTags,
@@ -68,6 +68,7 @@ export interface TagProps {
     slug: string;
     tag: LanguageData;
     tools: Tool[];
+    languages: LanguageFilterOption[];
     previews: ArticlePreview[];
     sponsors: SponsorData[];
     relatedTags: string[];
@@ -77,6 +78,7 @@ const TagPage: FC<TagProps> = ({
     slug,
     tag,
     tools,
+    languages,
     previews,
     sponsors,
     relatedTags,
@@ -95,6 +97,14 @@ const TagPage: FC<TagProps> = ({
     const description =
         'Find tools that help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 
+    // Only show the first blog post preview
+    previews = previews.slice(0, 1);
+
+    // filter languages and others by related tags
+    languages = languages.filter((language) =>
+        relatedTags.includes(language.value),
+    );
+
     return (
         <SearchProvider>
             <MainHead title={title} description={description} />
@@ -102,12 +112,12 @@ const TagPage: FC<TagProps> = ({
             <Navbar />
             <Wrapper className="m-t-20 m-b-30 ">
                 <Main>
-                    <Sidebar className="topSticky">
-                        <BlogPreview previews={previews} />
-                        <Newsletter />
-                    </Sidebar>
+                    <TagsSidebar
+                        previews={previews}
+                        relatedLanguages={languages}
+                    />
                     <Panel>
-                        <LanguageCard tag={slug} tagData={tag} />
+                        <LanguageCard tools={tools} tag={slug} tagData={tag} />
                         {/* We should use the tag.name instead,
                         but it is undefined */}
                         <AlternativeToolsList

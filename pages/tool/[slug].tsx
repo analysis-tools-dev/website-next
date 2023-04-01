@@ -214,7 +214,7 @@ const ToolPage: FC<ToolProps> = ({
 
                         <Comments />
                         <AlternativeToolsList
-                            listTitle={`Alternatives for ${tool.name}`}
+                            listTitle={`Alternatives to ${tool.name}`}
                             currentTool={tool}
                             tools={alternatives}
                         />

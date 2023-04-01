@@ -3,10 +3,9 @@ import { BlogPreview } from '@components/blog';
 import { ContributionCard, Newsletter } from '@components/elements';
 import { Sidebar } from '@components/layout';
 import { FilterCard, LanguageFilterCard } from './FilterCard';
-import styles from './ToolsSidebar.module.css';
+import styles from './TagsSidebar.module.css';
 
 import {
-    LANGUAGE_OPTIONS,
     CATEGORY_OPTIONS,
     TYPE_OPTIONS,
     LICENSE_OPTIONS,
@@ -14,33 +13,24 @@ import {
 } from '@appdata/filters';
 import { ArticlePreview } from 'utils/types';
 import { LanguageFilterOption } from './FilterCard/LanguageFilterCard';
-import { FilterOption } from './FilterCard/FilterCard';
 
-export interface ToolsSidebarProps {
-    articles: ArticlePreview[];
-    languages: LanguageFilterOption[];
-    others: FilterOption[];
+export interface TagsSidebarProps {
+    previews: ArticlePreview[];
+    relatedLanguages: LanguageFilterOption[];
 }
 
-const ToolsSidebar: FC<ToolsSidebarProps> = ({
-    articles,
-    languages,
-    others,
+const TagsSidebar: FC<TagsSidebarProps> = ({
+    previews,
+    relatedLanguages: languages,
 }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <LanguageFilterCard
                 className={styles.filter}
-                heading="Popular Languages"
+                heading="Related Languages"
                 showAllCheckbox={false}
                 filter="languages"
-                options={LANGUAGE_OPTIONS}
-            />
-            <LanguageFilterCard
-                className={styles.filter}
-                heading="All Languages"
-                filter="languages"
-                options={languages || []}
+                options={languages}
             />
             <FilterCard
                 showAllCheckbox={false}
@@ -69,19 +59,12 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({
                 filter="pricing"
                 options={PRICING_OPTIONS}
             />
-            <FilterCard
-                className={styles.filter}
-                heading="Other Tags"
-                filter="others"
-                options={others || []}
-                limit={4}
-            />
 
+            <BlogPreview previews={previews} />
             <ContributionCard />
-            <BlogPreview previews={articles} />
             <Newsletter />
         </Sidebar>
     );
 };
 
-export default ToolsSidebar;
+export default TagsSidebar;

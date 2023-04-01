@@ -1,0 +1,37 @@
+.checklist {
+    list-style: none;
+    padding: 0 10px;
+    margin: 0 0 10px 0;
+}
+
+.faded {
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+.checklist li {
+    margin: 0 0 10px 0;
+    display: flex;
+}
+
+.checkboxLabel {
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 0 0 0 10px;
+    flex-grow: 1;
+}
+.checkboxLabel:hover {
+    text-decoration: underline;
+}
+
+.optionResults {
+    vertical-align: middle;
+}
+
+.toggleAllBtn {
+    display: block;
+    margin: 10px auto 0 auto;
+}
+
+.toolsCount {
+    color: #c6c6c6;
+}
