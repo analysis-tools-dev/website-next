@@ -39,15 +39,17 @@ const LanguageCard: FC<LanguageCardProps> = ({ tools, tag, tagData }) => {
                 <p>
                     We rank{' '}
                     <strong>
-                        {tools.length} {languageName}{' '}
+                        {tools.length} {languageName} linters, code analyzers,
+                        formatters
                     </strong>
-                    linters, code analyzers, formatters, and more. Find and
-                    compare tools like{' '}
+                    , and more. Find and compare tools like{' '}
                     {tools
                         .slice(0, 3)
                         .map((tool) => tool.name)
                         .join(', ')}
-                    , and more.
+                    , and more. Please{' '}
+                    <strong>rate and review tools that you&apos;ve used</strong>
+                    . This helps others find the best tools for their projects.
                 </p>
                 <p>{tagData.description}</p>
             </Text>
@@ -63,7 +65,7 @@ const LanguageCard: FC<LanguageCardProps> = ({ tools, tag, tagData }) => {
                         href={tagData.website}
                         target="_blank"
                         rel="noopener noreferrer">
-                        Visit website
+                        Learn more about {languageName}
                     </a>
                 )}
             </div>
