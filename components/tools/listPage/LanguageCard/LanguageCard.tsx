@@ -47,11 +47,10 @@ const LanguageCard: FC<LanguageCardProps> = ({ tools, tag, tagData }) => {
                         .slice(0, 3)
                         .map((tool) => tool.name)
                         .join(', ')}
-                    , and more. Please{' '}
-                    <strong>rate and review tools that you&apos;ve used</strong>
-                    . This helps others find the best tools for their projects.
+                    , and more. Please rate and review tools that you&apos;ve
+                    used. This helps others find the best tools for their
+                    projects.
                 </p>
-                <p>{tagData.description}</p>
             </Text>
 
             <div className={styles.cardFooter}>

@@ -44,6 +44,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 
     const tagData = await getLanguageData(slug);
+
+    // Capitalize the first letter of the tag
+    let tagName = slug.charAt(0).toUpperCase() + slug.slice(1);
+    if (tagData.name) {
+        // We can use a more descriptive name if it exists
+        tagName = tagData.name;
+    }
     const tools = await getToolsWithVotes();
     const previews = await getArticlesPreviews();
     const sponsors = getSponsors();
@@ -53,7 +60,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     // best tools by percent upvoted (single language only)
     const bestTools = filteredTools
-        .filter((tool) => tool.languages.length === 1)
         .sort((a, b) => b.votes - a.votes)
         .map((tool) => tool.name)
         .slice(0, 5);
@@ -68,39 +74,51 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         .sort((a, b) => b.votes - a.votes)
         .map((tool) => tool.name)
         .slice(0, 10);
+
     const freeForOss = filteredTools
         .filter((tool) => tool.plans?.oss === true)
         .map((tool) => tool.name);
+
     const faq = [
         {
-            question: `What is ${tagData.name}?`,
+            question: `What are ${tagName ? tagName : tagData} tools?`,
             answer: tagData.description,
         },
-        {
-            question: `What are the best static analysis tools for ${tagData.name}?`,
-            answer: `The most popular ${
-                tagData.name
-            } tools include ${bestTools.join(', ')}.`,
-        },
-        {
-            question: `Which ${tagData.name} tools are free to use?`,
+    ];
+
+    if (bestTools.length > 0) {
+        faq.push({
+            question: `What are the best ${tagName} static analysis tools and linters?`,
+            answer: `The most popular ${tagName} tools ranked by user votes are: ${bestTools.join(
+                ', ',
+            )}.`,
+        });
+    }
+
+    if (freePlanTools.length > 0) {
+        faq.push({
+            question: `Which ${tagName} tools are free to use?`,
             answer: `Tools with a free plan include ${freePlanTools.join(
                 ', ',
             )}. On top of that, there are also a number of open source like ${openSourceTools.join(
                 ', ',
             )}.`,
-        },
-        {
-            question: `Which ${tagData.name} services are free for open source projects?`,
+        });
+    }
+
+    if (freeForOss.length > 0) {
+        faq.push({
+            question: `Which ${tagName} services are free for open source projects?`,
             answer: `Commercial services with a free plan for open source include ${freeForOss.join(
                 ', ',
             )}.`,
-        },
-    ];
+        });
+    }
 
     return {
         props: {
             slug,
+            tagName,
             tag: tagData,
             tools: filteredTools,
             languages,
@@ -114,6 +132,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export interface TagProps {
     slug: string;
+    tagName: string;
     tag: LanguageData;
     tools: Tool[];
     languages: LanguageFilterOption[];
@@ -125,6 +144,7 @@ export interface TagProps {
 
 const TagPage: FC<TagProps> = ({
     slug,
+    tagName,
     tag,
     tools,
     languages,
@@ -133,10 +153,6 @@ const TagPage: FC<TagProps> = ({
     relatedTags,
     faq,
 }) => {
-    // TODO: We should use the `tag.name` here, but it is undefined for some reason
-    // Capitalize the first letter of the tag
-    const tagName = slug.charAt(0).toUpperCase() + slug.slice(1);
-
     let title = `${tagName} Static Analysis Tools, Linters, And Code Formatters | Analysis Tools`;
 
     if (tools.length > 2) {

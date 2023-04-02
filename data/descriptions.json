@@ -51,6 +51,11 @@
         "website": "https://en.wikipedia.org/wiki/Binary_file",
         "description": "A binary file is a computer file that contains only binary digits (bits). The term \"binary\" comes from the fact that these files contain data expressed in base-2 numeral system. Binary files are often contrasted with text files, which contain human-readable characters encoded using some character encoding scheme. Binary files are often used to store machine code, which is the basic instructions that a computer understands."
     },
+    "buildtool": {
+        "name": "Build Automation",
+        "website": "https://en.wikipedia.org/wiki/Build_automation",
+        "description": "A build tool is a software development tool that automates the creation of a software build and the associated processes including: compiling computer source code into binary code, packaging binary code, and running automated tests."
+    },
     "c": {
         "name": "C",
         "website": "https://en.wikipedia.org/wiki/C_(programming_language)",
