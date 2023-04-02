@@ -19,14 +19,10 @@
     cursor: pointer;
 }
 
-.question:hover {
-    background-color: #0a1a29;
-}
-
 .question {
-    background-color: #26415b;
+    background-color: #1f364d;
     border-radius: 5px;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #486a8b;
     margin-bottom: 20px;
 }
 
