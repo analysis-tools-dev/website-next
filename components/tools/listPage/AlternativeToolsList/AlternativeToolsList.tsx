@@ -5,7 +5,6 @@ import { arrayDelete, arraysEqual } from 'utils/arrays';
 import { sortByPopularity } from 'utils/votes';
 
 const pickSort = (sort: string) => {
-    console.log(sort);
     switch (sort) {
         case 'most_popular':
             return (a: Tool, b: Tool) => sortByPopularity(a, b);
