@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner, FAQ } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
@@ -12,7 +12,8 @@ import { getSponsors } from 'utils-api/sponsors';
 import { getToolsWithVotes } from 'utils-api/toolsWithVotes';
 import { RelatedTagsList } from '@components/tools/listPage/RelatedTagsList';
 import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/LanguageFilterCard';
-import { Tool, TagsSidebar } from '@components/tools';
+import { Tool } from '@components/tools';
+import { TagsSidebar } from '@components/tags';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -171,6 +172,62 @@ const TagPage: FC<TagProps> = ({
         relatedTags.includes(language.value),
     );
 
+    const [filteredTools, setFilteredTools] = useState(tools);
+
+    const [filters, setFilters] = useState({
+        categories: [],
+        types: [],
+        licenses: [],
+        pricing: [],
+    });
+
+    // Filter the list of tools based on the current filters
+    useEffect(() => {
+        const filtered = tools.filter((tool) => {
+            // Check if the tool matches all the selected filter options
+            return (
+                // New filter code:
+                // Allow tools with any of the selected filters
+                // If no filters  are selected, allow all tools
+                (filters.categories.length === 0 ||
+                    filters.categories.some((category) =>
+                        tool.categories.includes(category),
+                    )) &&
+                (filters.types.length === 0 ||
+                    filters.types.some((type) => tool.types.includes(type))) &&
+                (filters.licenses.length === 0 ||
+                    filters.licenses.some((license) =>
+                        tool.licenses.includes(license),
+                    )) &&
+                (filters.pricing.length === 0 ||
+                    filters.pricing.some((pricing) => tool.pricing === pricing))
+            );
+        });
+        setFilteredTools(filtered);
+    }, [tools, filters]);
+
+    const onFilterChange = (
+        filter: string,
+        value: string,
+        checked: boolean,
+    ) => {
+        // print full event object
+        console.log(filter, value, checked);
+
+        // update the filters
+        setFilters((prev) => {
+            const newFilters = { ...prev };
+            if (checked) {
+                newFilters[filter].push(value);
+            } else {
+                newFilters[filter] = newFilters[filter].filter(
+                    (item) => item !== value,
+                );
+            }
+            return newFilters;
+        });
+    };
+
     return (
         <SearchProvider>
             <MainHead title={title} description={description} />
@@ -181,6 +238,7 @@ const TagPage: FC<TagProps> = ({
                     <TagsSidebar
                         previews={previews}
                         relatedLanguages={languages}
+                        onFilterChange={onFilterChange}
                     />
                     <Panel>
                         <LanguageCard tools={tools} tag={slug} tagData={tag} />
@@ -188,7 +246,7 @@ const TagPage: FC<TagProps> = ({
                         but it is undefined */}
                         <AlternativeToolsList
                             listTitle={`${tagName} Tools`}
-                            tools={tools}
+                            tools={filteredTools}
                         />
                         <FAQ faq={faq} />
                         {relatedTags.length > 0 && (

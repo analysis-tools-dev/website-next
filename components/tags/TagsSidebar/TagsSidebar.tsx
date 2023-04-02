@@ -17,41 +17,44 @@ import { LanguageFilterOption } from './FilterCard/LanguageFilterCard';
 export interface TagsSidebarProps {
     previews: ArticlePreview[];
     relatedLanguages: LanguageFilterOption[];
+    onFilterChange: (filter: string, value: string, checked: boolean) => void;
 }
 
 const TagsSidebar: FC<TagsSidebarProps> = ({
     previews,
     relatedLanguages: languages,
+    onFilterChange,
 }) => {
     return (
         <Sidebar className={styles.bottomSticky}>
             <RelatedCard className={styles.filter} options={languages} />
             <FilterCard
-                showAllCheckbox={false}
                 className={styles.filter}
                 heading="Categories"
                 filter="categories"
                 options={CATEGORY_OPTIONS}
+                onFilterChange={onFilterChange}
             />
             <FilterCard
-                showAllCheckbox={false}
                 className={styles.filter}
                 heading="Types"
                 filter="types"
                 options={TYPE_OPTIONS}
+                onFilterChange={onFilterChange}
             />
             <FilterCard
                 className={styles.filter}
                 heading="License"
                 filter="licenses"
                 options={LICENSE_OPTIONS}
+                onFilterChange={onFilterChange}
             />
             <FilterCard
-                showAllCheckbox={false}
                 className={styles.filter}
                 heading="Pricing"
                 filter="pricing"
                 options={PRICING_OPTIONS}
+                onFilterChange={onFilterChange}
             />
 
             <BlogPreview previews={previews} />

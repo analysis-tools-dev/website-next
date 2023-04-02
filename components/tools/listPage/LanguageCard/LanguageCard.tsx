@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import Link from 'next/link';
 import { Card } from '@components/layout';
 import { Heading, Text } from '@components/typography';
 
@@ -40,21 +39,18 @@ const LanguageCard: FC<LanguageCardProps> = ({ tools, tag, tagData }) => {
                 </Heading>
             </div>
             <Text className={styles.description}>
-                <p>
-                    We rank{' '}
-                    <strong>
-                        {tools.length} {languageName} linters, code analyzers,
-                        formatters
-                    </strong>
-                    , and more. Find and compare tools like{' '}
-                    {tools
-                        .slice(0, 3)
-                        .map((tool) => tool.name)
-                        .join(', ')}
-                    , and more. Please rate and review tools that you&apos;ve
-                    used. This helps others find the best tools for their
-                    projects.
-                </p>
+                We rank{' '}
+                <strong>
+                    {tools.length} {languageName} linters, code analyzers,
+                    formatters
+                </strong>
+                , and more. Find and compare tools like{' '}
+                {tools
+                    .slice(0, 3)
+                    .map((tool) => tool.name)
+                    .join(', ')}
+                , and more. Please rate and review tools that you&apos;ve used.
+                This helps others find the best tools for their projects.
             </Text>
 
             <div className={styles.cardFooter}>
