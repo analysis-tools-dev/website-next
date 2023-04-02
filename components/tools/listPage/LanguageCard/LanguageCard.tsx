@@ -32,7 +32,11 @@ const LanguageCard: FC<LanguageCardProps> = ({ tools, tag, tagData }) => {
                     alt={tagData.name}
                 />
                 <Heading level={2} className={styles.languageName}>
-                    {languageName} Static Analysis Tools
+                    Best{' '}
+                    <span className={styles.languageNameInner}>
+                        {languageName}
+                    </span>{' '}
+                    Static Analysis Tools (Linters)
                 </Heading>
             </div>
             <Text className={styles.description}>

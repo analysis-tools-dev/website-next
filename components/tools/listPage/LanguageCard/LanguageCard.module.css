@@ -14,6 +14,13 @@
     padding: 0 0 0 15px;
 }
 
+/* Highlight language name with a blue pill background, matching our color scheme */
+.languageNameInner {
+    padding: 5px 5px;
+    border-radius: 5px;
+    background-color: #345779;
+}
+
 .cardFooter {
     display: flex;
 }
