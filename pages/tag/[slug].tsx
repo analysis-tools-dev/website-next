@@ -77,7 +77,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         .slice(0, 10);
 
     const freeForOss = filteredTools
-        .filter((tool) => tool.plans?.oss === true)
+        .filter((tool) => tool.source || tool.plans?.oss === true)
         .map((tool) => tool.name);
 
     const faq = [
@@ -200,7 +200,16 @@ const TagPage: FC<TagProps> = ({
                         tool.licenses.includes(license),
                     )) &&
                 (filters.pricing.length === 0 ||
-                    filters.pricing.some((pricing) => tool.pricing === pricing))
+                    filters.pricing.some((pricing) => {
+                        console.log(pricing);
+                        if (pricing === 'free') {
+                            return tool.plans?.free === true;
+                        } else if (pricing === 'oss') {
+                            return tool.plans?.oss !== true || tool.source;
+                        } else if (pricing === 'plans') {
+                            return tool.pricing !== null;
+                        }
+                    }))
             );
         });
         setFilteredTools(filtered);
