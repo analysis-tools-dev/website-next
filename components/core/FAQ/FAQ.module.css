@@ -35,14 +35,6 @@
     padding: 2px 20px;
 }
 
-/* div around more link */
-.more {
-    margin: 20px;
-
-}
-
-/* More link should be blue and have some padding and should be right-aligned */
-.moreLink {
-    text-align: right;
-    margin-bottom: 10px;
+.faqMoreButton {
+    margin-bottom: 40px;
 }

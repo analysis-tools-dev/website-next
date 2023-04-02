@@ -1,20 +1,31 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styles from './FAQ.module.css';
 import { Wrapper } from '@components/layout';
 import { Faq } from 'utils/types';
+import { Button, PanelHeader } from '@components/elements';
 import Link from 'next/link';
+
+// Number of FAQ items to show by default
+const DEFAULT_NUM_FAQ = 3;
 
 export interface FaqProps {
     faq: Faq[];
 }
 
 const FAQ: FC<FaqProps> = ({ faq }) => {
+    const [itemsToRender, setItemsToRender] = useState(DEFAULT_NUM_FAQ);
+    const items = faq.slice(0, itemsToRender);
+
+    const showMore = () => {
+        setItemsToRender(itemsToRender + 3);
+    };
+
     return (
         <section className={styles.faq}>
             <Wrapper className={styles.wrapper}>
-                <h2 className={styles.heading}>Frequently Asked Questions</h2>
+                <PanelHeader level={2} text="Frequently Asked Questions" />
 
-                {faq.slice(0, 3).map((f, index) => (
+                {items.map((f, index) => (
                     <details key={index} className={styles.question}>
                         <summary className={styles.questionSummary}>
                             {f.question}
@@ -31,16 +42,17 @@ const FAQ: FC<FaqProps> = ({ faq }) => {
                 ))}
 
                 {/* Show link to full FAQ only if there are more than 3 questions */}
-                {faq.length > 3 ? (
-                    <div className={styles.more}>
-                        <Link
-                            href="/faq"
-                            className={styles.moreLink}
-                            aria-label="See all questions">
-                            See all questions
-                        </Link>
+                {faq.length > 3 && (
+                    <div className={styles.faqMoreButton}>
+                        {itemsToRender < faq.length ? (
+                            <Button onClick={showMore}>Show more</Button>
+                        ) : (
+                            <Link href="/faq" className={styles.faqLink}>
+                                View full FAQ
+                            </Link>
+                        )}
                     </div>
-                ) : null}
+                )}
             </Wrapper>
         </section>
     );

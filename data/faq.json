@@ -36,6 +36,10 @@
         "answer": "There are several reasons why you might want to use dynamic code analysis:\n 1) To find errors that are not easily found with static code analysis.\n 2) To find runtime errors that may not be found with static code analysis.\n 3) To verify the correctness of software after making changes."
     },
     {
+        "question": "What does the upvote percentage mean?",
+        "answer": "The upvote percentage is the percentage of votes that are upvotes. It is calculated by dividing the number of upvotes by the total number of votes. The higher the percentage, the more popular the tool is."
+    },
+    {
         "question": "How Can I Contribute To analysis-tools.dev?",
         "answer": "Contributing to an open source project can seem like a daunting task, but it's easier than you might think! By following a few simple steps, you can become a valuable contributor to any project.\nTake some time to familiarize yourself with our contributing guidlines at https://github.com/analysis-tools-dev/static-analysis/blob/master/CONTRIBUTING.md.\nNext, start by making small contributions. These could be bug fixes, upates to the description of the tools, or even just documentation updates. This will help get you familiar with the codebase and the development process of the project.\nOnce you've made some small contributions, start working on larger tasks such as fixing major bugs or adding new features. By taking on bigger tasks,you'll be able to make more significant contributions to the project!"
     }

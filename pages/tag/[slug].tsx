@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
+import { MainHead, Footer, Navbar, SponsorBanner, FAQ } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { LanguageCard, AlternativeToolsList } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
-import { ArticlePreview, LanguageData, SponsorData } from 'utils/types';
+import { ArticlePreview, Faq, LanguageData, SponsorData } from 'utils/types';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getLanguageData, getSimilarTags, getTags } from 'utils-api/tags';
 import { filterByTags } from 'utils-api/filters';
@@ -51,6 +51,53 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const relatedTags = getSimilarTags(slug);
     const filteredTools = filterByTags(tools, slug);
 
+    // best tools by percent upvoted (single language only)
+    const bestTools = filteredTools
+        .filter((tool) => tool.languages.length === 1)
+        .sort((a, b) => b.votes - a.votes)
+        .map((tool) => tool.name)
+        .slice(0, 5);
+
+    // Tools with a free plan
+    const freePlanTools = filteredTools
+        .filter((tool) => tool.plans?.free === true)
+        .map((tool) => tool.name);
+
+    const openSourceTools = filteredTools
+        .filter((tool) => tool.source)
+        .sort((a, b) => b.votes - a.votes)
+        .map((tool) => tool.name)
+        .slice(0, 10);
+    const freeForOss = filteredTools
+        .filter((tool) => tool.plans?.oss === true)
+        .map((tool) => tool.name);
+    const faq = [
+        {
+            question: `What is ${tagData.name}?`,
+            answer: tagData.description,
+        },
+        {
+            question: `What are the best static analysis tools for ${tagData.name}?`,
+            answer: `The most popular ${
+                tagData.name
+            } tools include ${bestTools.join(', ')}.`,
+        },
+        {
+            question: `Which ${tagData.name} tools are free to use?`,
+            answer: `Tools with a free plan include ${freePlanTools.join(
+                ', ',
+            )}. On top of that, there are also a number of open source like ${openSourceTools.join(
+                ', ',
+            )}.`,
+        },
+        {
+            question: `Which ${tagData.name} services are free for open source projects?`,
+            answer: `Commercial services with a free plan for open source include ${freeForOss.join(
+                ', ',
+            )}.`,
+        },
+    ];
+
     return {
         props: {
             slug,
@@ -60,6 +107,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             previews,
             sponsors,
             relatedTags,
+            faq,
         },
     };
 };
@@ -72,6 +120,7 @@ export interface TagProps {
     previews: ArticlePreview[];
     sponsors: SponsorData[];
     relatedTags: string[];
+    faq: Faq[];
 }
 
 const TagPage: FC<TagProps> = ({
@@ -82,6 +131,7 @@ const TagPage: FC<TagProps> = ({
     previews,
     sponsors,
     relatedTags,
+    faq,
 }) => {
     // TODO: We should use the `tag.name` here, but it is undefined for some reason
     // Capitalize the first letter of the tag
@@ -124,6 +174,7 @@ const TagPage: FC<TagProps> = ({
                             listTitle={`${tagName} Tools`}
                             tools={tools}
                         />
+                        <FAQ faq={faq} />
                         {relatedTags.length > 0 && (
                             <RelatedTagsList tags={relatedTags} />
                         )}
