@@ -2,6 +2,7 @@ import { FC } from 'react';
 import cn from 'classnames';
 import styles from './PanelHeader.module.css';
 import { Heading } from '@components/typography';
+import Link from 'next/link';
 
 export interface PanelHeaderProps {
     level: 1 | 2 | 3 | 4;
@@ -27,7 +28,7 @@ const PanelHeader: FC<PanelHeaderProps> = ({
         <div className={dClass}>
             <div className={styles.title}>
                 <Heading level={level} className={hClass}>
-                    {link ? <a href={link}>{text}</a> : text}
+                    {link ? <Link href={link}>{text}</Link> : text}
                 </Heading>
             </div>
             {children && <div className={styles.actionBtns}>{children}</div>}

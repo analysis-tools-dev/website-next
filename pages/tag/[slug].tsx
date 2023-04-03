@@ -186,7 +186,6 @@ const TagPage: FC<TagProps> = ({
         const filtered = tools.filter((tool) => {
             // Check if the tool matches all the selected filter options
             return (
-                // New filter code:
                 // Allow tools with any of the selected filters
                 // If no filters  are selected, allow all tools
                 (filters.categories.length === 0 ||
@@ -220,16 +219,20 @@ const TagPage: FC<TagProps> = ({
         value: string,
         checked: boolean,
     ) => {
-        // print full event object
-        console.log(filter, value, checked);
-
         // update the filters
+        // TODO: Remove type ignore
         setFilters((prev) => {
             const newFilters = { ...prev };
             if (checked) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 newFilters[filter].push(value);
             } else {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 newFilters[filter] = newFilters[filter].filter(
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
                     (item) => item !== value,
                 );
             }
