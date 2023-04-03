@@ -6,6 +6,7 @@ import styles from './LanguageFilterCard.module.css';
 import classNames from 'classnames';
 import { tagIconPath } from 'utils/icons';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export interface LanguageFilterOption {
     value: string;
@@ -46,6 +47,22 @@ const RelatedCard: FC<RelatedCardProps> = ({
                         </a>
                     </li>
                 ))}
+                <li key={'all'}>
+                    <Link
+                        passHref={true}
+                        href={`/tools`}
+                        className={styles.relatedLink}>
+                        <a>
+                            <Image
+                                src={`/assets/icons/general/back.svg`}
+                                alt={'Other Languages'}
+                                width={20}
+                                height={20}
+                            />
+                            <div>Other Languages</div>
+                        </a>
+                    </Link>
+                </li>
             </ul>
         </Card>
     );
