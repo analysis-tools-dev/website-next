@@ -24,6 +24,12 @@ func main() {
 									ContainerPort: pulumi.Int(3000),
 								},
 							},
+							Resources: &cloudrun.ServiceTemplateSpecContainerResourcesArgs{
+								Limits: pulumi.StringMap{
+									"cpu":    pulumi.String("1"),
+									"memory": pulumi.String("1Gi"),
+								},
+							},
 							Envs: cloudrun.ServiceTemplateSpecContainerEnvArray{
 								&cloudrun.ServiceTemplateSpecContainerEnvArgs{
 									Name:  pulumi.String("PUBLIC_HOST"),
