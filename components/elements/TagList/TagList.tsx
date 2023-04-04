@@ -1,10 +1,12 @@
 import { FC } from 'react';
+import Image from 'next/image';
 import cn from 'classnames';
 import styles from './TagList.module.css';
 import { useSearchState } from 'context/SearchProvider';
 import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
 import classNames from 'classnames';
+import { tagIconPath } from 'utils/icons';
 
 export interface TagListProps {
     languageTags?: string[];
@@ -88,7 +90,16 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
                                 search.languages?.includes(tag),
                         })}
                         key={`languageTag-${index}`}>
-                        <a onClick={toggleLanguageTag}>{tag}</a>
+                        <a onClick={toggleLanguageTag}>
+                            <Image
+                                className={styles.tagIcon}
+                                src={tagIconPath(tag)}
+                                alt={tag}
+                                width={15}
+                                height={15}
+                            />
+                            {tag}
+                        </a>
                     </li>
                 ))}
             {otherTags &&
@@ -99,7 +110,16 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
                                 search.others?.includes(tag),
                         })}
                         key={`otherTag-${index}`}>
-                        <a onClick={toggleOtherTag}>{tag}</a>
+                        <a onClick={toggleOtherTag}>
+                            <Image
+                                className={styles.tagIcon}
+                                src={tagIconPath(tag)}
+                                alt={tag}
+                                width={15}
+                                height={15}
+                            />
+                            {tag}
+                        </a>
                     </li>
                 ))}
         </ul>

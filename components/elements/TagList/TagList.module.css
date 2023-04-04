@@ -19,6 +19,10 @@
     color: inherit;
     cursor: pointer;
     font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 }
 
 .tag a:hover {
