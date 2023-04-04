@@ -200,7 +200,6 @@ const TagPage: FC<TagProps> = ({
                     )) &&
                 (filters.pricing.length === 0 ||
                     filters.pricing.some((pricing) => {
-                        console.log(pricing);
                         if (pricing === 'free') {
                             return tool.plans?.free === true;
                         } else if (pricing === 'oss') {
