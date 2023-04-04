@@ -4,7 +4,7 @@
     border: 1px solid #486a8b;
 }
 
-.languageLink {
+.languageCardHeader {
     display: flex;
     align-items: center;
     margin: 0 0 20px 0;
@@ -12,6 +12,13 @@
 
 .languageName {
     padding: 0 0 0 15px;
+}
+
+/* Highlight language name with a blue pill background, matching our color scheme */
+.languageNameInner {
+    padding: 5px 5px;
+    border-radius: 5px;
+    background-color: #345779;
 }
 
 .cardFooter {
@@ -25,6 +32,10 @@
 .description {
     margin: 15px 0;
     line-height: 20px;
+}
+
+.description p {
+    padding-bottom: 15px;
 }
 
 @media only screen and (max-width: 900px) {

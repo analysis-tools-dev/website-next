@@ -54,7 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const votes = await getVotes();
     const apiTool = await getTool(slug);
     const previews = await getArticlesPreviews();
-    const icon = await getToolIcon(slug);
+    const icon = getToolIcon(slug);
 
     if (!apiTool) {
         return {
@@ -185,7 +185,7 @@ const ToolPage: FC<ToolProps> = ({
         '/',
     )} for ${capitalizedLanguages.join('/')} - `;
 
-    if (alternatives.length === 0) {
+    if (alternatives.length < 2) {
         description += ` Rating And Alternatives`;
     } else if (alternatives.length === 2) {
         description += ` And Two Alternatives`;

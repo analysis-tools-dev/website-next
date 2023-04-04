@@ -1,0 +1,21 @@
+.relatedList {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.relatedList li {
+    margin: 0 0 10px 0;
+}
+
+.relatedList li a {
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.relatedList li a:hover {
+    text-decoration: underline;
+}

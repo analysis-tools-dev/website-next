@@ -17,6 +17,7 @@ export interface FilterOption {
 }
 
 export interface FilterCardProps {
+    showAllCheckbox?: boolean;
     heading: string;
     filter: string;
     options: FilterOption[];
@@ -27,6 +28,7 @@ export interface FilterCardProps {
 // TODO: Add Toggle Deprecated (default off)
 // TODO: Add click functionality and debounce
 const FilterCard: FC<FilterCardProps> = ({
+    showAllCheckbox = true,
     heading,
     filter,
     options,
@@ -64,21 +66,23 @@ const FilterCard: FC<FilterCardProps> = ({
             </Heading>
 
             <ul className={styles.checklist}>
-                <li>
-                    <Input
-                        type="checkbox"
-                        id="checkbox_all"
-                        data-filter={filter}
-                        checked={!isSelectedFilter(filter, search)}
-                        onChange={resetFilter}
-                    />
-                    <label
-                        className={styles.checkboxLabel}
-                        htmlFor="checkbox_all"
-                        onClick={resetFilter}>
-                        All
-                    </label>
-                </li>
+                {showAllCheckbox && (
+                    <li>
+                        <Input
+                            type="checkbox"
+                            id="checkbox_all"
+                            data-filter={filter}
+                            checked={!isSelectedFilter(filter, search)}
+                            onChange={resetFilter}
+                        />
+                        <label
+                            className={styles.checkboxLabel}
+                            htmlFor="checkbox_all"
+                            onClick={resetFilter}>
+                            All
+                        </label>
+                    </li>
+                )}
                 {options.slice(0, listLimit).map((option, index) => (
                     <li key={index}>
                         <Input

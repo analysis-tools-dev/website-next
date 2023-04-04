@@ -65,11 +65,12 @@
 }
 
 .activeUpvote {
-    filter: invert(0.5) sepia(1) saturate(40) hue-rotate(0deg);
+    filter: invert(0.5) sepia(1) saturate(40) hue-rotate(330deg);
 }
 
 .activeDownvote {
-    filter: invert(0.5) sepia(1) saturate(40) hue-rotate(30deg);
+    /* cold blue color on downvote */
+    filter: invert(0.5) sepia(1) saturate(40) hue-rotate(200deg);
 }
 
 .upvotePercentage {
