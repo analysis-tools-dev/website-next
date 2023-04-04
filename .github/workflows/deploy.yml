@@ -19,30 +19,6 @@ concurrency:
     group: ${{ github.workflow }}
 
 jobs:
-    recover_secrets:
-        runs-on: ubuntu-latest
-        steps:
-            - name: 'Authenticate to Google Cloud'
-              uses: 'google-github-actions/auth@v1'
-              with:
-                  workload_identity_provider: 'projects/84699750544/locations/global/workloadIdentityPools/github/providers/github'
-                  service_account: 'github-actions@analysis-tools-dev.iam.gserviceaccount.com'
-
-            - name: 'Set up Cloud SDK'
-              uses: 'google-github-actions/setup-gcloud@v0'
-
-            - name: 'Recover secrets'
-              run: |
-                  export PULUMI_SECRET="${{ secrets.PULUMI_SECRET }}"
-                  export PULUMI_SECRET_PROD="${{ secrets.PULUMI_SECRET_PROD }}"
-
-                  gcloud secrets create PULUMI_SECRET \
-                      --replication-policy="automatic" \
-                      --data-file <(echo -n $PULUMI_SECRET)
-                  gcloud secrets create PULUMI_SECRET_PROD \
-                      --replication-policy="automatic" \
-                      --data-file <(echo -n $PULUMI_SECRET_PROD)
-
     deploy:
         runs-on: ubuntu-latest
         steps:
