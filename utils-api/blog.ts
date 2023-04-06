@@ -56,6 +56,7 @@ export const getArticleFromFilename = (filename: string): Article => {
         meta: {
             title: data.title,
             date: data.date,
+            author: data.author,
         },
         source: content,
         html: markdownToHtml(content),

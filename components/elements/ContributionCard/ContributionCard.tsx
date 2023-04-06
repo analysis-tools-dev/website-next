@@ -32,7 +32,7 @@ const ContributionCard: FC = () => {
             </Text>
 
             <LinkButton
-                href="https://github.com/analysis-tools-dev/static-analysis/blob/master/CONTRIBUTING.md"
+                href="/contributing"
                 label="Suggest a tool"
                 className={styles.suggestBtn}
             />

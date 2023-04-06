@@ -1,6 +1,7 @@
 ---
 title: Our Mission
-date: "2020-07-16T22:12:03.284Z"
+date: '2020-07-16T22:12:03.284Z'
+author: 'Matthias Endler'
 ---
 
 We found that static code analysis is a topic that is attracting a lot of engineers, which care about code-quality and solid engineering standards. Our goal is to create an open community for developers that want to take their code and skill set to the next level.

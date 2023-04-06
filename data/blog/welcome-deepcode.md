@@ -1,6 +1,7 @@
 ---
 title: Welcome, DeepCode!
 date: "2020-07-16T00:00:00.000Z"
+author: 'Matthias Endler'
 ---
 
 Today we welcome DeepCode as our first sponsor.

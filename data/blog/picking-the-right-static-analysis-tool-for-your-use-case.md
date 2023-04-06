@@ -1,6 +1,7 @@
 ---
 title: "Picking the Right Static Analysis Tool For Your Use-Case"
 date: "2021-01-26T22:12:03.284Z"
+author: 'Matthias Endler'
 ---
 
 This project started as a way to scratch my own itch:

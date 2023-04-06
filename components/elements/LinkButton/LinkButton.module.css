@@ -1,7 +1,10 @@
 .btn {
     color: #ffffff;
-
     border-radius: 6px;
+}
+
+.btn:hover {
+    text-decoration: none;
 }
 
 .primary {

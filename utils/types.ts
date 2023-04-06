@@ -50,6 +50,7 @@ export interface ApiTag {
 export interface FrontMatter {
     title: string;
     date: string;
+    author: string;
 }
 
 export interface MarkdownDocument {
@@ -71,6 +72,7 @@ export interface MarkdownRenderingResult {
 export interface ArticleMeta {
     title: string;
     date: string;
+    author: string;
 }
 
 export interface Article {
