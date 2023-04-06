@@ -44,6 +44,11 @@
     vertical-align: top;
 }
 
+.toolLink {
+    text-underline-offset: 4px;
+    text-decoration: underline;
+}
+
 .toolType {
     margin: 0 10px 0 0;
 }
