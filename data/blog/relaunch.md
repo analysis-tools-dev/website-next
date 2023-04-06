@@ -1,6 +1,7 @@
 ---
 title: Redesigning Analysis Tools
 date: '2023-03-29T00:00:00.000Z'
+author: 'Matthias Endler'
 ---
 
 We are happy to announce that we completely rebuilt analysis-tools.dev from

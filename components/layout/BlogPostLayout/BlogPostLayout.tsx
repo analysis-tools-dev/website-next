@@ -25,6 +25,7 @@ const BlogPostLayout: FC<BlogPostLayoutProps> = ({
                     <span className={styles.date}>
                         {articleDate.toLocaleDateString()}
                     </span>
+                    <span className={styles.author}> by {meta.author}</span>
                     <div
                         className={styles.content}
                         dangerouslySetInnerHTML={{ __html: html }}></div>

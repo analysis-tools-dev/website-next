@@ -1,6 +1,7 @@
 ---
 title: 'Welcoming Bearer as Our Sponsor: Simple Ruby and JavaScript App Security'
 date: '2023-04-06T00:00:00.000Z'
+author: 'Matthias Endler'
 ---
 
 As a developer, I have faced my fair share of security mishaps. I recall times

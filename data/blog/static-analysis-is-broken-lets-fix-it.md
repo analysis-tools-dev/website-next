@@ -1,6 +1,7 @@
 ---
 title: Static Analysis Is Broken - Let’s Fix It!
 date: "2020-08-19T20:00:00.000Z"
+author: 'Matthias Endler'
 ---
 
 Static analysis is great! It helps improve code quality by inspecting source
