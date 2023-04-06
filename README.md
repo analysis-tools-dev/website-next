@@ -1,6 +1,6 @@
-  <a href="http://analysis-tools.dev/">
-    <img width="300px" alt="Analysis Tools" src="public/assets/images/logo2.svg" />
-  </a>
+ <a href="https://analysis-tools.dev/">
+   <img alt="Analysis Tools Website" src="https://raw.githubusercontent.com/analysis-tools-dev/assets/master/static/redesign.svg" />
+ </a>
 
 ![CI](https://github.com/analysis-tools-dev/website-next/workflows/deploy/badge.svg)
 
