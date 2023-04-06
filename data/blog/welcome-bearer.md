@@ -53,7 +53,7 @@ Check it out on GitHub at https://github.com/bearer/bearer.
 If you're curious about Bearer and want to see it in action, watch
 this YouTube video with a demo:
 
-<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="788.54" height="443" type="text/html" src="https://www.youtube.com/embed/EC8D_ObYyfY?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=http://youtubeembedcode.com"><div><small><a href="https://youtubeembedcode.com/de/">youtubeembedcode de</a></small></div><div><small><a href="https://laddbox.io/">laddbox.io</a></small></div></iframe>
+<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="640px" height="443" type="text/html" src="https://www.youtube.com/embed/EC8D_ObYyfY?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0"></iframe>
 
 ## Try Bearer for Free
 
