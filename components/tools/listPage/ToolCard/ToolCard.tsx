@@ -129,6 +129,12 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                     )}
                 </ul>
             </div>
+            <Link
+                passHref={true}
+                className={styles.clickOut}
+                href={`/tool/${tool.id}`}>
+                <div className={styles.clickOut} />
+            </Link>
         </Card>
     );
 };
