@@ -8,6 +8,9 @@ import { MainHead } from '@components/core';
 
 export type SetSearchStateAction = Dispatch<React.SetStateAction<SearchState>>;
 
+// Create a new type for tag types
+export type TagTypes = 'languages' | 'others';
+
 export type SearchFilter =
     | 'languages'
     | 'others'

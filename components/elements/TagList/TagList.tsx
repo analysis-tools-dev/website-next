@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import styles from './TagList.module.css';
-import { useSearchState } from 'context/SearchProvider';
+import { TagTypes, useSearchState } from 'context/SearchProvider';
 import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
 import classNames from 'classnames';
@@ -25,19 +25,20 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
         setShowAllTags((prevShowAllTags) => !prevShowAllTags);
     };
 
-    const toggleTag = (event: any, tagType: string) => {
+    const toggleTag = (event: any, tagType: TagTypes) => {
         const tag = event?.target.innerText;
+        const currentTags = search[tagType];
 
-        if (Array.isArray(search[tagType])) {
-            if (search[tagType].includes(tag)) {
+        if (Array.isArray(currentTags)) {
+            if (currentTags.includes(tag)) {
                 setSearch({
                     ...search,
-                    [tagType]: search[tagType].filter((l) => l !== tag),
+                    [tagType]: currentTags.filter((l: string) => l !== tag),
                 });
             } else {
                 setSearch({
                     ...search,
-                    [tagType]: [...search[tagType], tag],
+                    [tagType]: [...currentTags, tag],
                 });
             }
         } else {
@@ -47,14 +48,24 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
             });
         }
 
-        routerPush(`/tools?${objectToQueryString(search)}`, undefined, {
-            shallow: true,
-        });
+        routerPush(
+            `/tools?${objectToQueryString(search as Record<string, any>)}`,
+            undefined,
+            {
+                shallow: true,
+            },
+        );
     };
 
     const combinedTags = [
-        ...(languageTags || []).map((tag) => ({ tag, type: 'languages' })),
-        ...(otherTags || []).map((tag) => ({ tag, type: 'others' })),
+        ...(languageTags || []).map((tag) => ({
+            tag,
+            type: 'languages' as TagTypes,
+        })),
+        ...(otherTags || []).map((tag) => ({
+            tag,
+            type: 'others' as TagTypes,
+        })),
     ];
 
     const tagsToRender = showAllTags
