@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import styles from './TagList.module.css';
@@ -7,6 +7,8 @@ import { objectToQueryString } from 'utils/query';
 import { useRouterPush } from 'hooks';
 import classNames from 'classnames';
 import { tagIconPath } from 'utils/icons';
+
+const NUM_TAGS = 8;
 
 export interface TagListProps {
     languageTags?: string[];
@@ -17,59 +19,31 @@ export interface TagListProps {
 const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
     const routerPush = useRouterPush();
     const { search, setSearch } = useSearchState();
-    const toggleLanguageTag = (event: any) => {
-        const language = event?.target.innerText;
-        if (Array.isArray(search.languages)) {
-            // remove language tag if already in array
-            if (search.languages.includes(language)) {
-                setSearch({
-                    ...search,
-                    languages: search.languages.filter((l) => l !== language),
-                });
-            } else {
-                // Add language tag if not in array
-                setSearch({
-                    ...search,
-                    languages: [...search.languages, language],
-                });
-            }
-        } else {
-            // If single language tag, set to array
-            setSearch({
-                ...search,
-                languages: [language],
-            });
-        }
+    const [showAllTags, setShowAllTags] = useState(false);
 
-        routerPush(
-            `/tools?${objectToQueryString(search as Record<string, any>)}`,
-            undefined,
-            {
-                shallow: true,
-            },
-        );
+    const toggleShowAllTags = () => {
+        setShowAllTags((prevShowAllTags) => !prevShowAllTags);
     };
-    const toggleOtherTag = (event: any) => {
-        const other = event?.target.innerText;
-        if (Array.isArray(search.others)) {
-            // remove other tag if already in array
-            if (search.others.includes(other)) {
+
+    const toggleTag = (event: any, tagType: string) => {
+        const tag = event?.target.innerText;
+
+        if (Array.isArray(search[tagType])) {
+            if (search[tagType].includes(tag)) {
                 setSearch({
                     ...search,
-                    others: search.others.filter((l) => l !== other),
+                    [tagType]: search[tagType].filter((l) => l !== tag),
                 });
             } else {
-                // Add other tag if not in array
                 setSearch({
                     ...search,
-                    others: [...search.others, other],
+                    [tagType]: [...search[tagType], tag],
                 });
             }
         } else {
-            // If single other tag, set to array
             setSearch({
                 ...search,
-                others: [other],
+                [tagType]: [tag],
             });
         }
 
@@ -78,50 +52,43 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
         });
     };
 
-    // TODO: Show hide tags if over 10
-    return (languageTags && languageTags.length) ||
-        (otherTags && otherTags.length) ? (
+    const combinedTags = [
+        ...(languageTags || []).map((tag) => ({ tag, type: 'languages' })),
+        ...(otherTags || []).map((tag) => ({ tag, type: 'others' })),
+    ];
+
+    const tagsToRender = showAllTags
+        ? combinedTags
+        : combinedTags.slice(0, NUM_TAGS);
+
+    return combinedTags.length ? (
         <ul className={cn(styles.tagList, className)}>
-            {languageTags &&
-                languageTags.map((tag, index) => (
-                    <li
-                        className={classNames(styles.tag, {
-                            [`${styles.highlight}`]:
-                                search.languages?.includes(tag),
-                        })}
-                        key={`languageTag-${index}`}>
-                        <a onClick={toggleLanguageTag}>
-                            <Image
-                                className={styles.tagIcon}
-                                src={tagIconPath(tag)}
-                                alt={tag}
-                                width={15}
-                                height={15}
-                            />
-                            {tag}
-                        </a>
-                    </li>
-                ))}
-            {otherTags &&
-                otherTags.map((tag, index) => (
-                    <li
-                        className={classNames(styles.tag, {
-                            [`${styles.highlight}`]:
-                                search.others?.includes(tag),
-                        })}
-                        key={`otherTag-${index}`}>
-                        <a onClick={toggleOtherTag}>
-                            <Image
-                                className={styles.tagIcon}
-                                src={tagIconPath(tag)}
-                                alt={tag}
-                                width={15}
-                                height={15}
-                            />
-                            {tag}
-                        </a>
-                    </li>
-                ))}
+            {tagsToRender.map(({ tag, type }, index) => (
+                <li
+                    className={classNames(styles.tag, {
+                        [`${styles.highlight}`]: search[type]?.includes(tag),
+                    })}
+                    key={`${tag}-${index}`}>
+                    <a onClick={(e) => toggleTag(e, type)}>
+                        <Image
+                            className={styles.tagIcon}
+                            src={tagIconPath(tag)}
+                            alt={tag}
+                            width={15}
+                            height={15}
+                        />
+                        {tag}
+                    </a>
+                </li>
+            ))}
+
+            {combinedTags.length > NUM_TAGS && (
+                <li
+                    onClick={toggleShowAllTags}
+                    className={classNames(styles.tag, styles.showMore)}>
+                    {showAllTags ? 'Show less' : 'Show more'}
+                </li>
+            )}
         </ul>
     ) : null;
 };
