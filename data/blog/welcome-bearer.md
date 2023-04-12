@@ -53,7 +53,7 @@ Check it out on GitHub at https://github.com/bearer/bearer.
 If you're curious about Bearer and want to see it in action, watch
 this YouTube video with a demo:
 
-<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="600" height="400" type="text/html" src="https://www.youtube.com/embed/EC8D_ObYyfY?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0"></iframe>
+<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="100%" height="400" style="aspect-ratio:16/9;border:none;" type="text/html" src="https://www.youtube.com/embed/EC8D_ObYyfY?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0"></iframe>
 
 ## Try Bearer for Free
 
