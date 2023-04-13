@@ -4,7 +4,13 @@ import { MainHead, Footer, Navbar, SponsorBanner, FAQ } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { LanguageCard, AlternativeToolsList } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
-import { AffiliatesData,ArticlePreview, Faq, LanguageData, SponsorData } from 'utils/types';
+import {
+    AffiliatesData,
+    ArticlePreview,
+    Faq,
+    LanguageData,
+    SponsorData,
+} from 'utils/types';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getLanguageData, getSimilarTags, getTags } from 'utils-api/tags';
 import { filterByTags } from 'utils-api/filters';

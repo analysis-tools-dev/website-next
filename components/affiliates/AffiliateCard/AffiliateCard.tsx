@@ -44,8 +44,8 @@ const AffiliateCard: FC<AffiliateCardProps> = ({ affiliate }) => {
                     </ReactMarkdown>
 
                     <div className={styles.cta}>
-                        <Link href={affiliate.href} target="_blank">
-                            <a className={styles.affiliateLink}>
+                        <Link href={affiliate.href} passHref>
+                            <a target="_blank" className={styles.affiliateLink}>
                                 <Button
                                     className={styles.button}
                                     theme="primary">

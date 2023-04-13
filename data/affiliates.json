@@ -1,15 +1,13 @@
 [
     {
-        "name": "BuildJet",
-        "href": "https://buildjet.com/for-github-actions?utm_source=analysis-tools&utm_medium=website&utm_campaign=dev_tools_promo",
-        "headline": "BuildJet - Change 1 line, get 2x faster & cheaper GitHub Actions builds",
-        "description": "BuildJet makes GitHub Actions faster using Gaming CPUs. You still keep everything on GitHub Actions, they just replace the underlying GitHub workers.",
-        "callToAction": "Get started for free",
-        "logo": "/assets/images/affiliate/buildjet.svg",
+        "name": "corrode",
+        "href": "https://corrode.dev",
+        "headline": "Need help migrating to Rust?",
+        "description": "corrode is a friendly consultancy that helps you make the most of Rust. We offer training, mentoring, and development services. Reach out today for expert help in developing reliable and efficient software!",
+        "callToAction": "Learn more",
+        "logo": "/assets/images/affiliate/corrode.svg",
         "tags": [
             "rust",
-            "javascript",
-            "typescript",
             "c",
             "cpp"
         ]
