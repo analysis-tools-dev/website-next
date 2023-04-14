@@ -4,7 +4,6 @@
 
 import { useRouter } from 'next/router';
 import { createContext, FC, useContext, useState } from 'react';
-import { MainHead } from '@components/core';
 
 export type SetSearchStateAction = Dispatch<React.SetStateAction<SearchState>>;
 
@@ -55,6 +54,13 @@ export interface SearchProviderProps {
 
 export const SearchProvider: FC<SearchProviderProps> = ({ children }) => {
     const router = useRouter();
+    // Convert values in query to array
+    Object.keys(router.query).forEach((key) => {
+        if (!Array.isArray(router.query[key])) {
+            router.query[key] = [router.query[key]];
+        }
+    });
+
     const [search, setSearch] = useState(router.query);
 
     return (

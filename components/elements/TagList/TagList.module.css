@@ -6,6 +6,7 @@
     flex-wrap: wrap;
     column-gap: 8px;
     row-gap: 8px;
+    align-items: center;
 }
 
 .tag {
@@ -13,6 +14,10 @@
     background: #345779;
     padding: 4px 8px;
     border-radius: 6px;
+}
+
+.tag:hover {
+    background: #3c6995;
 }
 
 .tag a {
@@ -36,4 +41,9 @@
 
 .showMore {
     cursor: pointer;
+    font-size: 14px;
+    color: #58a6ff;
+    height: 20px;
+    font-family: Roboto-Light;
+    text-decoration: underline;
 }
