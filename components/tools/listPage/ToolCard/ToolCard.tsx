@@ -44,8 +44,9 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
         }
     };
 
+    // FIXME: Get language tag from name to work as href, some languages have different names than their tag
     return (
-        <Card className={styles.toolCardWrapper}>
+        <Card className={styles.toolCardWrapper} onClick={handleElementClick}>
             <div className={styles.votes} ref={votesRef}>
                 <VoteWidget toolId={tool.id} />
                 <Link
@@ -153,6 +154,15 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                     )}
                 </ul>
             </div>
+<<<<<<< HEAD
+=======
+            {/* <Link
+                passHref={true}
+                className={styles.clickOut}
+                href={`/tool/${tool.id}`}>
+                <div className={styles.clickOut} />
+            </Link> */}
+>>>>>>> 5ae7b9e (Fix ToolCard clickable layout)
         </Card>
     );
 };
