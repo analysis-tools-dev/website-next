@@ -69,11 +69,10 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
                         </div>
                     </div>
                 </div>
-                <div className={styles.wrapper}>
-                    <ReactMarkdown className={styles.description}>
-                        {tool.description || ''}
-                    </ReactMarkdown>
-                </div>
+
+                <ReactMarkdown className={styles.description}>
+                    {tool.description || ''}
+                </ReactMarkdown>
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
                 <div className={styles.cardFooter}>
                     <ShareBtns

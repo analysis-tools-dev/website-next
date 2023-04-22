@@ -44,6 +44,12 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
         <Card className={styles.toolCardWrapper} onClick={handleElementClick}>
             <div className={styles.votes} ref={votesRef}>
                 {isVotesInViewport && <VoteWidget toolId={tool.id} />}
+                <Link
+                    passHref={true}
+                    className={styles.clickOut}
+                    href={`/tool/${tool.id}`}>
+                    <div className={styles.clickOut} />
+                </Link>
             </div>
             <div className={styles.info}>
                 <Link href={`/tool/${tool.id}`}>
@@ -51,17 +57,17 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                         <Heading level={3} className={styles.toolName}>
                             {tool.name}
                         </Heading>
+                        {isSponsor(tool.id) && (
+                            <Image
+                                className={styles.sponsorLogo}
+                                height="18px"
+                                width="18px"
+                                src="/assets/icons/general/sponsor.svg"
+                                alt="Sponsor"
+                            />
+                        )}
                     </a>
                 </Link>
-                {isSponsor(tool.id) && (
-                    <Image
-                        className={styles.sponsorLogo}
-                        height="18px"
-                        width="18px"
-                        src="/assets/icons/general/sponsor.svg"
-                        alt="Sponsor"
-                    />
-                )}
 
                 <ReactMarkdown className={styles.description}>
                     {tool.description || ''}

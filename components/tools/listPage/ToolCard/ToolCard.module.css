@@ -6,7 +6,7 @@
     cursor: pointer;
 }
 
-.toolCardWrapper:hover{
+.toolCardWrapper:hover {
     border-color: #58a6ff;
 }
 
@@ -25,15 +25,16 @@
     flex-grow: 1;
     flex-basis: 0;
     padding: 15px;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
 }
 
 .clickOut {
-    background-color: #3c6993;
     width: 80px;
     background-image: url('/assets/icons/general/chevron.png');
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.5;
 }
 
 .clickOut:hover {
@@ -42,7 +43,6 @@
 }
 
 .description {
-    margin: 16px 0;
     font-size: 14px;
     overflow-wrap: anywhere;
 }
@@ -52,7 +52,6 @@
 }
 
 .toolMeta {
-    margin: 20px 0 0 0;
     padding: 0;
     list-style: none;
     display: flex;
@@ -69,7 +68,7 @@
 
 .toolLink {
     text-underline-offset: 4px;
-    /* text-decoration: underline; */
+    display: flex;
 }
 
 .toolType {
@@ -80,6 +79,7 @@
     display: inline;
     vertical-align: top;
     padding-right: 5px;
+    font-size: 20px;
 }
 
 .languageLink {
@@ -87,4 +87,40 @@
     vertical-align: top;
     font-size: 13px !important;
     color: #ffffff;
+}
+
+.clickOut {
+    display: none;
+}
+
+@media only screen and (max-width: 900px) {
+    .toolCardWrapper {
+        flex-direction: column-reverse;
+    }
+
+    .info {
+        padding: 20px;
+    }
+
+    .clickOut {
+        display: unset;
+        border: 1px solid #486a8b;
+        border-radius: 10px;
+        width: 50px;
+    }
+
+    .votes {
+        width: 100%;
+        border-radius: 0 0 6px 6px;
+        align-items: unset;
+        padding: 10px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .voteWidget {
+        height: unset !important;
+        width: 100px !important;
+        flex-direction: row !important;
+    }
 }
