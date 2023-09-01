@@ -15,13 +15,31 @@ const MainHead: FC<MainHeadProps> = ({ title, description }) => {
     // See https://ogp.me/#url and https://github.com/jitsi/jitsi-meet/issues/6031
     const socialImage = 'https://analysis-tools.dev/assets/images/social.png';
 
+    const inlineCSS = `
+        :root {
+            --font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Liberation Sans', 'Ubuntu', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+            --font-body: 'Roboto', var(--font-fallback);
+            --font-body-bold: 'Roboto-Bold', var(--font-body);
+        }
+        body {
+            font-family: var(--font-body);
+            letter-spacing: .5px;
+        }
+        .bold {
+            font-family: var(--font-body-bold);
+        }
+    `;
+
     return (
         <Head>
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width" />
-            <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
             <title>{title}</title>
+
+            {/* Inline Critical CSS */}
+            <style dangerouslySetInnerHTML={{ __html: inlineCSS }} />
+
             <meta name="title" content={title} />
             <meta name="description" content={description} />
 
@@ -41,21 +59,7 @@ const MainHead: FC<MainHeadProps> = ({ title, description }) => {
             <meta property="twitter:description" content={description} />
             <meta property="twitter:image" content={socialImage} />
 
-            {/* Inline Critical CSS to avoid flash of unstyled content */}
-            <style>{`
-                :root {
-                    --font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Liberation Sans', 'Ubuntu', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-                    --font-body: 'Roboto', var(--font-fallback);
-                    --font-body-bold: 'Roboto-Bold', var(--font-body);
-                }
-                body {
-                    font-family: var(--font-body);
-                    letter-spacing: .5px;
-                }
-                .bold {
-                    font-family: var(--font-body-bold);
-                }
-            `}</style>
+            <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         </Head>
     );
 };
