@@ -40,6 +40,22 @@ const MainHead: FC<MainHeadProps> = ({ title, description }) => {
             <meta property="twitter:title" content={title} />
             <meta property="twitter:description" content={description} />
             <meta property="twitter:image" content={socialImage} />
+
+            {/* Inline Critical CSS to avoid flash of unstyled content */}
+            <style>{`
+                :root {
+                    --font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Liberation Sans', 'Ubuntu', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+                    --font-body: 'Roboto', var(--font-fallback);
+                    --font-body-bold: 'Roboto-Bold', var(--font-body);
+                }
+                body {
+                    font-family: var(--font-body);
+                    letter-spacing: .5px;
+                }
+                .bold {
+                    font-family: var(--font-body-bold);
+                }
+            `}</style>
         </Head>
     );
 };
