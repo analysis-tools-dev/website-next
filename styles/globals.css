@@ -23,11 +23,10 @@
 }
 
 :root {
-    --font-fallback: -apple-system, Segoe UI, Helvetica, Arial, sans-serif,
-        Apple Color Emoji, Segoe UI Emoji;
-    --font-body: Roboto, var(--font-fallback);
-    --font-body-bold: Roboto-Bold, var(--font-body);
-    letter-spacing: 0.5px;
+    --font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Liberation Sans', 'Ubuntu', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-body: 'Roboto', var(--font-fallback);
+    --font-body-bold: 'Roboto-Bold', var(--font-body);
+    letter-spacing: .5px;
 }
 
 * {
