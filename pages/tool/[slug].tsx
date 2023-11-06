@@ -50,17 +50,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 
-    const sponsors = getSponsors();
-    const votes = await getVotes();
     const apiTool = await getTool(slug);
-    const previews = await getArticlesPreviews();
-    const icon = getToolIcon(slug);
-
     if (!apiTool) {
+        console.error(`Tool ${slug} not found. Cannot build slug page.`);
         return {
             notFound: true,
         };
     }
+
+    const sponsors = getSponsors();
+    const votes = await getVotes();
+    const previews = await getArticlesPreviews();
+    const icon = getToolIcon(slug);
 
     // calculate the upvote percentage based on the votes
     const voteKey = `toolsyaml${slug.toString()}`;

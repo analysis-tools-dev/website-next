@@ -56,8 +56,8 @@ export const getTools = async (repo: string): Promise<ToolsApiData | null> => {
             }
         }
         if (!isToolsApiData(data)) {
-            await cacheDataManager.del(cacheKey);
             console.error('Tools TypeError');
+            await cacheDataManager.del(cacheKey);
             return null;
         }
         return data;
@@ -71,6 +71,7 @@ export const getTools = async (repo: string): Promise<ToolsApiData | null> => {
 export const getTool = async (toolId: string): Promise<Tool | null> => {
     const tools = await getAllTools();
     if (!tools) {
+        console.error('Could not load tools');
         return null;
     }
 
