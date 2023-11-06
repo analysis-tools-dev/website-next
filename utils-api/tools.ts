@@ -69,6 +69,7 @@ export const getTools = async (repo: string): Promise<ToolsApiData | null> => {
 };
 
 export const getTool = async (toolId: string): Promise<Tool | null> => {
+    console.log(`[Tools] Fetching data for ${toolId}`);
     const tools = await getAllTools();
     if (!tools) {
         console.error('Could not load tools');
