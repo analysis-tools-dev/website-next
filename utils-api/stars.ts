@@ -62,7 +62,9 @@ const getAllStarHistory = async () => {
     )) as StarHistoryApiData;
 
     if (!allStarHistory) {
-        console.log(`Cache data for: ${cacheKey} does not exist - calling API`);
+        console.log(
+            `[Stars] Cache data for ${cacheKey} does not exist. Calling API`,
+        );
         const allStarHistory = await getAllStarHistoryData();
         await cacheDataManager.set(cacheKey, allStarHistory);
     }

@@ -16,7 +16,7 @@ export async function getStats(file: string) {
         let data: any = await cacheDataManager.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
+                `[ToolStats] Cache data for ${cacheKey} does not exist. Calling API`,
             );
             // Call API and refresh cache
             const response = await octokit.request(

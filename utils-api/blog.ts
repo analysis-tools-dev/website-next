@@ -95,7 +95,7 @@ export const getArticles = async () => {
         let data = await cacheDataManager.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
+                `[Blog] Cache data for ${cacheKey} does not exist. Calling API`,
             );
             // Read article files from dir and refresh cache
             const files = readdirSync(POSTS_PATH)
