@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build && npx tsc algolia-index.ts && node algolia-index.js",
+        "build": "next build",
         "search-index": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' ./algolia-index.ts",
         "start": "next start",
         "lint": "next lint",
