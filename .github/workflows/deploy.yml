@@ -85,6 +85,12 @@ jobs:
                   stack-name: prod
                   refresh: true
 
+            - uses: actions/setup-node@v3
+              if: github.ref == 'refs/heads/main'
+              with:
+                  node-version: 20
+                  cache: 'npm'
+
             - name: 'Update algolia index'
               if: github.ref == 'refs/heads/main'
               env:
@@ -92,4 +98,5 @@ jobs:
                   ALGOLIA_ADMIN_KEY: '${{ secrets.ALGOLIA_ADMIN_KEY }}'
                   ALGOLIA_INDEX_NAME: 'tools'
               run: |
+                  npm install
                   npm run search-index
