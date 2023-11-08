@@ -1,6 +1,8 @@
 import algoliasearch, { SearchClient, SearchIndex } from 'algoliasearch';
-import { getAllTools } from 'utils-api/tools';
+
 import { ApiTool } from 'utils/types';
+import { Tool } from '@components/tools';
+import https from 'https';
 
 const algoliaClient: SearchClient = algoliasearch(
     process.env.ALGOLIA_APP_ID as string,
@@ -11,8 +13,38 @@ const index: SearchIndex = algoliaClient.initIndex(
     process.env.ALGOLIA_INDEX_NAME as string,
 );
 
+async function fetchToolsFromApi(): Promise<Tool[]> {
+    return new Promise((resolve, reject) => {
+        const apiURL = 'https://analysis-tools.dev/api/tools';
+
+        https
+            .get(apiURL, (res) => {
+                let data = '';
+
+                // Listen for data chunks
+                res.on('data', (chunk) => {
+                    data += chunk;
+                });
+
+                // The whole response has been received. Print out the result
+                res.on('end', () => {
+                    try {
+                        const parsedData = JSON.parse(data) as Tool[];
+                        resolve(parsedData);
+                    } catch (e) {
+                        reject(e);
+                    }
+                });
+            })
+            .on('error', (e) => {
+                reject(e);
+            });
+    });
+}
+
 async function updateIndex(data: ApiTool[]): Promise<void> {
     try {
+        await index.clearObjects();
         const algoliaResponse = await index.saveObjects(data);
         console.log('Algolia index updated', algoliaResponse);
     } catch (error) {
@@ -25,13 +57,16 @@ async function updateIndex(data: ApiTool[]): Promise<void> {
 
 async function fetchDataForIndexing(): Promise<ApiTool[]> {
     try {
-        const toolsData = await getAllTools();
+        const toolsData = await fetchToolsFromApi();
 
         // Convert the tools data into an array of Algolia records
         const algoliaRecords: ApiTool[] = Object.entries(toolsData).map(
             ([key, value]) => ({
                 objectID: key,
                 name: value.name,
+                fields: {
+                    slug: `/tool/${value.id}`,
+                },
                 categories: value.categories,
                 languages: value.languages,
                 licenses: value.licenses,
