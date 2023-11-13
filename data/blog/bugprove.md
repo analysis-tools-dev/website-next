@@ -1,10 +1,10 @@
 ---
-title: 'A Closer Look At Bugprove'
+title: 'A Closer Look At BugProve'
 date: '2023-11-14T00:00:00.000Z'
 author: 'Matthias Endler'
 ---
 
-![Bugprove logo](/assets/images/blog/bugprove/bugprove.png)
+![BugProve logo](/assets/images/blog/bugprove/bugprove.png)
 
 I have never been a huge fan of IoT devices.
 Granted, they make our life easier, but they also open the door to a lot of security issues.
@@ -29,17 +29,17 @@ The irony that I co-maintain a website about static code analysis
 and security tools, but I have no idea what's inside the firmware of the devices
 that I use every day is not lost on me.
 
-## Enter Bugprove
+## Enter BugProve
 
-Recently, a company called Bugprove reached out and started
+Recently, a company called BugProve reached out and started
 [sponsoring](https://github.com/sponsors/analysis-tools-dev) our website. As
 with every sponsor, we check their offering and introduce it to our readers in
 form of a blog post. So I sat down and tried out their service. This is my
 review.
 
-## What is Bugprove?
+## What is BugProve?
 
-Bugprove is a security analysis platform for IoT firmware.
+BugProve is a security analysis platform for IoT firmware.
 It is a cloud-based service that allows you to upload firmware images and
 analyze them for security issues.
 
@@ -49,11 +49,11 @@ page](https://bugprove.com/pricing) to learn more.
 
 ## How does it work?
 
-Bugprove uses their own custom analysis engine called
+BugProve uses their own custom analysis engine called
 [PRIS](https://bugprove.com/knowledge-hub/iot-bug-bounty-hunting-using-bug-prove/)
 (I couldn't find out what it stands for) to analyze firmware images.
 
-Here is how Bugprove [describes it in their own words](https://bugprove.com/docs/#/getting-started/quickstart/exploring-scans/pris-tm):
+Here is how BugProve [describes it in their own words](https://bugprove.com/docs/#/getting-started/quickstart/exploring-scans/pris-tm):
 
 > PRIS is BugProve's semi-dynamic security analysis engine that builds on
 > different ideas from academic research in program analysis, and its main
@@ -63,7 +63,7 @@ Here is how Bugprove [describes it in their own words](https://bugprove.com/docs
 No source code is needed for the analysis. Instead, PRIS analyzes the binary
 code directly. It uses a combination of static and dynamic analysis to find
 security issues.
-In a blog post, Bugprove [explains why both static and dynamic analysis are
+In a blog post, BugProve [explains why both static and dynamic analysis are
 needed](https://bugprove.com/knowledge-hub/binary-analysis-fundamentals/):
 
 > Static analysis requires less time and can consider all execution paths in a
@@ -80,13 +80,13 @@ The engine is closed source and written in Python.
 
 ## How to use it?
 
-To use Bugprove, you need to create an account and log in.
+To use BugProve, you need to create an account and log in.
 Uploading a firmware image is as simple as clicking the "Upload" button and
 selecting the file from your computer.
 
 ![Upload button](/assets/images/blog/bugprove/upload.png)
 
-Bugprove asks you to select a scan type. You can choose between "Product" and
+BugProve asks you to select a scan type. You can choose between "Product" and
 "Project". Here is how they describe the difference:
 
 * Use a Project to group otherwise unrelated scans together - they are simple
@@ -107,11 +107,11 @@ in the web interface.
 
 Let's take it for a spin!
 
-## Testing Bugprove with a test firmware image
+## Testing BugProve with a test firmware image
 
 Initially, I was asking myself: "Where do I get a firmware image to test this?"
 
-Fortunately, Bugprove provides a few test images to get started.
+Fortunately, BugProve provides a few test images to get started.
 For example, they provide a Raspberry Pi image that you can download and test,
 called `IoTGoat-raspberry-pi2.img`.
 
@@ -132,7 +132,6 @@ During the scan, I could see the progress in the web interface.
 
 ![scan1](/assets/images/blog/bugprove/scan1.png)
 
-
 ## First results
 
 Depending on the uploaded payload and the number of scans in the queue, the scan
@@ -148,7 +147,7 @@ I received a friendly email when the scan was done, however, so in a real-world
 scenario, I wouldn't have to wait for the scan to finish.
 Nevertheless, an estimated time to completion would have been nice.
 
-The scan results are very detailed and easy to understand. Bugprove shows the
+The scan results are very detailed and easy to understand. BugProve shows the
 architecture of the binary (ARM) and the total number of functions analyzed (167
 in my case).
 
@@ -242,7 +241,7 @@ did not contain any binaries.
 
 ## Verdict
 
-That sums up my experience with Bugprove. Here is a quick summary of the pros and cons:
+That sums up my experience with BugProve. Here is a quick summary of the pros and cons:
 
 ### Pros
 
@@ -258,7 +257,7 @@ While BugProve helpful tool for security researchers, it is not yet ready for ca
 
 That is because of one main reason: it is hard to find firmware for devices that you own. Most vendors
 don't provide a download link. Instead, they exclusively provide an update
-mechanism through their app. This is not a flaw of Bugprove, but with the wider
+mechanism through their app. This is not a flaw of BugProve, but with the wider
 IoT ecosystem. It can be a problem if you want to quickly check your devices for security issues.
 Security researchers don't run into this problem, because they already have the firmware image
 at hand or can extract it from the device or through a proxy for the consumer the app. This 
@@ -280,13 +279,13 @@ as a business user. A peer-reviewed whitepaper would be a good start.
 
 ## Conclusion
 
-Overall, I think Bugprove is a great tool for security researchers and
+Overall, I think BugProve is a great tool for security researchers and
 privacy-conscious users. It democratizes security analysis for IoT devices and
 makes it accessible to a wider audience. This itself is a huge improvement for
 the IoT ecosystem and knowing that BugProve just launched their product in 2021,
 I'm excited to see where they take it in the future.
 
-## Try Bugprove yourself
+## Try BugProve yourself
 
 Thanks to BugProve for sponsoring this project and contributing to the
 open-source analysis tools ecosystem.
