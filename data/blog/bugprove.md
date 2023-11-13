@@ -1,5 +1,5 @@
 ---
-title: 'A Closer Looks At Bugprove'
+title: 'A Closer Look At Bugprove'
 date: '2023-11-13T00:00:00.000Z'
 author: 'Matthias Endler'
 ---
