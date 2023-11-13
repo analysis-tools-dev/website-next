@@ -1,8 +1,10 @@
 ---
 title: 'A Closer Look At Bugprove'
-date: '2023-11-13T00:00:00.000Z'
+date: '2023-11-14T00:00:00.000Z'
 author: 'Matthias Endler'
 ---
+
+![Bugprove logo](/assets/images/blog/bugprove/bugprove.png)
 
 I have never been a huge fan of IoT devices.
 Granted, they make our life easier, but they also open the door to a lot of security issues.
@@ -21,11 +23,13 @@ Just looking at the devices I purchased within the last 2 years, I can count six
 You probably guessed it: we recently got a new family member - our lovely cat,
 Oskar.
 
+![Oskar](/assets/images/blog/bugprove/oskar.png)
+
 The irony that I co-maintain a website about static code analysis
 and security tools, but I have no idea what's inside the firmware of the devices
 that I use every day is not lost on me.
 
-## Bugprove
+## Enter Bugprove
 
 Recently, a company called Bugprove reached out and started
 [sponsoring](https://github.com/sponsors/analysis-tools-dev) our website. As
@@ -134,7 +138,8 @@ During the scan, I could see the progress in the web interface.
 Depending on the uploaded payload and the number of scans in the queue, the scan
 can take a while, and it wasn't always clear if the scan was still running or if
 it got stuck. There were no logs or any other information that I could use to
-reassure myself of the progress.
+reassure myself of the progress. It changed the status from "Decompiling" to
+"Analyzing", after a while, so I knew we were on the right track.
 
 ![scan1-analyzing](/assets/images/blog/bugprove/scan1-analyzing.png)
 
@@ -235,9 +240,9 @@ system of the firmware image directly in the browser and offered a download link
 I could not test the PRIS engine, because it requires a binary to analyze and the image
 did not contain any binaries.
 
-## Summary
+## Verdict
 
-That sums up my experience with Bugprove. Here is a quick summary:
+That sums up my experience with Bugprove. Here is a quick summary of the pros and cons:
 
 ### Pros
 
@@ -273,10 +278,15 @@ I understand that the engine is closed source and that the company wants to prot
 However, given that the engine is the core of the product, I would need more information to trust it
 as a business user. A peer-reviewed whitepaper would be a good start.
 
-Overall, I think Bugprove is a great tool for security researchers and privacy-conscious users.
-It democratizes security analysis for IoT devices and makes it accessible to a wider audience.
-This itself is a huge improvement for the IoT ecosystem and I'm looking forward to seeing how the
-platform evolves in the future.
+## Conclusion
+
+Overall, I think Bugprove is a great tool for security researchers and
+privacy-conscious users. It democratizes security analysis for IoT devices and
+makes it accessible to a wider audience. This itself is a huge improvement for
+the IoT ecosystem and knowing that BugProve just launched their product in 2021,
+I'm excited to see where they take it in the future.
+
+## Try Bugprove yourself
 
 Thanks to BugProve for sponsoring this project and contributing to the
 open-source analysis tools ecosystem.
