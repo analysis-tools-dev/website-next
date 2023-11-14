@@ -115,7 +115,7 @@ Fortunately, BugProve provides a few test images to get started.
 For example, they provide a Raspberry Pi image that you can download and test,
 called `IoTGoat-raspberry-pi2.img`.
 
-This is great for beginners and the interface also provides helpful hints on
+This is great for beginners, and the interface also provides helpful hints on
 what to do next.
 
 Nevertheless, I wanted to try it with a custom firmware image, so 
@@ -164,7 +164,7 @@ or prove that a firmware image is safe.
 
 ## Second scan: Testing a vulnerable firmware image
 
-Next I tried to upload a vulnerable firmware image from [a GitHub repository](https://github.com/iv-wrt/iv-wrt).
+Next, I tried to upload a vulnerable firmware image from [a GitHub repository](https://github.com/iv-wrt/iv-wrt).
 It was the image of an intentionally vulnerable router firmware distribution based on [OpenWrt](https://openwrt.org/), a popular
 Linux distribution for embedded devices like routers.
 
@@ -188,7 +188,7 @@ user, however, I was reaching for more information at this point.
 
 ## Third test: A real-world firmware image
 
-Finally, I tried firmware for the ECOVACS DEEBOT T20e OMNI 6000Pa, a
+Finally, I tried firmware for the ECOVACS Deebot T20e OMNI 6000Pa, a
 new robot vacuum cleaner that I looked at recently.
 
 My hope was that the firmware can be found in the [download section of the
@@ -203,7 +203,7 @@ I also tried to download the [firmware of a popular consumer camera firmware ins
 At long last, I managed to find a firmware image for the [Roborock S5 Max robot vacuum cleaner](https://us.roborock.com/pages/roborock-s5-max) (my current dust buster) on a third-party website.
 I retrieved it from a research website called [dontvacuum.me](https://dontvacuum.me/), which archives firmware images to analyze the security and privacy of embedded systems and IoT device.
 
-![dustbuiler](/assets/images/blog/bugprove/dustbuilder.png)
+![dustbuilder](/assets/images/blog/bugprove/dustbuilder.png)
 
 On BugProve, I chose "Product" this time as I wanted to group all scans for this
 device together. To my surprise, the scan was way faster this time. 
