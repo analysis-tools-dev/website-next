@@ -1,6 +1,6 @@
 ---
 title: 'A Closer Look At BugProve'
-date: '2023-11-14T00:00:00.000Z'
+date: '2023-11-15T00:00:00.000Z'
 author: 'Matthias Endler'
 ---
 
@@ -46,6 +46,20 @@ analyze them for security issues.
 The service offers a free tier that allows you to scan up to 3 firmware images
 per month. They offer paid tiers for teams and enterprises. See their [pricing
 page](https://bugprove.com/pricing) to learn more.
+
+## Who Should Use BugProve?
+
+Before diving into my experience with BugProve, it's important to clarify who
+this tool is designed for. While individual users can certainly utilize BugProve
+to analyze their own IoT devices, the tool's primary audience includes:
+
+- **IoT Manufacturers**: Engineers and developers actively involved in the design and testing of IoT products.
+- **Security Laboratories**: Professional teams conducting thorough audits of IoT devices.
+- **Bug Bounty Hunters**: Skilled individuals who specialize in discovering and reporting security vulnerabilities.
+
+For individuals keen on analyzing their IoT devices, it's worth noting that they
+would need either the firmware itself or the expertise in reverse engineering to
+extract the firmware from the device.
 
 ## How does it work?
 
@@ -279,19 +293,18 @@ as a business user. A peer-reviewed whitepaper would be a good start.
 
 ## Conclusion
 
-Overall, I think BugProve is a great tool for security researchers and
-privacy-conscious users. It democratizes security analysis for IoT devices and
-makes it accessible to a wider audience. This itself is a huge improvement for
-the IoT ecosystem and knowing that BugProve just launched their product in 2021,
-I'm excited to see where they take it in the future.
+To sum up, BugProve stands out as a great tool for IoT manufacturers,
+security labs, and professional bug bounty hunters. It serves as a bridge
+between the complex world of IoT firmware security and the experts who safeguard
+our digital landscape. 
 
-## Try BugProve yourself
+If you're like me, trying to get your hands on firmware for a personal project
+can be tough. But for those working in the field, BugProve is a game-changer.
 
-Thanks to BugProve for sponsoring this project and contributing to the
-open-source analysis tools ecosystem.
-If you want to try BugProve yourself, you can sign up for free on their
-[website](https://bugprove.com/). They offer a generous free tier that allows
-you to scan up to 3 firmware images per month.
-On top of that, CI/CD integration and PDF reports are helpful paid features for
-teams and enterprises.
+## Try BugProve
+
+Whether you're a professional in the field of IoT security or an enthusiast
+looking to delve deeper, BugProve offers valuable insights and analysis
+capabilities. Visit their [website](https://bugprove.com/) to learn more and
+explore their free tier and advanced options for professionals.
 
