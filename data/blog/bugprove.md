@@ -200,6 +200,14 @@ information is probably withheld to prevent attackers from inferring information
 about the analysis engine and to ensure the stability of the platform. As a
 user, however, I was reaching for more information at this point.
 
+**Update:** Following further discussions with the BugProve team, it became clear that the
+scan's failure was attributed to the image being a QEMU image, designed for
+emulation within the QEMU environment, rather than a genuine firmware image
+typically found in a device's flash memory. This confusion arose because the
+engine mistook it for an ELF binary, a mix-up caused by the method of
+compression used. The team at BugProve also informed me that they are currently
+developing a more descriptive error message to address this specific scenario.
+
 ## Third test: A real-world firmware image
 
 Finally, I tried firmware for the ECOVACS Deebot T20e OMNI 6000Pa, a
@@ -219,39 +227,99 @@ I retrieved it from a research website called [dontvacuum.me](https://dontvacuum
 
 ![dustbuilder](/assets/images/blog/bugprove/dustbuilder.png)
 
+The firmware image was significantly larger at 62 MB in size (compressed).
+
 On BugProve, I chose "Product" this time as I wanted to group all scans for this
-device together. To my surprise, the scan was way faster this time. 
-It took only a few seconds to scan the 7.84 MB firmware image.
-On the results page, I could see that the scan detected 1,535 vulnerabilities
-and that the firmware was based on the 3.4.39 Linux kernel.
+device together.
+
+A handy feature of BugProve, available with the Team plan, is its automatic
+monitoring of firmware images for new vulnerabilities. This ensures you stay
+updated on security issues without the need for manual scans. Since I was using
+the free tier, I didn't choose this option for my scan.
+
+To my surprise, the scan was way faster this time. It took about a minute to
+complete. On the results page, I could see that the scan detected 1,910
+vulnerabilities and that the firmware was based on the 3.4.39 Linux kernel.
 
 ![scan3](/assets/images/blog/bugprove/scan3.png)
 
-It even showed the build environment of the firmware image:
+The amount of information on the firmware was incredible.
 
-```
-Linux version 3.4.39 (rockrobo@ruby2) (gcc version 4.8.4 (Ubuntu/Linaro 4.8.4-2ubuntu1~14.04.1) ) #1 SMP PREEMPT Tue Feb 7 21:19:01 CST 2023
-```
-
-Apparently, the image was built on a machine called `ruby2` with Ubuntu 14.04. Interesting!
-
-For each detected vulnerability, it showed the CVE number, a description, when the CVE was
-first discovered, as well as a helpful and understandable AI-generated explanation.
+For each detected vulnerability, it showed the CVE number, a description, when
+the CVE was first discovered, as well as a helpful and understandable
+AI-generated explanation.
 
 ![scan3-cve](/assets/images/blog/bugprove/scan3-cve.png)
 
-I found the provided information very helpful and concise without being too technical
-or overly verbose.
+I found the provided information to be very helpful and concise.
 
 ![scan3-ai](/assets/images/blog/bugprove/scan3-ai.png)
 
-The built-in file explorer was a nice touch! It allowed me to browse the file
-system of the firmware image directly in the browser and offered a download link for the file archive.
+Perhaps the most advanced feature, however, were Zero-Day scans. These are
+vulnerabilities that have not yet been publicly disclosed and are therefore
+highly dangerous. BugProve uses a combination of static and dynamic analysis to
+find these vulnerabilities. It can find memory corruption issues and command
+injection sites.
+
+Out of the gate, it scanned the most common vulnerable binaries of the firmware.
+In my case, these were `librrlocale.so`, `libnss_dns-2.19.so`, and `libresolv-2.19.so`.
+It did not find any Zero-Day vulnerabilities in this case.
+
+I also tasked it to scan specific vendor binaries, that are likely unknown to the engine.
+These binaries usually contained `rr` in their name, which stands for "Roborock".
+
+Among them were
+
+* `rriot_tuya`: the SDK bindings of [Tuya](https://www.tuya.com/), a popular IoT platform 
+* `RoboController`: the main binary of the robot vacuum cleaner
+* `rr_loader`: an unknown loader of some sort; perhaps a bootloader?
+* `librrlog`: a logging library by Roborock
+* `librrlocale.so`: a localization library by Roborock
+
+Scanning took about one hour to complete.
+Here is a screenshot of the in-progress scan:
+
+![Scan 3 pris](/assets/images/blog/bugprove/scan3-pris.png)
+
+As you can see, it did not find any Zero-Day vulnerabilities in these binaries.
+It failed to scan `rriot_tuya` and showed an error message instead. It would be
+interesting to know why it failed. Later on, the check for `RoboController` also
+failed with the same error message.
+
+Another interesting feature was the detection of weak binaries.
+BugProve provided a table with relevant data for each binary, such as the
+number of `printf` or `strcpy` calls as well as checks for
+various security features of the binary:
+
+* **NX (Non Execute)**: Marks sections of memory to allow or block code execution.
+* **PIE (Position Independent Executable)**: Loads binaries and dependencies into random memory locations each time executed, countering static memory layout and reducing attacker advantage.
+* **ASLR (Address Space Layout Randomization)**: Randomizes address space in each execution, making memory addresses of running processes unpredictable and memory-focused attacks difficult.
+* **RELRO (Relocation Read-Only)**: Protects ELF binaries by making the Global Offset Table (GOT) read-only after dynamic function resolution, preventing GOT overwriting.
+* **Stack Canary**: Detects stack buffer overflow by placing a unique value before the stack return pointer, which, if altered, indicates a buffer overflow attempt, hindering stack-based attacks.
+
+I liked that it also showed me, which binaries are "stripped", 
+indicating whether they were compiled with debug information or not.
+Debug information makes it easier to reverse engineer a binary,
+so this makes picking the right binary to analyze easier.
+
+![scan3-weak-binaries](/assets/images/blog/bugprove/scan3-weak-binaries.png)
+
+In the dedicated cryptography section, I learned that the firmware image
+contained (weak) private keys. This is a big no-no, as private keys should never be
+shipped with the firmware image.
+
+![scan3-crypto](/assets/images/blog/bugprove/scan3-crypto.png)
+
+Lastly, the built-in file explorer was a nice touch! It allowed me to browse the file
+system of the firmware image directly in the browser and offered a download link for each file.
+
+This is great for quickly getting an idea of what's inside the firmware image
+without any additional tooling.
+I learned that Roborock uses the [BusyBox](https://busybox.net/) toolbox of Unix
+utilities for their firmware, that they built the firmware on Ubuntu 14.04.3
+LTS, and that they put their binaries in `opt/rockrobo`:
 
 ![scan3-explorer](/assets/images/blog/bugprove/scan3-explorer.png)
-
-I could not test the PRIS engine, because it requires a binary to analyze and the image
-did not contain any binaries.
 
 ## Verdict
 
