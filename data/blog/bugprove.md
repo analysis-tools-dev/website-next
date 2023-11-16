@@ -1,6 +1,6 @@
 ---
 title: 'A Closer Look At BugProve'
-date: '2023-11-15T00:00:00.000Z'
+date: '2023-11-16T00:00:00.000Z'
 author: 'Matthias Endler'
 ---
 
