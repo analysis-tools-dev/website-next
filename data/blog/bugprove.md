@@ -1,10 +1,10 @@
 ---
 title: 'A Closer Look At BugProve'
-date: '2023-11-16T00:00:00.000Z'
+date: '2023-11-19T00:00:00.000Z'
 author: 'Matthias Endler'
 ---
 
-![BugProve logo](/assets/images/blog/bugprove/bugprove.png)
+![BugProve logo](/assets/images/blog/bugprove/bugprove.jpg)
 
 I have never been a huge fan of IoT devices.
 Granted, they make our life easier, but they also open the door to a lot of security issues.
@@ -23,7 +23,7 @@ Just looking at the devices I purchased within the last 2 years, I can count six
 You probably guessed it: we recently got a new family member - our lovely cat,
 Oskar.
 
-![Oskar](/assets/images/blog/bugprove/oskar.png)
+![Oskar](/assets/images/blog/bugprove/oskar.jpg)
 
 The irony that I co-maintain a website about static code analysis
 and security tools, but I have no idea what's inside the firmware of the devices
@@ -90,7 +90,7 @@ needed](https://bugprove.com/knowledge-hub/binary-analysis-fundamentals/):
 The analysis is based on the disassembly of the firmware image (e.g. an ELF binary).
 The engine is closed source and written in Python.
 
-![Code example from the homepage](/assets/images/blog/bugprove/code-example.png)
+![Code example from the homepage](/assets/images/blog/bugprove/code-example.jpg)
 
 ## How to use it?
 
@@ -98,7 +98,7 @@ To use BugProve, you need to create an account and log in.
 Uploading a firmware image is as simple as clicking the "Upload" button and
 selecting the file from your computer.
 
-![Upload button](/assets/images/blog/bugprove/upload.png)
+![Upload button](/assets/images/blog/bugprove/upload.jpg)
 
 BugProve asks you to select a scan type. You can choose between "Product" and
 "Project". Here is how they describe the difference:
@@ -140,11 +140,11 @@ This was a good "hello world" example to test the pipeline.
 
 I uploaded the firmware image and selected "Project" as the scan type.
 
-![Scan type selection](/assets/images/blog/bugprove/scan-type.png)
+![Scan type selection](/assets/images/blog/bugprove/scan-type.jpg)
 
 During the scan, I could see the progress in the web interface.
 
-![scan1](/assets/images/blog/bugprove/scan1.png)
+![scan1](/assets/images/blog/bugprove/scan1.jpg)
 
 ## First results
 
@@ -154,7 +154,7 @@ it got stuck. There were no logs or any other information that I could use to
 reassure myself of the progress. It changed the status from "Decompiling" to
 "Analyzing", after a while, so I knew we were on the right track.
 
-![scan1-analyzing](/assets/images/blog/bugprove/scan1-analyzing.png)
+![scan1-analyzing](/assets/images/blog/bugprove/scan1-analyzing.jpg)
 
 In my case, the uploaded file was 3.1 MB in size and it took 6 minutes to scan.
 I received a friendly email when the scan was done, however, so in a real-world
@@ -168,13 +168,13 @@ in my case).
 As was expected, my little "hello world" program did not contain any security
 issues. The scan detected 0 vulnerabilities. That was reassuring!
 
-![scan1-result](/assets/images/blog/bugprove/scan1-result.png)
+![scan1-result](/assets/images/blog/bugprove/scan1-result.jpg)
 
 The results can be shared with external viewers, which could be useful for
 security researchers who want to share their findings with a vendor or a colleague
 or prove that a firmware image is safe.
 
-![scan1-report-link](/assets/images/blog/bugprove/scan1-report-link.png)
+![scan1-report-link](/assets/images/blog/bugprove/scan1-report-link.jpg)
 
 ## Second scan: Testing a vulnerable firmware image
 
@@ -187,12 +187,12 @@ During the scanning process, the progress bar was stuck on 10% for a long time.
 At this point, I really wasn't sure if the scan was still running or not.
 After 39 minutes, it failed with `unknown error`. There was no additional information.
 
-![scan2-failed](/assets/images/blog/bugprove/scan2-failed.png)
+![scan2-failed](/assets/images/blog/bugprove/scan2-failed.jpg)
 
 The email notification wasn't more helpful, either. As before, it just said that
 the scan failed.
 
-![scan2-failed-mail](/assets/images/blog/bugprove/scan2-failed-mail.png)
+![scan2-failed-mail](/assets/images/blog/bugprove/scan2-failed-mail.jpg)
 
 This experience was not so pleasant, to be honest. I would have liked to see the
 log of the scan to find out what went wrong. My understanding is that this
@@ -225,7 +225,7 @@ I also tried to download the [firmware of a popular consumer camera firmware ins
 At long last, I managed to find a firmware image for the [Roborock S5 Max robot vacuum cleaner](https://us.roborock.com/pages/roborock-s5-max) (my current dust buster) on a third-party website.
 I retrieved it from a research website called [dontvacuum.me](https://dontvacuum.me/), which archives firmware images to analyze the security and privacy of embedded systems and IoT device.
 
-![dustbuilder](/assets/images/blog/bugprove/dustbuilder.png)
+![dustbuilder](/assets/images/blog/bugprove/dustbuilder.jpg)
 
 The firmware image was significantly larger at 62 MB in size (compressed).
 
@@ -241,7 +241,7 @@ To my surprise, the scan was way faster this time. It took about a minute to
 complete. On the results page, I could see that the scan detected 1,910
 vulnerabilities and that the firmware was based on the 3.4.39 Linux kernel.
 
-![scan3](/assets/images/blog/bugprove/scan3.png)
+![scan3](/assets/images/blog/bugprove/scan3.jpg)
 
 The amount of information on the firmware was incredible.
 
@@ -249,11 +249,11 @@ For each detected vulnerability, it showed the CVE number, a description, when
 the CVE was first discovered, as well as a helpful and understandable
 AI-generated explanation.
 
-![scan3-cve](/assets/images/blog/bugprove/scan3-cve.png)
+![scan3-cve](/assets/images/blog/bugprove/scan3-cve.jpg)
 
 I found the provided information to be very helpful and concise.
 
-![scan3-ai](/assets/images/blog/bugprove/scan3-ai.png)
+![scan3-ai](/assets/images/blog/bugprove/scan3-ai.jpg)
 
 Perhaps the most advanced feature, however, were Zero-Day scans. These are
 vulnerabilities that have not yet been publicly disclosed and are therefore
@@ -279,7 +279,7 @@ Among them were
 Scanning took about one hour to complete.
 Here is a screenshot of the in-progress scan:
 
-![Scan 3 pris](/assets/images/blog/bugprove/scan3-pris.png)
+![Scan 3 pris](/assets/images/blog/bugprove/scan3-pris.jpg)
 
 As you can see, it did not find any Zero-Day vulnerabilities in these binaries.
 It failed to scan `rriot_tuya` and showed an error message instead. It would be
@@ -302,13 +302,13 @@ indicating whether they were compiled with debug information or not.
 Debug information makes it easier to reverse engineer a binary,
 so this makes picking the right binary to analyze easier.
 
-![scan3-weak-binaries](/assets/images/blog/bugprove/scan3-weak-binaries.png)
+![scan3-weak-binaries](/assets/images/blog/bugprove/scan3-weak-binaries.jpg)
 
 In the dedicated cryptography section, I learned that the firmware image
 contained (weak) private keys. This is a big no-no, as private keys should never be
 shipped with the firmware image.
 
-![scan3-crypto](/assets/images/blog/bugprove/scan3-crypto.png)
+![scan3-crypto](/assets/images/blog/bugprove/scan3-crypto.jpg)
 
 Lastly, the built-in file explorer was a nice touch! It allowed me to browse the file
 system of the firmware image directly in the browser and offered a download link for each file.
@@ -319,7 +319,7 @@ I learned that Roborock uses the [BusyBox](https://busybox.net/) toolbox of Unix
 utilities for their firmware, that they built the firmware on Ubuntu 14.04.3
 LTS, and that they put their binaries in `opt/rockrobo`:
 
-![scan3-explorer](/assets/images/blog/bugprove/scan3-explorer.png)
+![scan3-explorer](/assets/images/blog/bugprove/scan3-explorer.jpg)
 
 ## Verdict
 
