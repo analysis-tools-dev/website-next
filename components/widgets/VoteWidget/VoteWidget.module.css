@@ -76,5 +76,35 @@
 .upvotePercentage {
     opacity: 0.65;
     font-size: 12px;
-    text-align: center;
+}
+
+@media only screen and (max-width: 900px) {
+    .primary {
+        width: 120px;
+        min-width: 120px;
+        height: 30px;
+        border: 1px solid #486a8b;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    .upvotePercentage {
+        opacity: 1;
+        line-height: 30px;
+    }
+
+    .primary .votes {
+        border-left: 1px solid #486a8b;
+        border-right: 1px solid #486a8b;
+    }
+
+    .primary .loading {
+        flex: 1;
+    }
+
+    .primary .voteBtn {
+        background-size: 14px;
+    }
 }

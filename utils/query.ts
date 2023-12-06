@@ -15,7 +15,7 @@ export const objectToQueryString = (query) => {
                         `${encodeURIComponent(key)}=${paramValue}`,
                     );
                 });
-            } else {
+            } else if (key !== 'slug') {
                 const paramValue = encodeURIComponent(value);
                 paramStrings.push(`${encodeURIComponent(key)}=${paramValue}`);
             }

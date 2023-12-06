@@ -12,6 +12,7 @@ import { VoteWidget } from '@components/widgets';
 import { deCamelString } from 'utils/strings';
 import { isSponsor } from 'utils/sponsor';
 import { useIntersection } from 'hooks';
+import router from 'next/router';
 
 export interface ToolCardProps {
     tool: Tool;
@@ -28,11 +29,27 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
         ? deCamelString(tool.languages[0])
         : 'Multi-Language';
 
+    // Route to tool page
+    const handleElementClick = (e: any) => {
+        // Check element click by class name
+        if (e.target.className === styles.info) {
+            e.stopPropagation();
+            router.push(`/tool/${tool.id}`);
+            return;
+        }
+    };
+
     // FIXME: Get language tag from name to work as href, some languages have different names then their tag
     return (
-        <Card className={styles.toolCardWrapper}>
+        <Card className={styles.toolCardWrapper} onClick={handleElementClick}>
             <div className={styles.votes} ref={votesRef}>
                 {isVotesInViewport && <VoteWidget toolId={tool.id} />}
+                <Link
+                    passHref={true}
+                    className={styles.clickOut}
+                    href={`/tool/${tool.id}`}>
+                    <div className={styles.clickOut} />
+                </Link>
             </div>
             <div className={styles.info}>
                 <Link href={`/tool/${tool.id}`}>
@@ -40,17 +57,17 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                         <Heading level={3} className={styles.toolName}>
                             {tool.name}
                         </Heading>
+                        {isSponsor(tool.id) && (
+                            <Image
+                                className={styles.sponsorLogo}
+                                height="18px"
+                                width="18px"
+                                src="/assets/icons/general/sponsor.svg"
+                                alt="Sponsor"
+                            />
+                        )}
                     </a>
                 </Link>
-                {isSponsor(tool.id) && (
-                    <Image
-                        className={styles.sponsorLogo}
-                        height="18px"
-                        width="18px"
-                        src="/assets/icons/general/sponsor.svg"
-                        alt="Sponsor"
-                    />
-                )}
 
                 <ReactMarkdown className={styles.description}>
                     {tool.description || ''}
@@ -129,12 +146,12 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                     )}
                 </ul>
             </div>
-            <Link
+            {/* <Link
                 passHref={true}
                 className={styles.clickOut}
                 href={`/tool/${tool.id}`}>
                 <div className={styles.clickOut} />
-            </Link>
+            </Link> */}
         </Card>
     );
 };

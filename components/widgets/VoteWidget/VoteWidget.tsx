@@ -10,12 +10,14 @@ export interface VoteWidgetProps {
     toolId: string;
     type?: 'primary' | 'secondary';
     upvotePercentage?: number;
+    className?: string;
 }
 
 const VoteWidget: FC<VoteWidgetProps> = ({
     toolId,
     type = 'primary',
     upvotePercentage,
+    className,
 }) => {
     const theme = type === 'primary' ? styles.primary : styles.secondary;
     const [votes, setVotes] = useState(0);
@@ -93,7 +95,7 @@ const VoteWidget: FC<VoteWidgetProps> = ({
 
     return (
         <>
-            <div className={cn(theme)}>
+            <div className={cn(theme, className)}>
                 <button
                     className={cn(styles.voteBtn, {
                         [styles.activeUpvote]: voteAction === 'upvote',

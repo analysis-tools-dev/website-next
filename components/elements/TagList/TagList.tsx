@@ -25,36 +25,30 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
         setShowAllTags((prevShowAllTags) => !prevShowAllTags);
     };
 
-    const toggleTag = (event: any, tagType: TagTypes) => {
+    const handleClick = (event: any, tagType: TagTypes) => {
         const tag = event?.target.innerText;
-        const currentTags = search[tagType];
 
-        if (Array.isArray(currentTags)) {
-            if (currentTags.includes(tag)) {
-                setSearch({
-                    ...search,
-                    [tagType]: currentTags.filter((l: string) => l !== tag),
-                });
+        let currValue = search[tagType] || [];
+        if (!Array.isArray(currValue)) {
+            currValue = [currValue];
+        }
+        if (currValue.length) {
+            const index = currValue.indexOf(tag);
+            if (index > -1) {
+                currValue.splice(index, 1);
             } else {
-                setSearch({
-                    ...search,
-                    [tagType]: [...currentTags, tag],
-                });
+                currValue.push(tag);
             }
         } else {
-            setSearch({
-                ...search,
-                [tagType]: [tag],
-            });
+            currValue.push(tag);
         }
 
-        routerPush(
-            `/tools?${objectToQueryString(search as Record<string, any>)}`,
-            undefined,
-            {
-                shallow: true,
-            },
-        );
+        const newState = { ...search, [tagType]: currValue };
+        setSearch(newState);
+        // Update query params in router
+        routerPush(`/tools?${objectToQueryString(newState)}`, undefined, {
+            shallow: true,
+        });
     };
 
     const combinedTags = [
@@ -80,7 +74,7 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
                         [`${styles.highlight}`]: search[type]?.includes(tag),
                     })}
                     key={`${tag}-${index}`}>
-                    <a onClick={(e) => toggleTag(e, type)}>
+                    <a onClick={(e) => handleClick(e, type)}>
                         <Image
                             className={styles.tagIcon}
                             src={tagIconPath(tag)}
@@ -96,8 +90,8 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
             {combinedTags.length > NUM_TAGS && (
                 <li
                     onClick={toggleShowAllTags}
-                    className={classNames(styles.tag, styles.showMore)}>
-                    {showAllTags ? 'Show less' : 'Show more'}
+                    className={classNames(styles.showMore)}>
+                    {showAllTags ? 'less' : 'more'}
                 </li>
             )}
         </ul>

@@ -5,10 +5,15 @@ import styles from './Card.module.css';
 export interface CardProps {
     className?: string;
     children?: React.ReactNode[] | React.ReactNode;
+    onClick?: any;
 }
 
-const Card: FC<CardProps> = ({ className, children }) => {
-    return <div className={classNames(styles.card, className)}>{children}</div>;
+const Card: FC<CardProps> = ({ className, children, onClick }) => {
+    return (
+        <div className={classNames(styles.card, className)} onClick={onClick}>
+            {children}
+        </div>
+    );
 };
 
 export default Card;
