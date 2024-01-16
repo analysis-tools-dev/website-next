@@ -23,11 +23,6 @@
     flex-grow: 1;
 }
 
-.cardHeader {
-    display: flex;
-    gap: 15px;
-}
-
 .toolName {
     display: flex;
     align-items: center;
@@ -76,6 +71,18 @@
     flex-direction: row;
     gap: 5px;
     font-size: 14px;
+}
+
+.toolLink {
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px 0;
+    gap: 15px;
+    color: white;
+}
+
+.toolLink:hover {
+    text-decoration: none;
 }
 
 .toolLogo {

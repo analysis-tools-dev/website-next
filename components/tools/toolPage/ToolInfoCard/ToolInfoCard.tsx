@@ -27,7 +27,11 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
                 />
             </div>
             <div className={styles.info}>
-                <div className={styles.cardHeader}>
+                <a
+                    href={tool.homepage}
+                    className={styles.toolLink}
+                    target="_blank"
+                    rel="noopener noreferrer">
                     <div className={styles.toolLogo}>
                         <Image
                             width={50}
@@ -68,7 +72,7 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
                             <span>{toolStatus}</span>
                         </div>
                     </div>
-                </div>
+                </a>
                 <div className={styles.wrapper}>
                     <ReactMarkdown className={styles.description}>
                         {tool.description || ''}
