@@ -3,6 +3,8 @@ import { Dropdown, PanelHeader, SuggestLink } from '@components/elements';
 import { Tool, ToolCard } from '@components/tools';
 import { arrayDelete, arraysEqual } from 'utils/arrays';
 import { sortByPopularity } from 'utils/votes';
+import { AffiliatesData } from 'utils/types';
+import { AffiliateCard } from '@components/affiliates';
 
 const pickSort = (sort: string) => {
     switch (sort) {
@@ -25,21 +27,26 @@ interface AlternativeToolsListProps {
     listTitle: string;
     currentTool?: Tool;
     tools: Tool[];
+    affiliate?: AffiliatesData;
 }
 
 const SingleLanguageTools = ({
+    affiliate,
     singleTagTools,
 }: {
+    affiliate?: AffiliatesData;
     singleTagTools: Tool[];
 }) => {
     return (
-        (singleTagTools && (
+        <>
             <div>
+                {affiliate && <AffiliateCard affiliate={affiliate} />}
                 {singleTagTools.map((tool, index) => (
                     <ToolCard key={index} tool={tool} />
                 ))}
             </div>
-        )) || <SuggestLink />
+            {singleTagTools.length === 0 && <SuggestLink />}
+        </>
     );
 };
 
@@ -110,6 +117,7 @@ export const AlternativeToolsList: FC<AlternativeToolsListProps> = ({
     listTitle,
     currentTool,
     tools,
+    affiliate,
 }) => {
     const [sorting, setSorting] = useState('votes_desc');
     const [sortedTools, setSortedTools] = useState([...tools]);
@@ -141,15 +149,18 @@ export const AlternativeToolsList: FC<AlternativeToolsListProps> = ({
 
     return (
         <>
-            {singleTagTools.length === 0 ? (
-                <SuggestLink />
-            ) : (
+            {singleTagTools.length > 0 || affiliate ? (
                 <>
                     <PanelHeader level={3} text={alternativeToolsHeading}>
                         <Dropdown changeSort={changeSort} />
                     </PanelHeader>
-                    <SingleLanguageTools singleTagTools={singleTagTools} />
+                    <SingleLanguageTools
+                        singleTagTools={singleTagTools}
+                        affiliate={affiliate}
+                    />
                 </>
+            ) : (
+                <SuggestLink />
             )}
 
             {multiTagTools && (

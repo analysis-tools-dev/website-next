@@ -4,7 +4,13 @@ import { MainHead, Footer, Navbar, SponsorBanner, FAQ } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { LanguageCard, AlternativeToolsList } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
-import { ArticlePreview, Faq, LanguageData, SponsorData } from 'utils/types';
+import {
+    AffiliatesData,
+    ArticlePreview,
+    Faq,
+    LanguageData,
+    SponsorData,
+} from 'utils/types';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getLanguageData, getSimilarTags, getTags } from 'utils-api/tags';
 import { filterByTags } from 'utils-api/filters';
@@ -14,6 +20,7 @@ import { RelatedTagsList } from '@components/tools/listPage/RelatedTagsList';
 import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/LanguageFilterCard';
 import { Tool } from '@components/tools';
 import { TagsSidebar } from '@components/tags';
+import { getRandomAffiliate } from 'utils-api/affiliates';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -56,6 +63,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const previews = await getArticlesPreviews();
     const sponsors = getSponsors();
     const languages = await getTags('languages');
+    const affiliate = getRandomAffiliate([slug]);
+
     const relatedTags = getSimilarTags(slug);
     const filteredTools = filterByTags(tools, slug);
 
@@ -125,6 +134,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             languages,
             previews,
             sponsors,
+            affiliate,
             relatedTags,
             faq,
         },
@@ -139,6 +149,7 @@ export interface TagProps {
     languages: LanguageFilterOption[];
     previews: ArticlePreview[];
     sponsors: SponsorData[];
+    affiliate: AffiliatesData;
     relatedTags: string[];
     faq: Faq[];
 }
@@ -151,6 +162,7 @@ const TagPage: FC<TagProps> = ({
     languages,
     previews,
     sponsors,
+    affiliate,
     relatedTags,
     faq,
 }) => {
@@ -258,6 +270,7 @@ const TagPage: FC<TagProps> = ({
                         <AlternativeToolsList
                             listTitle={`${tagName} Tools`}
                             tools={filteredTools}
+                            affiliate={affiliate}
                         />
                         <FAQ faq={faq} />
                         {relatedTags.length > 0 && (
