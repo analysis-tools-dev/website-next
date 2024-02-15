@@ -8,7 +8,7 @@
         "answer": "One limitation of static code analysis is that it cannot identify all errors in a program. In particular, it cannot detect runtime errors, which occur when the software is actually running. Furthermore it can only analyze the code as written; it cannot take into account changes that may be made later in development or in production."
     },
     {
-        "question": "What Are Some Alternative To Static Analysis?",
+        "question": "What Are Some Alternatives To Static Analysis?",
         "answer": "1) Fuzzing tools: These tools use random input data to test the robustness of software applications. They can help identify coding issues and security vulnerabilities.\n2) Dynamic analysis tools: these check a program's behavior at runtime, thus finding concurrency issues, invalid subprocess calls, or incorrect handling of (user) input.\n3) Automated testing tools: Automated testing tools help automate the testing process, making it faster and easier to run tests on software applications. This can help speed up the development process while still ensuring that applications are tested thoroughly before being released into production."
     },
     {
