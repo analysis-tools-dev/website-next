@@ -40,13 +40,11 @@
         "sharp": "^0.31.3"
     },
     "devDependencies": {
-        "@types/algoliasearch": "^4.0.0",
         "@types/cache-manager": "^4.0.1",
         "@types/cache-manager-fs-hash": "^0.0.1",
         "@types/marked": "^4.0.2",
         "@types/node": "^17.0.16",
         "@types/react": "^18.0.18",
-        "@types/react-share": "^4.0.0",
         "@typescript-eslint/eslint-plugin": "^5.11.0",
         "@typescript-eslint/parser": "^5.11.0",
         "eslint": "^8.8.0",
