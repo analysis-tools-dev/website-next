@@ -23,10 +23,14 @@ export default async function handler(
         res.status(500).json({ error: 'Failed to load data' });
         return res;
     }
-    const { votes, upVotes, downVotes } = await getToolVotes(toolId.toString());
+    console.log(`Getting votes for ${toolId}`);
+    const { votes, upVotes, downVotes, upvotePercentage } = await getToolVotes(
+        toolId.toString(),
+    );
 
     const repoMeta = getRepositoryMeta(data.source);
     if (repoMeta) {
+        console.log(`Getting repository data for ${toolId}`);
         const repositoryData = await getGithubStats(
             toolId.toString(),
             repoMeta.owner,
@@ -39,11 +43,13 @@ export default async function handler(
                 votes,
                 upVotes,
                 downVotes,
+                upvotePercentage,
                 repositoryData,
             });
             return res;
         }
     }
+    console.log(`Returning data for propiertary tool ${toolId}`);
     res.status(200).json({ ...data, id: toolId.toString(), votes: votes });
     return res;
 }

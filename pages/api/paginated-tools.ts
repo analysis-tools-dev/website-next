@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getToolsWithVotes } from 'utils-api/toolsWithVotes';
 import { filterResults } from 'utils-api/filters';
 import { type Tool } from '@components/tools/types';
+import { sortByPopularity } from 'utils/votes';
 
 interface PaginatedData {
     data: Tool[];
@@ -10,6 +11,10 @@ interface PaginatedData {
 
 const pickSort = (sort: string) => {
     switch (sort) {
+        case 'most_popular':
+            return (a: Tool, b: Tool) => sortByPopularity(a, b);
+        case 'least_popular':
+            return (a: Tool, b: Tool) => sortByPopularity(b, a);
         case 'votes_asc':
             return (a: Tool, b: Tool) => a.votes - b.votes;
         case 'alphabetical_asc':

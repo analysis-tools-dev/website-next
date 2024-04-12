@@ -19,6 +19,7 @@ import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
 import { Comments } from '@components/core/Comments';
+import { calculateUpvotePercentage } from 'utils/votes';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -49,20 +50,30 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 
-    const sponsors = getSponsors();
-    const votes = await getVotes();
     const apiTool = await getTool(slug);
-    const previews = await getArticlesPreviews();
-    const icon = await getToolIcon(slug);
-
     if (!apiTool) {
+        console.error(`Tool ${slug} not found. Cannot build slug page.`);
         return {
             notFound: true,
         };
     }
 
+    const sponsors = getSponsors();
+    const votes = await getVotes();
+    const previews = await getArticlesPreviews();
+    const icon = getToolIcon(slug);
+
+    // calculate the upvote percentage based on the votes
+    const voteKey = `toolsyaml${slug.toString()}`;
+    const voteData = votes ? votes[voteKey] : null;
+    const upvotePercentage = calculateUpvotePercentage(
+        voteData?.upVotes,
+        voteData?.downVotes,
+    );
+
     const tool = {
         ...apiTool,
+        upvotePercentage,
         id: slug,
         icon: icon,
     };
@@ -175,7 +186,7 @@ const ToolPage: FC<ToolProps> = ({
         '/',
     )} for ${capitalizedLanguages.join('/')} - `;
 
-    if (alternatives.length === 0) {
+    if (alternatives.length < 2) {
         description += ` Rating And Alternatives`;
     } else if (alternatives.length === 2) {
         description += ` And Two Alternatives`;

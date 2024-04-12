@@ -2,6 +2,7 @@ import { FC } from 'react';
 import cn from 'classnames';
 import styles from './PanelHeader.module.css';
 import { Heading } from '@components/typography';
+import Link from 'next/link';
 
 export interface PanelHeaderProps {
     level: 1 | 2 | 3 | 4;
@@ -28,9 +29,9 @@ const PanelHeader: FC<PanelHeaderProps> = ({
             <div className={styles.title}>
                 <Heading level={level} className={hClass}>
                     {link ? (
-                        <a href={link} aria-label={text}>
+                        <Link href={link} aria-label={text}>
                             {text}
-                        </a>
+                        </Link>
                     ) : (
                         text
                     )}

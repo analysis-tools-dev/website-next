@@ -34,7 +34,7 @@ export const getTags = async (type: TagsType) => {
         let data = await cacheDataManager.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
+                `[Tags] Cache data for ${cacheKey} does not exist. Calling API`,
             );
             // Call API and refresh cache
             const response = await octokit.request(
@@ -117,7 +117,7 @@ export const getLanguageData = async (tagId: string) => {
     const defaultTagData = {
         // capitalize first letter
         tag: tagId.charAt(0).toUpperCase() + tagId.slice(1),
-        website: '',
+        website: null,
         description: '',
     };
 

@@ -1,7 +1,10 @@
 .btn {
     color: #ffffff;
-
     border-radius: 6px;
+}
+
+.btn:hover {
+    text-decoration: none;
 }
 
 .primary {
@@ -11,13 +14,20 @@
     background: #0e2439;
     border: 1px solid #ffffff;
 }
+
 .github {
-    padding: 8px 20px 8px 45px !important;
+    padding-left: 45px !important;
     background: url('/assets/icons/general/github-icon.svg') no-repeat;
     background-position: 20px;
     background-size: 15px;
     background-color: #0e2439;
     border: 1px solid #ffffff;
+}
+
+.big {
+    padding: 15px 26px;
+    font-family: Roboto-Bold;
+    font-size: 18px;
 }
 
 .normal {

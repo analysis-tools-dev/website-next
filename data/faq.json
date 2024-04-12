@@ -8,7 +8,7 @@
         "answer": "One limitation of static code analysis is that it cannot identify all errors in a program. In particular, it cannot detect runtime errors, which occur when the software is actually running. Furthermore it can only analyze the code as written; it cannot take into account changes that may be made later in development or in production."
     },
     {
-        "question": "What Are Some Alternative To Static Analysis?",
+        "question": "What Are Some Alternatives To Static Analysis?",
         "answer": "1) Fuzzing tools: These tools use random input data to test the robustness of software applications. They can help identify coding issues and security vulnerabilities.\n2) Dynamic analysis tools: these check a program's behavior at runtime, thus finding concurrency issues, invalid subprocess calls, or incorrect handling of (user) input.\n3) Automated testing tools: Automated testing tools help automate the testing process, making it faster and easier to run tests on software applications. This can help speed up the development process while still ensuring that applications are tested thoroughly before being released into production."
     },
     {
@@ -34,6 +34,10 @@
     {
         "question": "When To Use Dynamic Code Analysis?",
         "answer": "There are several reasons why you might want to use dynamic code analysis:\n 1) To find errors that are not easily found with static code analysis.\n 2) To find runtime errors that may not be found with static code analysis.\n 3) To verify the correctness of software after making changes."
+    },
+    {
+        "question": "What does the upvote percentage mean?",
+        "answer": "The upvote percentage is the percentage of votes that are upvotes. It is calculated by dividing the number of upvotes by the total number of votes. The higher the percentage, the more popular the tool is."
     },
     {
         "question": "How Can I Contribute To analysis-tools.dev?",

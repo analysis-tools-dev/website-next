@@ -3,7 +3,7 @@ import { initFirebase } from './firebase';
 import { isVotesApiData } from 'utils/type-guards';
 import { createHash } from 'crypto';
 
-import { VoteAction } from 'utils/votes';
+import { calculateUpvotePercentage, VoteAction } from 'utils/votes';
 
 export const PREFIX = 'toolsyaml';
 
@@ -77,10 +77,13 @@ export const getToolVotes = async (toolId: string) => {
                 downVotes: 0,
             };
         }
+        const upVotes = Number(data.upVotes || 0);
+        const downVotes = Number(data.downVotes || 0);
         return {
             votes: Number(data.sum) || 0,
-            upVotes: Number(data.upVotes || 0),
-            downVotes: Number(data.downVotes || 0),
+            upVotes,
+            downVotes,
+            upvotePercentage: calculateUpvotePercentage(upVotes, downVotes),
         };
     } catch (e) {
         console.error(e);

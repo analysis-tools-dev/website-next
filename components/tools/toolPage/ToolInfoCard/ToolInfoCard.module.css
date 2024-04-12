@@ -8,17 +8,19 @@
     background-color: #26415b;
     border-radius: 6px 0 0 6px;
     padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    /* Fixed width to account for "X% upvoted" text */
+    min-width: 95px;
 }
 
 .info {
     position: relative;
     padding: 30px;
     flex-grow: 1;
-}
-
-.cardHeader {
-    display: flex;
-    gap: 15px;
 }
 
 .toolName {
@@ -69,6 +71,18 @@
     flex-direction: row;
     gap: 5px;
     font-size: 14px;
+}
+
+.toolLink {
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px 0;
+    gap: 15px;
+    color: white;
+}
+
+.toolLink:hover {
+    text-decoration: none;
 }
 
 .toolLogo {

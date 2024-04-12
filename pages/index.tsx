@@ -79,7 +79,6 @@ const HomePage: FC<HomePageProps> = ({
             </Wrapper>
 
             <FAQ faq={faq} />
-
             <SponsorBanner sponsors={sponsors} />
             <Footer />
         </html>

@@ -23,12 +23,14 @@ const Intro: FC = () => {
 
                 <div className={styles.actionBtns}>
                     <LinkButton
-                        label="Find the right tool"
+                        label="Show Tools"
+                        variant="big"
                         href="/tools"
                         className="m-r-16"
                     />
                     <LinkButton
                         label="Source Code"
+                        variant="big"
                         href={homepageIntro.githubLink}
                         type="github"
                         newTab

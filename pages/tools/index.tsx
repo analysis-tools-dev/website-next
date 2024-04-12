@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { SearchProvider } from 'context/SearchProvider';
 
-import { Footer, Navbar, SponsorBanner } from '@components/core';
+import { Footer, MainHead, Navbar, SponsorBanner } from '@components/core';
 import { Main, Wrapper } from '@components/layout';
 import {
     fetchLanguages,
@@ -55,8 +55,15 @@ const ToolsPage: FC<ToolsProps> = ({
     others,
     articles,
 }) => {
+    const title =
+        'Compare 600+ Linters, Static Analysis Tools And Code Formatters';
+
+    const description =
+        'Find the best SAST tool for your project. All CLI tools and services for JavaScript, Python, Java, C, PHP, Ruby, and more.';
+
     return (
         <html lang="en">
+            <MainHead title={title} description={description} />
             <SearchProvider>
                 <Navbar />
                 <Wrapper className="m-t-20 m-b-30 ">

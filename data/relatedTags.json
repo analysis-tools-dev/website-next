@@ -30,8 +30,11 @@
         "vbnet"
     ],
     [
+        "c",
+        "cpp",
         "go",
-        "rust"
+        "rust",
+        "nim"
     ],
     [
         "css",

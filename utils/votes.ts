@@ -20,6 +20,17 @@ export const sortByVote = (a: Tool, b: Tool) => {
     return b.votes - a.votes;
 };
 
+// sort tools by popularity
+export const sortByPopularity = (a: Tool, b: Tool) => {
+    const upvoteDiff = (b.upvotePercentage || 0) - (a.upvotePercentage || 0);
+
+    if (upvoteDiff === 0) {
+        return b.votes - a.votes;
+    } else {
+        return upvoteDiff;
+    }
+};
+
 export const validateVoteAction = (action: unknown) => {
     const voteAction = Number(action);
     if (Object.values(VoteAction).includes(voteAction as VoteAction)) {
@@ -37,4 +48,23 @@ export const submitVote = async (toolId: string, action: VoteAction) => {
     const voteApiURL = `${getApiURL(APIPaths.VOTE)}/${toolId}?vote=${action}`;
     const response = await fetch(voteApiURL);
     return await response.json();
+};
+
+export const calculateUpvotePercentage = (
+    upVotes: number | undefined,
+    downVotes: number | undefined,
+) => {
+    if (!upVotes) {
+        return 0;
+    }
+
+    if (!downVotes) {
+        return 100;
+    }
+
+    const totalVotes = upVotes + downVotes;
+    if (totalVotes === 0) {
+        return 0;
+    }
+    return Math.round((upVotes / totalVotes) * 100);
 };

@@ -3,6 +3,7 @@ import styles from './BlogPostLayout.module.css';
 import { BlogPostLink, type FrontMatter } from 'utils/types';
 import { Card } from '../Card';
 import { Heading } from '@components/typography';
+import Link from 'next/link';
 
 export interface BlogPostLayoutProps {
     frontMatter: FrontMatter;
@@ -24,6 +25,7 @@ const BlogPostLayout: FC<BlogPostLayoutProps> = ({
                     <span className={styles.date}>
                         {articleDate.toLocaleDateString()}
                     </span>
+                    <span className={styles.author}> by {meta.author}</span>
                     <div
                         className={styles.content}
                         dangerouslySetInnerHTML={{ __html: html }}></div>
@@ -32,7 +34,7 @@ const BlogPostLayout: FC<BlogPostLayoutProps> = ({
             {prev && (
                 <div className={styles.prev}>
                     <Heading level={3}>Previous Article:</Heading>
-                    <a href={prev.slug}>{prev.title}</a>
+                    <Link href={prev.slug}>{prev.title}</Link>
                 </div>
             )}
         </>

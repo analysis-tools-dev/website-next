@@ -43,12 +43,14 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({
                 options={languages || []}
             />
             <FilterCard
+                showAllCheckbox={false}
                 className={styles.filter}
                 heading="Categories"
                 filter="categories"
                 options={CATEGORY_OPTIONS}
             />
             <FilterCard
+                showAllCheckbox={false}
                 className={styles.filter}
                 heading="Types"
                 filter="types"
@@ -61,6 +63,7 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({
                 options={LICENSE_OPTIONS}
             />
             <FilterCard
+                showAllCheckbox={false}
                 className={styles.filter}
                 heading="Pricing"
                 filter="pricing"

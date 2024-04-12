@@ -42,5 +42,9 @@ firebase-key.json
 # project
 diskcache
 .cache
+algolia-index.js
 
 credentials.json
+
+
+.vscode

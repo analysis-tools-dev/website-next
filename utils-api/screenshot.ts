@@ -43,7 +43,7 @@ export const getAllScreenshots =
 
         if (!screenshots) {
             console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
+                `[Screenshot] Cache data for ${cacheKey} does not exist. Calling API`,
             );
             const screenshots = await getScreenshotData();
             await cacheDataManager.set(cacheKey, screenshots);

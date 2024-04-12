@@ -52,7 +52,7 @@ const Footer: FC = () => {
                         <Image
                             height="30px"
                             width="30px"
-                            src="/assets/images/logo-icon.png"
+                            src="/assets/images/logo-icon.svg"
                             alt=""
                         />
                         <span className={styles.logoText}>

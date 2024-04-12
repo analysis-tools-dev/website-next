@@ -34,7 +34,7 @@ export const getTools = async (repo: string): Promise<ToolsApiData | null> => {
         let data = await cacheDataManager.get(cacheKey);
         if (!data) {
             console.log(
-                `Cache data for: ${cacheKey} does not exist - calling API`,
+                `[Tools] Cache data for ${cacheKey} does not exist. Calling API`,
             );
             // Call API and refresh cache
             const response = await octokit.request(
@@ -56,8 +56,8 @@ export const getTools = async (repo: string): Promise<ToolsApiData | null> => {
             }
         }
         if (!isToolsApiData(data)) {
-            await cacheDataManager.del(cacheKey);
             console.error('Tools TypeError');
+            await cacheDataManager.del(cacheKey);
             return null;
         }
         return data;
@@ -69,8 +69,10 @@ export const getTools = async (repo: string): Promise<ToolsApiData | null> => {
 };
 
 export const getTool = async (toolId: string): Promise<Tool | null> => {
+    console.log(`[Tools] Fetching data for ${toolId}`);
     const tools = await getAllTools();
     if (!tools) {
+        console.error('Could not load tools');
         return null;
     }
 

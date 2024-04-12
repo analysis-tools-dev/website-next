@@ -7,13 +7,13 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Tool[] | { error: string }>,
 ) {
-    const data = await getToolsWithVotes();
+    const tools = await getToolsWithVotes();
 
-    if (!data) {
+    if (!tools) {
         res.status(500).json({ error: 'Failed to load data' });
         return res;
     }
 
-    const filteredData = filterResults(data, req.query);
+    const filteredData = filterResults(tools, req.query);
     res.status(200).json(filteredData);
 }

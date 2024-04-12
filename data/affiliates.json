@@ -1,0 +1,15 @@
+[
+    {
+        "name": "corrode",
+        "href": "https://corrode.dev",
+        "headline": "Need help migrating to Rust?",
+        "description": "corrode is a friendly consultancy that helps you make the most of Rust. We offer training, mentoring, and development services. Reach out today for expert help in developing reliable and efficient software!",
+        "callToAction": "Learn more",
+        "logo": "/assets/images/affiliate/corrode.svg",
+        "tags": [
+            "rust",
+            "c",
+            "cpp"
+        ]
+    }
+]

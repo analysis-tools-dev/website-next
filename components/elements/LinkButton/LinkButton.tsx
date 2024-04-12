@@ -7,7 +7,7 @@ export interface LinkButtonProps {
     href: string;
     newTab?: boolean;
     type?: 'primary' | 'secondary' | 'github';
-    variant?: 'normal' | 'small';
+    variant?: 'big' | 'normal' | 'small';
     className?: string;
 }
 

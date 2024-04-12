@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import type { GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SingleFAQ } from '@components/core';
-import { Main, Panel, Wrapper } from '@components/layout';
+import { Card, Main, Panel, Wrapper } from '@components/layout';
 import { SponsorSidebar } from '@components/sponsors';
 import { ArticlePreview, Faq } from 'utils/types';
 import { getArticlesPreviews } from 'utils-api/blog';
@@ -40,13 +40,15 @@ const Faq: FC<FaqPageProps> = ({ faq, previews }) => {
                 <Main>
                     <SponsorSidebar previews={previews} />
                     <Panel>
-                        <PanelHeader
-                            level={1}
-                            text="Frequently Asked Questions"
-                        />
-                        {faq.map((faq) => (
-                            <SingleFAQ key={faq.question} faq={faq} />
-                        ))}
+                        <Card>
+                            <PanelHeader
+                                level={1}
+                                text="Frequently Asked Questions"
+                            />
+                            {faq.map((faq) => (
+                                <SingleFAQ key={faq.question} faq={faq} />
+                            ))}
+                        </Card>
                     </Panel>
                 </Main>
             </Wrapper>

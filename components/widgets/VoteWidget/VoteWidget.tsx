@@ -5,12 +5,18 @@ import styles from './VoteWidget.module.css';
 import { LoadingDots } from '@components/elements';
 import { useToolVotesQuery } from './query';
 import classNames from 'classnames';
+
 export interface VoteWidgetProps {
     toolId: string;
     type?: 'primary' | 'secondary';
+    upvotePercentage?: number;
 }
 
-const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
+const VoteWidget: FC<VoteWidgetProps> = ({
+    toolId,
+    type = 'primary',
+    upvotePercentage,
+}) => {
     const theme = type === 'primary' ? styles.primary : styles.secondary;
     const [votes, setVotes] = useState(0);
     const [voteAction, setVoteAction] = useState('');
@@ -86,21 +92,28 @@ const VoteWidget: FC<VoteWidgetProps> = ({ toolId, type = 'primary' }) => {
     };
 
     return (
-        <div className={cn(theme)}>
-            <button
-                className={cn(styles.voteBtn, {
-                    [styles.activeUpvote]: voteAction === 'upvote',
-                })}
-                aria-label={`Upvote ${toolId}`}
-                onClick={upVoteButtonClick}></button>
-            <span className={styles.votes}>{votesFormatter(votes)}</span>
-            <button
-                className={classNames(styles.voteBtn, styles.downvoteBtn, {
-                    [styles.activeDownvote]: voteAction === 'downvote',
-                })}
-                aria-label={`Downvote ${toolId}`}
-                onClick={downVoteButtonClick}></button>
-        </div>
+        <>
+            <div className={cn(theme)}>
+                <button
+                    className={cn(styles.voteBtn, {
+                        [styles.activeUpvote]: voteAction === 'upvote',
+                    })}
+                    aria-label={`Upvote ${toolId}`}
+                    onClick={upVoteButtonClick}></button>
+                <span className={styles.votes}>{votesFormatter(votes)}</span>
+                <button
+                    className={classNames(styles.voteBtn, styles.downvoteBtn, {
+                        [styles.activeDownvote]: voteAction === 'downvote',
+                    })}
+                    aria-label={`Downvote ${toolId}`}
+                    onClick={downVoteButtonClick}></button>
+            </div>
+            {upvotePercentage !== undefined && (
+                <div className={styles.upvotePercentage}>
+                    {upvotePercentage}% upvoted
+                </div>
+            )}
+        </>
     );
 };
 

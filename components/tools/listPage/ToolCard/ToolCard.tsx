@@ -68,7 +68,6 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                         />
                         <span className={styles.metaInfo}>{toolStatus}</span>
                     </li>
-
                     <li>
                         <Image
                             key={`language-${tool.id}`}
@@ -89,7 +88,6 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                             </span>
                         )}
                     </li>
-
                     <li>
                         {tool.types.map((type, index) => (
                             <span
@@ -122,8 +120,21 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                             </span>
                         ))}
                     </li>
+                    {tool.upvotePercentage !== undefined && (
+                        <li>
+                            <span className={styles.metaInfo}>
+                                {tool.upvotePercentage}% upvoted
+                            </span>
+                        </li>
+                    )}
                 </ul>
             </div>
+            <Link
+                passHref={true}
+                className={styles.clickOut}
+                href={`/tool/${tool.id}`}>
+                <div className={styles.clickOut} />
+            </Link>
         </Card>
     );
 };

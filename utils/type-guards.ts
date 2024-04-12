@@ -6,6 +6,7 @@ import {
     LanguageData,
     ScreenshotApiData,
     SponsorData,
+    AffiliatesData,
     StarHistoryApiData,
     StatsApiData,
     TagsApiData,
@@ -144,6 +145,28 @@ export const isSponsorData = (data: unknown): data is SponsorData[] => {
             (entry as SponsorData).tool !== undefined &&
             (entry as SponsorData).url !== undefined &&
             (entry as SponsorData).logo !== undefined;
+
+        if (!res) {
+            return false;
+        }
+    }
+    return true;
+};
+
+export const isAffiliateData = (data: unknown): data is AffiliatesData[] => {
+    if (!data || !Array.isArray(data)) {
+        return false;
+    }
+
+    for (const entry of data) {
+        const res =
+            (entry as AffiliatesData).name !== undefined &&
+            (entry as AffiliatesData).description !== undefined &&
+            (entry as AffiliatesData).href !== undefined &&
+            (entry as AffiliatesData).headline !== undefined &&
+            (entry as AffiliatesData).callToAction !== undefined &&
+            (entry as AffiliatesData).logo !== undefined &&
+            (entry as AffiliatesData).tags !== undefined;
 
         if (!res) {
             return false;

@@ -45,6 +45,7 @@ export interface Tool {
     votes: number;
     upVotes?: number;
     downVotes?: number;
+    upvotePercentage?: number;
     views?: number;
     installation?: string;
     documentation?: string;
@@ -59,4 +60,14 @@ export interface ToolsByLanguage {
         formatters: Tool[];
         linters: Tool[];
     };
+}
+
+export interface Affiliate {
+    name: string;
+    url: string;
+    headline: string;
+    description: string;
+    callToAction: string;
+    logo: string;
+    tags: string[];
 }

@@ -24,6 +24,7 @@ export interface ApiTool {
     votes: number;
     upVotes?: number;
     downVotes?: number;
+    upvotePercentage?: number;
 }
 
 export interface ToolResource {
@@ -49,6 +50,7 @@ export interface ApiTag {
 export interface FrontMatter {
     title: string;
     date: string;
+    author: string;
 }
 
 export interface MarkdownDocument {
@@ -70,6 +72,7 @@ export interface MarkdownRenderingResult {
 export interface ArticleMeta {
     title: string;
     date: string;
+    author: string;
 }
 
 export interface Article {
@@ -151,4 +154,14 @@ export interface StarHistoryApiData {
 export interface Faq {
     question: string;
     answer: string;
+}
+
+export interface AffiliatesData {
+    name: string;
+    href: string;
+    headline: string;
+    description: string;
+    callToAction: string;
+    logo: string;
+    tags: string[];
 }

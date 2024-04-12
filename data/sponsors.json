@@ -1,14 +1,26 @@
 [
     {
-        "name": "DeepCode",
-        "url": "https://www.deepcode.ai/",
-        "description": "DeepCode is a code review tool that helps developers write better code. It uses machine learning to analyze code and find bugs, security vulnerabilities, and performance issues.",
-        "tool": "deepcode",
-        "href": "/tool/deepcode",
+        "name": "Bearer",
+        "url": "https://www.bearer.com/",
+        "description": "Bearer AppSec solution allows security and engineering teams to assess, prioritize, and remediate security risks and vulnerabilities in their code with automated business impact prioritization based on sensitive data flow analysis.",
+        "tool": "bearer",
+        "href": "/tool/bearer",
         "logo": {
-            "src": "/assets/images/sponsors/deepcode.svg",
-            "width": "200px",
-            "height": "54px"
+            "src": "/assets/images/sponsors/bearer.svg",
+            "width": "165px",
+            "height": "41px"
+        }
+    },
+    {
+        "name": "BugProve",
+        "url": "https://bugprove.com/",
+        "description": "BugProve is a firmware analysis platform featuring both static and dynamic analysis techniques to discover memory corruptions, command injections and other classes or common weaknesses in binary code. It also detects vulnerable dependencies, weak cryptographic parameters, misconfigurations, and more.",
+        "tool": "bugprove",
+        "href": "/tool/bugprove",
+        "logo": {
+            "src": "/assets/images/sponsors/bugprove.svg",
+            "width": "140px",
+            "height": "70px"
         }
     },
     {
@@ -36,23 +48,11 @@
         }
     },
     {
-        "name": "Codiga",
-        "url": "https://codiga.io/",
-        "description": "Codiga is a code review tool for developers.",
-        "tool": "codiga",
-        "href": "/tool/codiga",
-        "logo": {
-            "src": "/assets/images/sponsors/codiga.svg",
-            "width": "72px",
-            "height": "65px"
-        }
-    },
-    {
         "name": "Offensive 360",
         "url": "https://offensive360.com/",
         "description": "Offensive 360 is a security company that provides security services and products.",
         "tool": "offensive-360",
-        "href": "/tool/offensive360",
+        "href": "/tool/offensive-360",
         "logo": {
             "src": "/assets/images/sponsors/offensive360.png",
             "width": "209px",

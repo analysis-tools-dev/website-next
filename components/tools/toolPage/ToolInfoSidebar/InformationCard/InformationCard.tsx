@@ -4,6 +4,7 @@ import { Heading } from '@components/typography';
 import InfoEntry from '../InfoEntry/InfoEntry';
 import { type Tool } from '@components/tools';
 import { deCamelString } from 'utils/strings';
+import { getToolTagIcon } from 'utils/icons';
 
 export interface InformationCardProps {
     tool: Tool;
@@ -14,13 +15,18 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
     const linkIcon = `${iconAssetsPath}/general/link.svg`;
 
     const isMultiLanguage = tool.languages?.length > 1;
+    const languageIcon = getToolTagIcon(tool);
 
-    const languageIcon = isMultiLanguage
-        ? `${iconAssetsPath}/languages/multi-language.svg`
-        : `${iconAssetsPath}/languages/${tool.languages[0]}.svg`;
     const languageTag = isMultiLanguage
         ? 'Multi-Language'
         : deCamelString(tool.languages[0] || tool.other[0] || '');
+
+    let tagUrl = undefined;
+    if (tool.languages.length === 1) {
+        tagUrl = `/tag/${tool.languages[0]}`;
+    } else if (tool.other.length === 1) {
+        tagUrl = `/tag/${tool.other[0]}`;
+    }
 
     return (
         <Card>
@@ -54,6 +60,7 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
                 label={'Language(s)'}
                 id="language"
                 value={languageTag}
+                url={tagUrl}
                 icon={languageIcon}
             />
             <InfoEntry

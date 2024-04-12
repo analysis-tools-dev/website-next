@@ -1,6 +1,7 @@
 ---
 title: Redesigning Analysis Tools
-date: '2023-03-13T00:00:00.000Z'
+date: '2023-03-29T00:00:00.000Z'
+author: 'Matthias Endler'
 ---
 
 We are happy to announce that we completely rebuilt analysis-tools.dev from
@@ -57,9 +58,11 @@ Speaking of which, we are very happy to announce that we have a new team member!
 With [Ghady Kalaany](https://github.com/Ghadyk) we found an amazing
 co-maintainer who has excellent frontend skills and is very familiar with
 Next.js. He built the initial design for the new site and wrote most of the
-frontend code.
+frontend code. Welcome to the team, Ghady!
 
 # New Features!
+
+[![New filtering functionality on tools page](/assets/images/blog/tools.gif)](/tools)
 
 The rewrite unlocked a plethora of new features, which we wanted to introduce for a
 long time, but were blocked by the limitations of the old codebase.
@@ -82,6 +85,7 @@ quality.
 We would like to thank our sponsors for making this possible:
 
 -   [DeepCode by Snyk](https://www.deepcode.ai/)
+-   [Bearer](https://www.bearer.com/)
 -   [CodeScene](https://codescene.io/)
 -   [Semgrep](https://semgrep.dev/)
 -   [Codiga](https://codiga.io/)
@@ -101,6 +105,8 @@ That's all for now. We hope you like the new site! If a tool is missing or you
 have any other feedback, please let us know on
 [Github](https://github.com/analysis-tools-dev/static-analysis). We'd love to
 hear from you.
+If you like to give us some feedback on the new design, please head over to
+our [discussion thread on Github](https://github.com/analysis-tools-dev/website-comments/discussions/16).
 
 Your core team,
 [Jakub Sacha](https://github.com/jakubsacha), [Ghady Kalaany](https://github.com/Ghadyk), and [Matthias Endler](https://github.com/mre)

@@ -4,8 +4,8 @@
     },
     "intro": {
         "heading": "Your Code Quality Matters.",
-        "description": "Avoid bugs in production, outages on weekends, and angry customers. Find <strong>static code analysis tools and linters</strong> that can help you improve code quality. All tools are peer-reviewed by fellow developers to select the best tools available.",
-        "githubLink": "https://github.com/analysis-tools-dev",
+        "description": "We list <strong>the best static analysis tools and linters</strong> that can help you improve code quality. All tools are peer-reviewed by fellow engineers. Avoid bugs in production, outages, and angry customers.",
+        "githubLink": "https://github.com/analysis-tools-dev/static-analysis",
         "image": {
             "src": "/assets/images/intro-image.svg",
             "alt": "",

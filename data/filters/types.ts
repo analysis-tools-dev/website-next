@@ -1,11 +1,11 @@
 export const TYPE_OPTIONS = [
     {
         value: 'cli',
-        name: 'CLI',
+        name: 'Commandline Tool (CLI)',
     },
     {
         value: 'service',
-        name: 'Service',
+        name: 'SaaS / Service',
     },
     {
         value: 'ide-plugin',
