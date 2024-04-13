@@ -18,6 +18,12 @@ export interface ToolCardProps {
     tool: Tool;
 }
 
+const CLICKOUT_CLASSES = [
+    styles.info,
+    styles.toolMeta,
+    styles.descriptionWrapper,
+];
+
 const ToolCard: FC<ToolCardProps> = ({ tool }) => {
     const votesRef = useRef(null);
 
@@ -31,7 +37,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
     // Route to tool page
     const handleElementClick = (e: any) => {
         // Check element click by class name
-        if (e.target.className === styles.info) {
+        console.log(e.target.className);
+        if (CLICKOUT_CLASSES.includes(e.target.className)) {
             e.stopPropagation();
             router.push(`/tool/${tool.id}`);
             return;
@@ -39,7 +46,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
     };
 
     return (
-        <Card className={styles.toolCardWrapper} onClick={handleElementClick}>
+        <Card className={styles.toolCardWrapper}>
             <div className={styles.votes} ref={votesRef}>
                 <VoteWidget toolId={tool.id} />
                 <Link
@@ -49,7 +56,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                     <div className={styles.clickOut} />
                 </Link>
             </div>
-            <div className={styles.info}>
+            <div className={styles.info} onClick={handleElementClick}>
                 <Link href={`/tool/${tool.id}`}>
                     <a className={styles.toolLink}>
                         <Heading level={3} className={styles.toolName}>
@@ -67,9 +74,12 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                     </a>
                 </Link>
 
-                <ReactMarkdown className={styles.description}>
-                    {tool.description || ''}
-                </ReactMarkdown>
+                <div className={styles.descriptionWrapper}>
+                    <ReactMarkdown className={styles.description}>
+                        {tool.description || ''}
+                    </ReactMarkdown>
+                </div>
+
                 <TagList languageTags={tool.languages} otherTags={tool.other} />
 
                 <ul className={styles.toolMeta}>

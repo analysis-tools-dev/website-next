@@ -42,6 +42,8 @@
     cursor: pointer;
 }
 
+.descriptionWrapper{}
+
 .description {
     font-size: 14px;
     overflow-wrap: anywhere;
