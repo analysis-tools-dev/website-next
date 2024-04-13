@@ -7,6 +7,13 @@ import { calculateUpvotePercentage, VoteAction } from 'utils/votes';
 
 export const PREFIX = 'toolsyaml';
 
+export interface VotesData {
+    votes: number;
+    upVotes: number;
+    downVotes: number;
+    upvotePercentage?: number; 
+}
+
 export interface Vote {
     type: VoteType;
     date: Date;
@@ -16,6 +23,12 @@ export interface Vote {
 export enum VoteType {
     Up = 'UP',
     Down = 'DOWN',
+}
+
+export interface VoteAPIResponse {
+    id: string;
+    date: Date;
+    vote: string | string[];
 }
 
 // Get a list of votes from firestore
@@ -65,7 +78,7 @@ export async function getVotes() {
     }
 }
 
-export const getToolVotes = async (toolId: string) => {
+export const getToolVotes = async (toolId: string): Promise<VotesData> => {
     try {
         const data = await getDBToolVotes(toolId);
         // TODO: Add typeguard

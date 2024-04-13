@@ -11,7 +11,7 @@ import { useRouterPush } from 'hooks';
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { objectToQueryString } from 'utils/query';
-import { ArticlePreview } from 'utils/types';
+import { type ArticlePreview } from 'utils/types';
 import { FilterOption } from '../ToolsSidebar/FilterCard/FilterCard';
 import { LanguageFilterOption } from '../ToolsSidebar/FilterCard/LanguageFilterCard';
 import styles from './ListPageComponent.module.css';
@@ -139,7 +139,7 @@ const ListComponent: FC<ListComponentProps> = ({
                 </PanelHeader>
                 {data?.pages?.map((page, i) => {
                     return page.data
-                        ? page.data.map((tool: Tool, index: number) => (
+                        ? page.data.data.map((tool: Tool, index: number) => (
                               <ToolCard
                                   key={`tool-${i}-${index}`}
                                   tool={tool}

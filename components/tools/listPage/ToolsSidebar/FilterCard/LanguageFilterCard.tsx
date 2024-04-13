@@ -10,6 +10,7 @@ import { isChecked, isSelectedFilter, sortByChecked } from './utils';
 import { changeQuery } from 'utils/query';
 import { useToolsQuery } from '@components/tools/queries';
 import classNames from 'classnames';
+import { isArray } from 'util';
 
 export interface LanguageFilterOption {
     value: string;
@@ -46,8 +47,8 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     // Fade out background when not showing all options
     const [faded, setFaded] = useState(styles.faded);
 
-    const toolsResult = useToolsQuery(search);
-    if (toolsResult.error || !toolsResult.data) {
+    const { data: toolsResult } = useToolsQuery(search);
+    if (!toolsResult || !toolsResult.data || !isArray(toolsResult.data)) {
         return null;
     }
     const toggleAll = () => {

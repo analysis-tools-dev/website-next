@@ -1,5 +1,5 @@
 import { type QueryClient, useQuery } from 'react-query';
-import { type Article } from 'utils/types';
+import { type APIResponseType, type Article } from 'utils/types';
 import { APIPaths, getApiURL } from 'utils/urls';
 
 /**
@@ -39,18 +39,26 @@ export function useArticlesQuery() {
  */
 export function useArticleQueryCount() {
     return useQuery(ARTICLES_PREFETCH_KEY, fetchArticles, {
-        select: (articles) => articles.length,
+        select: ({ data }) => data.length,
     });
 }
 
 /**
  * Call API and return Promise to resolve `JSON` response
  * @desc Used as needed by `react-query` functions
+ * @returns {Promise<APIResponseType<Article[]>>} - Promise with API response data Article[]
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export async function fetchArticles(): Promise<Article[]> {
-    const articlesApiURL = getApiURL(APIPaths.BLOG);
-    const response = await fetch(articlesApiURL);
-    return await response.json();
+export async function fetchArticles(): Promise<APIResponseType<Article[]>> {
+    try {
+        const articlesApiURL = getApiURL(APIPaths.BLOG);
+        const response = await fetch(articlesApiURL);
+        return await response.json();
+    } catch (error) {
+        return {
+            error: 'An error occurred fetching articles.',
+            data: [],
+        };
+    }
 }

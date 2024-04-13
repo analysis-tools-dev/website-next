@@ -24,17 +24,19 @@ const VoteWidget: FC<VoteWidgetProps> = ({
     const { data, isLoading, isFetching, isRefetching, error } =
         useToolVotesQuery(toolId);
 
+    const votesData = data?.data;
+
     useEffect(() => {
         // Check local storage for vote
         const localVote = localStorage.getItem(`vote-${toolId}`);
 
-        if (data?.votes) {
-            setVotes(data?.votes || 0);
+        if (votesData?.votes) {
+            setVotes(votesData?.votes || 0);
         }
         if (localVote) {
             setVoteAction(localVote);
         }
-    }, [data, toolId]);
+    }, [votesData, toolId]);
 
     if (isLoading || isFetching || isRefetching) {
         return (
@@ -43,7 +45,7 @@ const VoteWidget: FC<VoteWidgetProps> = ({
             </div>
         );
     }
-    if (error || !data) {
+    if (error || !votesData) {
         return null;
     }
 
