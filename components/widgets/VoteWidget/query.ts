@@ -1,4 +1,6 @@
 import { QueryClient, useQuery } from 'react-query';
+import { VotesData } from 'utils-api/votes';
+import { APIResponseType } from 'utils/types';
 import { APIPaths, getApiURL } from 'utils/urls';
 
 /**
@@ -33,7 +35,17 @@ export function useToolVotesQuery(toolId: string) {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchToolVotesData(toolId: string): Promise<any> {
-    const voteApiURL = `${getApiURL(APIPaths.VOTES)}/${toolId}`;
-    return fetch(voteApiURL).then((response) => response.json());
+export async function fetchToolVotesData(
+    toolId: string,
+): Promise<APIResponseType<VotesData | null>> {
+    try {
+        const voteApiURL = `${getApiURL(APIPaths.VOTES)}/${toolId}`;
+        const response = await fetch(voteApiURL);
+        return await response.json();
+    } catch (error) {
+        return {
+            error: 'An error occurred fetching votes.',
+            data: null,
+        };
+    }
 }

@@ -22,8 +22,8 @@ import { getArticlesPreviews } from 'utils-api/blog';
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const sponsors = getSponsors();
     const articles = await getArticlesPreviews();
-    const languages = await fetchLanguages();
-    const others = await fetchOthers();
+    const { data: languages } = await fetchLanguages();
+    const { data: others } = await fetchOthers();
 
     // Create a new QueryClient instance for each page request.
     // This ensures that data is not shared between users and requests.

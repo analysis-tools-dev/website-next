@@ -14,7 +14,7 @@ const PopularToolsByLanguage: FC<PopularToolsByLanguageProps> = ({
     toolsByLanguage,
     limit = 5,
 }) => {
-    const languages = Object.keys(toolsByLanguage);
+    const languages = Object.keys(toolsByLanguage || {});
     return (
         <>
             <PanelHeader

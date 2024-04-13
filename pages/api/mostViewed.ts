@@ -4,14 +4,17 @@ import { getMostViewedTools } from 'utils-api/mostViewedTools';
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Tool[] | { error: string }>,
+    res: NextApiResponse<{ data: Tool[]; error?: string }>,
 ) {
     const data = await getMostViewedTools();
 
     if (!data) {
-        res.status(500).json({ error: 'Failed to load most viewed tool data' });
+        res.status(500).json({
+            error: 'Failed to load most viewed tool data',
+            data: [],
+        });
         return res;
     }
 
-    res.status(200).json(data);
+    res.status(200).json({ data });
 }

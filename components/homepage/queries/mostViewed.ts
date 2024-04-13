@@ -1,6 +1,7 @@
 import { QueryClient, useQuery } from 'react-query';
 import { APIPaths, getApiURL } from 'utils/urls';
 import { type Tool } from '@components/tools';
+import { type APIResponseType } from 'utils/types';
 
 /**
  * Query key used for caching
@@ -39,7 +40,7 @@ export function useMostViewedQuery() {
  */
 export function useMostViewedQueryCount() {
     return useQuery(MOST_VIEWED_PREFETCH_KEY, fetchMostViewed, {
-        select: (tools) => tools.length,
+        select: ({ data }) => data.length,
     });
 }
 
@@ -49,7 +50,15 @@ export function useMostViewedQueryCount() {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchMostViewed(): Promise<Tool[]> {
-    const apiURL = getApiURL(APIPaths.MOST_VIEWED);
-    return fetch(apiURL).then((response) => response.json());
+export async function fetchMostViewed(): Promise<APIResponseType<Tool[]>> {
+    try {
+        const apiURL = getApiURL(APIPaths.MOST_VIEWED);
+        const response = await fetch(apiURL);
+        return await response.json();
+    } catch (error) {
+        return {
+            error: 'An error occurred fetching most viewed tools.',
+            data: [],
+        };
+    }
 }

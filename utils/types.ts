@@ -1,5 +1,10 @@
 export type Nullable<D> = D | null | undefined;
 
+export type APIResponseType<T> = {
+    data: T;
+    error?: string;
+};
+
 export type TagsType = 'languages' | 'other' | 'all';
 export interface ToolsApiData {
     [key: string]: ApiTool;

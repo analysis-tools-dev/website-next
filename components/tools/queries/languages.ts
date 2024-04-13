@@ -1,5 +1,5 @@
 import { type QueryClient, useQuery } from 'react-query';
-import { type ApiTag } from 'utils/types';
+import { type APIResponseType, type ApiTag } from 'utils/types';
 import { APIPaths, getApiURL } from 'utils/urls';
 
 /**
@@ -39,7 +39,7 @@ export function useLanguagesQuery() {
  */
 export function useLanguageQueryCount() {
     return useQuery(LANGUAGES_PREFETCH_KEY, fetchLanguages, {
-        select: (languages) => languages.length,
+        select: ({ data }) => data.length,
     });
 }
 
@@ -49,7 +49,15 @@ export function useLanguageQueryCount() {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchLanguages(): Promise<ApiTag[]> {
-    const languageTagsApiURL = getApiURL(APIPaths.LANGUAGE_TAGS);
-    return fetch(languageTagsApiURL).then((response) => response.json());
+export async function fetchLanguages(): Promise<APIResponseType<ApiTag[]>> {
+    try {
+        const languageTagsApiURL = getApiURL(APIPaths.LANGUAGE_TAGS);
+        const response = await fetch(languageTagsApiURL);
+        return await response.json();
+    } catch (error) {
+        return {
+            error: 'An error occurred fetching languages.',
+            data: [],
+        };
+    }
 }

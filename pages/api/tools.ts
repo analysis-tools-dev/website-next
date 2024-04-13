@@ -5,15 +5,15 @@ import { type Tool } from '@components/tools/types';
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Tool[] | { error: string }>,
+    res: NextApiResponse<{ data: Tool[]; error?: string }>,
 ) {
     const tools = await getToolsWithVotes();
 
     if (!tools) {
-        res.status(500).json({ error: 'Failed to load data' });
+        res.status(500).json({ error: 'Failed to load data', data: [] });
         return res;
     }
 
-    const filteredData = filterResults(tools, req.query);
-    res.status(200).json(filteredData);
+    const data = filterResults(tools, req.query);
+    res.status(200).json({ data });
 }

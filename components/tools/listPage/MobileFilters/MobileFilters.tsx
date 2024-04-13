@@ -22,12 +22,12 @@ const MobileFilters: FC = () => {
     const [modelOpen, setModelOpen] = useState(false);
     const [state, setState] = useState(search);
 
-    const otherResult = useOthersQuery();
-    const languageResult = useLanguagesQuery();
+    const { data: otherResult } = useOthersQuery();
+    const { data: languageResult } = useLanguagesQuery();
 
-    const others = otherResult.data || [];
+    const others = otherResult?.data || [];
     // Filter duplicates on tag
-    const languages = languageResult.data || [];
+    const languages = languageResult?.data || [];
 
     const submit = () => {
         setSearch(state);
