@@ -48,7 +48,8 @@ const SponsorCard: FC<SponsorCardProps> = ({ sponsor }) => {
                     <Link href={sponsor.url}>
                         <a
                             rel="noopener noreferrer"
-                            className="font-light font-size-s m-l-4">
+                            className="font-light font-size-s m-l-4"
+                            aria-label={`Visit ${sponsor.name} website`}>
                             Visit website
                         </a>
                     </Link>

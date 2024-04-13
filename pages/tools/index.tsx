@@ -62,7 +62,7 @@ const ToolsPage: FC<ToolsProps> = ({
         'Find the best SAST tool for your project. All CLI tools and services for JavaScript, Python, Java, C, PHP, Ruby, and more.';
 
     return (
-        <>
+        <html lang="en">
             <MainHead title={title} description={description} />
             <SearchProvider>
                 <Navbar />
@@ -79,7 +79,7 @@ const ToolsPage: FC<ToolsProps> = ({
                 <SponsorBanner sponsors={sponsors} />
                 <Footer />
             </SearchProvider>
-        </>
+        </html>
     );
 };
 

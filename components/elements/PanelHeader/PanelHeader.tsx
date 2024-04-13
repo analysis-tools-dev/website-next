@@ -28,7 +28,13 @@ const PanelHeader: FC<PanelHeaderProps> = ({
         <div className={dClass}>
             <div className={styles.title}>
                 <Heading level={level} className={hClass}>
-                    {link ? <Link href={link}>{text}</Link> : text}
+                    {link ? (
+                        <Link href={link} aria-label={text}>
+                            {text}
+                        </Link>
+                    ) : (
+                        text
+                    )}
                 </Heading>
             </div>
             {children && <div className={styles.actionBtns}>{children}</div>}

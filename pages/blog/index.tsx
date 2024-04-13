@@ -31,7 +31,7 @@ const BlogPage: FC<BlogPageProps> = ({ sponsors, articles }) => {
         'Find static code analysis tools and linters that can help you improve code quality. All tools are peer-reviewed by fellow developers to meet high standards.';
 
     return (
-        <>
+        <html lang="en">
             <MainHead title={title} description={description} />
 
             <Navbar />
@@ -47,7 +47,7 @@ const BlogPage: FC<BlogPageProps> = ({ sponsors, articles }) => {
 
             <SponsorMessage />
             <Footer />
-        </>
+        </html>
     );
 };
 

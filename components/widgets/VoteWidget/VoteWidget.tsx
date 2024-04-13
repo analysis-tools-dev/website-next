@@ -100,12 +100,14 @@ const VoteWidget: FC<VoteWidgetProps> = ({
                     className={cn(styles.voteBtn, {
                         [styles.activeUpvote]: voteAction === 'upvote',
                     })}
+                    aria-label={`Upvote ${toolId}`}
                     onClick={upVoteButtonClick}></button>
                 <span className={styles.votes}>{votesFormatter(votes)}</span>
                 <button
                     className={classNames(styles.voteBtn, styles.downvoteBtn, {
                         [styles.activeDownvote]: voteAction === 'downvote',
                     })}
+                    aria-label={`Downvote ${toolId}`}
                     onClick={downVoteButtonClick}></button>
             </div>
             {upvotePercentage !== undefined && (
