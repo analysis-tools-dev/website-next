@@ -256,30 +256,34 @@ const TagPage: FC<TagProps> = ({
             <SearchProvider>
                 <MainHead title={title} description={description} />
 
-            <Navbar />
-            <Wrapper className="m-t-20 m-b-30 ">
-                <Main>
-                    <TagsSidebar
-                        previews={previews}
-                        relatedLanguages={languages}
-                        onFilterChange={onFilterChange}
-                    />
-                    <Panel>
-                        <LanguageCard tools={tools} tag={slug} tagData={tag} />
-                        {/* We should use the tag.name instead,
-                        but it is undefined */}
-                        <AlternativeToolsList
-                            listTitle={`${tagName} Tools`}
-                            tools={filteredTools}
-                            affiliate={affiliate}
+                <Navbar />
+                <Wrapper className="m-t-20 m-b-30 ">
+                    <Main>
+                        <TagsSidebar
+                            previews={previews}
+                            relatedLanguages={languages}
+                            onFilterChange={onFilterChange}
                         />
-                        <FAQ faq={faq} />
-                        {relatedTags.length > 0 && (
-                            <RelatedTagsList tags={relatedTags} />
-                        )}
-                    </Panel>
-                </Main>
-            </Wrapper>
+                        <Panel>
+                            <LanguageCard
+                                tools={tools}
+                                tag={slug}
+                                tagData={tag}
+                            />
+                            {/* We should use the tag.name instead,
+                        but it is undefined */}
+                            <AlternativeToolsList
+                                listTitle={`${tagName} Tools`}
+                                tools={filteredTools}
+                                affiliate={affiliate}
+                            />
+                            <FAQ faq={faq} />
+                            {relatedTags.length > 0 && (
+                                <RelatedTagsList tags={relatedTags} />
+                            )}
+                        </Panel>
+                    </Main>
+                </Wrapper>
 
                 <SponsorBanner sponsors={sponsors} />
                 <Footer />
