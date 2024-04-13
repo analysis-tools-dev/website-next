@@ -70,10 +70,12 @@ const HomePage: FC<HomePageProps> = ({
                         <Newsletter />
                     </Sidebar>
                     <Panel>
-                        <PopularToolsByLanguage
-                            toolsByLanguage={popularLanguages}
-                        />
-                        <MostViewedTools tools={mostViewed} />
+                        {popularLanguages && (
+                            <PopularToolsByLanguage
+                                toolsByLanguage={popularLanguages}
+                            />
+                        )}
+                        {mostViewed && <MostViewedTools tools={mostViewed} />}
                     </Panel>
                 </Main>
             </Wrapper>

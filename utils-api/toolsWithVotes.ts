@@ -7,9 +7,14 @@ export const getToolsWithVotes = async () => {
     const data = await getAllTools();
     const votes = await getVotes();
 
-    if (!isToolsApiData(data) || !isVotesApiData(votes)) {
+    if (!isToolsApiData(data)) {
         console.error('Error loading tools with votes data');
         return null;
+    }
+
+    if (!isVotesApiData(votes)) {
+        console.error('Error loading tools with votes data');
+        return data;
     }
 
     Object.keys(data).forEach((toolId) => {

@@ -28,12 +28,12 @@ const pickSort = (sort: string) => {
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<PaginatedData | { error: string }>,
+    res: NextApiResponse<{ data: PaginatedData | null; error?: string }>,
 ) {
     const data = await getToolsWithVotes();
 
     if (!data) {
-        res.status(500).json({ error: 'Failed to load data' });
+        res.status(500).json({ error: 'Failed to load data', data: null });
         return res;
     }
 
@@ -58,9 +58,9 @@ export default async function handler(
             nextCursor: data.length === limit ? offset + 1 : undefined,
         };
         // return only the first N results
-        res.status(200).json(paginatedData);
+        res.status(200).json({ data: paginatedData });
         return res;
     }
-    res.status(200).json({ data: sortedTools });
+    res.status(200).json({ data: { data: sortedTools } });
     return res;
 }

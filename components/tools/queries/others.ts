@@ -1,5 +1,5 @@
 import { type QueryClient, useQuery } from 'react-query';
-import { type ApiTag } from 'utils/types';
+import { type APIResponseType, type ApiTag } from 'utils/types';
 import { APIPaths, getApiURL } from 'utils/urls';
 
 /**
@@ -36,7 +36,7 @@ export function useOthersQuery() {
  */
 export function useOtherQueryCount() {
     return useQuery(OTHERS_PREFETCH_KEY, fetchOthers, {
-        select: (others) => others.length,
+        select: ({ data }) => data.length,
     });
 }
 
@@ -46,7 +46,15 @@ export function useOtherQueryCount() {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchOthers(): Promise<ApiTag[]> {
-    const otherTagsApiURL = getApiURL(APIPaths.OTHER_TAGS);
-    return fetch(otherTagsApiURL).then((response) => response.json());
+export async function fetchOthers(): Promise<APIResponseType<ApiTag[]>> {
+    try {
+        const otherTagsApiURL = getApiURL(APIPaths.OTHER_TAGS);
+        const response = await fetch(otherTagsApiURL);
+        return await response.json();
+    } catch (error) {
+        return {
+            error: 'An error occurred fetching other tags.',
+            data: [],
+        };
+    }
 }

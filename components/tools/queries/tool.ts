@@ -1,6 +1,7 @@
 import { QueryClient, useQuery } from 'react-query';
 import { APIPaths, getApiURL } from 'utils/urls';
 import { Tool } from '../types';
+import { type APIResponseType } from 'utils/types';
 
 /**
  * Prepare and prefetch data on server-side, to be ready on client page render
@@ -31,7 +32,17 @@ export function useToolQuery(slug: string) {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchToolData(slug: string): Promise<Tool> {
-    const toolApiURL = `${getApiURL(APIPaths.TOOL)}/${slug}`;
-    return fetch(toolApiURL).then((response) => response.json());
+export async function fetchToolData(
+    slug: string,
+): Promise<APIResponseType<Tool | null>> {
+    try {
+        const toolApiURL = `${getApiURL(APIPaths.TOOL)}/${slug}`;
+        const response = await fetch(toolApiURL);
+        return await response.json();
+    } catch (error) {
+        return {
+            error: 'An error occurred fetching tool data.',
+            data: null,
+        };
+    }
 }

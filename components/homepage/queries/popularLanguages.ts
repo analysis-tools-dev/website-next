@@ -1,6 +1,7 @@
 import { type QueryClient, useQuery } from 'react-query';
 import { APIPaths, getApiURL } from 'utils/urls';
 import { type ToolsByLanguage } from '@components/tools';
+import { type APIResponseType } from 'utils/types';
 
 /**
  * Query key used for caching
@@ -39,7 +40,7 @@ export function usePopularLanguagesQuery() {
  */
 export function usePopularLanguagesQueryCount() {
     return useQuery(POPULAR_LANGUAGES_PREFETCH_KEY, fetchPopularLanguages, {
-        select: (languages) => Object.keys(languages).length,
+        select: ({ data }) => Object.keys(data).length,
     });
 }
 
@@ -49,7 +50,17 @@ export function usePopularLanguagesQueryCount() {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchPopularLanguages(): Promise<ToolsByLanguage> {
-    const apiURL = getApiURL(APIPaths.POPULAR_LANGUAGES);
-    return fetch(apiURL).then((response) => response.json());
+export async function fetchPopularLanguages(): Promise<
+    APIResponseType<ToolsByLanguage>
+> {
+    try {
+        const apiURL = getApiURL(APIPaths.POPULAR_LANGUAGES);
+        const response = await fetch(apiURL);
+        return await response.json();
+    } catch (error) {
+        return {
+            error: 'An error occurred fetching popular languages.',
+            data: {},
+        };
+    }
 }

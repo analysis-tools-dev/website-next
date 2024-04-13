@@ -3,6 +3,7 @@ import { type SearchState } from 'context/SearchProvider';
 import { type ParsedUrlQuery } from 'querystring';
 import { getToolsApiURL } from 'utils/urls';
 import { Tool } from '../types';
+import { type APIResponseType } from 'utils/types';
 
 /**
  * Query key used for caching
@@ -51,7 +52,7 @@ export function useToolsQueryCount(search: SearchState) {
         TOOLS_PREFETCH_KEY,
         () => fetchToolsDataFromSearch(search),
         {
-            select: (tools) => tools.length,
+            select: ({ data }) => data.length,
         },
     );
 }
@@ -77,9 +78,12 @@ export function useAlternativeToolsQuery(search: SearchState) {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchToolsDataFromSearch(search: SearchState): Promise<Tool[]> {
+export async function fetchToolsDataFromSearch(
+    search: SearchState,
+): Promise<APIResponseType<Tool[]>> {
     const toolsApiURL = getToolsApiURL(search);
-    return fetch(toolsApiURL).then((response) => response.json());
+    const response = await fetch(toolsApiURL);
+    return await response.json();
 }
 
 /**
@@ -89,9 +93,17 @@ export function fetchToolsDataFromSearch(search: SearchState): Promise<Tool[]> {
  *
  * @see https://react-query.tanstack.com/guides/queries
  */
-export function fetchToolsDataFromQuery(
+export async function fetchToolsDataFromQuery(
     query?: ParsedUrlQuery,
-): Promise<Tool[]> {
-    const toolsApiURL = getToolsApiURL(query);
-    return fetch(toolsApiURL).then((response) => response.json());
+): Promise<APIResponseType<Tool[]>> {
+    try {
+        const toolsApiURL = getToolsApiURL(query);
+        const response = await fetch(toolsApiURL);
+        return await response.json();
+    } catch (error) {
+        return {
+            error: 'An error occurred fetching tools.',
+            data: [],
+        };
+    }
 }
