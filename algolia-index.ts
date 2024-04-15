@@ -16,35 +16,45 @@ const index: SearchIndex = algoliaClient.initIndex(
 async function fetchToolsFromApi(): Promise<Tool[]> {
     return new Promise((resolve, reject) => {
         const apiURL = 'https://analysis-tools.dev/api/tools';
-
         https
             .get(apiURL, (res) => {
                 let data = '';
-
-                // Listen for data chunks
                 res.on('data', (chunk) => {
                     data += chunk;
                 });
-
-                // The whole response has been received. Print out the result
                 res.on('end', () => {
                     try {
-                        const parsedData = JSON.parse(data) as Tool[];
-                        resolve(parsedData);
+                        const jsonResponse = JSON.parse(data);
+                        if (
+                            !jsonResponse.data ||
+                            jsonResponse.data.length === 0
+                        ) {
+                            reject(
+                                new Error(
+                                    'No tools data found or empty array returned',
+                                ),
+                            );
+                        } else {
+                            resolve(jsonResponse.data);
+                        }
                     } catch (e) {
-                        reject(e);
+                        reject(new Error('Failed to parse tools data'));
                     }
                 });
             })
             .on('error', (e) => {
-                reject(e);
+                reject(new Error('Failed to fetch tools data'));
             });
     });
 }
 
 async function updateIndex(data: ApiTool[]): Promise<void> {
+    console.log(`Indexing ${data.length} ApiTool entries...`);
+
     try {
-        await index.clearObjects();
+        const response = await index.clearObjects();
+        console.log('Algolia index cleared', response);
+
         const algoliaResponse = await index.saveObjects(data);
         console.log('Algolia index updated', algoliaResponse);
     } catch (error) {
@@ -58,43 +68,47 @@ async function updateIndex(data: ApiTool[]): Promise<void> {
 async function fetchDataForIndexing(): Promise<ApiTool[]> {
     try {
         const toolsData = await fetchToolsFromApi();
+        console.log(`Fetched ${toolsData.length} tools from the API`);
 
         // Convert the tools data into an array of Algolia records
-        const algoliaRecords: ApiTool[] = Object.entries(toolsData).map(
-            ([key, value]) => ({
-                objectID: key,
-                name: value.name,
-                fields: {
-                    slug: `/tool/${value.id}`,
-                },
-                categories: value.categories,
-                languages: value.languages,
-                licenses: value.licenses,
-                types: value.types,
-                homepage: value.homepage,
-                source: value.source,
-                pricing: value.pricing,
-                plans: value.plans,
-                description: value.description,
-                discussion: value.discussion,
-                deprecated: value.deprecated,
-                resources: value.resources,
-                wrapper: value.wrapper,
-                votes: value.votes,
-                other: value.other,
-            }),
-        );
+        const algoliaRecords = toolsData.map((tool, _index) => ({
+            objectID: tool.id, // Use the tool's ID as the objectID for Algolia
+            name: tool.name,
+            fields: {
+                slug: `/tool/${tool.id}`,
+            },
+            categories: tool.categories,
+            languages: tool.languages,
+            licenses: tool.licenses,
+            types: tool.types,
+            homepage: tool.homepage,
+            source: tool.source,
+            pricing: tool.pricing,
+            plans: tool.plans,
+            description: tool.description,
+            discussion: tool.discussion,
+            deprecated: tool.deprecated,
+            resources: tool.resources,
+            wrapper: tool.wrapper,
+            votes: tool.votes,
+            other: tool.other,
+        }));
 
         return algoliaRecords;
     } catch (error) {
-        console.error('Failed to fetch data for indexing:', error);
-        return [];
+        console.error(error);
+        throw error;
     }
 }
 
 async function main(): Promise<void> {
-    const dataToIndex = await fetchDataForIndexing();
-    await updateIndex(dataToIndex);
+    try {
+        const dataToIndex = await fetchDataForIndexing();
+        await updateIndex(dataToIndex);
+    } catch (error) {
+        console.error('Failed to fetch or index data:', error);
+        process.exit(1);
+    }
 }
 
 main();
