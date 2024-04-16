@@ -50,11 +50,11 @@ jobs:
 
             - name: 'Generate Hash of External JSON File'
               id: tools_json_hash
-              run: echo "::set-output name=hash::$(sha256sum tools.json | cut -d' ' -f1)"
+              run: echo "tools_json_hash=$(sha256sum tools.json | cut -d' ' -f1)" >> $GITHUB_ENV
 
             # Image hash is a combination of the tools.json hash and the git commit hash
             - name: 'Set IMAGE_NAME hash'
-              run: echo "IMAGE_NAME=${IMAGE_NAME}:$(echo ${{ github.sha }})-$(echo ${{ steps.tools_json_hash.outputs.hash }})" >> $GITHUB_ENV
+              run: echo "IMAGE_NAME=${{ env.IMAGE_NAME }}:${{ github.sha }}-${{ env.tools_json_hash }}" >> $GITHUB_ENV
 
             - name: 'Build Docker Image'
               env:
