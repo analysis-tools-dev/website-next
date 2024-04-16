@@ -8,7 +8,7 @@ on:
     pull_request:
 
 env:
-    IMAGE_NAME: us-central1-docker.pkg.dev/analysis-tools-dev/analysis-tools/website:${{ github.sha }}
+    IMAGE_NAME: us-central1-docker.pkg.dev/analysis-tools-dev/analysis-tools/website
 
 permissions:
     contents: 'read'
@@ -43,11 +43,25 @@ jobs:
                   app_id: ${{ secrets.GH_APP_ID }}
                   private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
+            # We want to redeploy, whenever the tools.json file changes
+            # so make sure to hash the file and use it as a tag for the Docker image
+            - name: 'Download tools.json File'
+              run: curl -sL https://github.com/analysis-tools-dev/static-analysis/raw/master/data/api/tools.json -o ./tools.json
+
+            - name: 'Generate Hash of External JSON File'
+              id: tools_json_hash
+              run: echo "::set-output name=hash::$(sha256sum tools.json | cut -d' ' -f1)"
+
+            # Image hash is a combination of the tools.json hash and the git commit hash
+            - name: 'Set IMAGE_NAME hash'
+              run: echo "IMAGE_NAME=${IMAGE_NAME}:$(echo ${{ github.sha }})-$(echo ${{ steps.tools_json_hash.outputs.hash }})" >> $GITHUB_ENV
+
             - name: 'Build Docker Image'
               env:
                   GH_TOKEN: ${{ steps.generate_token.outputs.token }}
               run: |
                   echo ${{ secrets.FIREBASE_TOKEN }} | base64 -d > ./credentials.json
+                  echo "Building Docker Image with tag $IMAGE_NAME"
                   docker build --build-arg GH_TOKEN=${{ env.GH_TOKEN }} \
                     --build-arg PROJECT_ID=analysis-tools-dev \
                     -t ${IMAGE_NAME} .
@@ -55,7 +69,8 @@ jobs:
 
             - name: 'Push Docker Image'
               run: |
-                  docker push ${IMAGE_NAME}
+                  echo "Pushing Docker Image $IMAGE_NAME"
+                  docker push $IMAGE_NAME
 
             - name: 'Deploy'
               uses: pulumi/actions@v5
@@ -91,7 +106,7 @@ jobs:
                   node-version: 20
                   cache: 'npm'
 
-            - name: 'Update algolia index'
+            - name: 'Update Algolia index'
               if: github.ref == 'refs/heads/main'
               env:
                   ALGOLIA_APP_ID: '${{ secrets.ALGOLIA_APP_ID }}'
