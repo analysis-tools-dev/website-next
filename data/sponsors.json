@@ -24,6 +24,18 @@
         }
     },
     {
+        "name": "Pixee",
+        "url": "https://www.pixee.ai/",
+        "description": "Pixeebot finds security and code quality issues in your code and creates merge-ready pull requests with recommended fixes.",
+        "tool": "pixee",
+        "href": "/tool/pixee",
+        "logo": {
+            "src": "/assets/images/sponsors/pixee.png",
+            "width": "166px",
+            "height": "45px"
+        }
+    },
+    {
         "name": "CodeScene",
         "url": "https://codescene.com/",
         "description": "CodeScene is a code intelligence platform that helps you understand your codebase and improve it.",
