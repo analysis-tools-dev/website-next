@@ -18,6 +18,13 @@
     font-size: 70px;
     font-weight: normal;
     margin: 0 0 20px 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.textHeading .squiggly {
+    text-decoration: underline wavy red;
+    text-decoration-thickness: 3px;
 }
 
 .textDescription {

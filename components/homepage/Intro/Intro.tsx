@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Image from 'next/image';
 import styles from './Intro.module.css';
 import { Heading, Text } from '@components/typography';
@@ -8,12 +8,27 @@ import { Wrapper } from '@components/layout';
 import homepageData from '@appdata/homepage.json';
 
 const Intro: FC = () => {
+    const [corrected, setCorrected] = useState(false);
     const homepageIntro = homepageData.intro;
+
+    const handleHeadingClick = () => {
+        setCorrected(true);
+    };
+
     return (
         <Wrapper className={styles.introContainer}>
             <div className={styles.textContainer}>
-                <Heading level={1} className={styles.textHeading}>
-                    {homepageIntro.heading}
+                <Heading
+                    level={1}
+                    className={styles.textHeading}
+                    onClick={handleHeadingClick}>
+                    Because Code{' '}
+                    {corrected ? (
+                        'Quality'
+                    ) : (
+                        <span className={styles.squiggly}>Qualty</span>
+                    )}{' '}
+                    Matters
                 </Heading>
                 <Text
                     className={styles.textDescription}

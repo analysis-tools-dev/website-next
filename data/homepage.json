@@ -3,7 +3,6 @@
         "description": "Find static code analysis tools and linters for Java, JavaScript, PHP, Python, Ruby, C/C++, C#, Go, Swift, and more. All tools and linters are peer-reviewed by fellow developers to select the best tools available. Avoid bugs in production, outages on weekends, and angry customers."
     },
     "intro": {
-        "heading": "Your Code Quality Matters.",
         "description": "We list <strong>the best static analysis tools and linters</strong> that can help you improve code quality. All tools are peer-reviewed by fellow engineers. Avoid bugs in production, outages, and angry customers.",
         "githubLink": "https://github.com/analysis-tools-dev/static-analysis",
         "image": {
