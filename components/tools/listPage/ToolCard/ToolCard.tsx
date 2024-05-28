@@ -37,7 +37,6 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
     // Route to tool page
     const handleElementClick = (e: any) => {
         // Check element click by class name
-        console.log(e.target.className);
         if (CLICKOUT_CLASSES.includes(e.target.className)) {
             e.stopPropagation();
             router.push(`/tool/${tool.id}`);
