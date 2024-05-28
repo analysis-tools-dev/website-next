@@ -22,9 +22,17 @@
     cursor: pointer;
 }
 
-.textHeading .squiggly {
+.squiggly {
     text-decoration: underline wavy red;
-    text-decoration-thickness: 3px;
+}
+
+.typo {
+    animation: typoAnimation 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.typo:hover {
+    color: #ff0000;
 }
 
 .textDescription {
