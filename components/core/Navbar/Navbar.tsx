@@ -55,17 +55,17 @@ const Navbar: FC = () => {
         <header className={styles.header}>
             <Wrapper className={styles.wrapper}>
                 <div className={styles.logoWrapper}>
-                    <Link href="/">
-                        <a
-                            className={styles.logo}
-                            aria-label="Analysis Tools Homepage">
-                            <Image
-                                height="35px"
-                                width="175px"
-                                src="/assets/images/logo2.svg"
-                                alt=""
-                            />
-                        </a>
+                    <Link
+                        passHref
+                        href="/"
+                        className={styles.logo}
+                        aria-label="Analysis Tools Homepage">
+                        <Image
+                            height="35"
+                            width="175"
+                            src="/assets/images/logo2.svg"
+                            alt=""
+                        />
                     </Link>
                     <button
                         className={classNames(styles.hamburger, {
@@ -88,11 +88,10 @@ const Navbar: FC = () => {
                     <ul className={styles.linkList}>
                         {links.map((link, index) => (
                             <li key={index} className={styles.listItem}>
-                                <Link href={link.href}>
-                                    <a
-                                        className={`font-color-light ${styles.navLink}`}>
-                                        {link.label}
-                                    </a>
+                                <Link
+                                    href={link.href}
+                                    className={`font-color-light ${styles.navLink}`}>
+                                    {link.label}
                                 </Link>
                             </li>
                         ))}

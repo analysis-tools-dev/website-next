@@ -25,10 +25,10 @@ const BlogPreview: FC<BlogPreviewProps> = ({ previews }) => {
                     className="m-t-30 m-b-30"
                 />
             ))}
-            <Link href="/blog">
-                <a className="centered font-light font-size-15 underline">
-                    Show all
-                </a>
+            <Link
+                href="/blog"
+                className="centered font-light font-size-15 underline">
+                Show all
             </Link>
         </Card>
     );

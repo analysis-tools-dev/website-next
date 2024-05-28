@@ -24,8 +24,8 @@ const LanguageCard: FC<LanguageCardProps> = ({ tools, tag, tagData }) => {
         <Card key={tagName} className={styles.languageCardWrapper}>
             <div className={styles.languageCardHeader}>
                 <ImageWithFallback
-                    height="50px"
-                    width="50px"
+                    height="50"
+                    width="50"
                     src={`/assets/icons/languages/${tag}.svg`}
                     fallbackSrc="/assets/icons/languages/multi-language.svg"
                     alt={tagData.name}

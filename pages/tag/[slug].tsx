@@ -252,7 +252,7 @@ const TagPage: FC<TagProps> = ({
     };
 
     return (
-        <html lang="en">
+        <>
             <SearchProvider>
                 <MainHead title={title} description={description} />
 
@@ -288,7 +288,7 @@ const TagPage: FC<TagProps> = ({
                 <SponsorBanner sponsors={sponsors} />
                 <Footer />
             </SearchProvider>
-        </html>
+        </>
     );
 };
 

@@ -41,7 +41,7 @@ const LanguagesPage: FC<LanguagesPageProps> = ({
     const description = `Find the most popular static and dynamic analysis tools for your favorite programming language.`;
 
     return (
-        <html lang="en">
+        <>
             <MainHead title={title} description={description} />
             <Navbar />
 
@@ -62,7 +62,7 @@ const LanguagesPage: FC<LanguagesPageProps> = ({
 
             <SponsorBanner sponsors={sponsors} />
             <Footer />
-        </html>
+        </>
     );
 };
 

@@ -26,9 +26,7 @@ interface SearchResult {
 const Hit = (result: SearchResult) => {
     return (
         <Link href={result.hit.fields.slug} passHref>
-            <a>
-                <Highlight attribute="name" hit={result.hit} />
-            </a>
+            <Highlight attribute="name" hit={result.hit} />
         </Link>
     );
 };

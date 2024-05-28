@@ -7,8 +7,8 @@
         "href": "/tool/bearer",
         "logo": {
             "src": "/assets/images/sponsors/bearer.svg",
-            "width": "165px",
-            "height": "41px"
+            "width": "165",
+            "height": "41"
         }
     },
     {
@@ -19,8 +19,8 @@
         "href": "/tool/bugprove",
         "logo": {
             "src": "/assets/images/sponsors/bugprove.svg",
-            "width": "140px",
-            "height": "70px"
+            "width": "140",
+            "height": "70"
         }
     },
     {
@@ -31,8 +31,8 @@
         "href": "/tool/pixee",
         "logo": {
             "src": "/assets/images/sponsors/pixee.png",
-            "width": "166px",
-            "height": "45px"
+            "width": "166",
+            "height": "45"
         }
     },
     {
@@ -43,8 +43,8 @@
         "href": "/tool/codescene",
         "logo": {
             "src": "/assets/images/sponsors/codescene.svg",
-            "width": "200px",
-            "height": "50px"
+            "width": "200",
+            "height": "50"
         }
     },
     {
@@ -55,8 +55,8 @@
         "href": "/tool/semgrep",
         "logo": {
             "src": "/assets/images/sponsors/semgrep.svg",
-            "width": "100px",
-            "height": "80px"
+            "width": "100",
+            "height": "80"
         }
     },
     {
@@ -67,8 +67,8 @@
         "href": "/tool/offensive-360",
         "logo": {
             "src": "/assets/images/sponsors/offensive360.png",
-            "width": "209px",
-            "height": "74px"
+            "width": "209",
+            "height": "74"
         }
     }
 ]

@@ -37,12 +37,11 @@ const BlogPreviewEntry: FC<BlogPreviewEntryProps> = ({
                 )}
                 dangerouslySetInnerHTML={{ __html: summary }}
             />
-            <Link href={link}>
-                <a
-                    className="font-light font-size-s m-t-8 inline"
-                    aria-label={`Read more about ${meta.title}`}>
-                    Read more
-                </a>
+            <Link
+                href={link}
+                className="font-light font-size-s m-t-8 inline"
+                aria-label={`Read more about ${meta.title}`}>
+                Read more
             </Link>
         </div>
     );

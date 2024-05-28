@@ -14,17 +14,17 @@ const ToolsListEntry: FC<ToolsListEntryProps> = ({ tool }) => {
     return (
         <div className={styles.listEntryWrapper}>
             <VoteWidget toolId={tool.id} type={'secondary'} />
-            <Link href={`/tool/${tool.id}`}>
-                <a className={cn(styles.toolLink, 'no-underline')}>
-                    <Image
-                        src="/assets/icons/languages/multi-language.svg"
-                        height="18px"
-                        width="18px"
-                        alt="MultiLanguage"
-                        layout="fixed"
-                    />
-                    <span className={styles.toolName}>{tool.name}</span>
-                </a>
+            <Link
+                passHref
+                href={`/tool/${tool.id}`}
+                className={cn(styles.toolLink, 'no-underline')}>
+                <Image
+                    src="/assets/icons/languages/multi-language.svg"
+                    height="18"
+                    width="18"
+                    alt="MultiLanguage"
+                />
+                <span className={styles.toolName}>{tool.name}</span>
             </Link>
         </div>
     );

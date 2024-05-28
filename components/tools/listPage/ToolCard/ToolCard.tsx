@@ -11,7 +11,6 @@ import { TagList } from '@components/elements';
 import { VoteWidget } from '@components/widgets';
 import { deCamelString } from 'utils/strings';
 import { isSponsor } from 'utils/sponsor';
-import { useIntersection } from 'hooks';
 import router from 'next/router';
 
 export interface ToolCardProps {
@@ -57,21 +56,22 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                 </Link>
             </div>
             <div className={styles.info} onClick={handleElementClick}>
-                <Link href={`/tool/${tool.id}`}>
-                    <a className={styles.toolLink}>
-                        <Heading level={3} className={styles.toolName}>
-                            {tool.name}
-                        </Heading>
-                        {isSponsor(tool.id) && (
-                            <Image
-                                className={styles.sponsorLogo}
-                                height="18px"
-                                width="18px"
-                                src="/assets/icons/general/sponsor.svg"
-                                alt="Sponsor"
-                            />
-                        )}
-                    </a>
+                <Link
+                    passHref
+                    href={`/tool/${tool.id}`}
+                    className={styles.toolLink}>
+                    <Heading level={3} className={styles.toolName}>
+                        {tool.name}
+                    </Heading>
+                    {isSponsor(tool.id) && (
+                        <Image
+                            className={styles.sponsorLogo}
+                            height="18"
+                            width="18"
+                            src="/assets/icons/general/sponsor.svg"
+                            alt="Sponsor"
+                        />
+                    )}
                 </Link>
 
                 <div className={styles.descriptionWrapper}>
@@ -86,8 +86,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                     <li>
                         <Image
                             key={`status-${tool.id}`}
-                            height="13px"
-                            width="13px"
+                            height="13"
+                            width="13"
                             src={`/assets/icons/general/${toolStatus.toLowerCase()}.svg`}
                             alt={toolStatus}
                         />
@@ -96,16 +96,16 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                     <li>
                         <Image
                             key={`language-${tool.id}`}
-                            height="15px"
-                            width="15px"
+                            height="15"
+                            width="15"
                             src={`/assets/icons/languages/${toolLanguage.toLowerCase()}.svg`}
                             alt={toolStatus}
                         />
                         {isSingleLanguage ? (
-                            <Link href={`/tag/${toolLanguage.toLowerCase()}`}>
-                                <a className={styles.languageLink}>
-                                    {toolLanguage}
-                                </a>
+                            <Link
+                                href={`/tag/${toolLanguage.toLowerCase()}`}
+                                className={styles.languageLink}>
+                                {toolLanguage}
                             </Link>
                         ) : (
                             <span className={styles.metaInfo}>
@@ -119,8 +119,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                                 key={`type-${index}`}
                                 className={styles.toolType}>
                                 <Image
-                                    height="14px"
-                                    width="14px"
+                                    height="14"
+                                    width="14"
                                     src={`/assets/icons/types/${type}.svg`}
                                     alt={toolStatus}
                                 />
@@ -134,8 +134,8 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                                 key={`category-${index}`}
                                 className={styles.category}>
                                 <Image
-                                    height="14px"
-                                    width="14px"
+                                    height="14"
+                                    width="14"
                                     src={`/assets/icons/category/${category}.svg`}
                                     alt={toolStatus}
                                 />

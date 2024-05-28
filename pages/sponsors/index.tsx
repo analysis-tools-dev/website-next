@@ -26,7 +26,7 @@ export interface SponsorPageProps {
 
 const Sponsor: FC<SponsorPageProps> = ({ sponsors, previews: previews }) => {
     return (
-        <html lang="en">
+        <>
             <MainHead
                 title="Sponsors | Analysis Tools"
                 description="Thanks to our generous sponsors for supporting the project."
@@ -46,7 +46,7 @@ const Sponsor: FC<SponsorPageProps> = ({ sponsors, previews: previews }) => {
 
             <SponsorMessage />
             <Footer />
-        </html>
+        </>
     );
 };
 

@@ -197,7 +197,7 @@ const ToolPage: FC<ToolProps> = ({
     const title = `${description} | Analysis Tools`;
 
     return (
-        <html lang="en">
+        <>
             <SearchProvider>
                 <MainHead title={title} description={description} />
 
@@ -227,7 +227,7 @@ const ToolPage: FC<ToolProps> = ({
                 <SponsorBanner sponsors={sponsors} />
                 <Footer />
             </SearchProvider>
-        </html>
+        </>
     );
 };
 
