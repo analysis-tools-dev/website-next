@@ -6,7 +6,7 @@
     cursor: pointer;
 }
 
-.toolCardWrapper:hover{
+.toolCardWrapper:hover {
     border-color: #58a6ff;
 }
 
@@ -42,7 +42,8 @@
     cursor: pointer;
 }
 
-.descriptionWrapper{}
+.descriptionWrapper {
+}
 
 .description {
     font-size: 14px;
@@ -70,11 +71,7 @@
 
 .toolLink {
     text-underline-offset: 4px;
-<<<<<<< HEAD
     display: flex;
-=======
-    /* text-decoration: underline; */
->>>>>>> 5ae7b9e (Fix ToolCard clickable layout)
 }
 
 .toolType {

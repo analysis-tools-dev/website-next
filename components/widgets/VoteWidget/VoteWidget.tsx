@@ -27,6 +27,7 @@ const VoteWidget: FC<VoteWidgetProps> = ({
         useToolVotesQuery(toolId);
 
     const votesData = data?.data;
+    console.log('Got votes data', votesData);
 
     useEffect(() => {
         const localVote = localStorage.getItem(`vote-${toolId}`);
