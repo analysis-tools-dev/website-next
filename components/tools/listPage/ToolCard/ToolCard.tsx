@@ -46,7 +46,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
 
     // FIXME: Get language tag from name to work as href, some languages have different names than their tag
     return (
-        <Card className={styles.toolCardWrapper} onClick={handleElementClick}>
+        <Card className={styles.toolCardWrapper}>
             <div className={styles.votes} ref={votesRef}>
                 <VoteWidget toolId={tool.id} />
                 <Link
