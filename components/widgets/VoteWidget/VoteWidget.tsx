@@ -10,12 +10,14 @@ export interface VoteWidgetProps {
     toolId: string;
     type?: 'primary' | 'secondary';
     upvotePercentage?: number;
+    className?: string;
 }
 
 const VoteWidget: FC<VoteWidgetProps> = ({
     toolId,
     type = 'primary',
     upvotePercentage,
+    className,
 }) => {
     const theme = type === 'primary' ? styles.primary : styles.secondary;
     const [votes, setVotes] = useState(0);
@@ -25,13 +27,12 @@ const VoteWidget: FC<VoteWidgetProps> = ({
         useToolVotesQuery(toolId);
 
     const votesData = data?.data;
+    console.log('Got votes data', votesData);
 
     useEffect(() => {
-        // Check local storage for vote
         const localVote = localStorage.getItem(`vote-${toolId}`);
-
-        if (votesData?.votes) {
-            setVotes(votesData?.votes || 0);
+        if (votesData?.votes !== undefined) {
+            setVotes(votesData.votes);
         }
         if (localVote) {
             setVoteAction(localVote);
@@ -49,66 +50,46 @@ const VoteWidget: FC<VoteWidgetProps> = ({
         return null;
     }
 
-    const upVoteButtonClick = async () => {
-        // Check local storage for vote
+    const handleVote = async (voteChange: number, action: string) => {
         const localVote = localStorage.getItem(`vote-${toolId}`);
+        let newVotes = votes;
 
         if (localVote) {
-            // check if it was a downvote
-            if (localVote === 'downvote') {
-                // voteData += 2;
-                setVotes((prevVotes) => prevVotes + 2);
-                await submitVote(toolId, 1);
-                localStorage.setItem(`vote-${toolId}`, 'upvote');
-                setVoteAction('upvote');
+            if (localVote === 'upvote' && action === 'downvote') {
+                newVotes -= 2;
+            } else if (localVote === 'downvote' && action === 'upvote') {
+                newVotes += 2;
+            } else {
+                return; // Same vote action, no change
             }
         } else {
-            // No vote in local storage. Add upvote
-            await submitVote(toolId, 1);
-            setVotes((prevVotes) => prevVotes + 1);
-            localStorage.setItem(`vote-${toolId}`, 'upvote');
-            setVoteAction('upvote');
+            newVotes += voteChange;
         }
-    };
 
-    const downVoteButtonClick = async () => {
-        // Check local storage for vote
-        const localVote = localStorage.getItem(`vote-${toolId}`);
-
-        if (localVote) {
-            // check if we have an upvote
-            if (localVote === 'upvote') {
-                // voteData -= 2;
-                setVotes((prevVotes) => prevVotes - 2);
-                await submitVote(toolId, -1);
-                localStorage.setItem(`vote-${toolId}`, 'downvote');
-                setVoteAction('downvote');
-            }
-        } else {
-            // No vote in local storage. Add downvote
-            await submitVote(toolId, -1);
-            setVotes((prevVotes) => prevVotes - 1);
-            localStorage.setItem(`vote-${toolId}`, 'downvote');
-            setVoteAction('downvote');
-        }
+        setVotes(newVotes);
+        setVoteAction(action);
+        await submitVote(toolId, voteChange);
+        localStorage.setItem(`vote-${toolId}`, action);
     };
 
     return (
         <>
-            <div className={cn(theme)}>
+            <div className={cn(theme, className)}>
                 <button
                     className={cn(styles.voteBtn, {
                         [styles.activeUpvote]: voteAction === 'upvote',
                     })}
                     aria-label={`Upvote ${toolId}`}
-                    onClick={upVoteButtonClick}></button>
+                    onClick={() => handleVote(1, 'upvote')}
+                />
                 <span className={styles.votes}>{votesFormatter(votes)}</span>
                 <button
                     className={classNames(styles.voteBtn, styles.downvoteBtn, {
                         [styles.activeDownvote]: voteAction === 'downvote',
                     })}
                     aria-label={`Downvote ${toolId}`}
-                    onClick={downVoteButtonClick}></button>
+                    onClick={() => handleVote(-1, 'downvote')}
+                />
             </div>
             {upvotePercentage !== undefined && (
                 <div className={styles.upvotePercentage}>
