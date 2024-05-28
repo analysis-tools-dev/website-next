@@ -14,11 +14,11 @@ const typoLookup: Record<string, string> = {
     Matters: 'Maters',
 };
 
-// Get a random word from the headline and introduce a typo
 const getRandomWordWithTypo = (text: string) => {
     const words = text.split(' ');
-    const randomIndex = Math.floor(Math.random() * words.length);
-    const typoWord = words[randomIndex];
+    const typoCandidates = words.filter((word) => typoLookup[word]);
+    const randomIndex = Math.floor(Math.random() * typoCandidates.length);
+    const typoWord = typoCandidates[randomIndex];
 
     if (typoWord) {
         return { original: typoWord, typo: typoLookup[typoWord] };
@@ -35,7 +35,7 @@ const Intro: FC = () => {
         typo: string;
     } | null>(null);
 
-    useEffect(() => {
+    const introduceTypo = () => {
         const typo = getRandomWordWithTypo(originalHeadline);
         if (typo) {
             const newHeadline = originalHeadline.replace(
@@ -45,21 +45,21 @@ const Intro: FC = () => {
             setHeadline(newHeadline);
             setTypoWord(typo);
         }
-    }, []);
+    };
 
     useEffect(() => {
-        if (typoWord) {
-            const timer = setTimeout(() => {
-                setHeadline(originalHeadline);
-            }, 5000);
+        introduceTypo();
+        const interval = setInterval(() => {
+            introduceTypo();
+        }, 10000);
 
-            return () => clearTimeout(timer);
-        }
-    }, [typoWord]);
+        return () => clearInterval(interval);
+    }, []);
 
     const handleClick = () => {
         if (typoWord) {
             setHeadline(originalHeadline);
+            setTypoWord(null);
         }
     };
 
