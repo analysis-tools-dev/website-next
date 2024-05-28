@@ -30,37 +30,47 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<{ data: PaginatedData | null; error?: string }>,
 ) {
-    const data = await getToolsWithVotes();
+    try {
+        const data = await getToolsWithVotes();
 
-    if (!data) {
-        res.status(500).json({ error: 'Failed to load data', data: null });
-        return res;
+        if (!data) {
+            console.error('ERROR: Failed to load data');
+            res.status(500).json({ error: 'Failed to load data', data: null });
+            return;
+        }
+
+        const filteredData = filterResults(data, req.query);
+        let sortedTools: Tool[] = [];
+        if (req.query.sorting) {
+            sortedTools = filteredData.sort(
+                pickSort(req.query.sorting.toString()),
+            );
+        } else {
+            sortedTools = filteredData.sort(pickSort('votes_desc'));
+        }
+
+        // Check if limit is set and is a number
+        const limit = Number(req.query.limit);
+        const offset = Number(req.query.offset);
+
+        if (limit && !isNaN(limit) && offset >= 0 && !isNaN(offset)) {
+            const startIndex = offset * limit;
+            const endIndex = startIndex + limit;
+            const paginatedData: PaginatedData = {
+                data: sortedTools.slice(startIndex, endIndex),
+                nextCursor:
+                    sortedTools.length > endIndex ? offset + 1 : undefined,
+            };
+            res.status(200).json({ data: paginatedData });
+            return;
+        }
+
+        res.status(200).json({ data: { data: sortedTools } });
+    } catch (error) {
+        console.error('ERROR: An unexpected error occurred', error);
+        res.status(500).json({
+            error: 'An unexpected error occurred',
+            data: null,
+        });
     }
-
-    const filteredData = filterResults(data, req.query);
-    let sortedTools = [];
-    if (req.query.sorting) {
-        sortedTools = filteredData.sort(pickSort(req.query.sorting.toString()));
-    } else {
-        sortedTools = filteredData.sort(pickSort('votes_desc'));
-    }
-
-    // Check if limit is set and is number
-    const limit = Number(req.query.limit);
-    const offset = Number(req.query.offset);
-
-    if (limit) {
-        const startIndex = offset * limit;
-        const endIndex = startIndex + limit;
-        const data = sortedTools.slice(startIndex, endIndex);
-        const paginatedData = {
-            data,
-            nextCursor: data.length === limit ? offset + 1 : undefined,
-        };
-        // return only the first N results
-        res.status(200).json({ data: paginatedData });
-        return res;
-    }
-    res.status(200).json({ data: { data: sortedTools } });
-    return res;
 }

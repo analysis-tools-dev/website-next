@@ -1,30 +1,40 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getTags } from 'utils-api/tags';
 import { isTagsType } from 'utils/type-guards';
-import { ApiTag } from 'utils/types';
+import { ApiTag, TagsType } from 'utils/types';
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<{ data: ApiTag[]; error?: string }>,
 ) {
-    const { type } = req.query;
+    try {
+        const { type } = req.query;
 
-    if (!isTagsType(type)) {
-        console.error(`ERROR: Invalid request - type not specified`);
+        if (!type || Array.isArray(type) || !isTagsType(type)) {
+            console.error(
+                `ERROR: Invalid request - type not specified or invalid`,
+            );
+            res.status(400).json({
+                error: 'Invalid request - type not specified or invalid',
+                data: [],
+            });
+            return;
+        }
+
+        const data = await getTags(type as TagsType);
+
+        if (!data) {
+            console.error(`ERROR: Failed to load ${type} data`);
+            res.status(500).json({ error: 'Failed to load data', data: [] });
+            return;
+        }
+
+        res.status(200).json({ data });
+    } catch (error) {
+        console.error('ERROR: An unexpected error occurred', error);
         res.status(500).json({
-            error: 'Invalid request - type not specified',
+            error: 'An unexpected error occurred',
             data: [],
         });
-        return res;
     }
-
-    const data = await getTags(type);
-    if (!data) {
-        console.error(`ERROR: Failed to load ${type} data`);
-        res.status(500).json({ error: 'Failed to load data', data: [] });
-        return res;
-    }
-
-    res.status(200).json({ data });
-    return res;
 }

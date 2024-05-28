@@ -9,60 +9,82 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<{ data: Tool | null; error?: string }>,
 ) {
-    const { toolId } = req.query;
+    try {
+        const { toolId } = req.query;
 
-    if (!toolId) {
-        console.error(`ERROR: Invalid request - toolId not specified`);
-        res.status(500).json({
-            error: 'Invalid request - toolId not specified',
-            data: null,
-        });
-        return res;
-    }
-
-    const data = await getTool(toolId.toString());
-    if (!data) {
-        console.error(`ERROR: Failed to load ${toolId} data`);
-        res.status(500).json({
-            error: `Failed to load ${toolId} data`,
-            data: null,
-        });
-        return res;
-    }
-    const { votes, upVotes, downVotes, upvotePercentage } = await getToolVotes(
-        toolId.toString(),
-    );
-
-    const repoMeta = getRepositoryMeta(data.source);
-    if (repoMeta) {
-        console.log(`Getting repository data for ${toolId}`);
-        const repositoryData = await getGithubStats(
-            toolId.toString(),
-            repoMeta.owner,
-            repoMeta.repo,
-        );
-        if (repositoryData) {
-            res.status(200).json({
-                data: {
-                    ...data,
-                    id: toolId.toString(),
-                    votes,
-                    upVotes,
-                    downVotes,
-                    upvotePercentage,
-                    repositoryData,
-                },
+        if (!toolId || typeof toolId !== 'string') {
+            console.error(
+                `ERROR: Invalid request - toolId not specified or invalid`,
+            );
+            res.status(400).json({
+                error: 'Invalid request - toolId not specified or invalid',
+                data: null,
             });
-            return res;
+            return;
         }
+
+        const data = await getTool(toolId);
+        if (!data) {
+            console.error(`ERROR: Failed to load data for toolId: ${toolId}`);
+            res.status(404).json({
+                error: `Failed to load data for toolId: ${toolId}`,
+                data: null,
+            });
+            return;
+        }
+
+        const toolVotes = await getToolVotes(toolId);
+        if (!toolVotes) {
+            console.error(`ERROR: Failed to load votes for toolId: ${toolId}`);
+            res.status(500).json({
+                error: `Failed to load votes for toolId: ${toolId}`,
+                data: null,
+            });
+            return;
+        }
+
+        const { votes, upVotes, downVotes, upvotePercentage } = toolVotes;
+
+        const repoMeta = getRepositoryMeta(data.source);
+        if (repoMeta) {
+            console.log(`Getting repository data for toolId: ${toolId}`);
+            const repositoryData = await getGithubStats(
+                toolId,
+                repoMeta.owner,
+                repoMeta.repo,
+            );
+            if (repositoryData) {
+                res.status(200).json({
+                    data: {
+                        ...data,
+                        id: toolId,
+                        votes,
+                        upVotes,
+                        downVotes,
+                        upvotePercentage,
+                        repositoryData,
+                    },
+                });
+                return;
+            }
+        }
+
+        console.log(`Returning data for proprietary tool toolId: ${toolId}`);
+        res.status(200).json({
+            data: {
+                ...data,
+                id: toolId,
+                votes,
+                upVotes,
+                downVotes,
+                upvotePercentage,
+            },
+        });
+    } catch (error) {
+        console.error('ERROR: An unexpected error occurred', error);
+        res.status(500).json({
+            error: 'An unexpected error occurred',
+            data: null,
+        });
     }
-    console.log(`Returning data for propiertary tool ${toolId}`);
-    res.status(200).json({
-        data: {
-            ...data,
-            id: toolId.toString(),
-            votes: votes,
-        },
-    });
-    return res;
 }
