@@ -29,7 +29,6 @@ export default async function handler(
         });
         return res;
     }
-    console.log(`Getting votes for ${toolId}`);
     const { votes, upVotes, downVotes, upvotePercentage } = await getToolVotes(
         toolId.toString(),
     );
