@@ -48,13 +48,24 @@ jobs:
             - name: 'Download tools.json File'
               run: curl -sL https://github.com/analysis-tools-dev/static-analysis/raw/master/data/api/tools.json -o ./tools.json
 
-            - name: 'Generate Hash of External JSON File'
+            - name: 'Generate Hash of tools.json File'
               id: tools_json_hash
-              run: echo "tools_json_hash=$(sha256sum tools.json | cut -d' ' -f1)" >> $GITHUB_ENV
+              run: echo "tools_json_hash=$(sha256sum tools.json | cut -c1-7)" >> $GITHUB_ENV
 
-            # Image hash is a combination of the tools.json hash and the git commit hash
+            # Also take screenshots.json into account, which is at
+            # https://github.com/analysis-tools-dev/assets/blob/master/screenshots.json
+            - name: 'Download screenshots.json File'
+              run: curl -sL https://github.com/analysis-tools-dev/assets/raw/master/screenshots.json -o ./screenshots.json
+
+            - name: 'Generate Hash of screenshots.json File'
+              id: screenshots_json_hash
+              run: echo "screenshots_json_hash=$(sha256sum screenshots.json | cut -c1-7)" >> $GITHUB_ENV
+
+            # Image hash is a combination of the hashes
             - name: 'Set IMAGE_NAME hash'
-              run: echo "IMAGE_NAME=${{ env.IMAGE_NAME }}:${{ github.sha }}-${{ env.tools_json_hash }}" >> $GITHUB_ENV
+              run: |
+                  short_hash=$(echo "${{ github.sha }}" | cut -c1-7)
+                  echo "IMAGE_NAME=${{ env.IMAGE_NAME }}:$short_hash-${{ env.tools_json_hash }}-${{ env.screenshots_json_hash }}" >> $GITHUB_ENV
 
             - name: 'Build Docker Image'
               env:
