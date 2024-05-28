@@ -20,7 +20,7 @@ import { FilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard
 import { getArticlesPreviews } from 'utils-api/blog';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const sponsors = getSponsors();
+    const sponsors = await getSponsors();
     const articles = await getArticlesPreviews();
     const { data: languages } = await fetchLanguages();
     const { data: others } = await fetchOthers();
@@ -62,7 +62,7 @@ const ToolsPage: FC<ToolsProps> = ({
         'Find the best SAST tool for your project. All CLI tools and services for JavaScript, Python, Java, C, PHP, Ruby, and more.';
 
     return (
-        <html lang="en">
+        <>
             <MainHead title={title} description={description} />
             <SearchProvider>
                 <Navbar />
@@ -75,11 +75,10 @@ const ToolsPage: FC<ToolsProps> = ({
                         />
                     </Main>
                 </Wrapper>
-
                 <SponsorBanner sponsors={sponsors} />
                 <Footer />
             </SearchProvider>
-        </html>
+        </>
     );
 };
 
