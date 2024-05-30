@@ -1,24 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image, { ImageProps } from 'next/image';
 
 interface ImageWithFallbackProps extends ImageProps {
     fallbackSrc: string;
 }
 
-const ImageWithFallback = (props: ImageWithFallbackProps) => {
-    const { src, fallbackSrc, ...rest } = props;
-    const [imgSrc, setImgSrc] = useState(src);
+export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
+    fallbackSrc,
+    ...props
+}) => {
+    const { src, alt, key, ...rest } = props;
 
-    return (
-        <Image
-            {...rest}
-            src={imgSrc}
-            alt={props.alt}
-            onError={() => {
-                setImgSrc(fallbackSrc);
-            }}
-        />
-    );
+    const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        e.currentTarget.src = fallbackSrc;
+    };
+
+    return <Image {...rest} src={src} alt={alt} onError={handleError} />;
 };
 
 export default ImageWithFallback;
