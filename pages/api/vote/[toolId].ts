@@ -42,7 +42,7 @@ export default async function handler(
             data: {
                 id: `${PREFIX}${toolId}`,
                 date: new Date(),
-                vote: Number(vote),
+                vote,
             },
         });
     } catch (error) {

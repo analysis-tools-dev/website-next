@@ -8,8 +8,8 @@
         "image": {
             "src": "/assets/images/intro-image.svg",
             "alt": "",
-            "width": "800",
-            "height": "500"
+            "width": 800,
+            "height": 500
         }
     }
 }

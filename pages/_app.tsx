@@ -1,7 +1,12 @@
-import React from 'react';
 import type { AppProps } from 'next/app';
-import { QueryClient, QueryClientProvider, Hydrate } from 'react-query';
 import Head from 'next/head';
+import React from 'react';
+import {
+    Hydrate,
+    QueryClient,
+    QueryClientProvider,
+    type DehydratedState,
+} from 'react-query';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 import '../styles/globals.css';
 
