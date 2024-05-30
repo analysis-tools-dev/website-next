@@ -36,6 +36,7 @@ export const getStaticProps: GetStaticProps = async () => {
         },
     };
 };
+
 export interface HomePageProps {
     sponsors: SponsorData[];
     faq: Faq[];
@@ -54,7 +55,7 @@ const HomePage: FC<HomePageProps> = ({
     const title =
         'Analysis Tools and Linters to Improve Code Quality and Avoid Bugs';
     return (
-        <html lang="en">
+        <>
             <MainHead
                 title={title}
                 description={homepageData.meta.description}
@@ -83,7 +84,7 @@ const HomePage: FC<HomePageProps> = ({
             <FAQ faq={faq} />
             <SponsorBanner sponsors={sponsors} />
             <Footer />
-        </html>
+        </>
     );
 };
 

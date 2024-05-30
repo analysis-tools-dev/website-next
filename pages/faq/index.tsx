@@ -27,7 +27,7 @@ export interface FaqPageProps {
 
 const Faq: FC<FaqPageProps> = ({ faq, previews }) => {
     return (
-        <html lang="en">
+        <>
             <MainHead
                 title="FAQ | Analysis Tools"
                 description="Frequently asked questions about code analysis tools and linters.
@@ -53,7 +53,7 @@ const Faq: FC<FaqPageProps> = ({ faq, previews }) => {
                 </Main>
             </Wrapper>
             <Footer />
-        </html>
+        </>
     );
 };
 

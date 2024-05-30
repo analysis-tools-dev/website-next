@@ -26,12 +26,13 @@ const SponsorCard: FC<SponsorCardProps> = ({ sponsor }) => {
                 </a>
             </div>
             <div className={styles.info}>
-                <Link href={`/tool/${sponsor.tool}`}>
-                    <a className={styles.toolLink}>
-                        <Heading level={3} className={styles.toolName}>
-                            {sponsor.name}
-                        </Heading>
-                    </a>
+                <Link
+                    passHref
+                    href={`/tool/${sponsor.tool}`}
+                    className={styles.toolLink}>
+                    <Heading level={3} className={styles.toolName}>
+                        {sponsor.name}
+                    </Heading>
                 </Link>
 
                 <Text className={styles.description}>
@@ -45,13 +46,12 @@ const SponsorCard: FC<SponsorCardProps> = ({ sponsor }) => {
                         newTab={false}
                         variant={'small'}
                     />
-                    <Link href={sponsor.url}>
-                        <a
-                            rel="noopener noreferrer"
-                            className="font-light font-size-s m-l-4"
-                            aria-label={`Visit ${sponsor.name} website`}>
-                            Visit website
-                        </a>
+                    <Link
+                        href={sponsor.url}
+                        rel="noopener noreferrer"
+                        className="font-light font-size-s m-l-4"
+                        aria-label={`Visit ${sponsor.name} website`}>
+                        Visit website
                     </Link>
                 </div>
             </div>

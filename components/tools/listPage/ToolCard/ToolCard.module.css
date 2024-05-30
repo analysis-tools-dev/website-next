@@ -42,7 +42,8 @@
     cursor: pointer;
 }
 
-.descriptionWrapper{}
+.descriptionWrapper {
+}
 
 .description {
     font-size: 14px;

@@ -52,15 +52,13 @@ const RelatedCard: FC<RelatedCardProps> = ({
                         passHref={true}
                         href={`/tools`}
                         className={styles.relatedLink}>
-                        <a>
-                            <Image
-                                src={`/assets/icons/general/back.svg`}
-                                alt={'Other Languages'}
-                                width={20}
-                                height={20}
-                            />
-                            <div>Other Languages</div>
-                        </a>
+                        <Image
+                            src={`/assets/icons/general/back.svg`}
+                            alt={'Other Languages'}
+                            width={20}
+                            height={20}
+                        />
+                        <div>Other Languages</div>
                     </Link>
                 </li>
             </ul>

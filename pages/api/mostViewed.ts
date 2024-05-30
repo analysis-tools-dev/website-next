@@ -6,15 +6,24 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<{ data: Tool[]; error?: string }>,
 ) {
-    const data = await getMostViewedTools();
+    try {
+        const data = await getMostViewedTools();
 
-    if (!data) {
+        if (!data) {
+            console.error('ERROR: Failed to load most viewed tool data');
+            res.status(500).json({
+                error: 'Failed to load most viewed tool data',
+                data: [],
+            });
+            return;
+        }
+
+        res.status(200).json({ data });
+    } catch (error) {
+        console.error('ERROR: An unexpected error occurred', error);
         res.status(500).json({
-            error: 'Failed to load most viewed tool data',
+            error: 'An unexpected error occurred',
             data: [],
         });
-        return res;
     }
-
-    res.status(200).json({ data });
 }

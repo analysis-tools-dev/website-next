@@ -54,8 +54,8 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
                                 <Image
                                     key={`sponsor-${tool.id}`}
                                     className={styles.sponsorLogo}
-                                    height="20px"
-                                    width="20px"
+                                    height="20"
+                                    width="20"
                                     src="/assets/icons/general/sponsor.svg"
                                     alt="Sponsor"
                                 />
@@ -64,8 +64,8 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
                         <div className={styles.maintained}>
                             <Image
                                 key={`status-${tool.id}`}
-                                height="12px"
-                                width="12px"
+                                height="12"
+                                width="12"
                                 src={`/assets/icons/general/${toolStatus.toLowerCase()}.svg`}
                                 alt={toolStatus}
                             />

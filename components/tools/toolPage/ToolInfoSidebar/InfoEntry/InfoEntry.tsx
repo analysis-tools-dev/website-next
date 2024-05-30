@@ -33,12 +33,7 @@ const InfoEntry: FC<InfoEntryProps> = ({
             <div className={styles.textWrapper}>
                 {icon && (
                     <div className={styles.entryIcon}>
-                        <Image
-                            height="12px"
-                            width="12px"
-                            src={icon}
-                            alt={label}
-                        />
+                        <Image height="12" width="12" src={icon} alt={label} />
                     </div>
                 )}
                 {url ? (

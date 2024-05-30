@@ -70,6 +70,7 @@ jobs:
             - name: 'Build Docker Image'
               env:
                   GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+                  NEXT_TELEMETRY_DISABLED: 1
               run: |
                   echo ${{ secrets.FIREBASE_TOKEN }} | base64 -d > ./credentials.json
                   echo "Building Docker Image with tag $IMAGE_NAME"

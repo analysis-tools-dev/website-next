@@ -1,31 +1,36 @@
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import React from 'react';
 import {
-    DehydratedState,
     Hydrate,
     QueryClient,
     QueryClientProvider,
+    type DehydratedState,
 } from 'react-query';
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
+import '../styles/globals.css';
 
-function MyApp({
+const MyApp: React.FC<AppProps<{ dehydratedState: DehydratedState }>> = ({
     Component,
     pageProps,
-}: AppProps<{ dehydratedState: DehydratedState }>) {
+}) => {
     const [queryClient] = React.useState(
         () => new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS),
     );
 
     return (
         <QueryClientProvider client={queryClient}>
-            <>
-                <Hydrate state={pageProps.dehydratedState}>
-                    <Component {...pageProps} />
-                </Hydrate>
-            </>
+            <Head>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
+            </Head>
+            <Hydrate state={pageProps.dehydratedState}>
+                <Component {...pageProps} />
+            </Hydrate>
         </QueryClientProvider>
     );
-}
+};
 
 export default MyApp;

@@ -1,10 +1,10 @@
-import { FC } from 'react';
-import Image from 'next/image';
-import { Heading, Text } from '@components/typography';
 import { LinkButton } from '@components/elements';
 import { Wrapper } from '@components/layout';
-import styles from './SponsorBanner.module.css';
+import { Heading, Text } from '@components/typography';
+import Image from 'next/image';
+import { FC } from 'react';
 import { SponsorData } from 'utils/types';
+import styles from './SponsorBanner.module.css';
 
 export interface SponsorBannerProps {
     sponsors: SponsorData[];
