@@ -1,17 +1,5 @@
 [
     {
-        "name": "Bearer",
-        "url": "https://www.bearer.com/",
-        "description": "Bearer AppSec solution allows security and engineering teams to assess, prioritize, and remediate security risks and vulnerabilities in their code with automated business impact prioritization based on sensitive data flow analysis.",
-        "tool": "bearer",
-        "href": "/tool/bearer",
-        "logo": {
-            "src": "/assets/images/sponsors/bearer.svg",
-            "width": 165,
-            "height": 41
-        }
-    },
-    {
         "name": "BugProve",
         "url": "https://bugprove.com/",
         "description": "BugProve is a firmware analysis platform featuring both static and dynamic analysis techniques to discover memory corruptions, command injections and other classes or common weaknesses in binary code. It also detects vulnerable dependencies, weak cryptographic parameters, misconfigurations, and more.",
@@ -36,18 +24,6 @@
         }
     },
     {
-        "name": "CodeScene",
-        "url": "https://codescene.com/",
-        "description": "CodeScene is a code intelligence platform that helps you understand your codebase and improve it.",
-        "tool": "codescene",
-        "href": "/tool/codescene",
-        "logo": {
-            "src": "/assets/images/sponsors/codescene.svg",
-            "width": 200,
-            "height": 50
-        }
-    },
-    {
         "name": "semgrep",
         "url": "https://semgrep.dev/",
         "description": "semgrep is a fast, open-source, static analysis tool for finding bugs and enforcing code standards.",
@@ -69,6 +45,18 @@
             "src": "/assets/images/sponsors/offensive360.png",
             "width": 209,
             "height": 74
+        }
+    },
+    {
+        "name": "BetterScan",
+        "url": "https://betterscan.io/",
+        "description": "BetterScan is a  simple and powerful DevSecOps software to automate thousands of checks and eliminate human errors in Source Code and Cloud Infrastructure. It provides integration with all popular CI/CD tools and cloud providers.",
+        "tool": "betterscan-ce",
+        "href": "/tool/betterscan-ce",
+        "logo": {
+            "src": "/assets/images/sponsors/betterscan.svg",
+            "width": 200,
+            "height": 50
         }
     }
 ]
