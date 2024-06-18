@@ -48,26 +48,29 @@ const ToolGallery: FC<ToolGalleryProps> = ({ tool, screenshots }) => {
                             screenshot.url.includes('youtube.com') ? (
                                 <SplideSlide
                                     key={`${screenshot.path}-${index}`}
-                                    // add youtube link if youtube video
                                     data-splide-youtube={screenshot.url}>
-                                    <Image
-                                        className={styles.screenshot}
-                                        width={1280}
-                                        height={720}
-                                        src={screenshot.path}
-                                        alt={`${tool.name} screenshot`}
-                                    />
+                                    <div className={styles.splideSlide}>
+                                        <Image
+                                            className={styles.screenshot}
+                                            src={screenshot.path}
+                                            alt={`${tool.name} screenshot`}
+                                            layout="fill"
+                                            objectFit="cover"
+                                        />
+                                    </div>
                                 </SplideSlide>
                             ) : (
                                 <SplideSlide
                                     key={`${screenshot.path}-${index}`}>
-                                    <Image
-                                        className={styles.screenshot}
-                                        width={1280}
-                                        height={720}
-                                        src={screenshot.path}
-                                        alt={`${tool.name} screenshot`}
-                                    />
+                                    <div className={styles.splideSlide}>
+                                        <Image
+                                            className={styles.screenshot}
+                                            src={screenshot.path}
+                                            alt={`${tool.name} screenshot`}
+                                            layout="fill"
+                                            objectFit="cover"
+                                        />
+                                    </div>
                                 </SplideSlide>
                             ),
                         )}
