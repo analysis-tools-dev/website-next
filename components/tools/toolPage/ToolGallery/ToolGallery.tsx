@@ -54,8 +54,7 @@ const ToolGallery: FC<ToolGalleryProps> = ({ tool, screenshots }) => {
                                             className={styles.screenshot}
                                             src={screenshot.path}
                                             alt={`${tool.name} screenshot`}
-                                            layout="fill"
-                                            objectFit="cover"
+                                            fill={true}
                                         />
                                     </div>
                                 </SplideSlide>
@@ -67,8 +66,7 @@ const ToolGallery: FC<ToolGalleryProps> = ({ tool, screenshots }) => {
                                             className={styles.screenshot}
                                             src={screenshot.path}
                                             alt={`${tool.name} screenshot`}
-                                            layout="fill"
-                                            objectFit="cover"
+                                            fill={true}
                                         />
                                     </div>
                                 </SplideSlide>

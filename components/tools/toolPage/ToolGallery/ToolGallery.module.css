@@ -7,6 +7,13 @@
 .splide__slide {
     position: relative;
     width: 100%;
+    height: 100%; /* Ensure the slide has a valid height */
+    overflow: hidden;
+}
+
+.splideSlide {
+    position: relative;
+    width: 100%;
     height: 0;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
     overflow: hidden;
