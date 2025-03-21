@@ -1,9 +1,9 @@
+import { VoteAction, calculateUpvotePercentage } from 'utils/votes';
+
+import { createHash } from 'crypto';
 import { getFirestore } from 'firebase-admin/firestore';
 import { initFirebase } from './firebase';
 import { isVotesApiData } from 'utils/type-guards';
-import { createHash } from 'crypto';
-
-import { calculateUpvotePercentage, VoteAction } from 'utils/votes';
 
 export const PREFIX = 'toolsyaml';
 
@@ -11,7 +11,7 @@ export interface VotesData {
     votes: number;
     upVotes: number;
     downVotes: number;
-    upvotePercentage?: number; 
+    upvotePercentage?: number;
 }
 
 export interface Vote {
@@ -33,6 +33,7 @@ export interface VoteAPIResponse {
 
 // Get a list of votes from firestore
 export const getDBVotes = async () => {
+    return {};
     // Check if firebase already initialized
     initFirebase();
     const db = getFirestore();
@@ -48,6 +49,7 @@ export const getDBVotes = async () => {
 };
 
 export const getDBToolVotes = async (toolId: string) => {
+    return {};
     const key = `${PREFIX}${toolId}`;
 
     // Check if firebase already initialized
@@ -114,6 +116,7 @@ export const publishVote = async (
     vote: VoteAction,
 ) => {
     const key = `${PREFIX}${toolId}`;
+    return;
 
     // Check if firebase already initialized
     initFirebase();
@@ -136,6 +139,7 @@ export const recalculateToolVotes = async (toolId: string) => {
 
     let upVotes = 0;
     let downVotes = 0;
+    return;
 
     // Check if firebase already initialized
     initFirebase();
