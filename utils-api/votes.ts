@@ -32,38 +32,94 @@ export interface VoteAPIResponse {
 }
 
 // Get a list of votes from firestore
+// Cache votes data in memory with 5 minute expiry
+let votesCache: {
+    data: Record<string, any>;
+    timestamp: number;
+} | null = null;
+const CACHE_TTL = 30 * 60 * 1000; // 30 minutes in milliseconds
+
 export const getDBVotes = async () => {
-    return {};
-    // Check if firebase already initialized
-    initFirebase();
-    const db = getFirestore();
-    const votesCol = db.collection('tags');
-    const voteSnapshot = await votesCol.get();
-    const voteList: Record<string, any> = {};
-    voteSnapshot.docs.forEach((doc) => {
-        voteList[doc.id] = {
-            ...doc.data(),
+    try {
+        // Return cached data if available and not expired
+        if (votesCache && Date.now() - votesCache.timestamp < CACHE_TTL) {
+            return votesCache.data;
+        }
+
+        // Check if firebase already initialized
+        initFirebase();
+        const db = getFirestore();
+        const votesCol = db.collection('tags');
+        const voteSnapshot = await votesCol.get();
+        const voteList: Record<string, any> = {};
+        voteSnapshot.docs.forEach((doc) => {
+            voteList[doc.id] = {
+                ...doc.data(),
+            };
+        });
+
+        // Update cache
+        votesCache = {
+            data: voteList,
+            timestamp: Date.now(),
         };
-    });
-    return voteList;
+
+        return voteList;
+    } catch (e) {
+        console.error(e);
+        return {};
+    }
 };
+// Cache tool votes data in memory with 30 minute expiry
+const toolVotesCache: {
+    [key: string]: {
+        data: {
+            id: string;
+            sum: number;
+            upVotes: number;
+            downVotes: number;
+        };
+        timestamp: number;
+    };
+} = {};
 
 export const getDBToolVotes = async (toolId: string) => {
-    return {};
-    const key = `${PREFIX}${toolId}`;
+    try {
+        const key = `${PREFIX}${toolId}`;
 
-    // Check if firebase already initialized
-    initFirebase();
-    const db = getFirestore();
-    const toolVotesDoc = db.collection('tags').doc(key);
-    const voteDoc = await toolVotesDoc.get();
-    const voteData = voteDoc.data();
-    return {
-        id: voteDoc.id,
-        sum: voteData?.sum || 0,
-        upVotes: voteData?.upVotes || 0,
-        downVotes: voteData?.downVotes || 0,
-    };
+        // Return cached data if available and not expired
+        if (
+            toolVotesCache[key] &&
+            Date.now() - toolVotesCache[key].timestamp < CACHE_TTL
+        ) {
+            return toolVotesCache[key].data;
+        }
+
+        // Check if firebase already initialized
+        initFirebase();
+        const db = getFirestore();
+        const toolVotesDoc = db.collection('tags').doc(key);
+        const voteDoc = await toolVotesDoc.get();
+        const voteData = voteDoc.data();
+
+        const data = {
+            id: voteDoc.id,
+            sum: voteData?.sum || 0,
+            upVotes: voteData?.upVotes || 0,
+            downVotes: voteData?.downVotes || 0,
+        };
+
+        // Update cache
+        toolVotesCache[key] = {
+            data,
+            timestamp: Date.now(),
+        };
+
+        return data;
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
 };
 
 export async function getVotes() {
@@ -116,22 +172,25 @@ export const publishVote = async (
     vote: VoteAction,
 ) => {
     const key = `${PREFIX}${toolId}`;
-    return;
 
-    // Check if firebase already initialized
-    initFirebase();
-    const db = getFirestore();
-    const toolVotesDoc = db.collection('tags').doc(key);
+    try {
+        // Check if firebase already initialized
+        initFirebase();
+        const db = getFirestore();
+        const toolVotesDoc = db.collection('tags').doc(key);
 
-    const hashedIP = hashIP(ip);
-    return await toolVotesDoc
-        .collection('votes')
-        .doc(hashedIP)
-        .set({
-            date: new Date(),
-            ip: hashedIP,
-            type: vote === 1 ? VoteType.Up : VoteType.Down,
-        });
+        const hashedIP = hashIP(ip);
+        return await toolVotesDoc
+            .collection('votes')
+            .doc(hashedIP)
+            .set({
+                date: new Date(),
+                ip: hashedIP,
+                type: vote === 1 ? VoteType.Up : VoteType.Down,
+            });
+    } catch (e) {
+        console.error(e);
+    }
 };
 
 export const recalculateToolVotes = async (toolId: string) => {
@@ -139,33 +198,36 @@ export const recalculateToolVotes = async (toolId: string) => {
 
     let upVotes = 0;
     let downVotes = 0;
-    return;
 
-    // Check if firebase already initialized
-    initFirebase();
-    const db = getFirestore();
-    const toolVotesDoc = db.collection('tags').doc(key);
+    try {
+        // Check if firebase already initialized
+        initFirebase();
+        const db = getFirestore();
+        const toolVotesDoc = db.collection('tags').doc(key);
 
-    const allVotesSnapshot = await toolVotesDoc.collection('votes').get();
-    allVotesSnapshot.forEach((voteDoc) => {
-        const v = voteDoc.data() as Vote;
-        switch (v.type) {
-            case VoteType.Up:
-                upVotes++;
-                break;
-            case VoteType.Down:
-                downVotes++;
-                break;
+        const allVotesSnapshot = await toolVotesDoc.collection('votes').get();
+        allVotesSnapshot.forEach((voteDoc) => {
+            const v = voteDoc.data() as Vote;
+            switch (v.type) {
+                case VoteType.Up:
+                    upVotes++;
+                    break;
+                case VoteType.Down:
+                    downVotes++;
+                    break;
 
-            default:
-                throw new Error(`Unknown vote type ${v.type}`);
-        }
-    });
-    await toolVotesDoc.set({
-        upVotes,
-        downVotes,
-        sum: upVotes - downVotes,
-    });
+                default:
+                    throw new Error(`Unknown vote type ${v.type}`);
+            }
+        });
+        await toolVotesDoc.set({
+            upVotes,
+            downVotes,
+            sum: upVotes - downVotes,
+        });
+    } catch (e) {
+        console.error(e);
+    }
 };
 
 export const hashIP = (ip: string) => {
