@@ -77,7 +77,9 @@ const AutocompleteSearch: FC = () => {
             indexName="tools"
             searchFunction={handleSearch}>
             <div className="autocomplete-search">
-                <Configure hitsPerPage={10} typoTolerance={true} />
+                <Configure
+                    {...({ hitsPerPage: 10, typoTolerance: true } as any)}
+                />
                 <SearchBox
                     placeholder="Find analysis tools, formatters, linters.."
                     onFocus={handleShowResults}

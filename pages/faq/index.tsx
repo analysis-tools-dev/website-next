@@ -3,7 +3,7 @@ import type { GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SingleFAQ } from '@components/core';
 import { Card, Main, Panel, Wrapper } from '@components/layout';
 import { SponsorSidebar } from '@components/sponsors';
-import { ArticlePreview, Faq } from 'utils/types';
+import type { ArticlePreview, Faq } from 'utils/types';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getFaq } from 'utils-api/faq';
 import { PanelHeader } from '@components/elements';

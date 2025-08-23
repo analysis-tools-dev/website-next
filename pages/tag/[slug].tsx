@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     // Capitalize the first letter of the tag
     let tagName = slug.charAt(0).toUpperCase() + slug.slice(1);
-    if (tagData.name) {
+    if ('name' in tagData && tagData.name) {
         // We can use a more descriptive name if it exists
         tagName = tagData.name;
     }
