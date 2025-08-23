@@ -20,7 +20,7 @@ import { FilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard
 import { getArticlesPreviews } from 'utils-api/blog';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const sponsors = await getSponsors();
+    const sponsors = getSponsors();
     const articles = await getArticlesPreviews();
     const { data: languages = [] } = await fetchLanguages();
     const { data: others = [] } = await fetchOthers();

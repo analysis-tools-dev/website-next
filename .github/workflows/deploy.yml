@@ -15,12 +15,41 @@ permissions:
     id-token: 'write'
 
 concurrency:
-    # Only one execution of this workflow can run at the same time.
-    group: ${{ github.workflow }}
+    # Only one execution per branch/PR can run at the same time.
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
-    deploy:
+    test:
+        if: github.event_name == 'pull_request'
         runs-on: ubuntu-latest
+        env:
+            NEXT_TELEMETRY_DISABLED: 1
+            CI: true
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run linting
+              run: npm run lint
+
+            - name: Build project
+              run: npm run build
+
+    deploy:
+        if: github.event_name != 'pull_request'
+        runs-on: ubuntu-latest
+        env:
+            NEXT_TELEMETRY_DISABLED: 1
+            CI: true
         steps:
             - uses: actions/checkout@v4
 
@@ -32,6 +61,21 @@ jobs:
 
             - name: 'Set up Cloud SDK'
               uses: 'google-github-actions/setup-gcloud@v2'
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run linting
+              run: npm run lint
+
+            - name: Build project
+              run: npm run build
 
             - name: 'Configure Docker'
               run: gcloud auth configure-docker us-central1-docker.pkg.dev
@@ -70,7 +114,6 @@ jobs:
             - name: 'Build Docker Image'
               env:
                   GH_TOKEN: ${{ steps.generate_token.outputs.token }}
-                  NEXT_TELEMETRY_DISABLED: 1
               run: |
                   echo ${{ secrets.FIREBASE_TOKEN }} | base64 -d > ./credentials.json
                   echo "Building Docker Image with tag $IMAGE_NAME"
@@ -112,11 +155,7 @@ jobs:
                   stack-name: prod
                   refresh: true
 
-            - uses: actions/setup-node@v4
-              if: github.ref == 'refs/heads/main'
-              with:
-                  node-version: 20
-                  cache: 'npm'
+            # Node.js is already set up earlier in the workflow
 
             - name: 'Update Algolia index'
               if: github.ref == 'refs/heads/main'
@@ -125,5 +164,4 @@ jobs:
                   ALGOLIA_ADMIN_KEY: '${{ secrets.ALGOLIA_ADMIN_KEY }}'
                   ALGOLIA_INDEX_NAME: 'tools'
               run: |
-                  npm install
                   npm run search-index
