@@ -62,7 +62,7 @@ const ListComponent: FC<ListComponentProps> = ({
 
     // Handle infinite scroll element intersection
     const handleObserver = useCallback(
-        (entries: any) => {
+        (entries: IntersectionObserverEntry[]) => {
             const [target] = entries;
             if (target.isIntersecting && hasNextPage) {
                 fetchNextPage();

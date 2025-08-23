@@ -25,8 +25,12 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
         setShowAllTags((prevShowAllTags) => !prevShowAllTags);
     };
 
-    const handleClick = (event: any, tagType: TagTypes) => {
-        const tag = event?.target.innerText;
+    const handleClick = (
+        event: React.MouseEvent<HTMLElement>,
+        tagType: TagTypes,
+    ) => {
+        const target = event?.target as HTMLElement;
+        const tag = target.innerText;
 
         let currValue = search[tagType] || [];
         if (!Array.isArray(currValue)) {

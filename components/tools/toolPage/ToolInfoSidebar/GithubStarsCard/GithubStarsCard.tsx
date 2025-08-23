@@ -13,6 +13,7 @@ import {
     Filler,
     Title,
     Tooltip,
+    ScriptableContext,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Tool } from '@components/tools/types';
@@ -71,7 +72,7 @@ const GithubStarsCard: FC<GithubStarsCardProps> = ({ tool }) => {
                 pointBackgroundColor: 'white',
                 borderWidth: 1,
                 pointBorderColor: 'white',
-                backgroundColor: (context: any) => {
+                backgroundColor: (context: ScriptableContext<'line'>) => {
                     const ctx = context.chart.ctx;
                     const gradient = ctx.createLinearGradient(0, 0, 0, 450);
                     gradient.addColorStop(0, 'rgba(0, 231, 255, 0.5)');

@@ -11,15 +11,18 @@ export const isChecked = (key: string, value: string, search: SearchState) => {
     return search[searchFilter]?.includes(value) ? true : false;
 };
 
-export const resetQuery = (search: SearchState, setSearch: any) => (e: any) => {
-    const key = e.target.dataset.filter as SearchFilter;
+export const resetQuery =
+    (search: SearchState, setSearch: (state: SearchState) => void) =>
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+        const target = e.target as HTMLButtonElement;
+        const key = target.dataset.filter as SearchFilter;
 
-    if (search[key]) {
-        delete search[key];
-    }
+        if (search[key]) {
+            delete search[key];
+        }
 
-    setSearch({ ...search });
-};
+        setSearch({ ...search });
+    };
 
 export const sortByChecked = (filter: string, search: SearchState) => {
     return (a: FilterOption, b: FilterOption) => {

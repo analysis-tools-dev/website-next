@@ -50,14 +50,6 @@ const MobileFilters: FC = () => {
         setModelOpen(false);
     };
 
-    const changeSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const sorting = e.target.value;
-        setState({
-            ...state,
-            sorting,
-        });
-    };
-
     return (
         <>
             <div className={styles.mobileFilterForm}>

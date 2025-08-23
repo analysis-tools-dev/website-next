@@ -34,9 +34,10 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
         : 'Multi-Language';
 
     // Route to tool page
-    const handleElementClick = (e: any) => {
+    const handleElementClick = (e: React.MouseEvent<HTMLDivElement>) => {
         // Check element click by class name
-        if (CLICKOUT_CLASSES.includes(e.target.className)) {
+        const target = e.target as HTMLElement;
+        if (CLICKOUT_CLASSES.includes(target.className)) {
             e.stopPropagation();
             router.push(`/tool/${tool.id}`);
             return;
