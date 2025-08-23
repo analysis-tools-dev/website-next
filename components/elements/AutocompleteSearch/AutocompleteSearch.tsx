@@ -1,4 +1,4 @@
-import { FC, useState, FocusEvent } from 'react';
+import { FC, useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -6,20 +6,18 @@ import {
     Highlight,
     Hits,
     InstantSearch,
-    SearchBox,
-} from 'react-instantsearch-hooks-web';
-import type { Hit } from 'instantsearch.js';
+    useSearchBox,
+} from 'react-instantsearch';
+import type { Hit, BaseHit } from 'instantsearch.js';
 import { Card } from '@components/layout';
 import classNames from 'classnames';
-import { AlgoliaSearchHelper } from 'algoliasearch-helper';
-import { useDocumentEvent } from 'hooks';
 
 const searchClient = algoliasearch(
     'V0X7Z4KE9D',
     '544bec33383dc791bcbca3e1ceaec11b',
 );
 
-interface ToolHit extends Hit {
+interface ToolHit extends Hit<BaseHit> {
     fields: {
         slug: string;
         name: string;
@@ -39,57 +37,67 @@ const Hit = (result: SearchResult) => {
     );
 };
 
-const AutocompleteSearch: FC = () => {
-    const [showResults, setShow] = useState(false);
-
-    const handleShowResults = (e: FocusEvent<HTMLInputElement>) => {
-        if (!!e.target.value) {
-            setShow(true);
-        }
-    };
-
-    const handleSearch = (e: AlgoliaSearchHelper) => {
-        const shouldShow =
-            e.state.query && e.state.query.length > 0 ? true : false;
-        setShow(shouldShow);
-        if (shouldShow) {
-            e.search();
-        }
-    };
-
-    const handleHideDropdown = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
-            setShow(false);
-        }
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-        const composedPath = event.composedPath?.() || [];
-        const hasSearchContainer = composedPath.some(
-            (el) => (el as Element).className === 'autocomplete-search',
-        );
-        if (!hasSearchContainer) {
-            setShow(false);
-        }
-    };
-
-    useDocumentEvent([
-        { type: 'click', callback: handleClickOutside },
-        { type: 'keydown', callback: handleHideDropdown },
-    ]);
+const CustomSearchBox: FC<{
+    onFocus: () => void;
+    onChange: (query: string) => void;
+}> = ({ onFocus, onChange }) => {
+    const { query, refine } = useSearchBox();
 
     return (
-        <InstantSearch
-            searchClient={searchClient}
-            indexName="tools"
-            searchFunction={handleSearch}>
-            <div className="autocomplete-search">
+        <div className="ais-SearchBox">
+            <input
+                type="search"
+                placeholder="Find analysis tools, formatters, linters.."
+                value={query}
+                onFocus={onFocus}
+                onChange={(e) => {
+                    refine(e.target.value);
+                    onChange(e.target.value);
+                }}
+                className="ais-SearchBox-input"
+            />
+        </div>
+    );
+};
+
+const AutocompleteSearch: FC = () => {
+    const [showResults, setShowResults] = useState(false);
+    const searchRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                searchRef.current &&
+                !searchRef.current.contains(event.target as Node)
+            ) {
+                setShowResults(false);
+            }
+        };
+
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setShowResults(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleEscape);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleEscape);
+        };
+    }, []);
+
+    return (
+        <InstantSearch searchClient={searchClient} indexName="tools">
+            <div className="autocomplete-search" ref={searchRef}>
                 <Configure
                     {...({ hitsPerPage: 10, typoTolerance: true } as any)}
                 />
-                <SearchBox
-                    placeholder="Find analysis tools, formatters, linters.."
-                    onFocus={handleShowResults}
+                <CustomSearchBox
+                    onFocus={() => setShowResults(true)}
+                    onChange={(query) => setShowResults(query.length > 0)}
                 />
                 <div className="relative">
                     <Card
