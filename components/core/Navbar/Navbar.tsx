@@ -14,8 +14,11 @@ const Navbar: FC = () => {
     useEffect(() => {
         // only add the event listener when the dropdown is opened
         if (!isMenuOpen) return;
-        function handleClick(event: any) {
-            if (dropdown.current && !dropdown.current.contains(event.target)) {
+        function handleClick(event: MouseEvent) {
+            if (
+                dropdown.current &&
+                !dropdown.current.contains(event.target as Node)
+            ) {
                 setIsMenuOpen(false);
             }
         }

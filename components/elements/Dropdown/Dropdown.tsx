@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from 'react';
 import styles from './Dropdown.module.css';
 
 interface DropdownProps {
-    changeSort: (searchState: any) => void;
+    changeSort: React.ChangeEventHandler<HTMLSelectElement>;
     className?: string;
 }
 

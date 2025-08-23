@@ -1,17 +1,21 @@
 import { FC } from 'react';
 import styles from './MobileFilter.module.css';
 import 'react-select-search/style.css';
-import SelectSearch, { SelectedOptionValue } from 'react-select-search';
+import SelectSearch, {
+    SelectedOptionValue,
+    SelectSearchOption,
+} from 'react-select-search';
 import { Button, PanelHeader } from '@components/elements';
 import classNames from 'classnames';
+import { SearchState, SearchFilter } from 'context/SearchProvider';
 
 export interface MobileFilterProps {
     id: string;
     label: string;
-    options: any;
+    options: SelectSearchOption[];
     placeholder: string;
-    state: any;
-    setState: any;
+    state: SearchState;
+    setState: (state: SearchState) => void;
     topList?: boolean;
 }
 
@@ -26,11 +30,11 @@ const MobileFilter: FC<MobileFilterProps> = ({
 }) => {
     const onChange = (value: SelectedOptionValue | SelectedOptionValue[]) => {
         const newValue = Array.isArray(value) ? value : [value];
-        setState({ ...state, [id]: newValue });
+        setState({ ...state, [id as SearchFilter]: newValue });
     };
 
     const clear = () => {
-        setState({ ...state, [id]: [] });
+        setState({ ...state, [id as SearchFilter]: [] });
     };
 
     return (
@@ -45,7 +49,7 @@ const MobileFilter: FC<MobileFilterProps> = ({
             </PanelHeader>
             <SelectSearch
                 options={options}
-                value={state[id] || ''}
+                value={state[id as SearchFilter] || ''}
                 id={id}
                 search={true}
                 onChange={onChange}

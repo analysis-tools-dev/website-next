@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, FocusEvent } from 'react';
 import Link from 'next/link';
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -8,6 +8,7 @@ import {
     InstantSearch,
     SearchBox,
 } from 'react-instantsearch-hooks-web';
+import type { Hit } from 'instantsearch.js';
 import { Card } from '@components/layout';
 import classNames from 'classnames';
 import { AlgoliaSearchHelper } from 'algoliasearch-helper';
@@ -18,9 +19,16 @@ const searchClient = algoliasearch(
     '544bec33383dc791bcbca3e1ceaec11b',
 );
 
+interface ToolHit extends Hit {
+    fields: {
+        slug: string;
+        name: string;
+    };
+}
+
 interface SearchResult {
-    hit: any;
-    sendEvent: any;
+    hit: ToolHit;
+    sendEvent: (eventType: string, hit: ToolHit, eventName?: string) => void;
 }
 
 const Hit = (result: SearchResult) => {
@@ -34,7 +42,7 @@ const Hit = (result: SearchResult) => {
 const AutocompleteSearch: FC = () => {
     const [showResults, setShow] = useState(false);
 
-    const handleShowResults = (e: any) => {
+    const handleShowResults = (e: FocusEvent<HTMLInputElement>) => {
         if (!!e.target.value) {
             setShow(true);
         }
@@ -55,13 +63,12 @@ const AutocompleteSearch: FC = () => {
         }
     };
 
-    const handleClickOutside = (event: any) => {
-        if (
-            event.path &&
-            !event.path.find(
-                (el: any) => el.className === 'autocomplete-search',
-            )
-        ) {
+    const handleClickOutside = (event: MouseEvent) => {
+        const composedPath = event.composedPath?.() || [];
+        const hasSearchContainer = composedPath.some(
+            (el) => (el as Element).className === 'autocomplete-search',
+        );
+        if (!hasSearchContainer) {
             setShow(false);
         }
     };
