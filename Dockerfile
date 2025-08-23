@@ -2,7 +2,7 @@ FROM node:20 as build
 WORKDIR /src
 
 COPY package.json package-lock.json /src/
-RUN npm install
+RUN npm ci
 
 ENV GOOGLE_APPLICATION_CREDENTIALS=/src/credentials.json
 ENV FIREBASE_PROJECT_ID=analysis-tools-dev
