@@ -1,18 +1,24 @@
 import { FC } from 'react';
 import styles from './MobileFilter.module.css';
-import 'react-select-search/style.css';
-import SelectSearch, {
-    SelectedOptionValue,
-    SelectSearchOption,
-} from 'react-select-search';
+import Select, { MultiValue } from 'react-select';
 import { Button, PanelHeader } from '@components/elements';
 import classNames from 'classnames';
 import { SearchState, SearchFilter } from 'context/SearchProvider';
 
+interface Option {
+    value: string;
+    label: string;
+}
+
+interface InputOption {
+    value: string;
+    name: string;
+}
+
 export interface MobileFilterProps {
     id: string;
     label: string;
-    options: SelectSearchOption[];
+    options: InputOption[];
     placeholder: string;
     state: SearchState;
     setState: (state: SearchState) => void;
@@ -28,9 +34,13 @@ const MobileFilter: FC<MobileFilterProps> = ({
     setState,
     topList,
 }) => {
-    const onChange = (value: SelectedOptionValue | SelectedOptionValue[]) => {
-        const newValue = Array.isArray(value) ? value : [value];
-        setState({ ...state, [id as SearchFilter]: newValue });
+    const selectOptions: Option[] = options.map((opt) => ({
+        value: opt.value,
+        label: opt.name,
+    }));
+    const onChange = (selectedOptions: MultiValue<Option>) => {
+        const values = selectedOptions.map((option) => option.value);
+        setState({ ...state, [id as SearchFilter]: values });
     };
 
     const clear = () => {
@@ -47,13 +57,43 @@ const MobileFilter: FC<MobileFilterProps> = ({
                     Clear
                 </Button>
             </PanelHeader>
-            <SelectSearch
-                options={options}
-                value={state[id as SearchFilter] || ''}
-                id={id}
-                search={true}
+            <Select
+                options={selectOptions}
+                value={selectOptions.filter((option) =>
+                    (state[id as SearchFilter] || []).includes(option.value),
+                )}
+                isMulti
+                isSearchable
                 onChange={onChange}
                 placeholder={placeholder}
+                styles={{
+                    control: (base) => ({
+                        ...base,
+                        backgroundColor: '#0a1a29',
+                        borderColor: '#486a8b',
+                        color: '#ffffff',
+                        fontSize: '16px',
+                    }),
+                    menu: (base) => ({
+                        ...base,
+                        backgroundColor: '#0a1a29',
+                    }),
+                    option: (base, state) => ({
+                        ...base,
+                        backgroundColor: state.isFocused
+                            ? '#486a8b'
+                            : '#0a1a29',
+                        color: '#ffffff',
+                    }),
+                    multiValue: (base) => ({
+                        ...base,
+                        backgroundColor: '#486a8b',
+                    }),
+                    multiValueLabel: (base) => ({
+                        ...base,
+                        color: '#ffffff',
+                    }),
+                }}
             />
         </div>
     );

@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import classNames from 'classnames';
 import { Button, PanelHeader } from '@components/elements';
 import styles from './MobileFilters.module.css';
-import 'react-select-search/style.css';
 import { useLanguagesQuery } from '@components/tools/queries';
 import { useSearchState } from 'context/SearchProvider';
 import MobileFilter from './MobileFilter/MobileFilter';
