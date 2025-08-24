@@ -92,9 +92,7 @@ const AutocompleteSearch: FC = () => {
     return (
         <InstantSearch searchClient={searchClient} indexName="tools">
             <div className="autocomplete-search" ref={searchRef}>
-                <Configure
-                    {...({ hitsPerPage: 10, typoTolerance: true } as any)}
-                />
+                <Configure hitsPerPage={10} typoTolerance={true} />
                 <CustomSearchBox
                     onFocus={() => setShowResults(true)}
                     onChange={(query) => setShowResults(query.length > 0)}
