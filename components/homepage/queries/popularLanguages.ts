@@ -1,4 +1,4 @@
-import { type QueryClient, useQuery } from 'react-query';
+import { type QueryClient, useQuery } from '@tanstack/react-query';
 import { APIPaths, getApiURL } from 'utils/urls';
 import { type ToolsByLanguage } from '@components/tools';
 import { type APIResponseType } from 'utils/types';
@@ -18,10 +18,10 @@ export const POPULAR_LANGUAGES_PREFETCH_KEY = 'popularLanguages';
  * @see https://react-query.tanstack.com/guides/prefetching#_top
  */
 export async function prefetchPopularLanguages(queryClient: QueryClient) {
-    return await queryClient.prefetchQuery(
-        POPULAR_LANGUAGES_PREFETCH_KEY,
-        fetchPopularLanguages,
-    );
+    return await queryClient.prefetchQuery({
+        queryKey: [POPULAR_LANGUAGES_PREFETCH_KEY],
+        queryFn: fetchPopularLanguages,
+    });
 }
 
 /**
@@ -30,7 +30,10 @@ export async function prefetchPopularLanguages(queryClient: QueryClient) {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function usePopularLanguagesQuery() {
-    return useQuery(POPULAR_LANGUAGES_PREFETCH_KEY, fetchPopularLanguages);
+    return useQuery({
+        queryKey: [POPULAR_LANGUAGES_PREFETCH_KEY],
+        queryFn: fetchPopularLanguages,
+    });
 }
 
 /**
@@ -39,7 +42,9 @@ export function usePopularLanguagesQuery() {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function usePopularLanguagesQueryCount() {
-    return useQuery(POPULAR_LANGUAGES_PREFETCH_KEY, fetchPopularLanguages, {
+    return useQuery({
+        queryKey: [POPULAR_LANGUAGES_PREFETCH_KEY],
+        queryFn: fetchPopularLanguages,
         select: ({ data }) => Object.keys(data).length,
     });
 }

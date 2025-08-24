@@ -1,4 +1,4 @@
-import { type QueryClient, useQuery } from 'react-query';
+import { type QueryClient, useQuery } from '@tanstack/react-query';
 import { type APIResponseType, type Article } from 'utils/types';
 import { APIPaths, getApiURL } from 'utils/urls';
 
@@ -17,10 +17,10 @@ export const ARTICLES_PREFETCH_KEY = 'articles';
  * @see https://react-query.tanstack.com/guides/prefetching#_top
  */
 export async function prefetchArticles(queryClient: QueryClient) {
-    return await queryClient.prefetchQuery(
-        ARTICLES_PREFETCH_KEY,
-        fetchArticles,
-    );
+    return await queryClient.prefetchQuery({
+        queryKey: [ARTICLES_PREFETCH_KEY],
+        queryFn: fetchArticles,
+    });
 }
 
 /**
@@ -29,7 +29,10 @@ export async function prefetchArticles(queryClient: QueryClient) {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useArticlesQuery() {
-    return useQuery(ARTICLES_PREFETCH_KEY, fetchArticles);
+    return useQuery({
+        queryKey: [ARTICLES_PREFETCH_KEY],
+        queryFn: fetchArticles,
+    });
 }
 
 /**
@@ -38,7 +41,9 @@ export function useArticlesQuery() {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useArticleQueryCount() {
-    return useQuery(ARTICLES_PREFETCH_KEY, fetchArticles, {
+    return useQuery({
+        queryKey: [ARTICLES_PREFETCH_KEY],
+        queryFn: fetchArticles,
         select: ({ data }) => data.length,
     });
 }

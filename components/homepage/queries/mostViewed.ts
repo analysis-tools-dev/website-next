@@ -1,4 +1,4 @@
-import { QueryClient, useQuery } from 'react-query';
+import { QueryClient, useQuery } from '@tanstack/react-query';
 import { APIPaths, getApiURL } from 'utils/urls';
 import { type Tool } from '@components/tools';
 import { type APIResponseType } from 'utils/types';
@@ -18,10 +18,10 @@ export const MOST_VIEWED_PREFETCH_KEY = 'mostViewed';
  * @see https://react-query.tanstack.com/guides/prefetching#_top
  */
 export async function prefetchMostViewed(queryClient: QueryClient) {
-    return await queryClient.prefetchQuery(
-        MOST_VIEWED_PREFETCH_KEY,
-        fetchMostViewed,
-    );
+    return await queryClient.prefetchQuery({
+        queryKey: [MOST_VIEWED_PREFETCH_KEY],
+        queryFn: fetchMostViewed,
+    });
 }
 
 /**
@@ -30,7 +30,10 @@ export async function prefetchMostViewed(queryClient: QueryClient) {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useMostViewedQuery() {
-    return useQuery(MOST_VIEWED_PREFETCH_KEY, fetchMostViewed);
+    return useQuery({
+        queryKey: [MOST_VIEWED_PREFETCH_KEY],
+        queryFn: fetchMostViewed,
+    });
 }
 
 /**
@@ -39,7 +42,9 @@ export function useMostViewedQuery() {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useMostViewedQueryCount() {
-    return useQuery(MOST_VIEWED_PREFETCH_KEY, fetchMostViewed, {
+    return useQuery({
+        queryKey: [MOST_VIEWED_PREFETCH_KEY],
+        queryFn: fetchMostViewed,
         select: ({ data }) => data.length,
     });
 }

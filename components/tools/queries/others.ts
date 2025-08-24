@@ -1,4 +1,4 @@
-import { type QueryClient, useQuery } from 'react-query';
+import { type QueryClient, useQuery } from '@tanstack/react-query';
 import { type APIResponseType, type ApiTag } from 'utils/types';
 import { APIPaths, getApiURL } from 'utils/urls';
 
@@ -17,7 +17,10 @@ export const OTHERS_PREFETCH_KEY = 'others';
  * @see https://react-query.tanstack.com/guides/prefetching#_top
  */
 export async function prefetchOthers(queryClient: QueryClient) {
-    return await queryClient.prefetchQuery(OTHERS_PREFETCH_KEY, fetchOthers);
+    return await queryClient.prefetchQuery({
+        queryKey: [OTHERS_PREFETCH_KEY],
+        queryFn: fetchOthers,
+    });
 }
 
 /**
@@ -26,7 +29,10 @@ export async function prefetchOthers(queryClient: QueryClient) {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useOthersQuery() {
-    return useQuery(OTHERS_PREFETCH_KEY, fetchOthers);
+    return useQuery({
+        queryKey: [OTHERS_PREFETCH_KEY],
+        queryFn: fetchOthers,
+    });
 }
 
 /**
@@ -35,7 +41,9 @@ export function useOthersQuery() {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useOtherQueryCount() {
-    return useQuery(OTHERS_PREFETCH_KEY, fetchOthers, {
+    return useQuery({
+        queryKey: [OTHERS_PREFETCH_KEY],
+        queryFn: fetchOthers,
         select: ({ data }) => data.length,
     });
 }

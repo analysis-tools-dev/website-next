@@ -9,7 +9,7 @@ import { MobileFilters, Tool, ToolCard, ToolsSidebar } from '@components/tools';
 import { useSearchState } from 'context/SearchProvider';
 import { useRouterPush } from 'hooks';
 import { FC, useCallback, useEffect, useRef } from 'react';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { objectToQueryString } from 'utils/query';
 import { type ArticlePreview } from 'utils/types';
 import { FilterOption } from '../ToolsSidebar/FilterCard/FilterCard';
@@ -55,6 +55,7 @@ const ListComponent: FC<ListComponentProps> = ({
     } = useInfiniteQuery({
         queryKey: ['paginated-tools'],
         queryFn: fetchTools,
+        initialPageParam: 0,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
     });
 

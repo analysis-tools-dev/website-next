@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { GetServerSideProps } from 'next';
-import { dehydrate, QueryClient } from 'react-query';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { SearchProvider } from 'context/SearchProvider';
 
 import { Footer, MainHead, Navbar, SponsorBanner } from '@components/core';

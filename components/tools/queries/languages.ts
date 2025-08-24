@@ -1,4 +1,4 @@
-import { type QueryClient, useQuery } from 'react-query';
+import { type QueryClient, useQuery } from '@tanstack/react-query';
 import { type APIResponseType, type ApiTag } from 'utils/types';
 import { APIPaths, getApiURL } from 'utils/urls';
 
@@ -17,10 +17,10 @@ export const LANGUAGES_PREFETCH_KEY = 'languages';
  * @see https://react-query.tanstack.com/guides/prefetching#_top
  */
 export async function prefetchLanguages(queryClient: QueryClient) {
-    return await queryClient.prefetchQuery(
-        LANGUAGES_PREFETCH_KEY,
-        fetchLanguages,
-    );
+    return await queryClient.prefetchQuery({
+        queryKey: [LANGUAGES_PREFETCH_KEY],
+        queryFn: fetchLanguages,
+    });
 }
 
 /**
@@ -29,7 +29,10 @@ export async function prefetchLanguages(queryClient: QueryClient) {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useLanguagesQuery() {
-    return useQuery(LANGUAGES_PREFETCH_KEY, fetchLanguages);
+    return useQuery({
+        queryKey: [LANGUAGES_PREFETCH_KEY],
+        queryFn: fetchLanguages,
+    });
 }
 
 /**
@@ -38,7 +41,9 @@ export function useLanguagesQuery() {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useLanguageQueryCount() {
-    return useQuery(LANGUAGES_PREFETCH_KEY, fetchLanguages, {
+    return useQuery({
+        queryKey: [LANGUAGES_PREFETCH_KEY],
+        queryFn: fetchLanguages,
         select: ({ data }) => data.length,
     });
 }

@@ -1,4 +1,4 @@
-import { QueryClient, useQuery } from 'react-query';
+import { QueryClient, useQuery } from '@tanstack/react-query';
 import { VotesData } from 'utils-api/votes';
 import { APIResponseType } from 'utils/types';
 import { APIPaths, getApiURL } from 'utils/urls';
@@ -15,9 +15,10 @@ export async function prefetchToolVotes(
     queryClient: QueryClient,
     toolId: string,
 ) {
-    return await queryClient.prefetchQuery(`votes-${toolId}`, () =>
-        fetchToolVotesData(toolId),
-    );
+    return await queryClient.prefetchQuery({
+        queryKey: [`votes-${toolId}`],
+        queryFn: () => fetchToolVotesData(toolId),
+    });
 }
 
 /**
@@ -26,7 +27,10 @@ export async function prefetchToolVotes(
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useToolVotesQuery(toolId: string) {
-    return useQuery(`votes-${toolId}`, () => fetchToolVotesData(toolId));
+    return useQuery({
+        queryKey: [`votes-${toolId}`],
+        queryFn: () => fetchToolVotesData(toolId),
+    });
 }
 
 /**

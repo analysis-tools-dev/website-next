@@ -1,4 +1,4 @@
-import { QueryClient, useQuery } from 'react-query';
+import { QueryClient, useQuery } from '@tanstack/react-query';
 import { type SearchState } from 'context/SearchProvider';
 import { type ParsedUrlQuery } from 'querystring';
 import { getToolsApiURL } from 'utils/urls';
@@ -25,9 +25,10 @@ export async function prefetchTools(
     queryClient: QueryClient,
     query?: ParsedUrlQuery,
 ) {
-    return await queryClient.prefetchQuery(TOOLS_PREFETCH_KEY, () =>
-        fetchToolsDataFromQuery(query),
-    );
+    return await queryClient.prefetchQuery({
+        queryKey: [TOOLS_PREFETCH_KEY],
+        queryFn: () => fetchToolsDataFromQuery(query),
+    });
 }
 
 /**
@@ -38,7 +39,10 @@ export async function prefetchTools(
  */
 export function useToolsQuery(search: SearchState) {
     // FIXME: Key should contain some SearchState data to avoid cache issues
-    return useQuery(TOOLS_PREFETCH_KEY, () => fetchToolsDataFromSearch(search));
+    return useQuery({
+        queryKey: [TOOLS_PREFETCH_KEY],
+        queryFn: () => fetchToolsDataFromSearch(search),
+    });
 }
 
 /**
@@ -48,13 +52,11 @@ export function useToolsQuery(search: SearchState) {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useToolsQueryCount(search: SearchState) {
-    return useQuery(
-        TOOLS_PREFETCH_KEY,
-        () => fetchToolsDataFromSearch(search),
-        {
-            select: ({ data }) => data.length,
-        },
-    );
+    return useQuery({
+        queryKey: [TOOLS_PREFETCH_KEY],
+        queryFn: () => fetchToolsDataFromSearch(search),
+        select: ({ data }) => data.length,
+    });
 }
 
 /**
@@ -66,9 +68,10 @@ export function useToolsQueryCount(search: SearchState) {
 export function useAlternativeToolsQuery(search: SearchState) {
     //TODO: Filter out current Tool
     // FIXME: Key should contain some SearchState data to avoid cache issues
-    return useQuery(ALTERNATE_TOOLS_PREFETCH_KEY, () =>
-        fetchToolsDataFromSearch(search),
-    );
+    return useQuery({
+        queryKey: [ALTERNATE_TOOLS_PREFETCH_KEY],
+        queryFn: () => fetchToolsDataFromSearch(search),
+    });
 }
 
 /**
