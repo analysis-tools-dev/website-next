@@ -2,11 +2,11 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import React from 'react';
 import {
-    Hydrate,
+    HydrationBoundary,
     QueryClient,
     QueryClientProvider,
     type DehydratedState,
-} from 'react-query';
+} from '@tanstack/react-query';
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
 import '../styles/globals.css';
 
@@ -26,9 +26,9 @@ const MyApp: React.FC<AppProps<{ dehydratedState: DehydratedState }>> = ({
                     content="width=device-width, initial-scale=1.0"
                 />
             </Head>
-            <Hydrate state={pageProps.dehydratedState}>
+            <HydrationBoundary state={pageProps.dehydratedState}>
                 <Component {...pageProps} />
-            </Hydrate>
+            </HydrationBoundary>
         </QueryClientProvider>
     );
 };

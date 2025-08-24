@@ -1,4 +1,4 @@
-import { QueryClient, useQuery } from 'react-query';
+import { QueryClient, useQuery } from '@tanstack/react-query';
 import { APIPaths, getApiURL } from 'utils/urls';
 import { Tool } from '../types';
 import { type APIResponseType } from 'utils/types';
@@ -12,9 +12,10 @@ import { type APIResponseType } from 'utils/types';
  * @see https://react-query.tanstack.com/guides/prefetching#_top
  */
 export async function prefetchTool(queryClient: QueryClient, slug: string) {
-    return await queryClient.prefetchQuery(`tool-${slug}`, () =>
-        fetchToolData(slug),
-    );
+    return await queryClient.prefetchQuery({
+        queryKey: [`tool-${slug}`],
+        queryFn: () => fetchToolData(slug),
+    });
 }
 
 /**
@@ -23,7 +24,10 @@ export async function prefetchTool(queryClient: QueryClient, slug: string) {
  * @see https://react-query.tanstack.com/guides/queries
  */
 export function useToolQuery(slug: string) {
-    return useQuery(`tool-${slug}`, () => fetchToolData(slug));
+    return useQuery({
+        queryKey: [`tool-${slug}`],
+        queryFn: () => fetchToolData(slug),
+    });
 }
 
 /**
