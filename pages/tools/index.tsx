@@ -56,7 +56,7 @@ const ToolsPage: FC<ToolsProps> = ({
     articles,
 }) => {
     const title =
-        'Compare 600+ Linters, Static Analysis Tools And Code Formatters';
+        'Compare 700+ Linters, Static Analysis Tools And Code Formatters';
 
     const description =
         'Find the best SAST tool for your project. All CLI tools and services for JavaScript, Python, Java, C, PHP, Ruby, and more.';
