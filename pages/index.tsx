@@ -14,17 +14,21 @@ import homepageData from '@appdata/homepage.json';
 import { ArticlePreview, Faq, SponsorData } from 'utils/types';
 import { Tool, ToolsByLanguage } from '@components/tools';
 import { getArticlesPreviews } from 'utils-api/blog';
-import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
-import { getMostViewedTools } from 'utils-api/mostViewedTools';
 import { getSponsors } from 'utils-api/sponsors';
 import { getFaq } from 'utils-api/faq';
+// New static data utilities (Phase 1)
+import { getPopularLanguageStats, getMostViewedTools } from 'utils/stats';
+import { fetchVotes } from 'utils/firebase-votes';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const faq = getFaq();
     const previews = await getArticlesPreviews();
-    const popularLanguages = await getPopularLanguageStats();
-    const mostViewed = await getMostViewedTools();
+
+    // Fetch votes from Firebase and use with static data utilities
+    const votes = await fetchVotes();
+    const popularLanguages = getPopularLanguageStats(votes);
+    const mostViewed = getMostViewedTools(votes);
 
     return {
         props: {

@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { getTool, getToolIcon } from 'utils-api/tools';
 import {
     AlternativeToolsList,
     Tool,
@@ -11,26 +10,27 @@ import {
 } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
-import { getAllTools } from 'utils-api/tools';
 import { ArticlePreview, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
-import { getVotes } from 'utils-api/votes';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
 import { Comments } from '@components/core/Comments';
 import { calculateUpvotePercentage } from 'utils/votes';
+// New static data utilities (Phase 1)
+import { getAllTools, getTool, getToolIcon } from 'utils/tools';
+import { fetchVotes } from 'utils/firebase-votes';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
-    // Call an external API endpoint to get tools
-    const data = await getAllTools();
+    // Get tools from static data (no network call)
+    const data = getAllTools();
 
-    if (!data) {
+    if (!data || Object.keys(data).length === 0) {
         return { paths: [], fallback: false };
     }
 
-    // Get the paths we want to pre-render based on the tools API response
+    // Get the paths we want to pre-render based on the tools data
     const paths = Object.keys(data).map((id) => ({
         params: { slug: id },
     }));
@@ -50,7 +50,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 
-    const apiTool = await getTool(slug);
+    // Get tool from static data (no network call)
+    const apiTool = getTool(slug);
     if (!apiTool) {
         console.error(`Tool ${slug} not found. Cannot build slug page.`);
         return {
@@ -59,7 +60,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 
     const sponsors = getSponsors();
-    const votes = await getVotes();
+    // Fetch votes from Firebase (still needed for now)
+    const votes = await fetchVotes();
     const previews = await getArticlesPreviews();
     const icon = getToolIcon(slug);
 
@@ -77,7 +79,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         id: slug,
         icon: icon,
     };
-    const alternativeTools = await getAllTools();
+    // Get all tools from static data for alternatives
+    const alternativeTools = getAllTools();
     let alternatives: Tool[] = [];
     let allAlternatives: Tool[] = [];
     if (alternativeTools) {

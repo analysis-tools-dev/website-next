@@ -46,5 +46,10 @@ algolia-index.js
 
 credentials.json
 
+# Generated data files (created by npm run build-data)
+/data/tools.json
+/data/tags.json
+/data/tool-stats.json
+/data/tag-stats.json
 
 .vscode

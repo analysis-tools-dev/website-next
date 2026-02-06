@@ -11,12 +11,10 @@ ARG PROJECT_ID
 
 COPY . /src
 
-# Download tools.json directly in Dockerfile and detect changes
-# This is done to ensure that we redeploy the app whenever the tools.json changes
-ADD https://raw.githubusercontent.com/analysis-tools-dev/static-analysis/master/data/api/tools.json /src/data/api/tools.json
-
+# Build runs npm run build-data (prebuild hook) which fetches tools data
+# from GitHub repos and generates static JSON files, then runs next build
 RUN npm run build
-RUN rm /src/credentials.json /src/data/api/tools.json
+RUN rm /src/credentials.json
 
 FROM node:20
 WORKDIR /src

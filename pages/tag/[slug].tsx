@@ -12,26 +12,28 @@ import {
     SponsorData,
 } from 'utils/types';
 import { getArticlesPreviews } from 'utils-api/blog';
-import { getLanguageData, getSimilarTags, getTags } from 'utils-api/tags';
-import { filterByTags } from 'utils-api/filters';
 import { getSponsors } from 'utils-api/sponsors';
-import { getToolsWithVotes } from 'utils-api/toolsWithVotes';
 import { RelatedTagsList } from '@components/tools/listPage/RelatedTagsList';
 import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/LanguageFilterCard';
 import { Tool } from '@components/tools';
 import { TagsSidebar } from '@components/tags';
 import { getRandomAffiliate } from 'utils-api/affiliates';
+// New static data utilities (Phase 1)
+import { getTags, getLanguageData, getSimilarTags } from 'utils/tags';
+import { filterByTags } from 'utils/filters';
+import { getToolsWithVotes } from 'utils/tools-with-votes';
+import { fetchVotes } from 'utils/firebase-votes';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
-    // Call an external API endpoint to get tools
-    const data = await getTags('all');
+    // Get tags from static data (no network call)
+    const data = getTags('all');
 
-    if (!data) {
+    if (!data || data.length === 0) {
         return { paths: [], fallback: false };
     }
 
-    // Get the paths we want to pre-render based on the tags API response
+    // Get the paths we want to pre-render based on the tags data
     const paths = data.map((tag) => {
         return {
             params: { slug: tag.value },
@@ -51,7 +53,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 
-    const tagData = await getLanguageData(slug);
+    // Get tag data from static files (no network call)
+    const tagData = getLanguageData(slug);
 
     // Capitalize the first letter of the tag
     let tagName = slug.charAt(0).toUpperCase() + slug.slice(1);
@@ -59,10 +62,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         // We can use a more descriptive name if it exists
         tagName = tagData.name;
     }
-    const tools = await getToolsWithVotes();
+
+    // Fetch votes from Firebase and merge with static tools data
+    const votes = await fetchVotes();
+    const tools = getToolsWithVotes(votes);
+
     const previews = await getArticlesPreviews();
     const sponsors = getSponsors();
-    const languages = await getTags('languages');
+    // Get languages from static data (no network call)
+    const languages = getTags('languages');
     const affiliate = getRandomAffiliate([slug]);
 
     const relatedTags = getSimilarTags(slug);
