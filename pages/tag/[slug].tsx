@@ -18,7 +18,7 @@ import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/Fi
 import { Tool } from '@components/tools';
 import { TagsSidebar } from '@components/tags';
 import { getRandomAffiliate } from 'utils-api/affiliates';
-// New static data utilities (Phase 1)
+// New static data utilities
 import { getTags, getLanguageData, getSimilarTags } from 'utils/tags';
 import { filterByTags } from 'utils/filters';
 import { getToolsWithVotes } from 'utils/tools-with-votes';

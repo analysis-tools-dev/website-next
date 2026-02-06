@@ -210,7 +210,7 @@ async function fetchStats(): Promise<{
  * Main build function
  */
 async function main(): Promise<void> {
-    console.log('🔨 Building tools data...\n');
+    console.log('Building tools data...\n');
 
     try {
         // Fetch data from both repositories and stats
@@ -223,27 +223,27 @@ async function main(): Promise<void> {
         const staticCount = Object.keys(staticTools).length;
         const dynamicCount = Object.keys(dynamicTools).length;
 
-        console.log(`\n📊 Fetched ${staticCount} static analysis tools`);
-        console.log(`📊 Fetched ${dynamicCount} dynamic analysis tools`);
+        console.log(`\nFetched ${staticCount} static analysis tools`);
+        console.log(`Fetched ${dynamicCount} dynamic analysis tools`);
 
         // Merge tools
         const mergedTools = mergeTools(staticTools, dynamicTools);
         const totalCount = Object.keys(mergedTools).length;
-        console.log(`📊 Total unique tools: ${totalCount}`);
+        console.log(`Total unique tools: ${totalCount}`);
 
         // Validate
         validateTools(mergedTools);
 
         // Extract tags for reference
         const tags = extractTags(mergedTools);
-        console.log(`\n🏷️  Found ${tags.languages.length} unique languages`);
-        console.log(`🏷️  Found ${tags.others.length} unique other tags`);
+        console.log(`\nFound ${tags.languages.length} unique languages`);
+        console.log(`Found ${tags.others.length} unique other tags`);
 
         // Stats info
         const toolStatsCount = Object.keys(stats.toolStats).length;
         const tagStatsCount = Object.keys(stats.tagStats).length;
-        console.log(`\n📈 Fetched stats for ${toolStatsCount} tools`);
-        console.log(`📈 Fetched stats for ${tagStatsCount} tags`);
+        console.log(`\nFetched stats for ${toolStatsCount} tools`);
+        console.log(`Fetched stats for ${tagStatsCount} tags`);
 
         // Prepare output
         const output: BuildOutput = {
@@ -263,29 +263,29 @@ async function main(): Promise<void> {
 
         // Write output file
         fs.writeFileSync(OUTPUT_FILE, JSON.stringify(output, null, 2));
-        console.log(`\n✅ Written to ${OUTPUT_FILE}`);
+        console.log(`\nWritten to ${OUTPUT_FILE}`);
 
         // Also write tags for reference (useful for filters)
         const tagsFile = path.join(OUTPUT_DIR, 'tags.json');
         fs.writeFileSync(tagsFile, JSON.stringify(tags, null, 2));
-        console.log(`✅ Written tags to ${tagsFile}`);
+        console.log(`Written tags to ${tagsFile}`);
 
         // Write stats files
         fs.writeFileSync(
             TOOL_STATS_FILE,
             JSON.stringify(stats.toolStats, null, 2),
         );
-        console.log(`✅ Written tool stats to ${TOOL_STATS_FILE}`);
+        console.log(`Written tool stats to ${TOOL_STATS_FILE}`);
 
         fs.writeFileSync(
             TAG_STATS_FILE,
             JSON.stringify(stats.tagStats, null, 2),
         );
-        console.log(`✅ Written tag stats to ${TAG_STATS_FILE}`);
+        console.log(`Written tag stats to ${TAG_STATS_FILE}`);
 
-        console.log('\n🎉 Build complete!');
+        console.log('\nBuild complete!');
     } catch (error) {
-        console.error('\n❌ Build failed:', error);
+        console.error('\nBuild failed:', error);
         process.exit(1);
     }
 }

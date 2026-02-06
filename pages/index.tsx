@@ -16,7 +16,7 @@ import { Tool, ToolsByLanguage } from '@components/tools';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 import { getFaq } from 'utils-api/faq';
-// New static data utilities (Phase 1)
+// New static data utilities
 import { getPopularLanguageStats, getMostViewedTools } from 'utils/stats';
 import { fetchVotes } from 'utils/firebase-votes';
 

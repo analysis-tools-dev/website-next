@@ -17,7 +17,7 @@ import { getSponsors } from 'utils-api/sponsors';
 import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
 import { Comments } from '@components/core/Comments';
 import { calculateUpvotePercentage } from 'utils/votes';
-// New static data utilities (Phase 1)
+// New static data utilities
 import { getAllTools, getTool, getToolIcon } from 'utils/tools';
 import { fetchVotes } from 'utils/firebase-votes';
 
