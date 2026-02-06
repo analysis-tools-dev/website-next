@@ -16,19 +16,19 @@ import { Tool, ToolsByLanguage } from '@components/tools';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 import { getFaq } from 'utils-api/faq';
-// New static data utilities
-import { getPopularLanguageStats, getMostViewedTools } from 'utils/stats';
-import { fetchVotes } from 'utils/firebase-votes';
+import { StatsRepository, VotesRepository } from '@lib/repositories';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const faq = getFaq();
     const previews = await getArticlesPreviews();
 
-    // Fetch votes from Firebase and use with static data utilities
-    const votes = await fetchVotes();
-    const popularLanguages = getPopularLanguageStats(votes);
-    const mostViewed = getMostViewedTools(votes);
+    const votesRepo = VotesRepository.getInstance();
+    const statsRepo = StatsRepository.getInstance();
+
+    const votes = await votesRepo.fetchAll();
+    const popularLanguages = statsRepo.getPopularLanguageStats(votes);
+    const mostViewed = statsRepo.getMostViewedTools(votes);
 
     return {
         props: {
