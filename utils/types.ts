@@ -101,7 +101,7 @@ export interface LanguageTag {
 }
 
 export interface StatsApiData {
-    [key: string]: string;
+    [key: string]: number;
 }
 
 export interface VotesApiData {

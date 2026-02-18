@@ -87,29 +87,24 @@ jobs:
                   app_id: ${{ secrets.GH_APP_ID }}
                   private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
-            # We want to redeploy, whenever the tools.json file changes
-            # so make sure to hash the file and use it as a tag for the Docker image
-            - name: 'Download tools.json File'
-              run: curl -sL https://github.com/analysis-tools-dev/static-analysis/raw/master/data/api/tools.json -o ./tools.json
+            # Hash the generated tools.json from the build (created by npm run build-data)
+            # to ensure we redeploy when tools data changes
+            - name: 'Generate Hash of built tools data'
+              run: |
+                  echo "tools_hash=$(sha256sum data/tools.json | cut -c1-7)" >> $GITHUB_ENV
 
-            - name: 'Generate Hash of tools.json File'
-              id: tools_json_hash
-              run: echo "tools_json_hash=$(sha256sum tools.json | cut -c1-7)" >> $GITHUB_ENV
-
-            # Also take screenshots.json into account, which is at
-            # https://github.com/analysis-tools-dev/assets/blob/master/screenshots.json
+            # Also take screenshots.json into account for cache busting
             - name: 'Download screenshots.json File'
               run: curl -sL https://github.com/analysis-tools-dev/assets/raw/master/screenshots.json -o ./screenshots.json
 
             - name: 'Generate Hash of screenshots.json File'
-              id: screenshots_json_hash
-              run: echo "screenshots_json_hash=$(sha256sum screenshots.json | cut -c1-7)" >> $GITHUB_ENV
+              run: echo "screenshots_hash=$(sha256sum screenshots.json | cut -c1-7)" >> $GITHUB_ENV
 
-            # Image hash is a combination of the hashes
+            # Image hash is a combination of commit + data hashes
             - name: 'Set IMAGE_NAME hash'
               run: |
                   short_hash=$(echo "${{ github.sha }}" | cut -c1-7)
-                  echo "IMAGE_NAME=${{ env.IMAGE_NAME }}:$short_hash-${{ env.tools_json_hash }}-${{ env.screenshots_json_hash }}" >> $GITHUB_ENV
+                  echo "IMAGE_NAME=${{ env.IMAGE_NAME }}:$short_hash-${{ env.tools_hash }}-${{ env.screenshots_hash }}" >> $GITHUB_ENV
 
             - name: 'Build Docker Image'
               env:

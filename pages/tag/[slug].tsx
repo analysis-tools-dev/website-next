@@ -12,34 +12,31 @@ import {
     SponsorData,
 } from 'utils/types';
 import { getArticlesPreviews } from 'utils-api/blog';
-import { getLanguageData, getSimilarTags, getTags } from 'utils-api/tags';
-import { filterByTags } from 'utils-api/filters';
 import { getSponsors } from 'utils-api/sponsors';
-import { getToolsWithVotes } from 'utils-api/toolsWithVotes';
 import { RelatedTagsList } from '@components/tools/listPage/RelatedTagsList';
 import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/LanguageFilterCard';
 import { Tool } from '@components/tools';
 import { TagsSidebar } from '@components/tags';
 import { getRandomAffiliate } from 'utils-api/affiliates';
+import {
+    TagsRepository,
+    ToolsRepository,
+    ToolsFilter,
+    VotesRepository,
+} from '@lib/repositories';
 
-// This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
-    // Call an external API endpoint to get tools
-    const data = await getTags('all');
+    const tagsRepo = TagsRepository.getInstance();
+    const tags = tagsRepo.getAll('all');
 
-    if (!data) {
+    if (tags.length === 0) {
         return { paths: [], fallback: false };
     }
 
-    // Get the paths we want to pre-render based on the tags API response
-    const paths = data.map((tag) => {
-        return {
-            params: { slug: tag.value },
-        };
-    });
+    const paths = tags.map((tag) => ({
+        params: { slug: tag.value },
+    }));
 
-    // We'll pre-render only these paths at build time.
-    // { fallback: false } means other routes should 404.
     return { paths, fallback: false };
 };
 
@@ -51,22 +48,28 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 
-    const tagData = await getLanguageData(slug);
+    const tagsRepo = TagsRepository.getInstance();
+    const toolsRepo = ToolsRepository.getInstance();
+    const votesRepo = VotesRepository.getInstance();
 
-    // Capitalize the first letter of the tag
+    const tagData = tagsRepo.getDescription(slug);
+
     let tagName = slug.charAt(0).toUpperCase() + slug.slice(1);
     if ('name' in tagData && tagData.name) {
-        // We can use a more descriptive name if it exists
         tagName = tagData.name;
     }
-    const tools = await getToolsWithVotes();
+
+    const votes = await votesRepo.fetchAll();
+    const toolsWithVotes = toolsRepo.withVotes(votes);
+    const filter = ToolsFilter.from(toolsWithVotes);
+
     const previews = await getArticlesPreviews();
     const sponsors = getSponsors();
-    const languages = await getTags('languages');
+    const languages = tagsRepo.getAll('languages');
     const affiliate = getRandomAffiliate([slug]);
 
-    const relatedTags = getSimilarTags(slug);
-    const filteredTools = filterByTags(tools, slug);
+    const relatedTags = tagsRepo.getRelated(slug);
+    const filteredTools = filter.byTag(slug);
 
     // best tools by percent upvoted (single language only)
     const bestTools = filteredTools

@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
-import { getTool, getToolIcon } from 'utils-api/tools';
 import {
     AlternativeToolsList,
     Tool,
@@ -11,32 +10,28 @@ import {
 } from '@components/tools';
 import { SearchProvider } from 'context/SearchProvider';
 import { getScreenshots } from 'utils-api/screenshot';
-import { getAllTools } from 'utils-api/tools';
 import { ArticlePreview, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
-import { getVotes } from 'utils-api/votes';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
 import { Comments } from '@components/core/Comments';
 import { calculateUpvotePercentage } from 'utils/votes';
+import { ToolsRepository, VotesRepository } from '@lib/repositories';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
-    // Call an external API endpoint to get tools
-    const data = await getAllTools();
+    const toolsRepo = ToolsRepository.getInstance();
+    const toolIds = toolsRepo.getAllIds();
 
-    if (!data) {
+    if (toolIds.length === 0) {
         return { paths: [], fallback: false };
     }
 
-    // Get the paths we want to pre-render based on the tools API response
-    const paths = Object.keys(data).map((id) => ({
+    const paths = toolIds.map((id) => ({
         params: { slug: id },
     }));
 
-    // We'll pre-render only these paths at build time.
-    // { fallback: false } means other routes should 404.
     return { paths, fallback: false };
 };
 
@@ -50,7 +45,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 
-    const apiTool = await getTool(slug);
+    const toolsRepo = ToolsRepository.getInstance();
+    const votesRepo = VotesRepository.getInstance();
+
+    const apiTool = toolsRepo.getById(slug);
     if (!apiTool) {
         console.error(`Tool ${slug} not found. Cannot build slug page.`);
         return {
@@ -59,12 +57,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 
     const sponsors = getSponsors();
-    const votes = await getVotes();
+    const votes = await votesRepo.fetchAll();
     const previews = await getArticlesPreviews();
-    const icon = getToolIcon(slug);
+    const icon = toolsRepo.getIcon(slug);
 
-    // calculate the upvote percentage based on the votes
-    const voteKey = `toolsyaml${slug.toString()}`;
+    // Calculate the upvote percentage based on the votes
+    const voteKey = `toolsyaml${slug}`;
     const voteData = votes ? votes[voteKey] : null;
     const upvotePercentage = calculateUpvotePercentage(
         voteData?.upVotes,
@@ -77,70 +75,42 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         id: slug,
         icon: icon,
     };
-    const alternativeTools = await getAllTools();
+
+    // Get all tools with votes for alternatives
+    const allToolsWithVotes = toolsRepo.withVotesAsArray(votes);
     let alternatives: Tool[] = [];
-    let allAlternatives: Tool[] = [];
-    if (alternativeTools) {
-        allAlternatives = Object.entries(alternativeTools).reduce(
-            (acc, [id, tool]) => {
-                // if key is not equal to slug
-                if (id !== slug) {
-                    // push value to acc
-                    // add id and votes to value
-                    const voteKey = `toolsyaml${id.toString()}`;
+    const allAlternatives = allToolsWithVotes.filter((t) => t.id !== slug);
 
-                    // check if we have votes for this tool
-                    // otherwise set to 0
-                    const voteData = votes
-                        ? votes[voteKey]
-                            ? votes[voteKey].sum
-                            : 0
-                        : 0;
-
-                    acc.push({ id, ...tool, votes: voteData });
-                }
-                return acc;
-            },
-            [] as Tool[],
+    // Show only tools with the same type, languages, and categories
+    alternatives = allAlternatives.filter((alt) => {
+        return (
+            containsArray(alt.types, tool.types || []) &&
+            containsArray(alt.languages, tool.languages || []) &&
+            containsArray(alt.categories, tool.categories || [])
         );
+    });
 
-        // if in currentTool view, show only tools with the same type
-        if (tool) {
-            alternatives = allAlternatives.filter((alt) => {
-                return (
-                    containsArray(alt.types, tool.types || []) &&
-                    containsArray(alt.languages, tool.languages || []) &&
-                    containsArray(alt.categories, tool.categories || [])
-                );
+    // If the list is empty, show tools with most matched languages
+    if (alternatives.length === 0) {
+        alternatives = allAlternatives
+            .sort((a, b) => {
+                const aMatches =
+                    a.languages?.filter((lang) =>
+                        tool.languages?.includes(lang),
+                    ).length || 0;
+                const bMatches =
+                    b.languages?.filter((lang) =>
+                        tool.languages?.includes(lang),
+                    ).length || 0;
+                return bMatches - aMatches;
+            })
+            .filter((alt) => {
+                const matches =
+                    alt.languages?.filter((lang) =>
+                        tool.languages?.includes(lang),
+                    ).length || 0;
+                return matches >= 5;
             });
-
-            // if the list is empty, show the tools with the same type and the most
-            // matched languages
-            if (alternatives.length === 0) {
-                alternatives = allAlternatives;
-
-                // sort the list by the number of matched languages
-                alternatives.sort((a, b) => {
-                    return (
-                        b.languages?.filter((lang) =>
-                            tool.languages?.includes(lang),
-                        ).length -
-                        a.languages?.filter((lang) =>
-                            tool.languages?.includes(lang),
-                        ).length
-                    );
-                });
-
-                // take the tools with at least 5 matched languages
-                alternatives = alternatives.filter((alt) => {
-                    return (
-                        alt.languages?.filter((lang) =>
-                            tool.languages?.includes(lang),
-                        ).length >= 5
-                    );
-                });
-            }
-        }
     }
 
     return {

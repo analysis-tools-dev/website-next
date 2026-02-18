@@ -14,17 +14,21 @@ import homepageData from '@appdata/homepage.json';
 import { ArticlePreview, Faq, SponsorData } from 'utils/types';
 import { Tool, ToolsByLanguage } from '@components/tools';
 import { getArticlesPreviews } from 'utils-api/blog';
-import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
-import { getMostViewedTools } from 'utils-api/mostViewedTools';
 import { getSponsors } from 'utils-api/sponsors';
 import { getFaq } from 'utils-api/faq';
+import { StatsRepository, VotesRepository } from '@lib/repositories';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const faq = getFaq();
     const previews = await getArticlesPreviews();
-    const popularLanguages = await getPopularLanguageStats();
-    const mostViewed = await getMostViewedTools();
+
+    const votesRepo = VotesRepository.getInstance();
+    const statsRepo = StatsRepository.getInstance();
+
+    const votes = await votesRepo.fetchAll();
+    const popularLanguages = statsRepo.getPopularLanguageStats(votes);
+    const mostViewed = statsRepo.getMostViewedTools(votes);
 
     return {
         props: {

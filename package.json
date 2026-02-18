@@ -3,6 +3,8 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
+        "build-data": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' ./scripts/build-data.ts",
+        "prebuild": "npm run build-data",
         "build": "next build",
         "search-index": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' ./algolia-index.ts",
         "start": "next start",
