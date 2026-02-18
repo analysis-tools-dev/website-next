@@ -2,11 +2,12 @@ import { FC, useState } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import styles from './TagList.module.css';
-import { TagTypes, useSearchState } from 'context/SearchProvider';
-import { objectToQueryString } from 'utils/query';
-import { useRouterPush } from 'hooks';
+import { useTools } from 'context/ToolsProvider';
 import classNames from 'classnames';
 import { tagIconPath } from 'utils/icons';
+
+// Tag type for filtering
+type TagTypes = 'languages' | 'others';
 
 const NUM_TAGS = 8;
 
@@ -17,8 +18,7 @@ export interface TagListProps {
 }
 
 const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
-    const routerPush = useRouterPush();
-    const { search, setSearch } = useSearchState();
+    const { toggleFilter, isSelected } = useTools();
     const [showAllTags, setShowAllTags] = useState(false);
 
     const toggleShowAllTags = () => {
@@ -31,28 +31,11 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
     ) => {
         const target = event?.target as HTMLElement;
         const tag = target.innerText;
+        toggleFilter(tagType, tag);
+    };
 
-        let currValue = search[tagType] || [];
-        if (!Array.isArray(currValue)) {
-            currValue = [currValue];
-        }
-        if (currValue.length) {
-            const index = currValue.indexOf(tag);
-            if (index > -1) {
-                currValue.splice(index, 1);
-            } else {
-                currValue.push(tag);
-            }
-        } else {
-            currValue.push(tag);
-        }
-
-        const newState = { ...search, [tagType]: currValue };
-        setSearch(newState);
-        // Update query params in router
-        routerPush(`/tools?${objectToQueryString(newState)}`, undefined, {
-            shallow: true,
-        });
+    const isTagSelected = (tag: string, type: TagTypes): boolean => {
+        return isSelected(type, tag);
     };
 
     const combinedTags = [
@@ -75,7 +58,7 @@ const TagList: FC<TagListProps> = ({ languageTags, otherTags, className }) => {
             {tagsToRender.map(({ tag, type }, index) => (
                 <li
                     className={classNames(styles.tag, {
-                        [`${styles.highlight}`]: search[type]?.includes(tag),
+                        [`${styles.highlight}`]: isTagSelected(tag, type),
                     })}
                     key={`${tag}-${index}`}>
                     <a onClick={(e) => handleClick(e, type)}>

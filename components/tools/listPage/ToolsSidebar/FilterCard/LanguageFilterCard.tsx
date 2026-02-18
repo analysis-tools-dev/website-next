@@ -1,16 +1,11 @@
 import { FC, useState } from 'react';
-import { withRouter, type Router } from 'next/router';
 import { Button, Input } from '@components/elements';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 
 import styles from './LanguageFilterCard.module.css';
-import { SearchFilter, useSearchState } from 'context/SearchProvider';
-import { isChecked, isSelectedFilter, sortByChecked } from './utils';
-import { changeQuery } from 'utils/query';
-import { useToolsQuery } from '@components/tools/queries';
+import { useTools, type SearchFilter } from 'context/ToolsProvider';
 import classNames from 'classnames';
-import { isArray } from 'util';
 
 export interface LanguageFilterOption {
     value: string;
@@ -25,12 +20,9 @@ export interface LanguageFilterCardProps {
     filter: string;
     options: LanguageFilterOption[];
     limit?: number;
-    router: Router;
     className?: string;
 }
 
-// TODO: Add Toggle Deprecated (default off)
-// TODO: Add click functionality and debounce
 const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     heading,
     showAllCheckbox,
@@ -39,7 +31,14 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     limit = 10,
     className,
 }) => {
-    const { search, setSearch } = useSearchState();
+    const {
+        search,
+        toggleFilter,
+        updateFilter,
+        isSelected,
+        getLanguageCount,
+        allTools,
+    } = useTools();
 
     const shouldShowToggle = options.length > limit;
     const [listLimit, setLimit] = useState(limit);
@@ -47,10 +46,6 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     // Fade out background when not showing all options
     const [faded, setFaded] = useState(styles.faded);
 
-    const { data: toolsResult } = useToolsQuery(search);
-    if (!toolsResult || !toolsResult.data || !isArray(toolsResult.data)) {
-        return null;
-    }
     const toggleAll = () => {
         if (listLimit === 999) {
             setLimit(limit);
@@ -63,15 +58,41 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
 
     const resetFilter = () => {
         const searchFilter = filter as SearchFilter;
-        if (search[searchFilter]) {
-            delete search[searchFilter];
-        }
-        setSearch({ ...search });
+        updateFilter(searchFilter, []);
     };
 
-    if (options.length > limit) {
-        options.sort(sortByChecked(filter, search));
-    }
+    const handleCheckboxChange = (value: string) => {
+        const searchFilter = filter as SearchFilter;
+        toggleFilter(searchFilter, value);
+    };
+
+    const isChecked = (value: string): boolean => {
+        const searchFilter = filter as SearchFilter;
+        return isSelected(searchFilter, value);
+    };
+
+    const isFilterActive = (): boolean => {
+        const searchFilter = filter as SearchFilter;
+        const values = search[searchFilter];
+        return values !== undefined && values.length > 0;
+    };
+
+    // Sort options: checked items first, then by count
+    const sortedOptions = [...options].sort((a, b) => {
+        const aChecked = isChecked(a.value);
+        const bChecked = isChecked(b.value);
+        if (aChecked && !bChecked) return -1;
+        if (!aChecked && bChecked) return 1;
+        // Then sort by count
+        const aCount = getLanguageCount(a.value);
+        const bCount = getLanguageCount(b.value);
+        return bCount - aCount;
+    });
+
+    // Filter to only show languages that have tools
+    const filteredOptions = sortedOptions.filter((option) => {
+        return allTools.some((tool) => tool.languages?.includes(option.value));
+    });
 
     // Don't fade out background if the list is short
     let listClassNames = classNames(styles.checklist);
@@ -90,59 +111,39 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                     <li>
                         <Input
                             type="checkbox"
-                            id="checkbox_all"
+                            id={`checkbox_all_${filter}`}
                             data-filter={filter}
-                            checked={!isSelectedFilter(filter, search)}
+                            checked={!isFilterActive()}
                             onChange={resetFilter}
                         />
                         <label
                             className={styles.checkboxLabel}
-                            htmlFor="checkbox_all"
+                            htmlFor={`checkbox_all_${filter}`}
                             onClick={resetFilter}>
                             All
                         </label>
                     </li>
                 ) : null}
-                {options
-                    .filter((option) => {
-                        // check if any tool has this language
-                        return toolsResult.data?.some((tool) => {
-                            return tool.languages.includes(option.value);
-                        });
-                    })
-                    .slice(0, listLimit)
-                    .map((option, index) => (
+                {filteredOptions.slice(0, listLimit).map((option, index) => {
+                    const count = getLanguageCount(option.value);
+                    return (
                         <li key={index}>
                             <Input
                                 type="checkbox"
-                                id={`checkbox_${option.value}`}
+                                id={`checkbox_${filter}_${option.value}`}
                                 value={option.value}
                                 data-filter={filter}
-                                checked={isChecked(
-                                    filter,
-                                    option.value,
-                                    search,
-                                )}
-                                onChange={changeQuery(
-                                    option.value,
-                                    search,
-                                    setSearch,
-                                )}
+                                checked={isChecked(option.value)}
+                                onChange={() =>
+                                    handleCheckboxChange(option.value)
+                                }
                             />
                             <label
                                 className={styles.checkboxLabel}
-                                htmlFor={`checkbox_${option.value}`}>
+                                htmlFor={`checkbox_${filter}_${option.value}`}>
                                 {option.name}{' '}
                                 <span className={styles.toolsCount}>
-                                    (
-                                    {
-                                        toolsResult.data.filter((tool) => {
-                                            return tool.languages.includes(
-                                                option.value,
-                                            );
-                                        }).length
-                                    }
-                                    )
+                                    ({count})
                                 </span>
                             </label>
 
@@ -152,7 +153,8 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                                 </label>
                             ) : null}
                         </li>
-                    ))}
+                    );
+                })}
             </ul>
             {shouldShowToggle ? (
                 <Button
@@ -166,4 +168,4 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     );
 };
 
-export default withRouter(LanguageFilterCard);
+export default LanguageFilterCard;

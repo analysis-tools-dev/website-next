@@ -2,8 +2,7 @@ import { FC, useState } from 'react';
 import classNames from 'classnames';
 import { Button, PanelHeader } from '@components/elements';
 import styles from './MobileFilters.module.css';
-import { useLanguagesQuery } from '@components/tools/queries';
-import { useSearchState } from 'context/SearchProvider';
+import { useTools, type SearchState } from 'context/ToolsProvider';
 import MobileFilter from './MobileFilter/MobileFilter';
 
 import {
@@ -13,20 +12,22 @@ import {
     LICENSE_OPTIONS,
     PRICING_OPTIONS,
 } from '@appdata/filters';
-import { useOthersQuery } from '@components/tools/queries/others';
+import { LanguageFilterOption } from '../ToolsSidebar/FilterCard/LanguageFilterCard';
+import { FilterOption } from '../ToolsSidebar/FilterCard/FilterCard';
 
-const MobileFilters: FC = () => {
-    const { search, setSearch } = useSearchState();
+export interface MobileFiltersProps {
+    languages?: LanguageFilterOption[];
+    others?: FilterOption[];
+}
+
+const MobileFilters: FC<MobileFiltersProps> = ({
+    languages = [],
+    others = [],
+}) => {
+    const { search, setSearch } = useTools();
 
     const [modelOpen, setModelOpen] = useState(false);
-    const [state, setState] = useState(search);
-
-    const { data: otherResult } = useOthersQuery();
-    const { data: languageResult } = useLanguagesQuery();
-
-    const others = otherResult?.data || [];
-    // Filter duplicates on tag
-    const languages = languageResult?.data || [];
+    const [state, setState] = useState<SearchState>(search);
 
     const submit = () => {
         setSearch(state);
@@ -39,6 +40,8 @@ const MobileFilters: FC = () => {
     };
 
     const openModal = () => {
+        // Sync state with current search when opening
+        setState(search);
         // Add modal-open class to body
         document.body.classList.add('modal-open');
         setModelOpen(true);
@@ -87,7 +90,7 @@ const MobileFilters: FC = () => {
                         <MobileFilter
                             id="languages"
                             label="Languages"
-                            options={languages || []}
+                            options={languages}
                             placeholder="Choose Language"
                             state={state}
                             setState={setState}
@@ -132,7 +135,7 @@ const MobileFilters: FC = () => {
                         <MobileFilter
                             id="others"
                             label="Other Tags"
-                            options={others || []}
+                            options={others}
                             placeholder="Other Tags"
                             state={state}
                             setState={setState}

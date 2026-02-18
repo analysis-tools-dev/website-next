@@ -1,6 +1,6 @@
 import { Card } from '@components/layout';
 import classNames from 'classnames';
-import { useSearchState } from 'context/SearchProvider';
+import { useSearchState } from 'context/ToolsProvider';
 import { FC, useEffect, useState } from 'react';
 import styles from './Dropdown.module.css';
 

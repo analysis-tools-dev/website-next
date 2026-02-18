@@ -3,7 +3,7 @@ import styles from './MobileFilter.module.css';
 import Select, { MultiValue } from 'react-select';
 import { Button, PanelHeader } from '@components/elements';
 import classNames from 'classnames';
-import { SearchState, SearchFilter } from 'context/SearchProvider';
+import { SearchState, SearchFilter } from 'context/ToolsProvider';
 
 interface Option {
     value: string;
