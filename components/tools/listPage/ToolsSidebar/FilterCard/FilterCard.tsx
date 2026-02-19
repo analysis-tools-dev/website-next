@@ -4,9 +4,7 @@ import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
 
 import styles from './FilterCard.module.css';
-import { SearchFilter, useSearchState } from 'context/SearchProvider';
-import { isChecked, isSelectedFilter, sortByChecked } from './utils';
-import { changeQuery } from 'utils/query';
+import { useTools, type SearchFilter } from 'context/ToolsProvider';
 import classNames from 'classnames';
 
 export interface FilterOption {
@@ -25,8 +23,6 @@ export interface FilterCardProps {
     className?: string;
 }
 
-// TODO: Add Toggle Deprecated (default off)
-// TODO: Add click functionality and debounce
 const FilterCard: FC<FilterCardProps> = ({
     showAllCheckbox = true,
     heading,
@@ -35,10 +31,11 @@ const FilterCard: FC<FilterCardProps> = ({
     limit = 10,
     className,
 }) => {
-    const { search, setSearch } = useSearchState();
+    const { search, toggleFilter, updateFilter, isSelected } = useTools();
 
     const shouldShowToggle = options.length > limit;
     const [listLimit, setLimit] = useState(limit);
+
     const toggleAll = () => {
         if (listLimit === 999) {
             setLimit(limit);
@@ -49,15 +46,33 @@ const FilterCard: FC<FilterCardProps> = ({
 
     const resetFilter = () => {
         const searchFilter = filter as SearchFilter;
-        if (search[searchFilter]) {
-            delete search[searchFilter];
-        }
-        setSearch({ ...search });
+        updateFilter(searchFilter, []);
     };
 
-    if (options.length > limit) {
-        options.sort(sortByChecked(filter, search));
-    }
+    const handleCheckboxChange = (value: string) => {
+        const searchFilter = filter as SearchFilter;
+        toggleFilter(searchFilter, value);
+    };
+
+    const isChecked = (value: string): boolean => {
+        const searchFilter = filter as SearchFilter;
+        return isSelected(searchFilter, value);
+    };
+
+    const isFilterActive = (): boolean => {
+        const searchFilter = filter as SearchFilter;
+        const values = search[searchFilter];
+        return values !== undefined && values.length > 0;
+    };
+
+    // Sort options: checked items first
+    const sortedOptions = [...options].sort((a, b) => {
+        const aChecked = isChecked(a.value);
+        const bChecked = isChecked(b.value);
+        if (aChecked && !bChecked) return -1;
+        if (!aChecked && bChecked) return 1;
+        return 0;
+    });
 
     return (
         <Card className={classNames(className)}>
@@ -70,36 +85,32 @@ const FilterCard: FC<FilterCardProps> = ({
                     <li>
                         <Input
                             type="checkbox"
-                            id="checkbox_all"
+                            id={`checkbox_all_${filter}`}
                             data-filter={filter}
-                            checked={!isSelectedFilter(filter, search)}
+                            checked={!isFilterActive()}
                             onChange={resetFilter}
                         />
                         <label
                             className={styles.checkboxLabel}
-                            htmlFor="checkbox_all"
+                            htmlFor={`checkbox_all_${filter}`}
                             onClick={resetFilter}>
                             All
                         </label>
                     </li>
                 )}
-                {options.slice(0, listLimit).map((option, index) => (
+                {sortedOptions.slice(0, listLimit).map((option, index) => (
                     <li key={index}>
                         <Input
                             type="checkbox"
-                            id={`checkbox_${option.value}`}
+                            id={`checkbox_${filter}_${option.value}`}
                             value={option.value}
                             data-filter={filter}
-                            checked={isChecked(filter, option.value, search)}
-                            onChange={changeQuery(
-                                option.value,
-                                search,
-                                setSearch,
-                            )}
+                            checked={isChecked(option.value)}
+                            onChange={() => handleCheckboxChange(option.value)}
                         />
                         <label
                             className={styles.checkboxLabel}
-                            htmlFor={`checkbox_${option.value}`}>
+                            htmlFor={`checkbox_${filter}_${option.value}`}>
                             {option.name}
                         </label>
 

@@ -1,3 +1,15 @@
 .clearButton {
     width: 140px;
 }
+
+.resultsCount {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary, #666);
+    margin-right: auto;
+}
+
+.loadMoreContainer {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}

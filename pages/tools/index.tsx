@@ -1,35 +1,54 @@
 import { FC } from 'react';
-import { GetServerSideProps } from 'next';
-import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { SearchProvider } from 'context/SearchProvider';
+import { GetStaticProps } from 'next';
 
 import { Footer, MainHead, Navbar, SponsorBanner } from '@components/core';
 import { Main, Wrapper } from '@components/layout';
-import {
-    fetchLanguages,
-    prefetchLanguages,
-} from '@components/tools/queries/languages';
-import { QUERY_CLIENT_DEFAULT_OPTIONS } from 'utils/constants';
+import { StaticListPageComponent } from '@components/tools/listPage/StaticListPageComponent';
+import { ToolsProvider } from 'context/ToolsProvider';
 import { ArticlePreview, SponsorData } from 'utils/types';
-import { prefetchTools } from '@components/tools/queries';
-import { ListPageComponent } from '@components/tools';
 import { getSponsors } from 'utils-api/sponsors';
-import { fetchOthers } from '@components/tools/queries/others';
+import { getArticlesPreviews } from 'utils-api/blog';
 import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/LanguageFilterCard';
 import { FilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/FilterCard';
-import { getArticlesPreviews } from 'utils-api/blog';
+import { Tool } from '@components/tools/types';
+import {
+    ToolsRepository,
+    TagsRepository,
+    VotesRepository,
+} from '@lib/repositories';
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const articles = await getArticlesPreviews();
-    const { data: languages = [] } = await fetchLanguages();
-    const { data: others = [] } = await fetchOthers();
 
-    // Create a new QueryClient instance for each page request.
-    // This ensures that data is not shared between users and requests.
-    const queryClient = new QueryClient(QUERY_CLIENT_DEFAULT_OPTIONS);
-    await prefetchLanguages(queryClient);
-    await prefetchTools(queryClient, ctx.query);
+    // Get tools with votes
+    const toolsRepo = ToolsRepository.getInstance();
+    const votesRepo = VotesRepository.getInstance();
+    const tagsRepo = TagsRepository.getInstance();
+
+    const votes = await votesRepo.fetchAll();
+    const tools = toolsRepo.withVotesAsArray(votes);
+
+    // Sort tools by votes initially
+    const sortedTools = [...tools].sort(
+        (a, b) => (b.votes || 0) - (a.votes || 0),
+    );
+
+    // Get languages and others for filter options
+    const languageTags = tagsRepo.getAll('languages');
+    const otherTags = tagsRepo.getAll('other');
+
+    const languages: LanguageFilterOption[] = languageTags.map((tag) => ({
+        value: tag.value,
+        name: tag.name,
+        tag_type: tag.tag_type,
+    }));
+
+    const others: FilterOption[] = otherTags.map((tag) => ({
+        value: tag.value,
+        name: tag.name,
+        tag_type: tag.tag_type,
+    }));
 
     return {
         props: {
@@ -37,8 +56,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
             languages,
             others,
             articles,
-            dehydratedState: dehydrate(queryClient),
+            tools: sortedTools,
         },
+        // Revalidate every hour for ISR
+        revalidate: 3600,
     };
 };
 
@@ -47,6 +68,7 @@ export interface ToolsProps {
     languages: LanguageFilterOption[];
     others: FilterOption[];
     articles: ArticlePreview[];
+    tools: Tool[];
 }
 
 const ToolsPage: FC<ToolsProps> = ({
@@ -54,6 +76,7 @@ const ToolsPage: FC<ToolsProps> = ({
     languages,
     others,
     articles,
+    tools,
 }) => {
     const title =
         'Compare 700+ Linters, Static Analysis Tools And Code Formatters';
@@ -64,11 +87,11 @@ const ToolsPage: FC<ToolsProps> = ({
     return (
         <>
             <MainHead title={title} description={description} />
-            <SearchProvider>
+            <ToolsProvider initialTools={tools}>
                 <Navbar />
                 <Wrapper className="m-t-20 m-b-30 ">
                     <Main>
-                        <ListPageComponent
+                        <StaticListPageComponent
                             languages={languages}
                             others={others}
                             articles={articles}
@@ -77,7 +100,7 @@ const ToolsPage: FC<ToolsProps> = ({
                 </Wrapper>
                 <SponsorBanner sponsors={sponsors} />
                 <Footer />
-            </SearchProvider>
+            </ToolsProvider>
         </>
     );
 };
