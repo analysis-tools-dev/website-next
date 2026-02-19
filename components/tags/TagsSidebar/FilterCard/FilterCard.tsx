@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Input } from '@components/elements';
 import { Card } from '@components/layout';
 import { Heading } from '@components/typography';
+import { FilterKey, OnFilterChange } from '@components/tags/types';
 
 import styles from './FilterCard.module.css';
 import classNames from 'classnames';
@@ -14,10 +15,10 @@ export interface FilterOption {
 
 export interface FilterCardProps {
     heading: string;
-    filter: string;
+    filter: FilterKey;
     options: FilterOption[];
     className?: string;
-    onFilterChange: (filter: string, value: string, checked: boolean) => void;
+    onFilterChange: OnFilterChange;
 }
 
 const FilterCard: FC<FilterCardProps> = ({

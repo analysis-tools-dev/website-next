@@ -49,18 +49,12 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
         <Card className={styles.toolCardWrapper}>
             <div className={styles.votes} ref={votesRef}>
                 <VoteWidget toolId={tool.id} />
-                <Link
-                    passHref={true}
-                    className={styles.clickOut}
-                    href={`/tool/${tool.id}`}>
+                <Link className={styles.clickOut} href={`/tool/${tool.id}`}>
                     <div className={styles.clickOut} />
                 </Link>
             </div>
             <div className={styles.info} onClick={handleElementClick}>
-                <Link
-                    passHref
-                    href={`/tool/${tool.id}`}
-                    className={styles.toolLink}>
+                <Link href={`/tool/${tool.id}`} className={styles.toolLink}>
                     <Heading level={3} className={styles.toolName}>
                         {tool.name}
                     </Heading>

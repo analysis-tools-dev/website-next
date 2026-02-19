@@ -27,7 +27,6 @@ const SponsorCard: FC<SponsorCardProps> = ({ sponsor }) => {
             </div>
             <div className={styles.info}>
                 <Link
-                    passHref
                     href={`/tool/${sponsor.tool}`}
                     className={styles.toolLink}>
                     <Heading level={3} className={styles.toolName}>

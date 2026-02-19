@@ -22,7 +22,7 @@ const LanguageTopToolsWidget: FC<LanguageTopToolsWidgetProps> = ({
 
     return (
         <Card className={styles.languageCardWrapper}>
-            <Link passHref href={href} className={styles.languageLink}>
+            <Link href={href} className={styles.languageLink}>
                 <ImageWithFallback
                     height="50"
                     width="50"

@@ -47,7 +47,7 @@ const Footer: FC = () => {
     return (
         <footer className={styles.footer}>
             <Wrapper className={styles.wrapper}>
-                <Link passHref href="/" className={styles.logoLink}>
+                <Link href="/" className={styles.logoLink}>
                     <Image
                         height="30"
                         width="30"

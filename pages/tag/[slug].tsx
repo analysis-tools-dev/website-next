@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner, FAQ } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
@@ -16,7 +16,7 @@ import { getSponsors } from 'utils-api/sponsors';
 import { RelatedTagsList } from '@components/tools/listPage/RelatedTagsList';
 import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/LanguageFilterCard';
 import { Tool } from '@components/tools';
-import { TagsSidebar } from '@components/tags';
+import { TagsSidebar, FiltersState, FilterKey } from '@components/tags';
 import { getRandomAffiliate } from 'utils-api/affiliates';
 import {
     TagsRepository,
@@ -189,7 +189,7 @@ const TagPage: FC<TagProps> = ({
 
     const [filteredTools, setFilteredTools] = useState(tools);
 
-    const [filters, setFilters] = useState({
+    const [filters, setFilters] = useState<FiltersState>({
         categories: [],
         types: [],
         licenses: [],
@@ -228,31 +228,22 @@ const TagPage: FC<TagProps> = ({
         setFilteredTools(filtered);
     }, [tools, filters]);
 
-    const onFilterChange = (
-        filter: string,
-        value: string,
-        checked: boolean,
-    ) => {
-        // update the filters
-        // TODO: Remove type ignore
-        setFilters((prev) => {
-            const newFilters = { ...prev };
-            if (checked) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                newFilters[filter].push(value);
-            } else {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                newFilters[filter] = newFilters[filter].filter(
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    (item) => item !== value,
-                );
-            }
-            return newFilters;
-        });
-    };
+    const onFilterChange = useCallback(
+        (filter: FilterKey, value: string, checked: boolean) => {
+            setFilters((prev) => {
+                const currentValues = prev[filter];
+                const newValues = checked
+                    ? [...currentValues, value]
+                    : currentValues.filter((item) => item !== value);
+
+                return {
+                    ...prev,
+                    [filter]: newValues,
+                };
+            });
+        },
+        [],
+    );
 
     return (
         <>

@@ -48,10 +48,7 @@ const RelatedCard: FC<RelatedCardProps> = ({
                     </li>
                 ))}
                 <li key={'all'}>
-                    <Link
-                        passHref={true}
-                        href={`/tools`}
-                        className={styles.relatedLink}>
+                    <Link href={`/tools`} className={styles.relatedLink}>
                         <Image
                             src={`/assets/icons/general/back.svg`}
                             alt={'Other Languages'}

@@ -59,7 +59,6 @@ const Navbar: FC = () => {
             <Wrapper className={styles.wrapper}>
                 <div className={styles.logoWrapper}>
                     <Link
-                        passHref
                         href="/"
                         className={styles.logo}
                         aria-label="Analysis Tools Homepage">
