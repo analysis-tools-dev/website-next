@@ -27,16 +27,14 @@ const AffiliateCard: FC<AffiliateCardProps> = ({ affiliate }) => {
                     />
                 </div>
                 <div>
-                    <Link href={affiliate.href}>
-                        <a
-                            className={styles.affiliateLink}
-                            href={affiliate.href}
-                            target="_blank"
-                            rel="noreferrer">
-                            <Heading level={3} className={styles.affiliateName}>
-                                {affiliate.headline}
-                            </Heading>
-                        </a>
+                    <Link
+                        href={affiliate.href}
+                        className={styles.affiliateLink}
+                        target="_blank"
+                        rel="noreferrer">
+                        <Heading level={3} className={styles.affiliateName}>
+                            {affiliate.headline}
+                        </Heading>
                     </Link>
 
                     <ReactMarkdown className={styles.description}>
@@ -45,9 +43,9 @@ const AffiliateCard: FC<AffiliateCardProps> = ({ affiliate }) => {
 
                     <div className={styles.cta}>
                         <Link
-                            passHref
                             href={affiliate.href}
                             target="_blank"
+                            rel="noreferrer"
                             className={styles.affiliateLink}>
                             <Button className={styles.button} theme="primary">
                                 {affiliate.callToAction}

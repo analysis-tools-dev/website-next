@@ -6,7 +6,7 @@ import { useTools, type SortOption } from 'context/ToolsProvider';
 import { type ArticlePreview } from 'utils/types';
 import { FilterOption } from '../ToolsSidebar/FilterCard/FilterCard';
 import { LanguageFilterOption } from '../ToolsSidebar/FilterCard/LanguageFilterCard';
-import styles from '../ListPageComponent/ListPageComponent.module.css';
+import styles from './StaticListPageComponent.module.css';
 
 const DEFAULT_PAGE_SIZE = 50;
 

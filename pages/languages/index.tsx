@@ -8,13 +8,18 @@ import { Newsletter } from '@components/elements';
 import { Article, SponsorData } from 'utils/types';
 import { ToolsByLanguage } from '@components/tools';
 import { getArticlesPreviews } from 'utils-api/blog';
-import { getPopularLanguageStats } from 'utils-api/popularLanguageStats';
 import { getSponsors } from 'utils-api/sponsors';
+import { StatsRepository, VotesRepository } from '@lib/repositories';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
-    const previews = await getArticlesPreviews();
-    const popularLanguages = await getPopularLanguageStats();
+    const previews = getArticlesPreviews();
+
+    const votesRepo = VotesRepository.getInstance();
+    const statsRepo = StatsRepository.getInstance();
+
+    const votes = await votesRepo.fetchAll();
+    const popularLanguages = statsRepo.getPopularLanguageStats(votes);
 
     return {
         props: {

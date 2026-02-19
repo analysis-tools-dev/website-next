@@ -2,11 +2,7 @@ import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
-import { isArticlesApiData } from 'utils/type-guards';
 import { FrontMatter, type Article, type MarkdownDocument } from 'utils/types';
-import { getCacheManager } from './cache';
-
-const cacheDataManager = getCacheManager();
 
 /**
  * Local file path for blog Posts markdown content
@@ -88,41 +84,32 @@ export const markdownToHtml = (markdown: string) => {
     return html ? html : '';
 };
 
-export const getArticles = async () => {
-    const cacheKey = 'articles_data';
+/**
+ * Get all articles from the blog directory
+ * @returns {Article[] | null} Array of articles sorted by date, or null on error
+ */
+export const getArticles = (): Article[] | null => {
     try {
-        // Get data from cache
-        let data = await cacheDataManager.get(cacheKey);
-        if (!data) {
-            console.log(
-                `[Blog] Cache data for ${cacheKey} does not exist. Calling API`,
-            );
-            // Read article files from dir and refresh cache
-            const files = readdirSync(POSTS_PATH)
-                // Filter anything other than .md files
-                .filter((file) => file.indexOf('.md') > -1);
+        // Read article files from dir
+        const files = readdirSync(POSTS_PATH)
+            // Filter anything other than .md files
+            .filter((file) => file.indexOf('.md') > -1);
 
-            data = files.map((file) => getArticleFromFilename(file));
-            if (files) {
-                const hours = Number(process.env.API_CACHE_TTL) || 24;
-                await cacheDataManager.set(cacheKey, data, hours * 60 * 60);
-            }
-        }
-        if (!isArticlesApiData(data)) {
-            await cacheDataManager.del(cacheKey);
-            console.error('Articles TypeError');
-            return null;
-        }
-        return data.sort((a, b) => (a.meta.date > b.meta.date ? -1 : 1));
+        const articles = files.map((file) => getArticleFromFilename(file));
+
+        return articles.sort((a, b) => (a.meta.date > b.meta.date ? -1 : 1));
     } catch (e) {
-        console.error('Error occurred: ', JSON.stringify(e));
-        await cacheDataManager.del(cacheKey);
+        console.error('Error reading articles: ', JSON.stringify(e));
         return null;
     }
 };
 
-export const getArticlesPreviews = async () => {
-    const articles = await getArticles();
+/**
+ * Get article previews (without full content) for listing pages
+ * @returns {ArticlePreview[] | null} Array of article previews, or null on error
+ */
+export const getArticlesPreviews = () => {
+    const articles = getArticles();
     if (!articles) {
         return null;
     }

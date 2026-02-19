@@ -8,7 +8,7 @@ import {
     ToolInfoCard,
     ToolInfoSidebar,
 } from '@components/tools';
-import { SearchProvider } from 'context/SearchProvider';
+
 import { getScreenshots } from 'utils-api/screenshot';
 import { ArticlePreview, SponsorData, StarHistory } from 'utils/types';
 import { containsArray } from 'utils/arrays';
@@ -168,35 +168,33 @@ const ToolPage: FC<ToolProps> = ({
 
     return (
         <>
-            <SearchProvider>
-                <MainHead title={title} description={description} />
+            <MainHead title={title} description={description} />
 
-                <Navbar />
-                <Wrapper className="m-t-20 m-b-30 ">
-                    <Main>
-                        <ToolInfoSidebar tool={tool} previews={previews} />
-                        <Panel>
-                            <ToolInfoCard tool={tool} />
-                            {screenshots && screenshots.length > 0 && (
-                                <ToolGallery
-                                    tool={tool}
-                                    screenshots={screenshots}
-                                />
-                            )}
-
-                            <Comments />
-                            <AlternativeToolsList
-                                listTitle={`Alternatives for ${tool.name}`}
-                                currentTool={tool}
-                                tools={alternatives}
+            <Navbar />
+            <Wrapper className="m-t-20 m-b-30 ">
+                <Main>
+                    <ToolInfoSidebar tool={tool} previews={previews} />
+                    <Panel>
+                        <ToolInfoCard tool={tool} />
+                        {screenshots && screenshots.length > 0 && (
+                            <ToolGallery
+                                tool={tool}
+                                screenshots={screenshots}
                             />
-                        </Panel>
-                    </Main>
-                </Wrapper>
+                        )}
 
-                <SponsorBanner sponsors={sponsors} />
-                <Footer />
-            </SearchProvider>
+                        <Comments />
+                        <AlternativeToolsList
+                            listTitle={`Alternatives for ${tool.name}`}
+                            currentTool={tool}
+                            tools={alternatives}
+                        />
+                    </Panel>
+                </Main>
+            </Wrapper>
+
+            <SponsorBanner sponsors={sponsors} />
+            <Footer />
         </>
     );
 };
