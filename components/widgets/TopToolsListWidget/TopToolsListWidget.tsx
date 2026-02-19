@@ -19,7 +19,6 @@ const TopToolsWidget: FC<TopToolsWidgetProps> = ({ tools }) => {
                     .map((tool, index) => (
                         <li key={index} className={styles.toolsListEntry}>
                             <Link
-                                passHref
                                 href={`/tool/${tool.id}`}
                                 className={cn(
                                     styles.toolLinkCard,

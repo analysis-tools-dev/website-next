@@ -3,6 +3,7 @@ import { BlogPreview } from '@components/blog';
 import { ContributionCard, Newsletter } from '@components/elements';
 import { Sidebar } from '@components/layout';
 import { FilterCard, RelatedCard } from './FilterCard';
+import { OnFilterChange } from '@components/tags/types';
 import styles from './TagsSidebar.module.css';
 
 import {
@@ -17,7 +18,7 @@ import { LanguageFilterOption } from './FilterCard/LanguageFilterCard';
 export interface TagsSidebarProps {
     previews: ArticlePreview[];
     relatedLanguages: LanguageFilterOption[];
-    onFilterChange: (filter: string, value: string, checked: boolean) => void;
+    onFilterChange: OnFilterChange;
 }
 
 const TagsSidebar: FC<TagsSidebarProps> = ({

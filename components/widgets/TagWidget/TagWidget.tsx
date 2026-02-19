@@ -14,7 +14,6 @@ const TagWidget: FC<TagWidgetProps> = ({ tag }) => {
     return (
         <div key={tag} className={styles.tagsListEntry}>
             <Link
-                passHref
                 href={`/tag/${tag}`}
                 className={cn(styles.tagLinkCard, 'no-underline')}>
                 <div className={styles.tagIcon}>
