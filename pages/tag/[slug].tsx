@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { MainHead, Footer, Navbar, SponsorBanner, FAQ } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
 import { LanguageCard, AlternativeToolsList } from '@components/tools';
-import { SearchProvider } from 'context/SearchProvider';
+
 import {
     AffiliatesData,
     ArticlePreview,
@@ -256,41 +256,35 @@ const TagPage: FC<TagProps> = ({
 
     return (
         <>
-            <SearchProvider>
-                <MainHead title={title} description={description} />
+            <MainHead title={title} description={description} />
 
-                <Navbar />
-                <Wrapper className="m-t-20 m-b-30 ">
-                    <Main>
-                        <TagsSidebar
-                            previews={previews}
-                            relatedLanguages={languages}
-                            onFilterChange={onFilterChange}
+            <Navbar />
+            <Wrapper className="m-t-20 m-b-30 ">
+                <Main>
+                    <TagsSidebar
+                        previews={previews}
+                        relatedLanguages={languages}
+                        onFilterChange={onFilterChange}
+                    />
+                    <Panel>
+                        <LanguageCard tools={tools} tag={slug} tagData={tag} />
+                        {/* We should use the tag.name instead,
+                    but it is undefined */}
+                        <AlternativeToolsList
+                            listTitle={`${tagName} Tools`}
+                            tools={filteredTools}
+                            affiliate={affiliate}
                         />
-                        <Panel>
-                            <LanguageCard
-                                tools={tools}
-                                tag={slug}
-                                tagData={tag}
-                            />
-                            {/* We should use the tag.name instead,
-                        but it is undefined */}
-                            <AlternativeToolsList
-                                listTitle={`${tagName} Tools`}
-                                tools={filteredTools}
-                                affiliate={affiliate}
-                            />
-                            <FAQ faq={faq} />
-                            {relatedTags.length > 0 && (
-                                <RelatedTagsList tags={relatedTags} />
-                            )}
-                        </Panel>
-                    </Main>
-                </Wrapper>
+                        <FAQ faq={faq} />
+                        {relatedTags.length > 0 && (
+                            <RelatedTagsList tags={relatedTags} />
+                        )}
+                    </Panel>
+                </Main>
+            </Wrapper>
 
-                <SponsorBanner sponsors={sponsors} />
-                <Footer />
-            </SearchProvider>
+            <SponsorBanner sponsors={sponsors} />
+            <Footer />
         </>
     );
 };

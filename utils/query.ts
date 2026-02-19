@@ -1,11 +1,17 @@
-// TODO: Remove the following two lines and fix the type checker errors
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+/**
+ * Query utilities for URL parameter handling
+ */
 
-import { SearchState, SetSearchStateAction } from 'context/SearchProvider';
-
-export const objectToQueryString = (query) => {
+/**
+ * Converts an object to a query string
+ * @param query - Object with key-value pairs to convert
+ * @returns URL-encoded query string
+ */
+export const objectToQueryString = (
+    query: Record<string, string | string[] | undefined>,
+): string => {
     const paramStrings: string[] = [];
+
     Object.entries(query).forEach(([key, value]) => {
         if (value) {
             if (Array.isArray(value)) {
@@ -24,24 +30,3 @@ export const objectToQueryString = (query) => {
 
     return paramStrings.sort((a, b) => a.localeCompare(b)).join('&');
 };
-
-export const changeQuery =
-    (val: string, search: SearchState, setSearch: SetSearchStateAction) =>
-    (e: any) => {
-        const key = e.target.dataset.filter;
-        let currValue = search[key] || [];
-        if (!Array.isArray(currValue)) {
-            currValue = [currValue];
-        }
-        if (currValue.length) {
-            const index = currValue.indexOf(val);
-            if (index > -1) {
-                currValue.splice(index, 1);
-            } else {
-                currValue.push(val);
-            }
-        } else {
-            currValue.push(val);
-        }
-        setSearch({ ...search, [key]: currValue });
-    };
