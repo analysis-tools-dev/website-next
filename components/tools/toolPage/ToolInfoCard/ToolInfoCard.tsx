@@ -23,7 +23,8 @@ const ToolInfoCard: FC<ToolInfoCardProps> = ({ tool }) => {
             <div className={styles.votes}>
                 <VoteWidget
                     toolId={tool.id}
-                    upvotePercentage={tool.upvotePercentage}
+                    initialVotes={tool.votes}
+                    initialUpvotePercentage={tool.upvotePercentage}
                 />
             </div>
             <div className={styles.info}>

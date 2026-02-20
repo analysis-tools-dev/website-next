@@ -104,6 +104,13 @@ export interface StatsApiData {
     [key: string]: number;
 }
 
+export interface VotesData {
+    votes: number;
+    upVotes: number;
+    downVotes: number;
+    upvotePercentage?: number;
+}
+
 export interface VotesApiData {
     [key: string]: {
         sum: number;

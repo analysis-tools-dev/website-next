@@ -1,7 +1,6 @@
 import { Tool } from '@components/tools';
 import {
     ApiTag,
-    Article,
     Faq,
     LanguageData,
     ScreenshotApiData,
@@ -79,26 +78,6 @@ export const isTagsApiData = (data: unknown): data is TagsApiData => {
         }
     }
     return result;
-};
-
-export const isArticlesApiData = (data: unknown): data is Article[] => {
-    if (!data || !Array.isArray(data)) {
-        return false;
-    }
-
-    for (const entry of data) {
-        const res =
-            (entry as Article).slug !== undefined &&
-            (entry as Article).meta !== undefined &&
-            (entry as Article).source !== undefined &&
-            (entry as Article).html !== undefined &&
-            (entry as Article).summary !== undefined;
-
-        if (!res) {
-            return false;
-        }
-    }
-    return true;
 };
 
 export const isStatsApiData = (data: unknown): data is StatsApiData => {

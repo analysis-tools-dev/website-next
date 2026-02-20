@@ -1,4 +1,5 @@
 import { Tool } from '@components/tools/types';
+import { type APIResponseType, type VotesData } from './types';
 import { APIPaths, getApiURL } from './urls';
 
 export enum VoteAction {
@@ -54,6 +55,21 @@ export const submitVote = async (toolId: string, action: VoteAction) => {
     const voteApiURL = `${getApiURL(APIPaths.VOTE)}/${toolId}?vote=${action}`;
     const response = await fetch(voteApiURL);
     return await response.json();
+};
+
+export const fetchToolVotes = async (
+    toolId: string,
+): Promise<APIResponseType<VotesData | null>> => {
+    try {
+        const voteApiURL = `${getApiURL(APIPaths.VOTES)}/${toolId}`;
+        const response = await fetch(voteApiURL);
+        return await response.json();
+    } catch (error) {
+        return {
+            error: 'An error occurred fetching votes.',
+            data: null,
+        };
+    }
 };
 
 export const calculateUpvotePercentage = (

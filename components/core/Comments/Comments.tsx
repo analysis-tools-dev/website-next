@@ -4,7 +4,6 @@ import styles from './Comments.module.css';
 
 const Comments: FC = () => {
     return (
-        /* TODO: Switch to theme="https://analysis-tools.dev/assets/styles/giscus.css" once it's deployed */
         <div className={styles.commentWrapper}>
             <Giscus
                 id="comments"

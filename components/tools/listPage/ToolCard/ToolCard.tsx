@@ -44,11 +44,10 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
         }
     };
 
-    // FIXME: Get language tag from name to work as href, some languages have different names than their tag
     return (
         <Card className={styles.toolCardWrapper}>
             <div className={styles.votes} ref={votesRef}>
-                <VoteWidget toolId={tool.id} />
+                <VoteWidget toolId={tool.id} initialVotes={tool.votes} />
                 <Link className={styles.clickOut} href={`/tool/${tool.id}`}>
                     <div className={styles.clickOut} />
                 </Link>
@@ -140,11 +139,13 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                             </span>
                         ))}
                     </li>
-                    <li>
-                        <span className={styles.metaInfo}>
-                            {tool.upvotePercentage}% upvoted
-                        </span>
-                    </li>
+                    {tool.upvotePercentage !== undefined && (
+                        <li>
+                            <span className={styles.metaInfo}>
+                                {tool.upvotePercentage}% upvoted
+                            </span>
+                        </li>
+                    )}
                 </ul>
             </div>
         </Card>

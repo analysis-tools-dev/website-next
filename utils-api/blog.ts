@@ -61,7 +61,10 @@ export const getArticleFromFilename = (filename: string): Article => {
 };
 
 /**
- * //TODO: Review function and add description here
+ * Reads a markdown file by slug and returns its frontmatter and raw content.
+ * @desc Only usable SERVERSIDE!
+ * @param {string} slug - Markdown filename without extension.
+ * @returns {MarkdownDocument} Parsed frontmatter and markdown content.
  */
 export const getParsedFileContentBySlug = (slug: string): MarkdownDocument => {
     const postFilePath = join(POSTS_PATH, `${slug}.md`);

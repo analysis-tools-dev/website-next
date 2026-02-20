@@ -122,6 +122,20 @@ export const getDBToolVotes = async (toolId: string) => {
     }
 };
 
+const isToolVotesData = (
+    data: unknown,
+): data is { sum: number; upVotes: number; downVotes: number } => {
+    if (!data || typeof data !== 'object') {
+        return false;
+    }
+
+    return (
+        (data as { sum?: number }).sum !== undefined &&
+        (data as { upVotes?: number }).upVotes !== undefined &&
+        (data as { downVotes?: number }).downVotes !== undefined
+    );
+};
+
 export async function getVotes() {
     try {
         const data = await getDBVotes();
@@ -139,8 +153,7 @@ export async function getVotes() {
 export const getToolVotes = async (toolId: string): Promise<VotesData> => {
     try {
         const data = await getDBToolVotes(toolId);
-        // TODO: Add typeguard
-        if (!data) {
+        if (!isToolVotesData(data)) {
             console.error('Votes TypeError');
             return {
                 votes: 0,
