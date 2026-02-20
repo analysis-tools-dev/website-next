@@ -22,12 +22,19 @@ export const sortByVote = (a: Tool, b: Tool) => {
 
 // sort tools by popularity
 export const sortByPopularity = (a: Tool, b: Tool) => {
-    const upvoteDiff = b.upvotePercentage - a.upvotePercentage;
+    const aDeprecated = Boolean(a.deprecated);
+    const bDeprecated = Boolean(b.deprecated);
 
-    if (upvoteDiff === 0) {
-        return b.votes - a.votes;
+    if (aDeprecated !== bDeprecated) {
+        return aDeprecated ? 1 : -1;
     }
-    return upvoteDiff;
+
+    const upvoteDiff = b.upvotePercentage - a.upvotePercentage;
+    if (upvoteDiff !== 0) {
+        return upvoteDiff;
+    }
+
+    return b.votes - a.votes;
 };
 
 export const validateVoteAction = (action: unknown) => {

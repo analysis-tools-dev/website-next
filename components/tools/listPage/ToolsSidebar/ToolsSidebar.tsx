@@ -27,20 +27,24 @@ const ToolsSidebar: FC<ToolsSidebarProps> = ({
     languages,
     others,
 }) => {
+    const mergedLanguageOptions = [
+        ...LANGUAGE_OPTIONS,
+        ...languages.filter(
+            (option) =>
+                !LANGUAGE_OPTIONS.some(
+                    (popular) => popular.value === option.value,
+                ),
+        ),
+    ];
+
     return (
         <Sidebar className={styles.bottomSticky}>
             <LanguageFilterCard
                 className={styles.filter}
-                heading="Popular Languages"
-                showAllCheckbox={false}
+                heading="Languages"
                 filter="languages"
-                options={LANGUAGE_OPTIONS}
-            />
-            <LanguageFilterCard
-                className={styles.filter}
-                heading="All Languages"
-                filter="languages"
-                options={languages || []}
+                options={mergedLanguageOptions}
+                selectionMode="radio"
             />
             <FilterCard
                 showAllCheckbox={false}
