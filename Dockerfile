@@ -1,22 +1,21 @@
-FROM node:20 as build
+FROM node:24 AS build
 WORKDIR /src
 
 COPY package.json package-lock.json /src/
 RUN npm ci
 
-ENV GOOGLE_APPLICATION_CREDENTIALS=/src/credentials.json
-ENV FIREBASE_PROJECT_ID=analysis-tools-dev
 ARG GH_TOKEN
-ARG PROJECT_ID
 
 COPY . /src
 
 # Build runs npm run build-data (prebuild hook) which fetches tools data
 # from GitHub repos and generates static JSON files, then runs next build
-RUN npm run build
-RUN rm /src/credentials.json
+# Uses BuildKit secret for Firestore credentials during build
+RUN --mount=type=secret,id=gcp_creds \
+    export GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/gcp_creds && \
+    npm run build
 
-FROM node:20
+FROM node:24
 WORKDIR /src
 COPY --from=build /src /src
 ENTRYPOINT ["npm", "run", "start"]

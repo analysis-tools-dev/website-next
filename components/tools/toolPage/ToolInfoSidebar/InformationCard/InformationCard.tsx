@@ -34,15 +34,11 @@ const InformationCard: FC<InformationCardProps> = ({ tool }) => {
                 Information
             </Heading>
 
-            {tool.upVotes && tool.downVotes && (
-                <InfoEntry
-                    label={'Votes'}
-                    id="votes"
-                    value={`${tool.votes} (${Math.round(
-                        (tool.upVotes / (tool.upVotes + tool.downVotes)) * 100,
-                    )}% upvotes)`}
-                />
-            )}
+            <InfoEntry
+                label={'Votes'}
+                id="votes"
+                value={`${tool.votes} (${tool.upvotePercentage}% upvotes)`}
+            />
 
             {tool.installation && (
                 <InfoEntry

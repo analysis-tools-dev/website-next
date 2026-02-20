@@ -22,7 +22,6 @@ import {
     TagsRepository,
     ToolsRepository,
     ToolsFilter,
-    VotesRepository,
 } from '@lib/repositories';
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -50,7 +49,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const tagsRepo = TagsRepository.getInstance();
     const toolsRepo = ToolsRepository.getInstance();
-    const votesRepo = VotesRepository.getInstance();
 
     const tagData = tagsRepo.getDescription(slug);
 
@@ -59,9 +57,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         tagName = tagData.name;
     }
 
-    const votes = await votesRepo.fetchAll();
-    const toolsWithVotes = toolsRepo.withVotes(votes);
-    const filter = ToolsFilter.from(toolsWithVotes);
+    // Votes are now included in static tools.json data
+    const tools = toolsRepo.getAll();
+    const filter = ToolsFilter.from(tools);
 
     const previews = await getArticlesPreviews();
     const sponsors = getSponsors();

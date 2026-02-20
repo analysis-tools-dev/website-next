@@ -16,19 +16,18 @@ import { Tool, ToolsByLanguage } from '@components/tools';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 import { getFaq } from 'utils-api/faq';
-import { StatsRepository, VotesRepository } from '@lib/repositories';
+import { StatsRepository } from '@lib/repositories';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const faq = getFaq();
     const previews = await getArticlesPreviews();
 
-    const votesRepo = VotesRepository.getInstance();
     const statsRepo = StatsRepository.getInstance();
 
-    const votes = await votesRepo.fetchAll();
-    const popularLanguages = statsRepo.getPopularLanguageStats(votes);
-    const mostViewed = statsRepo.getMostViewedTools(votes);
+    // Votes are now included in static tools.json data
+    const popularLanguages = statsRepo.getPopularLanguageStats();
+    const mostViewed = statsRepo.getMostViewedTools();
 
     return {
         props: {

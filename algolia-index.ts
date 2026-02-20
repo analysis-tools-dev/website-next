@@ -85,6 +85,9 @@ function prepareDataForIndexing(toolsData: Tool[]): ApiTool[] {
         resources: tool.resources,
         wrapper: tool.wrapper,
         votes: tool.votes ?? 0,
+        upVotes: tool.upVotes,
+        downVotes: tool.downVotes,
+        upvotePercentage: tool.upvotePercentage,
         other: tool.other,
     }));
 

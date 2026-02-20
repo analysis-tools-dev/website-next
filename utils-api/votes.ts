@@ -11,7 +11,7 @@ export interface VotesData {
     votes: number;
     upVotes: number;
     downVotes: number;
-    upvotePercentage?: number;
+    upvotePercentage: number;
 }
 
 export interface Vote {
@@ -146,6 +146,7 @@ export const getToolVotes = async (toolId: string): Promise<VotesData> => {
                 votes: 0,
                 upVotes: 0,
                 downVotes: 0,
+                upvotePercentage: 0,
             };
         }
         const upVotes = Number(data.upVotes || 0);
@@ -162,6 +163,7 @@ export const getToolVotes = async (toolId: string): Promise<VotesData> => {
             votes: 0,
             upVotes: 0,
             downVotes: 0,
+            upvotePercentage: 0,
         };
     }
 };

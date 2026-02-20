@@ -9,17 +9,16 @@ import { Article, SponsorData } from 'utils/types';
 import { ToolsByLanguage } from '@components/tools';
 import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
-import { StatsRepository, VotesRepository } from '@lib/repositories';
+import { StatsRepository } from '@lib/repositories';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const previews = getArticlesPreviews();
 
-    const votesRepo = VotesRepository.getInstance();
     const statsRepo = StatsRepository.getInstance();
 
-    const votes = await votesRepo.fetchAll();
-    const popularLanguages = statsRepo.getPopularLanguageStats(votes);
+    // Votes are included in static tools.json data
+    const popularLanguages = statsRepo.getPopularLanguageStats();
 
     return {
         props: {

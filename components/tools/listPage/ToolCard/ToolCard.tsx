@@ -140,13 +140,11 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
                             </span>
                         ))}
                     </li>
-                    {tool.upvotePercentage !== undefined && (
-                        <li>
-                            <span className={styles.metaInfo}>
-                                {tool.upvotePercentage}% upvoted
-                            </span>
-                        </li>
-                    )}
+                    <li>
+                        <span className={styles.metaInfo}>
+                            {tool.upvotePercentage}% upvoted
+                        </span>
+                    </li>
                 </ul>
             </div>
         </Card>

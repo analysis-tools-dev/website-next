@@ -27,9 +27,9 @@ export interface ApiTool {
     resources: ToolResource[] | null;
     wrapper: string | null;
     votes: number;
-    upVotes?: number;
-    downVotes?: number;
-    upvotePercentage?: number;
+    upVotes: number;
+    downVotes: number;
+    upvotePercentage: number;
 }
 
 export interface ToolResource {

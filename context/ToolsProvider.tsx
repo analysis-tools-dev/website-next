@@ -137,6 +137,16 @@ function searchToQueryString(search: SearchState): string {
 function sortTools(tools: Tool[], sorting?: string): Tool[] {
     const sorted = [...tools];
 
+    const popularityCompare = (a: Tool, b: Tool) => {
+        const deprecatedDiff = Number(a.deprecated) - Number(b.deprecated);
+        if (deprecatedDiff !== 0) return deprecatedDiff;
+
+        const upvoteDiff = b.upvotePercentage - a.upvotePercentage;
+        if (upvoteDiff !== 0) return upvoteDiff;
+
+        return b.votes - a.votes;
+    };
+
     switch (sorting) {
         case 'votes_asc':
             return sorted.sort((a, b) => (a.votes || 0) - (b.votes || 0));
@@ -145,6 +155,9 @@ function sortTools(tools: Tool[], sorting?: string): Tool[] {
         case 'alphabetical_desc':
             return sorted.sort((a, b) => b.name.localeCompare(a.name));
         case 'most_popular':
+            return sorted.sort(popularityCompare);
+        case 'least_popular':
+            return sorted.sort((a, b) => -popularityCompare(a, b));
         case 'votes_desc':
         default:
             return sorted.sort((a, b) => (b.votes || 0) - (a.votes || 0));
@@ -156,10 +169,21 @@ function filterTools(tools: Tool[], search: SearchState): Tool[] {
     return tools.filter((tool) => {
         // Languages filter
         if (search.languages && search.languages.length > 0) {
-            const hasLanguage = search.languages.some((lang) =>
-                tool.languages?.includes(lang),
-            );
-            if (!hasLanguage) return false;
+            if (search.languages.length === 1) {
+                const [language] = search.languages;
+                const isSingleLanguageTool = tool.languages?.length === 1;
+                if (
+                    !isSingleLanguageTool ||
+                    !tool.languages?.includes(language)
+                ) {
+                    return false;
+                }
+            } else {
+                const hasLanguage = search.languages.some((lang) =>
+                    tool.languages?.includes(lang),
+                );
+                if (!hasLanguage) return false;
+            }
         }
 
         // Others filter

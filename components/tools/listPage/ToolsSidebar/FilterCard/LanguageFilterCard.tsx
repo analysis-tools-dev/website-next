@@ -21,6 +21,7 @@ export interface LanguageFilterCardProps {
     options: LanguageFilterOption[];
     limit?: number;
     className?: string;
+    selectionMode?: 'checkbox' | 'radio';
 }
 
 const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
@@ -30,6 +31,7 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
     options,
     limit = 10,
     className,
+    selectionMode,
 }) => {
     const {
         search,
@@ -45,6 +47,8 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
 
     // Fade out background when not showing all options
     const [faded, setFaded] = useState(styles.faded);
+    const isRadioMode =
+        selectionMode === 'radio' || heading === 'Popular Languages';
 
     const toggleAll = () => {
         if (listLimit === 999) {
@@ -61,8 +65,12 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
         updateFilter(searchFilter, []);
     };
 
-    const handleCheckboxChange = (value: string) => {
+    const handleOptionChange = (value: string) => {
         const searchFilter = filter as SearchFilter;
+        if (isRadioMode) {
+            updateFilter(searchFilter, [value]);
+            return;
+        }
         toggleFilter(searchFilter, value);
     };
 
@@ -77,13 +85,14 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
         return values !== undefined && values.length > 0;
     };
 
-    // Sort options: checked items first, then by count
+    // Sort options by popularity; keep radio selection from reordering items
     const sortedOptions = [...options].sort((a, b) => {
-        const aChecked = isChecked(a.value);
-        const bChecked = isChecked(b.value);
-        if (aChecked && !bChecked) return -1;
-        if (!aChecked && bChecked) return 1;
-        // Then sort by count
+        if (!isRadioMode) {
+            const aChecked = isChecked(a.value);
+            const bChecked = isChecked(b.value);
+            if (aChecked && !bChecked) return -1;
+            if (!aChecked && bChecked) return 1;
+        }
         const aCount = getLanguageCount(a.value);
         const bCount = getLanguageCount(b.value);
         return bCount - aCount;
@@ -129,13 +138,18 @@ const LanguageFilterCard: FC<LanguageFilterCardProps> = ({
                     return (
                         <li key={index}>
                             <Input
-                                type="checkbox"
+                                type={isRadioMode ? 'radio' : 'checkbox'}
+                                name={
+                                    isRadioMode
+                                        ? `radio_${filter}_${heading}`
+                                        : undefined
+                                }
                                 id={`checkbox_${filter}_${option.value}`}
                                 value={option.value}
                                 data-filter={filter}
                                 checked={isChecked(option.value)}
                                 onChange={() =>
-                                    handleCheckboxChange(option.value)
+                                    handleOptionChange(option.value)
                                 }
                             />
                             <label
