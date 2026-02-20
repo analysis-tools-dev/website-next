@@ -8,7 +8,6 @@ export interface ArticleListProps {
     articles: Article[];
 }
 
-// TODO: Add new component for blog preview entry with meta data
 const ArticleList: FC<ArticleListProps> = ({ articles }) => {
     return articles ? (
         <ul className={styles.articleList}>

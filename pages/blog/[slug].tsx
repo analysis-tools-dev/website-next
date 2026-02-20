@@ -67,7 +67,6 @@ export interface BlogPostPageProps extends MarkdownRenderingResult {
     sponsors: SponsorData[];
 }
 
-// TODO: Add BreadCrumbs
 const BlogPostPage: FC<BlogPostPageProps> = ({
     sponsors,
     frontMatter,

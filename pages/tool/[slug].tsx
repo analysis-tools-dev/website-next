@@ -34,8 +34,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths, fallback: false };
 };
 
-// TODO: Add fallback pages instead of 404, maybe says tool not found and ask
-// user if they would like to add it?
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const slug = params?.slug?.toString();
     if (!slug || slug === '') {
