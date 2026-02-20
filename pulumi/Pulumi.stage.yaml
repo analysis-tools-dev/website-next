@@ -4,3 +4,4 @@ config:
     service:name: website-stage
     service:public_url: https://website-stage-2ddf80d-mcppc6wqoq-uc.a.run.app
     service:algolia_app_id: V0X7Z4KE9D
+    service:location: us-central1

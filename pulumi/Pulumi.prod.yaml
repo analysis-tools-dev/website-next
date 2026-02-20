@@ -4,3 +4,4 @@ config:
     service:name: website-prod
     service:public_url: https://analysis-tools.dev
     service:algolia_app_id: V0X7Z4KE9D
+    service:location: us-central1

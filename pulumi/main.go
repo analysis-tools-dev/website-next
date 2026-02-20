@@ -1,24 +1,41 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/cloudrun"
-	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/organizations"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
 
+func requireEnv(key string) (string, error) {
+	value := os.Getenv(key)
+	if value == "" {
+		return "", fmt.Errorf("missing required environment variable: %s", key)
+	}
+	return value, nil
+}
+
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		conf := config.New(ctx, "service")
+		imageName, err := requireEnv("IMAGE_NAME")
+		if err != nil {
+			return err
+		}
+		algoliaApiKey, err := requireEnv("ALGOLIA_API_KEY")
+		if err != nil {
+			return err
+		}
 		service, err := cloudrun.NewService(ctx, conf.Require("name"), &cloudrun.ServiceArgs{
-			Location: pulumi.String("us-central1"),
+			Location: pulumi.String(conf.Require("location")),
 			Template: &cloudrun.ServiceTemplateArgs{
 				Spec: &cloudrun.ServiceTemplateSpecArgs{
 					Containers: cloudrun.ServiceTemplateSpecContainerArray{
 						&cloudrun.ServiceTemplateSpecContainerArgs{
-							Image: pulumi.String(os.Getenv("IMAGE_NAME")),
+							Image: pulumi.String(imageName),
 							Ports: cloudrun.ServiceTemplateSpecContainerPortArray{
 								&cloudrun.ServiceTemplateSpecContainerPortArgs{
 									ContainerPort: pulumi.Int(3000),
@@ -41,7 +58,7 @@ func main() {
 								},
 								&cloudrun.ServiceTemplateSpecContainerEnvArgs{
 									Name:  pulumi.String("ALGOLIA_API_KEY"),
-									Value: pulumi.String(os.Getenv("ALGOLIA_API_KEY")),
+									Value: pulumi.String(algoliaApiKey),
 								},
 							},
 						},
@@ -52,24 +69,12 @@ func main() {
 		if err != nil {
 			return err
 		}
-		noauthIAMPolicy, err := organizations.LookupIAMPolicy(ctx, &organizations.LookupIAMPolicyArgs{
-			Bindings: []organizations.GetIAMPolicyBinding{
-				{
-					Role: "roles/run.invoker",
-					Members: []string{
-						"allUsers",
-					},
-				},
-			},
-		}, nil)
-		if err != nil {
-			return err
-		}
-		_, err = cloudrun.NewIamPolicy(ctx, "noauthIamPolicy", &cloudrun.IamPolicyArgs{
-			Location:   service.Location,
-			Project:    service.Project,
-			Service:    service.Name,
-			PolicyData: pulumi.String(noauthIAMPolicy.PolicyData),
+		_, err = cloudrun.NewIamMember(ctx, "noauthInvoker", &cloudrun.IamMemberArgs{
+			Location: service.Location,
+			Project:  service.Project,
+			Service:  service.Name,
+			Role:     pulumi.String("roles/run.invoker"),
+			Member:   pulumi.String("allUsers"),
 		})
 		if err != nil {
 			return err

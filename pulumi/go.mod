@@ -1,6 +1,6 @@
 module analysis-tools
 
-go 1.17
+go 1.21
 
 require (
 	github.com/pulumi/pulumi-gcp/sdk/v6 v6.51.0
