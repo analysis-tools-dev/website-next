@@ -1,7 +1,0 @@
-encryptionsalt: v1:NIoExvAd50I=:v1:QBh14IZM2Iuw5KgY:jrtq+p9X80cCCl45dffwt2XnHPElRQ==
-config:
-    gcp:project: analysis-tools-dev
-    service:name: website-stage
-    service:public_url: https://website-stage-2ddf80d-mcppc6wqoq-uc.a.run.app
-    service:algolia_app_id: V0X7Z4KE9D
-    service:location: us-central1
