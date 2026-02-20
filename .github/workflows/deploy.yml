@@ -110,12 +110,9 @@ jobs:
               env:
                   GH_TOKEN: ${{ steps.generate_token.outputs.token }}
               run: |
-                  echo ${{ secrets.FIREBASE_TOKEN }} | base64 -d > ./credentials.json
                   echo "Building Docker Image with tag $IMAGE_NAME"
                   docker build --build-arg GH_TOKEN=${{ env.GH_TOKEN }} \
-                    --build-arg PROJECT_ID=analysis-tools-dev \
                     -t ${IMAGE_NAME} .
-                  rm ./credentials.json
 
             - name: 'Push Docker Image'
               run: |
