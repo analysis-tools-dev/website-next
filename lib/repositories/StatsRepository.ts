@@ -7,7 +7,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import type { StatsApiData, VotesApiData } from 'utils/types';
+import type { StatsApiData } from 'utils/types';
 import type { Tool, ToolsByLanguage } from '@components/tools/types';
 import { ToolsRepository } from './ToolsRepository';
 import { sortByVote } from 'utils/votes';
