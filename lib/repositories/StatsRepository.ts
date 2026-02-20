@@ -103,9 +103,9 @@ export class StatsRepository {
             );
     }
 
-    getPopularLanguageStats(votes?: VotesApiData | null): ToolsByLanguage {
+    getPopularLanguageStats(): ToolsByLanguage {
         const toolsRepo = ToolsRepository.getInstance();
-        const tools = toolsRepo.withVotes(votes || null);
+        const tools = toolsRepo.getAll();
         const languageStats = this.getLanguageStats();
 
         for (const [toolId, tool] of Object.entries(tools)) {
@@ -154,9 +154,9 @@ export class StatsRepository {
         return languageStats;
     }
 
-    getMostViewedTools(votes?: VotesApiData | null): Tool[] {
+    getMostViewedTools(): Tool[] {
         const toolsRepo = ToolsRepository.getInstance();
-        const tools = toolsRepo.withVotes(votes || null);
+        const tools = toolsRepo.getAll();
         const toolStats = this.loadToolStats();
 
         const mostViewedToolIds = Object.keys(toolStats);

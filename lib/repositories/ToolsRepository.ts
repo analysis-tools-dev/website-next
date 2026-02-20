@@ -7,9 +7,8 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import type { ToolsApiData, ApiTool, VotesApiData } from 'utils/types';
+import type { ToolsApiData, ApiTool } from 'utils/types';
 import type { Tool } from '@components/tools/types';
-import { calculateUpvotePercentage } from 'utils/votes';
 
 interface BuildMeta {
     buildTime: string;
@@ -75,7 +74,6 @@ export class ToolsRepository {
         return {
             ...tool,
             id: toolId,
-            votes: tool.votes || 0,
         } as Tool;
     }
 
@@ -88,8 +86,14 @@ export class ToolsRepository {
         return Object.entries(tools).map(([id, tool]) => ({
             ...tool,
             id,
-            votes: tool.votes || 0,
         })) as Tool[];
+    }
+
+    /**
+     * Alias for toArray() - returns all tools as an array with IDs
+     */
+    getAllAsArray(): Tool[] {
+        return this.toArray();
     }
 
     findWhere(predicate: (tool: ApiTool, id: string) => boolean): Tool[] {
@@ -99,7 +103,6 @@ export class ToolsRepository {
             .map(([id, tool]) => ({
                 ...tool,
                 id,
-                votes: tool.votes || 0,
             })) as Tool[];
     }
 
@@ -145,44 +148,6 @@ export class ToolsRepository {
             return `/assets/images/tools/${toolId}.png`;
         }
         return null;
-    }
-
-    withVotes(votes: VotesApiData | null): ToolsApiData {
-        const tools = this.getAll();
-
-        if (!votes) {
-            return tools;
-        }
-
-        const result: ToolsApiData = {};
-
-        for (const [toolId, tool] of Object.entries(tools)) {
-            const key = `toolsyaml${toolId}`;
-            const v = votes[key];
-
-            const sum = v?.sum || 0;
-            const upVotes = v?.upVotes || 0;
-            const downVotes = v?.downVotes || 0;
-
-            result[toolId] = {
-                ...tool,
-                votes: sum,
-                upVotes,
-                downVotes,
-                upvotePercentage: calculateUpvotePercentage(upVotes, downVotes),
-            };
-        }
-
-        return result;
-    }
-
-    withVotesAsArray(votes: VotesApiData | null): Tool[] {
-        const tools = this.withVotes(votes);
-        return Object.entries(tools).map(([id, tool]) => ({
-            ...tool,
-            id,
-            votes: tool.votes || 0,
-        })) as Tool[];
     }
 
     clearCache(): void {

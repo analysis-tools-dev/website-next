@@ -44,7 +44,7 @@ export async function fetchToolVotesData(
 ): Promise<APIResponseType<VotesData | null>> {
     try {
         const voteApiURL = `${getApiURL(APIPaths.VOTES)}/${toolId}`;
-        const response = await fetch(voteApiURL);
+        const response = await fetch(voteApiURL, { cache: 'no-store' });
         return await response.json();
     } catch (error) {
         return {

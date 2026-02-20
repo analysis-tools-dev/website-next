@@ -11,23 +11,17 @@ import { getArticlesPreviews } from 'utils-api/blog';
 import { LanguageFilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/LanguageFilterCard';
 import { FilterOption } from '@components/tools/listPage/ToolsSidebar/FilterCard/FilterCard';
 import { Tool } from '@components/tools/types';
-import {
-    ToolsRepository,
-    TagsRepository,
-    VotesRepository,
-} from '@lib/repositories';
+import { ToolsRepository, TagsRepository } from '@lib/repositories';
 
 export const getStaticProps: GetStaticProps = async () => {
     const sponsors = getSponsors();
     const articles = await getArticlesPreviews();
 
-    // Get tools with votes
+    // Get tools (votes are already included in static data from build-data script)
     const toolsRepo = ToolsRepository.getInstance();
-    const votesRepo = VotesRepository.getInstance();
     const tagsRepo = TagsRepository.getInstance();
 
-    const votes = await votesRepo.fetchAll();
-    const tools = toolsRepo.withVotesAsArray(votes);
+    const tools = toolsRepo.getAllAsArray();
 
     // Sort tools by votes initially
     const sortedTools = [...tools].sort(

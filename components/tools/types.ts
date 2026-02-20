@@ -43,9 +43,9 @@ export interface Tool {
     resources: ToolResource[] | null;
     wrapper: string | null;
     votes: number;
-    upVotes?: number;
-    downVotes?: number;
-    upvotePercentage?: number;
+    upVotes: number;
+    downVotes: number;
+    upvotePercentage: number;
     views?: number;
     installation?: string;
     documentation?: string;

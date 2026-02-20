@@ -22,13 +22,12 @@ export const sortByVote = (a: Tool, b: Tool) => {
 
 // sort tools by popularity
 export const sortByPopularity = (a: Tool, b: Tool) => {
-    const upvoteDiff = (b.upvotePercentage || 0) - (a.upvotePercentage || 0);
+    const upvoteDiff = b.upvotePercentage - a.upvotePercentage;
 
     if (upvoteDiff === 0) {
         return b.votes - a.votes;
-    } else {
-        return upvoteDiff;
     }
+    return upvoteDiff;
 };
 
 export const validateVoteAction = (action: unknown) => {
@@ -51,17 +50,9 @@ export const submitVote = async (toolId: string, action: VoteAction) => {
 };
 
 export const calculateUpvotePercentage = (
-    upVotes: number | undefined,
-    downVotes: number | undefined,
+    upVotes: number,
+    downVotes: number,
 ) => {
-    if (!upVotes) {
-        return 0;
-    }
-
-    if (!downVotes) {
-        return 100;
-    }
-
     const totalVotes = upVotes + downVotes;
     if (totalVotes === 0) {
         return 0;

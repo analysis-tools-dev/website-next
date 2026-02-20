@@ -45,7 +45,7 @@ const VoteWidget: FC<VoteWidgetProps> = ({
             </div>
         );
     }
-    if (error || !votesData) {
+    if (error) {
         return null;
     }
 

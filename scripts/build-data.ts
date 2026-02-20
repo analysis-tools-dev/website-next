@@ -3,6 +3,7 @@
  *
  * This script fetches tools data from the analysis-tools-dev GitHub repositories
  * and consolidates them into a single static JSON file for use at runtime.
+ * Also fetches votes from Firestore if credentials are available.
  *
  * Run with: npm run build-data
  */
@@ -10,9 +11,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
+import { Firestore } from '@google-cloud/firestore';
 
-// Types
-interface ToolData {
+// Types (raw source data vs. enriched output data)
+interface RawToolData {
     name: string;
     categories: string[];
     languages: string[];
@@ -32,16 +34,30 @@ interface ToolData {
     wrapper: string | null;
 }
 
-interface ToolsData {
-    [key: string]: ToolData;
+interface ToolData extends RawToolData {
+    votes: number;
+    upVotes: number;
+    downVotes: number;
+    upvotePercentage: number;
 }
+
+type RawToolsData = Record<string, RawToolData>;
+type EnrichedToolsData = Record<string, ToolData>;
 
 interface StatsData {
     [key: string]: number;
 }
 
+interface VotesData {
+    [key: string]: {
+        sum: number;
+        upVotes: number;
+        downVotes: number;
+    };
+}
+
 interface BuildOutput {
-    tools: ToolsData;
+    tools: EnrichedToolsData;
     meta: {
         buildTime: string;
         staticAnalysisCount: number;
@@ -107,10 +123,10 @@ function fetchJSON<T>(url: string): Promise<T> {
  * Merge tools from multiple sources, handling duplicates
  */
 function mergeTools(
-    staticTools: ToolsData,
-    dynamicTools: ToolsData,
-): ToolsData {
-    const merged: ToolsData = { ...staticTools };
+    staticTools: RawToolsData,
+    dynamicTools: RawToolsData,
+): RawToolsData {
+    const merged: RawToolsData = { ...staticTools };
 
     for (const [id, tool] of Object.entries(dynamicTools)) {
         if (merged[id]) {
@@ -134,7 +150,7 @@ function mergeTools(
 /**
  * Validate tool data
  */
-function validateTools(tools: ToolsData): void {
+function validateTools(tools: RawToolsData): void {
     const errors: string[] = [];
 
     for (const [id, tool] of Object.entries(tools)) {
@@ -161,7 +177,7 @@ function validateTools(tools: ToolsData): void {
 /**
  * Extract unique tags (languages and others) from tools
  */
-function extractTags(tools: ToolsData): {
+function extractTags(tools: EnrichedToolsData): {
     languages: string[];
     others: string[];
 } {
@@ -207,17 +223,87 @@ async function fetchStats(): Promise<{
 }
 
 /**
+ * Fetch votes from Firestore
+ * Fails fast if credentials are not configured
+ */
+async function fetchVotes(): Promise<VotesData> {
+    if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        throw new Error(
+            'GOOGLE_APPLICATION_CREDENTIALS is not set. ' +
+                'Votes are required for the build. ' +
+                'Please set up Google Cloud credentials to access Firestore.',
+        );
+    }
+
+    const db = new Firestore({ projectId: 'analysis-tools-dev' });
+    const snapshot = await db.collection('tags').get();
+
+    const votes: VotesData = {};
+    snapshot.docs.forEach((doc) => {
+        const data = doc.data();
+        votes[doc.id] = {
+            sum: data.sum || 0,
+            upVotes: data.upVotes || 0,
+            downVotes: data.downVotes || 0,
+        };
+    });
+
+    console.log(`Fetched ${Object.keys(votes).length} votes from Firestore`);
+    return votes;
+}
+
+/**
+ * Calculate upvote percentage
+ */
+function calculateUpvotePercentage(upVotes: number, downVotes: number): number {
+    const totalVotes = upVotes + downVotes;
+    if (totalVotes === 0) {
+        return 0;
+    }
+    return Math.round((upVotes / totalVotes) * 100);
+}
+
+/**
+ * Add votes to tools
+ */
+function addVotesToTools(
+    tools: RawToolsData,
+    votes: VotesData,
+): EnrichedToolsData {
+    const result: EnrichedToolsData = {};
+
+    for (const [id, tool] of Object.entries(tools)) {
+        const key = `toolsyaml${id}`;
+        const v = votes[key];
+
+        const upVotes = v?.upVotes || 0;
+        const downVotes = v?.downVotes || 0;
+
+        result[id] = {
+            ...tool,
+            votes: v?.sum || 0,
+            upVotes,
+            downVotes,
+            upvotePercentage: calculateUpvotePercentage(upVotes, downVotes),
+        };
+    }
+
+    return result;
+}
+
+/**
  * Main build function
  */
 async function main(): Promise<void> {
     console.log('Building tools data...\n');
 
     try {
-        // Fetch data from both repositories and stats
-        const [staticTools, dynamicTools, stats] = await Promise.all([
-            fetchJSON<ToolsData>(STATIC_ANALYSIS_URL),
-            fetchJSON<ToolsData>(DYNAMIC_ANALYSIS_URL),
+        // Fetch data from both repositories, stats, and votes
+        const [staticTools, dynamicTools, stats, votes] = await Promise.all([
+            fetchJSON<RawToolsData>(STATIC_ANALYSIS_URL),
+            fetchJSON<RawToolsData>(DYNAMIC_ANALYSIS_URL),
             fetchStats(),
+            fetchVotes(),
         ]);
 
         const staticCount = Object.keys(staticTools).length;
@@ -227,15 +313,18 @@ async function main(): Promise<void> {
         console.log(`Fetched ${dynamicCount} dynamic analysis tools`);
 
         // Merge tools
-        const mergedTools = mergeTools(staticTools, dynamicTools);
-        const totalCount = Object.keys(mergedTools).length;
+        const rawTools = mergeTools(staticTools, dynamicTools);
+        const totalCount = Object.keys(rawTools).length;
         console.log(`Total unique tools: ${totalCount}`);
 
+        // Add votes to tools
+        const enrichedTools = addVotesToTools(rawTools, votes);
+
         // Validate
-        validateTools(mergedTools);
+        validateTools(rawTools);
 
         // Extract tags for reference
-        const tags = extractTags(mergedTools);
+        const tags = extractTags(enrichedTools);
         console.log(`\nFound ${tags.languages.length} unique languages`);
         console.log(`Found ${tags.others.length} unique other tags`);
 
@@ -247,7 +336,7 @@ async function main(): Promise<void> {
 
         // Prepare output
         const output: BuildOutput = {
-            tools: mergedTools,
+            tools: enrichedTools,
             meta: {
                 buildTime: new Date().toISOString(),
                 staticAnalysisCount: staticCount,

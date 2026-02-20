@@ -16,8 +16,7 @@ import { getArticlesPreviews } from 'utils-api/blog';
 import { getSponsors } from 'utils-api/sponsors';
 import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
 import { Comments } from '@components/core/Comments';
-import { calculateUpvotePercentage } from 'utils/votes';
-import { ToolsRepository, VotesRepository } from '@lib/repositories';
+import { ToolsRepository } from '@lib/repositories';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -46,7 +45,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 
     const toolsRepo = ToolsRepository.getInstance();
-    const votesRepo = VotesRepository.getInstance();
 
     const apiTool = toolsRepo.getById(slug);
     if (!apiTool) {
@@ -57,29 +55,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 
     const sponsors = getSponsors();
-    const votes = await votesRepo.fetchAll();
     const previews = await getArticlesPreviews();
     const icon = toolsRepo.getIcon(slug);
 
-    // Calculate the upvote percentage based on the votes
-    const voteKey = `toolsyaml${slug}`;
-    const voteData = votes ? votes[voteKey] : null;
-    const upvotePercentage = calculateUpvotePercentage(
-        voteData?.upVotes,
-        voteData?.downVotes,
-    );
-
+    // Votes are now included in static tools.json data
     const tool = {
         ...apiTool,
-        upvotePercentage,
         id: slug,
         icon: icon,
     };
 
-    // Get all tools with votes for alternatives
-    const allToolsWithVotes = toolsRepo.withVotesAsArray(votes);
+    // Get all tools for alternatives
+    const allTools = toolsRepo.getAllAsArray();
     let alternatives: Tool[] = [];
-    const allAlternatives = allToolsWithVotes.filter((t) => t.id !== slug);
+    const allAlternatives = allTools.filter((t) => t.id !== slug);
 
     // Show only tools with the same type, languages, and categories
     alternatives = allAlternatives.filter((alt) => {

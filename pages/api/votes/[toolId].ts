@@ -6,6 +6,7 @@ export default async function handler(
     res: NextApiResponse<{ data: VotesData | null; error?: string }>,
 ) {
     try {
+        res.setHeader('Cache-Control', 'no-store, max-age=0');
         const { toolId } = req.query;
 
         if (!toolId || typeof toolId !== 'string') {
