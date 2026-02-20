@@ -145,6 +145,13 @@ function sortTools(tools: Tool[], sorting?: string): Tool[] {
         case 'alphabetical_desc':
             return sorted.sort((a, b) => b.name.localeCompare(a.name));
         case 'most_popular':
+            return sorted.sort(
+                (a, b) => b.upvotePercentage - a.upvotePercentage,
+            );
+        case 'least_popular':
+            return sorted.sort(
+                (a, b) => a.upvotePercentage - b.upvotePercentage,
+            );
         case 'votes_desc':
         default:
             return sorted.sort((a, b) => (b.votes || 0) - (a.votes || 0));
