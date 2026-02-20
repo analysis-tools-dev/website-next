@@ -134,33 +134,40 @@ jobs:
                   echo "Pushing Docker Image $IMAGE_NAME"
                   docker push $IMAGE_NAME
 
-            - name: 'Deploy'
-              uses: pulumi/actions@v5
+            - name: 'Deploy stage'
               env:
-                  # TODO: Create a password for Pulumi stack during project bootstrap
-                  PULUMI_CONFIG_PASSPHRASE: '${{ secrets.PULUMI_SECRET }}'
                   ALGOLIA_API_KEY: '${{ secrets.ALGOLIA_API_KEY }}'
-              with:
-                  command: up
-                  work-dir: ./pulumi
-                  cloud-url: gs://analysis-tools-dev-pulumi
-                  # TODO: Fix the branch name
-                  stack-name: stage
-                  refresh: true
+                  ALGOLIA_APP_ID: '${{ secrets.ALGOLIA_APP_ID }}'
+              run: |
+                  gcloud run deploy website-stage \
+                    --image "${IMAGE_NAME}" \
+                    --project "analysis-tools-dev" \
+                    --region "us-central1" \
+                    --platform "managed" \
+                    --allow-unauthenticated \
+                    --port "3000" \
+                    --cpu "1" \
+                    --memory "1Gi" \
+                    --set-env-vars "PUBLIC_HOST=https://website-stage-2ddf80d-mcppc6wqoq-uc.a.run.app,ALGOLIA_APP_ID=${ALGOLIA_APP_ID},ALGOLIA_API_KEY=${ALGOLIA_API_KEY}" \
+                    --quiet
 
             - name: 'Deploy prod'
-              uses: pulumi/actions@v5
               if: github.ref == 'refs/heads/main'
               env:
-                  # TODO: Create a password for Pulumi stack during project bootstrap
-                  PULUMI_CONFIG_PASSPHRASE: '${{ secrets.PULUMI_SECRET_PROD }}'
                   ALGOLIA_API_KEY: '${{ secrets.ALGOLIA_API_KEY }}'
-              with:
-                  command: up
-                  work-dir: ./pulumi
-                  cloud-url: gs://analysis-tools-dev-pulumi
-                  stack-name: prod
-                  refresh: true
+                  ALGOLIA_APP_ID: '${{ secrets.ALGOLIA_APP_ID }}'
+              run: |
+                  gcloud run deploy website-prod \
+                    --image "${IMAGE_NAME}" \
+                    --project "analysis-tools-dev" \
+                    --region "us-central1" \
+                    --platform "managed" \
+                    --allow-unauthenticated \
+                    --port "3000" \
+                    --cpu "1" \
+                    --memory "1Gi" \
+                    --set-env-vars "PUBLIC_HOST=https://analysis-tools.dev,ALGOLIA_APP_ID=${ALGOLIA_APP_ID},ALGOLIA_API_KEY=${ALGOLIA_API_KEY}" \
+                    --quiet
 
             # Node.js is already set up earlier in the workflow
 
