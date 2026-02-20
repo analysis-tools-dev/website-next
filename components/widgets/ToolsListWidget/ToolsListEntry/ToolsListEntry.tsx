@@ -13,7 +13,11 @@ export interface ToolsListEntryProps {
 const ToolsListEntry: FC<ToolsListEntryProps> = ({ tool }) => {
     return (
         <div className={styles.listEntryWrapper}>
-            <VoteWidget toolId={tool.id} type={'secondary'} />
+            <VoteWidget
+                toolId={tool.id}
+                type={'secondary'}
+                initialVotes={tool.votes}
+            />
             <Link
                 href={`/tool/${tool.id}`}
                 className={cn(styles.toolLink, 'no-underline')}>

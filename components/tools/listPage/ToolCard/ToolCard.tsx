@@ -48,7 +48,7 @@ const ToolCard: FC<ToolCardProps> = ({ tool }) => {
     return (
         <Card className={styles.toolCardWrapper}>
             <div className={styles.votes} ref={votesRef}>
-                <VoteWidget toolId={tool.id} />
+                <VoteWidget toolId={tool.id} initialVotes={tool.votes} />
                 <Link className={styles.clickOut} href={`/tool/${tool.id}`}>
                     <div className={styles.clickOut} />
                 </Link>
