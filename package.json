@@ -8,7 +8,7 @@
         "build": "next build",
         "search-index": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' ./algolia-index.ts",
         "start": "next start",
-        "lint": "next lint",
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
         "pretty-quick": "pretty-quick"
     },
     "dependencies": {
@@ -25,7 +25,7 @@
         "gray-matter": "^4.0.3",
         "instantsearch.js": "^4.79.2",
         "marked": "^4.3.0",
-        "next": "^15.5.12",
+        "next": "^16.1.6",
         "protobufjs": "^7.5.4",
         "react": "^19.2.4",
         "react-chartjs-2": "^5.3.1",
@@ -49,7 +49,7 @@
         "eslint-config-next": "^15.5.12",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.5",
-        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react": "7.32.2",
         "eslint-plugin-react-hooks": "^7.0.1",
         "eslint-plugin-unused-imports": "^4.4.1",
         "husky": "^7.0.4",

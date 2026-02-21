@@ -1,7 +1,4 @@
 import { objectToQueryString } from 'utils/query';
-import getConfig from 'next/config';
-
-const { publicRuntimeConfig } = getConfig();
 
 export enum APIPaths {
     TOOLS = 'tools',
@@ -16,7 +13,7 @@ export enum APIPaths {
 }
 
 export const getApiURL = (pathName?: string) => {
-    const baseApiUrl = `${publicRuntimeConfig.publicHost ?? ''}/api`;
+    const baseApiUrl = `${process.env.NEXT_PUBLIC_PUBLIC_HOST ?? ''}/api`;
 
     if (pathName && pathName !== '') {
         return `${baseApiUrl}/${pathName}`;

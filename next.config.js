@@ -15,13 +15,17 @@ module.exports = {
         ];
     },
     reactStrictMode: true,
-    publicRuntimeConfig: {
-        // Will be available on both server and client
-        publicHost: process.env.PUBLIC_HOST,
-        algoliaAppId: process.env.ALGOLIA_APP_ID,
-        algoliaApiKey: process.env.ALGOLIA_API_KEY,
+    env: {
+        NEXT_PUBLIC_PUBLIC_HOST: process.env.PUBLIC_HOST,
+        NEXT_PUBLIC_ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID,
+        NEXT_PUBLIC_ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
     },
     images: {
-        domains: ['ik.imagekit.io'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'ik.imagekit.io',
+            },
+        ],
     },
 };
