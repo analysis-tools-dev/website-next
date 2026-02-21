@@ -64,7 +64,7 @@ export const fetchToolVotes = async (
         const voteApiURL = `${getApiURL(APIPaths.VOTES)}/${toolId}`;
         const response = await fetch(voteApiURL);
         return await response.json();
-    } catch (error) {
+    } catch {
         return {
             error: 'An error occurred fetching votes.',
             data: null,

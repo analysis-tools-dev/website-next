@@ -108,7 +108,7 @@ function fetchJSON<T>(url: string): Promise<T> {
                     try {
                         const parsed = JSON.parse(data) as T;
                         resolve(parsed);
-                    } catch (e) {
+                    } catch {
                         reject(new Error(`Failed to parse JSON from ${url}`));
                     }
                 });

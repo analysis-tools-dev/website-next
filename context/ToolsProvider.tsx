@@ -70,15 +70,10 @@ const INITIAL_CONTEXT: ToolsContextType = {
     tools: [],
     totalCount: 0,
     search: {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     setSearch: () => {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     updateFilter: () => {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     toggleFilter: () => {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     clearFilters: () => {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     setSorting: () => {},
     isSelected: () => false,
     getLanguageCount: () => 0,
