@@ -25,7 +25,7 @@ export interface FaqPageProps {
     previews: ArticlePreview[];
 }
 
-const Faq: FC<FaqPageProps> = ({ faq, previews }) => {
+const FaqPage: FC<FaqPageProps> = ({ faq, previews }) => {
     return (
         <>
             <MainHead
@@ -57,4 +57,4 @@ const Faq: FC<FaqPageProps> = ({ faq, previews }) => {
     );
 };
 
-export default Faq;
+export default FaqPage;

@@ -29,7 +29,7 @@ interface SearchResult {
     sendEvent: (eventType: string, hit: ToolHit, eventName?: string) => void;
 }
 
-const Hit = (result: SearchResult) => {
+const SearchHit = (result: SearchResult) => {
     return (
         <Link href={result.hit.fields.slug}>
             <Highlight attribute="name" hit={result.hit} />
@@ -102,7 +102,7 @@ const AutocompleteSearch: FC = () => {
                         className={classNames('search-results', {
                             hidden: !showResults,
                         })}>
-                        <Hits hitComponent={Hit} />
+                        <Hits hitComponent={SearchHit} />
                     </Card>
                 </div>
             </div>
