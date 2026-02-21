@@ -8,7 +8,7 @@
         "build": "next build",
         "search-index": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' ./algolia-index.ts",
         "start": "next start",
-        "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "lint": "eslint .",
         "pretty-quick": "pretty-quick"
     },
     "dependencies": {
@@ -43,15 +43,16 @@
         "@types/node": "^17.0.45",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
-        "@typescript-eslint/eslint-plugin": "^5.62.0",
-        "@typescript-eslint/parser": "^5.62.0",
-        "eslint": "^8.57.1",
-        "eslint-config-next": "^15.5.12",
-        "eslint-config-prettier": "^10.1.8",
-        "eslint-plugin-prettier": "^5.5.5",
-        "eslint-plugin-react": "7.32.2",
+
+        "@eslint/js": "^9.0.0",
+        "@typescript-eslint/parser": "^8.0.0",
+
+        "eslint": "^9.0.0",
+        "@next/eslint-plugin-next": "^16.1.6",
+
+        "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.0.1",
-        "eslint-plugin-unused-imports": "^4.4.1",
+
         "husky": "^7.0.4",
         "prettier": "^3.8.1",
         "pretty-quick": "^4.2.2",
