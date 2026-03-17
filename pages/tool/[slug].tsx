@@ -1,7 +1,10 @@
 import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Link from 'next/link';
 import { MainHead, Footer, Navbar, SponsorBanner } from '@components/core';
 import { Main, Panel, Wrapper } from '@components/layout';
+import { PanelHeader } from '@components/elements';
+import LinkButton from '@components/elements/LinkButton/LinkButton';
 import {
     AlternativeToolsList,
     Tool,
@@ -17,6 +20,8 @@ import { getSponsors } from 'utils-api/sponsors';
 import { ToolGallery } from '@components/tools/toolPage/ToolGallery';
 import { Comments } from '@components/core/Comments';
 import { ToolsRepository } from '@lib/repositories';
+import { getComparisonCandidatesForTool } from '@lib/comparisons/comparison-helpers';
+import styles from './ToolPage.module.css';
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -100,10 +105,25 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             });
     }
 
+    const comparisons = getComparisonCandidatesForTool(allTools, slug, {
+        maxPairsPerTool: 8,
+        requireSharedCategory: true,
+        requireSharedLanguage: true,
+        excludeDeprecated: true,
+    }).map(({ left, right, slug: comparisonSlug }) => {
+        const other = left.id === slug ? right : left;
+        return {
+            slug: comparisonSlug,
+            toolId: other.id,
+            toolName: other.name,
+        };
+    });
+
     return {
         props: {
             tool,
             alternatives,
+            comparisons,
             sponsors,
             previews,
             screenshots: (await getScreenshots(slug)) || null,
@@ -114,6 +134,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export interface ToolProps {
     tool: Tool;
     alternatives: Tool[];
+    comparisons: { slug: string; toolId: string; toolName: string }[];
     sponsors: SponsorData[];
     previews: ArticlePreview[];
     screenshots: { path: string; url: string }[];
@@ -123,6 +144,7 @@ export interface ToolProps {
 const ToolPage: FC<ToolProps> = ({
     tool,
     alternatives,
+    comparisons,
     sponsors,
     previews,
     screenshots,
@@ -171,6 +193,62 @@ const ToolPage: FC<ToolProps> = ({
                         )}
 
                         <Comments />
+                        {comparisons.length > 0 && (
+                            <div className={styles.section}>
+                                <div className={styles.header}>
+                                    <PanelHeader
+                                        level={3}
+                                        text="Popular Comparisons"
+                                    />
+                                    <span className={styles.subtitle}>
+                                        Quick side-by-side picks for the same
+                                        language and category.
+                                    </span>
+                                </div>
+                                <div className={styles.list}>
+                                    {comparisons.map((comparison) => (
+                                        <div
+                                            key={comparison.slug}
+                                            className={styles.listItem}>
+                                            <div>
+                                                <div
+                                                    className={
+                                                        styles.listItemTitle
+                                                    }>
+                                                    <Link
+                                                        href={`/compare/${comparison.slug}`}>
+                                                        {tool.name} vs{' '}
+                                                        {comparison.toolName}
+                                                    </Link>
+                                                </div>
+                                                <div
+                                                    className={
+                                                        styles.listItemMeta
+                                                    }>
+                                                    Side-by-side comparison
+                                                    built from current tool
+                                                    data.
+                                                </div>
+                                            </div>
+                                            <div className={styles.ctaRow}>
+                                                <LinkButton
+                                                    label="Compare"
+                                                    href={`/compare/${comparison.slug}`}
+                                                    type="secondary"
+                                                />
+                                                <Link
+                                                    href={`/tool/${comparison.toolId}`}
+                                                    className={
+                                                        styles.listItemMeta
+                                                    }>
+                                                    {comparison.toolName}
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                         <AlternativeToolsList
                             listTitle={`Alternatives for ${tool.name}`}
                             currentTool={tool}

@@ -1,0 +1,146 @@
+.page {
+    padding: 20px 0 40px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.subtitle {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: stretch;
+}
+
+.grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.grid > div .ctaRow {
+    margin-top: auto;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.toolName {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.metaList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.metaItem {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.compareTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.compareTable th,
+.compareTable td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+.compareTable th {
+    background: transparent;
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
+.highlight {
+    background: #fff7ed;
+}
+
+.ctaRow {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.chipList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.chip {
+    background: rgba(148, 163, 184, 0.12);
+    color: #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.uniqueLabel {
+    display: block;
+    margin-top: 6px;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.uniqueList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.pricingLink {
+    color: #a5b4fc;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.pricingLink:hover {
+    color: #c7d2fe;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

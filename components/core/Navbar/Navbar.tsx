@@ -33,6 +33,10 @@ const Navbar: FC = () => {
             href: '/tools',
         },
         {
+            label: 'Compare',
+            href: '/compare',
+        },
+        {
             label: 'Blog',
             href: '/blog',
         },

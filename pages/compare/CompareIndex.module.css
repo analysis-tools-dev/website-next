@@ -1,0 +1,92 @@
+.page {
+    padding: 20px 0 40px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.subtitle {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.section {
+    margin-top: 28px;
+}
+
+.languageSection {
+    margin-top: 24px;
+}
+
+.languageHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.languageIcon {
+    width: 22px;
+    height: 22px;
+}
+
+.languageTitle {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.languageSubtitle {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.comparisonList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.comparisonCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 10px;
+    background: transparent;
+}
+
+.comparisonTitle {
+    font-weight: 600;
+}
+
+.comparisonMeta {
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.comparisonActions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .comparisonCard {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
