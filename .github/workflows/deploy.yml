@@ -139,7 +139,7 @@ jobs:
                   ALGOLIA_API_KEY: '${{ secrets.ALGOLIA_API_KEY }}'
                   ALGOLIA_APP_ID: '${{ secrets.ALGOLIA_APP_ID }}'
               run: |
-                  gcloud run deploy website-stage \
+                  gcloud run deploy website-stage-2ddf80d \
                     --image "${IMAGE_NAME}" \
                     --project "analysis-tools-dev" \
                     --region "us-central1" \
@@ -157,7 +157,7 @@ jobs:
                   ALGOLIA_API_KEY: '${{ secrets.ALGOLIA_API_KEY }}'
                   ALGOLIA_APP_ID: '${{ secrets.ALGOLIA_APP_ID }}'
               run: |
-                  gcloud run deploy website-prod \
+                  gcloud run deploy website-prod-dddbb52 \
                     --image "${IMAGE_NAME}" \
                     --project "analysis-tools-dev" \
                     --region "us-central1" \
