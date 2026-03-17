@@ -91,6 +91,12 @@ jobs:
                   GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
               run: npm run build
 
+            # Hash all generated data files from the build (created by npm run build-data)
+            # to ensure we redeploy when any tools data changes
+            - name: 'Generate Hash of built tools data'
+              run: |
+                  echo "tools_hash=$(cat data/tools.json data/tags.json data/tool-stats.json data/tag-stats.json | sha256sum | cut -c1-7)" >> $GITHUB_ENV
+
             - name: 'Configure Docker'
               run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
@@ -100,12 +106,6 @@ jobs:
               with:
                   app_id: ${{ secrets.GH_APP_ID }}
                   private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
-
-            # Hash the generated tools.json from the build (created by npm run build-data)
-            # to ensure we redeploy when tools data changes
-            - name: 'Generate Hash of built tools data'
-              run: |
-                  echo "tools_hash=$(sha256sum data/tools.json | cut -c1-7)" >> $GITHUB_ENV
 
             # Also take screenshots.json into account for cache busting
             - name: 'Download screenshots.json File'
