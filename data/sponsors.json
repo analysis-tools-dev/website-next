@@ -1,62 +1,14 @@
 [
     {
-        "name": "BugProve",
-        "url": "https://bugprove.com/",
-        "description": "BugProve is a firmware analysis platform featuring both static and dynamic analysis techniques to discover memory corruptions, command injections and other classes or common weaknesses in binary code. It also detects vulnerable dependencies, weak cryptographic parameters, misconfigurations, and more.",
-        "tool": "bugprove",
-        "href": "/tool/bugprove",
+        "name": "CodeRabbit",
+        "url": "https://coderabbit.ai",
+        "description": "CodeRabbit provides AI-assisted code reviews for pull requests.",
+        "tool": "coderabbit",
+        "href": "/tool/coderabbit",
         "logo": {
-            "src": "/assets/images/sponsors/bugprove.svg",
-            "width": 140,
-            "height": 70
-        }
-    },
-    {
-        "name": "Pixee",
-        "url": "https://www.pixee.ai/",
-        "description": "Pixeebot finds security and code quality issues in your code and creates merge-ready pull requests with recommended fixes.",
-        "tool": "pixee",
-        "href": "/tool/pixee",
-        "logo": {
-            "src": "/assets/images/sponsors/pixee.png",
-            "width": 166,
-            "height": 45
-        }
-    },
-    {
-        "name": "semgrep",
-        "url": "https://semgrep.dev/",
-        "description": "semgrep is a fast, open-source, static analysis tool for finding bugs and enforcing code standards.",
-        "tool": "semgrep",
-        "href": "/tool/semgrep",
-        "logo": {
-            "src": "/assets/images/sponsors/semgrep.svg",
-            "width": 100,
-            "height": 80
-        }
-    },
-    {
-        "name": "Offensive 360",
-        "url": "https://offensive360.com/",
-        "description": "Offensive 360 is a security company that provides security services and products.",
-        "tool": "offensive-360",
-        "href": "/tool/offensive-360",
-        "logo": {
-            "src": "/assets/images/sponsors/offensive360.png",
-            "width": 209,
-            "height": 74
-        }
-    },
-    {
-        "name": "BetterScan",
-        "url": "https://betterscan.io/",
-        "description": "BetterScan is a  simple and powerful DevSecOps software to automate thousands of checks and eliminate human errors in Source Code and Cloud Infrastructure. It provides integration with all popular CI/CD tools and cloud providers.",
-        "tool": "betterscan-ce",
-        "href": "/tool/betterscan-ce",
-        "logo": {
-            "src": "/assets/images/sponsors/betterscan.svg",
+            "src": "/assets/images/sponsors/code-rabbit.svg",
             "width": 200,
-            "height": 50
+            "height": 44
         }
     }
 ]
